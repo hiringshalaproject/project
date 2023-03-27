@@ -5,7 +5,7 @@ const app = express();
 const port = 8000;
 const path = require('path');
 const {products} = require('./data.js')
-const staticPath = (path.join(__dirname,"../methods-public"));
+const staticPath = (path.join(__dirname,"../public"));
 const peopleRouter = require('../routes/people')
 const tasksRouter = require('../routes/tasks.js')
 
@@ -16,14 +16,13 @@ app.use('/api/people',peopleRouter)
 app.use('/api/v1/tasks',tasksRouter)
 
 
+app.get("/",(req,res) => {
+    res.send("hello there!")
+})
 
 app.get("/hello",(req,res) => {
     res.send("hello there!")
 })
-
-
-
-
 
 const start = async () => {
     try {
