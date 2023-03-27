@@ -6,7 +6,11 @@ const TaskSchema = new mongoose.Schema({
         required: true,
         trim: true,
         maxlength: 20
+    },
+    completed: {
+        type: Boolean,
+        default: false
     }
-})
+}, { strict: 'throw' })
 
 module.exports = mongoose.model("Task",TaskSchema)
