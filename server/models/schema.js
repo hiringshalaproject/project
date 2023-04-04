@@ -60,15 +60,18 @@ const EmployeeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password:String,
+    password:{
+        type: String,
+        required: false
+    },
     companyName:{
         type: String,
         required: true
     },
-    referralStatus:String,
+    // referralStatus:String,
     contactNumber:{
         type: Number,
-        required: true
+        required: false
     },
     newJobPosts:[JobSchema]
 });
