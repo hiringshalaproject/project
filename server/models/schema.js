@@ -17,7 +17,7 @@ const JobSchema = new mongoose.Schema({
     shortlistedCount:Number
 });
 
-const Job = mongoose.model("Job",JobSchema);
+const Jobs = mongoose.model("Jobs",JobSchema);
 
 const JobSeekerSchema = new mongoose.Schema({
     name:{
@@ -35,12 +35,12 @@ const JobSeekerSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }]
+    jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }]
 });
 
 
 
-const JobSeeker = mongoose.model("JobSeeker",JobSeekerSchema);
+const Seekers = mongoose.model("Seekers",JobSeekerSchema);
 
 const EmployeeSchema = new mongoose.Schema({
     name:{
@@ -64,17 +64,10 @@ const EmployeeSchema = new mongoose.Schema({
     newJobPosts:[JobSchema]
 });
 
-const Employee = mongoose.model("Employee",EmployeeSchema);
+const Employees = mongoose.model("Employees",EmployeeSchema);
 
 module.exports = {
-    Employee : Employee,
-    Job : Job,
-    JobSeeker : JobSeeker
+    Employees : Employees,
+    Jobs : Jobs,
+    Seekers : Seekers
 }
-
-module.exports = {
-    Employee : Employee,
-    Job : Job,
-    JobSeeker : JobSeeker
-}
-
