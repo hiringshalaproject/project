@@ -1,6 +1,6 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
 
-const JobSchema=new mongoose.Schema({
+const JobSchema = new mongoose.Schema({
     companyName:{
         type: String,
         required: true
@@ -17,20 +17,9 @@ const JobSchema=new mongoose.Schema({
     shortlistedCount:Number
 });
 
-const Job=mongoose.model("Job",JobSchema);
+const Job = mongoose.model("Job",JobSchema);
 
-const job1=new Job({
-    companyName:"Amazon",
-    jobDate:"2023-01-10",
-    jobLocation:"Mumbai",
-    isExpired:false,
-    noOfOpenings:10
-})
-
-job1.save();
-
-
-const JobSeekerSchema=new mongoose.Schema({
+const JobSeekerSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
@@ -51,23 +40,9 @@ const JobSeekerSchema=new mongoose.Schema({
 
 
 
-const JobSeeker=mongoose.model("JobSeeker",JobSeekerSchema);
+const JobSeeker = mongoose.model("JobSeeker",JobSeekerSchema);
 
-const seeker1=new JobSeeker({
-    name:"Pragya Joshi",
-    emailId:"pragya@gmail.com",
-    password:"1234",
-    collegeName:"STCET",
-    contactNumber:"8564237154",
-    jobsApplied:[job1._id]  //storing the job id's of the jobs the seeker has applied to
-})
-
-// seeker1.jobsApplied.push(job1)
-
-seeker1.save();
-
-
-const EmployeeSchema=new mongoose.Schema({
+const EmployeeSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true
@@ -89,7 +64,13 @@ const EmployeeSchema=new mongoose.Schema({
     newJobPosts:[JobSchema]
 });
 
-const Employee=mongoose.model("Employee",EmployeeSchema);
+const Employee = mongoose.model("Employee",EmployeeSchema);
+
+module.exports = {
+    Employee : Employee,
+    Job : Job,
+    JobSeeker : JobSeeker
+}
 
 module.exports = {
     Employee : Employee,
