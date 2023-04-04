@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router()
 const {
     getAllJobs,
-} = require('../controllers/schema')
+} = require('../controllers/jobs')
 
 router.get("/", getAllJobs)
 

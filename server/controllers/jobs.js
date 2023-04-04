@@ -1,4 +1,4 @@
-const {Job} = require('../models/schema')
+const {Job} = require('../models/jobs')
 
 const getAllJobs = async (req,res) => {
     try {
