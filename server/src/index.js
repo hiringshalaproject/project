@@ -5,25 +5,19 @@ const app = express();
 const port = 8000;
 const path = require('path');
 const {products} = require('./data.js')
-const staticPath = (path.join(__dirname,"../public"));
-const peopleRouter = require('../routes/people')
+const staticPath = (path.join(__dirname,"../../client"));
 const tasksRouter = require('../routes/tasks.js')
-const schemaRouter = require('../routes/schema.js')
+const jobRouter = require('../routes/jobs.js')
 
 app.use(express.static(staticPath));
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
-app.use('/api/people',peopleRouter)
+
 app.use('/api/v1/tasks',tasksRouter)
-app.use('/api/v1/jobs',schemaRouter)
+app.use('/api/v1/jobs',jobRouter)
 
-
-app.get("/",(req,res) => {
-    res.send("hello there!")
-})
-
-app.get("/hello",(req,res) => {
-    res.send("hello there!")
+app.get("*",(req,res) => {
+    res.status(404).send("Bhai Kya kr rha h tu????")
 })
 
 const start = async () => {
