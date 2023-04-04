@@ -20,20 +20,29 @@ const JobSchema = new mongoose.Schema({
 const Jobs = mongoose.model("Jobs",JobSchema);
 
 const JobSeekerSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    emailId:{
+    emailId: {
         type: String,
         required: true
     },
-    password:String,
-    collegeName:String,
-    companyName:String,
+    password: {
+        type: String,
+        required: false
+    },
+    collegeName: {
+        type: String,
+        required: false
+    },
+    companyName: {
+        type: String,
+        required: false
+    },
     contactNumber:{
         type: Number,
-        required: true
+        required: false
     },
     jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }]
 });

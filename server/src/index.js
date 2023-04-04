@@ -9,6 +9,7 @@ const staticPath = (path.join(__dirname,"../../client"))
 const tasksRouter = require('../routes/tasks.js')
 const jobRouter = require('../routes/jobs.js')
 const employeesRouter = require('../routes/employees.js')
+const seekersRouter = require('../routes/seekers.js')
 
 app.use(express.static(staticPath))
 app.use(express.urlencoded({extended : false}))
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use('/api/v1/tasks',tasksRouter)
 app.use('/api/v1/jobs',jobRouter)
 app.use('/api/v1/employees',employeesRouter)
+app.use('/api/v1/seekers',seekersRouter)
 
 app.get("*",(req,res) => {
     res.status(404).send("Bhai Kya kr rha h tu????")
