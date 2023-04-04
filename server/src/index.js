@@ -8,12 +8,14 @@ const {products} = require('./data.js')
 const staticPath = (path.join(__dirname,"../public"));
 const peopleRouter = require('../routes/people')
 const tasksRouter = require('../routes/tasks.js')
+const schemaRouter = require('../routes/schema.js')
 
 app.use(express.static(staticPath));
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 app.use('/api/people',peopleRouter)
 app.use('/api/v1/tasks',tasksRouter)
+app.use('/api/v1/jobs',schemaRouter)
 
 
 app.get("/",(req,res) => {
