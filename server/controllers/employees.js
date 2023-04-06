@@ -30,8 +30,25 @@ const createNewEmployee = async (req,res) => {
     }
 }
 
+const updateEmployeeWithId = async (req,res) => {
+    try {
+        const employee = await Employees.findOneAndUpdate({_id:req.params.id},req.body,{
+            new: true,
+            runValidators: true
+        })
+        if(!employee)
+        {
+            return res.status(404).json({msg: `No employee with id ${req.params.id}`})
+        }
+        res.status(200).json({employee})
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 module.exports = {
     getAllEmployees,
     getEmployeeFromId,
-    createNewEmployee
+    createNewEmployee,
+    updateEmployeeWithId
 }
