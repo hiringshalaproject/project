@@ -45,6 +45,7 @@ const JobSeekerSchema = new mongoose.Schema({
         required: false
     },
     jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }]
+    
 });
 
 
