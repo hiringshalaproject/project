@@ -2,7 +2,18 @@ const {Jobs} = require('../models/schema')
 
 const getAllJobs = async (req,res) => {
     try {
-        const jobs = await Jobs.find({});
+        filters = req.query
+        if (filters.startDate != null || filters.endDate != null) {
+            filters.jobDate = {$gte: filters.startDate, $lte: filters.endDate}
+            filters.startDate = null;
+            filters.endDate = null;
+        }
+        if (filters.startingSalary != null) {
+            filters.expectedPackage = {$gte: filters.startingSalary}
+            filters.startingSalary = null;
+        }
+        console.log(filters);
+        const jobs = await Jobs.find(filters);
         res.status(200).json({jobs})
 
     } catch (error) {
