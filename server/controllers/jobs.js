@@ -28,7 +28,7 @@ const updateJobWithId = async (req,res) => {
         })
         if(!job)
         {
-            return res.status(404).json({msg: `No task with id ${req.params.id}`})
+            return res.status(404).json({msg: `No jobs with id ${req.params.id}`})
         }
         res.status(200).json({job})
     } catch (error) {
