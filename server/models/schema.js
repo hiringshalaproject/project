@@ -1,30 +1,49 @@
 const mongoose = require('mongoose');
 
 const JobSchema = new mongoose.Schema({
+    jobId:{
+        type: String,
+        required: true
+    },
     companyName:{
         type: String,
         required: true
     },
     jobDate:Date,
-    jobRequirements:Array,
+    jobRequirements:String,
     jobEligibility:String,
     jobLocation:String,
     expectedPackage:Number,
     applyLink:String,
     isExpired:Boolean,
-    noOfOpenings:Number,
-    noOfSeekers:Number,
+    numberOfOpenings:Number,
+    // seekersRegistered:[{ type: mongoose.Schema.Types.SeekerId, ref: 'Seekers' }],
     shortlistedCount:Number
 });
 
 const Jobs = mongoose.model("Jobs",JobSchema);
 
+const job1=new Jobs({
+    jobId:"j1101",
+    companyName:"Amazon",
+    jobDate:"2023-01-10",
+    jobLocation:"Mumbai",
+    isExpired:false,
+    numberOfOfOpenings:10
+})
+
+job1.save();
+
 const JobSeekerSchema = new mongoose.Schema({
-    name: {
+    seekerId:{
         type: String,
         required: true
     },
-    emailId: {
+    seekerName: {
+        type: String,
+        required: true
+    },
+    seekerEmail: {
         type: String,
         required: true
     },
@@ -36,7 +55,7 @@ const JobSeekerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    companyName: {
+    seekerCompanyName: {
         type: String,
         required: false
     },
@@ -44,15 +63,42 @@ const JobSeekerSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }]
+    appliedJobList:[{
+        jobid: {
+            type: String, ref: 'Jobs'
+        },
+        referralStatus:Boolean
+    }]
+   
 });
-
-
 
 const Seekers = mongoose.model("Seekers",JobSeekerSchema);
 
+const appliedJobInfo={
+    jobid:job1.jobId,
+    referralStatus:false
+}
+
+
+const seeker1=new Seekers({
+    seekerId:"s2301",
+    seekerName:"Pragya Joshi",
+    seekerEmail:"pragya@gmail.com",
+    password:"1234",
+    collegeName:"STCET",
+    contactNumber:8564237154,
+    appliedJobList:[appliedJobInfo]  //storing the job id's of the jobs the seeker has applied to
+})
+
+
+seeker1.save();
+
 const EmployeeSchema = new mongoose.Schema({
-    name:{
+    employeeId:{
+        type:String,
+        required:true
+    },
+    employeeName:{
         type: String,
         required: true
     },
@@ -64,16 +110,17 @@ const EmployeeSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    companyName:{
+    employeeCompany:{
         type: String,
         required: true
     },
-    // referralStatus:String,
     contactNumber:{
         type: Number,
         required: false
     },
-    newJobPosts:[JobSchema]
+    listOfJobsPosted:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }],
+    // seekersReferred=[{type: mongoose.Schema.Types.ObjectId,ref: 'Jobs']},
+    totalReferralGiven:Number
 });
 
 const Employees = mongoose.model("Employees",EmployeeSchema);
@@ -83,3 +130,4 @@ module.exports = {
     Jobs : Jobs,
     Seekers : Seekers
 }
+
