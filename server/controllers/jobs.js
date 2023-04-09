@@ -1,11 +1,14 @@
 const {Jobs} = require('../models/schema')
 
-const getAllJobs = async (req,res) => {
+const getJobs = async (req,res) => {
     try {
         filters = req.query
-        if (filters.startDate != null || filters.endDate != null) {
-            filters.jobDate = {$gte: filters.startDate, $lte: filters.endDate}
+        if (filters.startDate != null) {
+            filters.jobDate = {$gte: filters.startDate}
             filters.startDate = null;
+        }
+        if (filters.endDate != null) {
+            filters.jobDate = {$lte: filters.endDate}
             filters.endDate = null;
         }
         if (filters.startingSalary != null) {
@@ -49,7 +52,7 @@ const updateJobWithId = async (req,res) => {
 
 
 module.exports = {
-    getAllJobs
+    getJobs
 ,   createNewJob
 ,   updateJobWithId
 }
