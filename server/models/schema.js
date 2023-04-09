@@ -13,7 +13,7 @@ const JobSchema = new mongoose.Schema({
     applyLink:String,
     isExpired:Boolean,
     noOfOpenings:Number,
-    noOfSeekers:Number,
+noOfSeekers:Number,             
     shortlistedCount:Number
 });
 
@@ -73,7 +73,7 @@ const EmployeeSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    newJobPosts:[JobSchema]
+    // it,s done.
 });
 
 const Employees = mongoose.model("Employees",EmployeeSchema);
