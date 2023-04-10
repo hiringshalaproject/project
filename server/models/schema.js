@@ -15,6 +15,10 @@ const JobSchema = new mongoose.Schema({
     noOfOpenings:Number,
 noOfSeekers:Number,             
     shortlistedCount:Number
+    isExpired: {
+        type : Boolean,
+        default : false
+    },
 });
 
 const Jobs = mongoose.model("Jobs",JobSchema);
