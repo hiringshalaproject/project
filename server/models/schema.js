@@ -1,30 +1,47 @@
 const mongoose = require('mongoose');
 
 const JobSchema = new mongoose.Schema({
+    jobId:{
+        type: String,
+        required: true
+    },
     companyName:{
         type: String,
         required: true
     },
     jobDate:Date,
-    jobRequirements:Array,
+    jobRequirements:String,
     jobEligibility:String,
     jobLocation:String,
     expectedPackage:Number,
     applyLink:String,
     isExpired:Boolean,
-    noOfOpenings:Number,
-    noOfSeekers:Number,
+    numberOfOpenings:Number,
+    seekersRegistered:[{ 
+        seekerid:{
+            type:String,
+            required:true
+        },
+        referralStatus:{
+            type:Boolean,
+            default:false
+        }
+    }],
     shortlistedCount:Number
 });
 
 const Jobs = mongoose.model("Jobs",JobSchema);
 
 const JobSeekerSchema = new mongoose.Schema({
-    name: {
+    seekerId:{
         type: String,
         required: true
     },
-    emailId: {
+    seekerName: {
+        type: String,
+        required: true
+    },
+    seekerEmail: {
         type: String,
         required: true
     },
@@ -32,11 +49,15 @@ const JobSeekerSchema = new mongoose.Schema({
         type: String,
         required: false
     },
+    resumeUrl:{
+        type:String,
+        required:true
+    },
     collegeName: {
         type: String,
         required: false
     },
-    companyName: {
+    seekerCompanyName: {
         type: String,
         required: false
     },
@@ -44,15 +65,28 @@ const JobSeekerSchema = new mongoose.Schema({
         type: Number,
         required: false
     },
-    jobsApplied:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }]
+    appliedJobList:[{
+        jobid: {
+            type: String,
+            required:true
+        },
+        referralStatus:{
+            type:Boolean,
+            default:false
+        }
+    }]
+   
 });
-
-
 
 const Seekers = mongoose.model("Seekers",JobSeekerSchema);
 
+
 const EmployeeSchema = new mongoose.Schema({
-    name:{
+    employeeId:{
+        type:String,
+        required:true
+    },
+    employeeName:{
         type: String,
         required: true
     },
@@ -64,16 +98,21 @@ const EmployeeSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    companyName:{
+    employeeCompanyName:{
         type: String,
         required: true
     },
-    // referralStatus:String,
     contactNumber:{
         type: Number,
         required: false
     },
-    newJobPosts:[JobSchema]
+    listOfJobsPosted:[{
+        jobid: {
+            type: String,
+            required:true
+        }
+    }],
+    totalReferralGiven:Number
 });
 
 const Employees = mongoose.model("Employees",EmployeeSchema);
@@ -83,3 +122,4 @@ module.exports = {
     Jobs : Jobs,
     Seekers : Seekers
 }
+
