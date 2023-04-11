@@ -10,3 +10,4 @@ Steps to run the project :
 • npm run dev && npm run start
 • open localhost:8000 in your browser, for server
 • open localhost:3000 in your browser, for client
+Testing
