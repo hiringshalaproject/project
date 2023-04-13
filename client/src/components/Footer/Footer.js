@@ -16,23 +16,19 @@ const Footer = () => {
         <Row>
           <Column>
             <Heading>Expedia</Heading>
-            {/* <FooterLink href="#">Aim</FooterLink> */}
           </Column>
 
           <Column>
             <Heading>asana</Heading>
-            {/* <FooterLink href="#">Writing</FooterLink> */}
           </Column>
           <Column>
             <Heading>Hubspot</Heading>
-            {/* <FooterLink href="#">Uttar Pradesh</FooterLink> */}
           </Column>
           <Column>
             <Heading>Loom</Heading>
           </Column>
           <Column>
             <Heading>Zenfits</Heading>
-            {/* <FooterLink href="#">Uttar Pradesh</FooterLink> */}
           </Column>
         </Row>
       </Container>

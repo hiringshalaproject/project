@@ -3,7 +3,7 @@ import "./index.css";
 import Footer from "../components/Footer/Footer";
 import homepage from "../../src/images/homepage.png";
 import JobSeekerBtn from "../components/JobSeekerBtn/JobSeekerBtn";
-import Button1 from "../components/EmployeeBtn/EmployeeBtn";
+import EmployeeBtn from "../components/EmployeeBtn/EmployeeBtn";
 
 const Home = () => {
   return (
@@ -39,7 +39,7 @@ const Home = () => {
           </p>
 
           <JobSeekerBtn />
-          <Button1 />
+          <EmployeeBtn />
         </div>
       </section>
       <Footer />
