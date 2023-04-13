@@ -1,10 +1,9 @@
 import React from "react";
 import "./index.css";
 import Footer from "../../src/components/Footer";
-import img1 from "../../src/images/img1.png";
-
+import homepage from "../../src/images/homepage.png";
 import Button from "../../src/components/Button";
-import Button2 from "../../src/components/Button2";
+import Button1 from "../../src/components/Button1";
 
 const Home = () => {
   return (
@@ -20,7 +19,7 @@ const Home = () => {
       <section class="container">
         <div class="left-half">
           <article>
-            <img src={img1} alt="img" />
+            <img src={homepage} alt="img" />
           </article>
         </div>
         <div class="right-half">
@@ -40,7 +39,7 @@ const Home = () => {
           </p>
 
           <Button />
-          <Button2> </Button2>
+          <Button1 />
         </div>
       </section>
       <Footer />

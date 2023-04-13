@@ -1,6 +1,6 @@
 import React from "react";
 
-const buttonStyle = {
+const buttonStyle1 = {
   display: "flex-row",
   justifycontent: "space-between",
   background: "#A8DBD9",
@@ -14,10 +14,14 @@ const buttonStyle = {
   transition: "all 0.2s ease-in-out",
 };
 
-const Button2 = ({ label, handleClick }) => (
-  <button className="btn btn-default" style={buttonStyle} onClick={handleClick}>
+const Button1 = ({ label, handleClick }) => (
+  <button
+    className="btn btn-default"
+    style={buttonStyle1}
+    onClick={handleClick}
+  >
     {label} I’m an Employee
   </button>
 );
 
-export default Button2;
+export default Button1;
