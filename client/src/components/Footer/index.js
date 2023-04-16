@@ -4,7 +4,6 @@ import {
   Container,
   Row,
   Column,
-  FooterLink,
   Heading,
   Text,
 } from "./FooterStyles";

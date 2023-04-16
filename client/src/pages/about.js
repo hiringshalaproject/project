@@ -2,17 +2,10 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '90vh'
-      }}
-    >
-      <h1>About</h1>
+    <div className='flex justify-center items-center text-black text-3xl h-full'>
+      About
     </div>
-  );
-};
+  )
+}
 
 export default About;
