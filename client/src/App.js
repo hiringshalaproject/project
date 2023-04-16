@@ -1,34 +1,37 @@
 import React from "react";
 import "./app.css";
-import Navbar from "./components/Navbar";
-// import Footer from "./components/Footer";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages";
+import Navbar from "./components/Navbar/Navbar";
+import { Route, Routes } from "react-router-dom";
+import { useState } from 'react';
+import Home from "./pages/Home";
 import About from "./pages/about";
 import Platform from "./pages/platform";
 import Contact from "./pages/contact";
 import Blog from "./pages/blog";
-import AddJob from "./pages/addJob";
 import AdminDashboard from "./pages/adminDashboard";
-import GetAllJobs from "./pages/getAllJobs";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Signup from './pages/Signup'
 
 function App() {
+
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <>
-      <Router>
-        {/* <Navbar /> */}
-        
-        <Switch>
-          <Route path="/" exact component={AdminDashboard} />
-          <Route path="/about" component={About} />
-          <Route path="/platform" component={Platform} />
-          <Route path="/contact-us" component={Contact} />
-          <Route path="/blog" component={Blog} />
-          <Route path="/addJob" exact component={AddJob} />
-          <Route path="/get" exact component={GetAllJobs} />
-        </Switch>
-      </Router>
-    </>
+    <div  className='w-screen h-screen bg-white flex flex-col'>
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Routes>
+          <Route path="/admin" component={<AdminDashboard/>} />
+          <Route path="/" element={<Home/>} />
+          <Route path="/about" element={<About/>} />
+          <Route path="/platform" element={<Platform/>} />
+          <Route path="/contact-us" element={<Contact/>} />
+          <Route path="/blog" element={<Blog/>} />
+          <Route path="/login" element = {<Login setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="/signup" element = {<Signup setIsLoggedIn={setIsLoggedIn}/>} />
+          <Route path="Dashboard" element={<Dashboard/>} />
+        </Routes>
+    </div>
   );
 }
 

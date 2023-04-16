@@ -3,7 +3,7 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background: #000;
+  background: #ffffff;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -11,11 +11,11 @@ export const Nav = styled.nav`
   z-index: 10;
 
   /* Third Nav */
-  /* justify-content: flex-start; */
+  //
 `;
 
 export const NavLink = styled(Link)`
-  color: #fff;
+  color: #030302;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -45,17 +45,19 @@ export const Bars = styled(FaBars)`
 
 export const NavMenu = styled.div`
   display: flex;
-  align-items: center;
-  margin-right: -24px;
+  // justify-content: flex-end;
+  align-items: right;
+  // margin-right: -24px;
+  justify-content: right;
 
   /* Second Nav */
   /* margin-right: 24px; */
 
   /* Third Nav */
-  /* width: 100vw;
-  white-space: nowrap; */
-
-  @media screen and (max-width: 768px) {
+  width: 100vw;
+  margin-left: 30px;
+  white-space: nowrap;
+  */ @media screen and (max-width: 768px) {
     display: none;
   }
 `;
@@ -63,34 +65,34 @@ export const NavMenu = styled.div`
 export const NavBtn = styled.nav`
   display: flex;
   align-items: center;
-  margin-right: 24px;
+  // margin-right: 24px;
 
   /* Third Nav */
-  /* justify-content: flex-end;
-  width: 100vw; */
-
-  @media screen and (max-width: 768px) {
+  // justify-content: flex-end;
+  // width: 100vw;
+  wrap: no-wrap;
+  */ @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
-export const NavBtnLink = styled(Link)`
-  border-radius: 4px;
-  background: #256ce1;
-  padding: 10px 22px;
-  color: #fff;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  text-decoration: none;
+// export const NavBtnLink = styled(Link)`
+//   border-radius: 4px;
+//   background: #256ce1;
+//   padding: 10px 22px;
+//   color: #fff;
+//   outline: none;
+//   border: none;
+//   cursor: pointer;
+//   transition: all 0.2s ease-in-out;
+//   text-decoration: none;
 
-  /* Second Nav */
-  margin-left: 24px;
+//   /* Second Nav */
+//   margin-left: 100px;
 
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
-  }
-`;
+//   &:hover {
+//     transition: all 0.2s ease-in-out;
+//     background: #fff;
+//     color: #010606;
+//   }
+// `;

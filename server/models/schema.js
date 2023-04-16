@@ -15,7 +15,10 @@ const JobSchema = new mongoose.Schema({
     jobLocation:String,
     expectedPackage:Number,
     applyLink:String,
-    isExpired:Boolean,
+    isExpired:{
+        type : Boolean,
+        default : false
+    },
     numberOfOpenings:Number,
     seekersRegistered:[{ 
         seekerid:{
