@@ -32,8 +32,42 @@ const createNewSeeker = async (req,res) => {
     }
 }
 
+const uploadResume = async (req,res) => {
+    const seekerId = req.body.seekerId;
+    try {
+      const updatedJobSeeker = await Seekers.findOneAndUpdate(
+        { _id: seekerId },
+        { resumeUrl: req.file.location },
+        { new: true}
+      );
+      if(!updatedJobSeeker)
+      {
+          return res.status(404).json({msg: `No seekers with id ${seekerId}`})
+      }
+      res.send('Resume URL updated successfully');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error updating resume URL');
+    }
+}
+
+const getSeekerResume = async (req,res) => {
+    try {
+        const seeker = await Seekers.findOne({_id :  req.params.seekersId})
+        if(!seeker)
+        {
+            return res.status(404).json({msg: `No seeker with id ${ req.params.seekersId}`})
+        }
+        res.status(200).json({seekerResume : seeker.resumeUrl})
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 module.exports = {
     getAllSeekers
 ,   getSeekerFromId
 ,   createNewSeeker
+,   uploadResume
+,   getSeekerResume
 }

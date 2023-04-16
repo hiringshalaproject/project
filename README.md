@@ -7,6 +7,6 @@ Steps to run the project :
 • add a file with name ".env" and add a key SKIP_PREFLIGHT_CHECK=true
 • cd ..
 • add a file with name ".env" and add a key MONGO_URI
-• npm run dev && npm run start
+• npm run dev && npm run start on root folder
 • open localhost:8000 in your browser, for server
 • open localhost:3000 in your browser, for client

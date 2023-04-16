@@ -24,8 +24,8 @@ const Navbar = (props) => {
           <NavLink to="/contact-us" style={activeLinkStyle}>
             Contact Us
           </NavLink>
-          <NavLink to="/blog" style={activeLinkStyle}>
-            Blog
+          <NavLink to="/dashboard" style={activeLinkStyle}>
+            Dashboard
           </NavLink>
         </NavMenu>
       </Nav>

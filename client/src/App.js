@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import About from "./pages/about";
 import Platform from "./pages/platform";
 import Contact from "./pages/contact";
-import Blog from "./pages/blog";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Signup from './pages/Signup'
@@ -24,7 +23,7 @@ function App() {
           <Route path="/about" element={<About/>} />
           <Route path="/platform" element={<Platform/>} />
           <Route path="/contact-us" element={<Contact/>} />
-          <Route path="/blog" element={<Blog/>} />
+          <Route path="/Dashboard" element={<Dashboard/>} />
           <Route path="/login" element = {<Login setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/signup" element = {<Signup setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="Dashboard" element={<Dashboard/>} />
