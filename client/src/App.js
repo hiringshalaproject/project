@@ -11,6 +11,7 @@ import Blog from "./pages/blog";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Signup from './pages/Signup'
+import AdminDashboard from "./pages/adminDashboard";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <Routes>
           <Route path="/" element={<Home/>} />
+          <Route path="/admin" element={<AdminDashboard/>} />
           <Route path="/about" element={<About/>} />
           <Route path="/platform" element={<Platform/>} />
           <Route path="/contact-us" element={<Contact/>} />
