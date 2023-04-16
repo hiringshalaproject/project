@@ -17,7 +17,7 @@ const getJobs = async (req,res) => {
         }
         console.log(filters);
         const jobs = await Jobs.find(filters);
-        res.status(200).json({jobs})
+        res.status(200).json(jobs)
 
     } catch (error) {
         res.status(500).json(error)
@@ -27,6 +27,7 @@ const getJobs = async (req,res) => {
 const createNewJob = async (req,res) => {
     try {
         const job = await Jobs.create(req.body)
+        console.log(job);
         res.status(201).json(job)
     } catch (error) {
         res.status(500).json(error)
