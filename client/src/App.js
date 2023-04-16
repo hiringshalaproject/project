@@ -1,10 +1,9 @@
 import React from "react";
 import "./app.css";
-import Navbar from "./components/Navbar";
-// import Footer from "./components/Footer";
+import Navbar from "./components/Navbar/Navbar";
 import { Route, Routes } from "react-router-dom";
 import { useState } from 'react';
-import Home from "./pages";
+import Home from "./pages/Home";
 import About from "./pages/about";
 import Platform from "./pages/platform";
 import Contact from "./pages/contact";

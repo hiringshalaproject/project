@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
-import Footer from "../../src/components/Footer";
+import Footer from "../components/Footer/Footer";
 import homepage from "../../src/images/homepage.png";
-import Button from "../../src/components/Button";
-import Button1 from "../../src/components/Button1";
+import JobSeekerBtn from "../components/JobSeekerBtn/JobSeekerBtn";
+import Button1 from "../components/EmployeeBtn/EmployeeBtn";
 
 const Home = () => {
   return (
@@ -16,13 +16,13 @@ const Home = () => {
       }}
     >
       {/* <h1>Home</h1> */}
-      <section class="container">
-        <div class="left-half">
+      <section className="container">
+        <div className="left-half">
           <article>
             <img src={homepage} alt="img" />
           </article>
         </div>
-        <div class="right-half">
+        <div className="right-half">
           <h1 style={{ fontSize: 60 }}>
             unleash your talent potential with company name
           </h1>
@@ -38,7 +38,7 @@ const Home = () => {
             link up with outstanding people to create a better future.
           </p>
 
-          <Button />
+          <JobSeekerBtn />
           <Button1 />
         </div>
       </section>
