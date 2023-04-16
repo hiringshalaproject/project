@@ -14,10 +14,10 @@ const buttonStyle = {
   transition: "all 0.2s ease-in-out",
 };
 
-const Button = ({ label, handleClick }) => (
+const JobSeekerBtn = ({ label, handleClick }) => (
   <button className="btn btn-default" style={buttonStyle} onClick={handleClick}>
     {label} I’m a Job Seeker
   </button>
 );
 
-export default Button;
+export default JobSeekerBtn;

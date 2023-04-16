@@ -14,7 +14,7 @@ const buttonStyle1 = {
   transition: "all 0.2s ease-in-out",
 };
 
-const Button1 = ({ label, handleClick }) => (
+const EmployeeBtn = ({ label, handleClick }) => (
   <button
     className="btn btn-default"
     style={buttonStyle1}
@@ -24,4 +24,4 @@ const Button1 = ({ label, handleClick }) => (
   </button>
 );
 
-export default Button1;
+export default EmployeeBtn;
