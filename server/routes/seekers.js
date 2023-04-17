@@ -5,9 +5,12 @@ const multerS3 = require("multer-s3");
 
 const router = express.Router();
 const {
-  getAllSeekers,
+  getSeekers,
   getSeekerFromId,
   createNewSeeker,
+  applyForJob,
+  updateSeekersJobStatus,
+  updateSeeker,
   uploadResume,
   getSeekerResume,
 } = require("../controllers/seekers");
@@ -33,9 +36,12 @@ const upload = multer({
   }),
 });
 
-router.get("/", getAllSeekers);
+router.get("/", getSeekers);
 router.get("/:id", getSeekerFromId);
 router.post("/", createNewSeeker);
+router.patch("/apply/:id", applyForJob)
+router.patch("/status/:id", updateSeekersJobStatus)
+router.patch("/:id", updateSeeker);
 router.post("/upload", upload.single("file"), uploadResume);
 router.get("/:seekersId/resume", getSeekerResume);
 

@@ -2,16 +2,21 @@ const { Jobs } = require("../models/schema");
 
 const getJobs = async (req, res) => {
   try {
-    const filters = req.query;
-    if (filters.startDate !== null) {
+    let filters = req.body;
+    let jobIds = filters.jobIds;
+    if (jobIds != null) {
+      const jobs = await Jobs.find({ _id: { $all: jobIds } });
+      res.status(200).json({ jobs });
+    }
+    if (filters.startDate != null) {
       filters.jobDate = { $gte: filters.startDate };
       filters.startDate = null;
     }
-    if (filters.endDate !== null) {
+    if (filters.endDate != null) {
       filters.jobDate = { $lte: filters.endDate };
       filters.endDate = null;
     }
-    if (filters.startingSalary !== null) {
+    if (filters.startingSalary != null) {
       filters.expectedPackage = { $gte: filters.startingSalary };
       filters.startingSalary = null;
     }
@@ -26,10 +31,9 @@ const getJobFromId = async (req, res) => {
   try {
     const job = await Jobs.findOne({ _id: req.params.id });
     if (!job) {
-      res.status(404).json({ msg: `No job with id ${req.params.id}` });
-    } else {
-      res.status(200).json({ job });
+      return res.status(404).json({ msg: `No job with id ${req.params.id}` });
     }
+    res.status(200).json({ job });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -51,10 +55,21 @@ const updateJobWithId = async (req, res) => {
       runValidators: true,
     });
     if (!job) {
-      res.status(404).json({ msg: `No jobs with id ${req.params.id}` });
-    } else {
-      res.status(200).json({ job });
+      return res.status(404).json({ msg: `No jobs with id ${req.params.id}` });
     }
+    res.status(200).json({ job });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+const deleteJob = async (req, res) => {
+  try {
+    const job = await Jobs.findOneAndDelete({ _id: req.params.id });
+    if (!job) {
+      return res.status(404).json({ msg: `No Job with id ${req.params.id}` });
+    }
+    res.status(200).json({ job });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -65,4 +80,5 @@ module.exports = {
   createNewJob,
   updateJobWithId,
   getJobFromId,
+  deleteJob,
 };
