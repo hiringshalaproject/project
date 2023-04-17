@@ -16,6 +16,7 @@ const SignupForm = ({setIsLoggedIn}) => {
     })
 
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     function changeHandler(event) {
 
       setFormData( (prevData) =>(
@@ -25,6 +26,7 @@ const SignupForm = ({setIsLoggedIn}) => {
             }
         ))
      }
+
 
      function submitHandler(event) {
           event.preventDefault();
@@ -113,7 +115,7 @@ const SignupForm = ({setIsLoggedIn}) => {
                 <p className='text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]'>Confirm Password<sup  className='text-red-700'>*</sup></p>
                 <input
                     required
-                    type={showPassword ? ("text") : ("password")}
+                    type={showConfirmPassword ? ("text") : ("password")}
                     name="confirmPassword"
                     onChange={changeHandler}
                     placeholder="Confirm Password"
@@ -123,8 +125,8 @@ const SignupForm = ({setIsLoggedIn}) => {
 
             { <span
             className='absolute right-1 top-[45px]  cursor-pointer'
-             onClick={() => setShowPassword((prev) => !prev)}>
-                {showPassword ?
+             onClick={() => setShowConfirmPassword((prev) => !prev)}>
+                {showConfirmPassword ?
 
                  (<AiOutlineEyeInvisible fontSize={24} fill="#000000"/>) : 
 
