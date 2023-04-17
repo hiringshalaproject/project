@@ -1,9 +1,9 @@
 import React from "react";
 import "./index.css";
-import Navbar from "../../src/components/Navbar";
-import Footer from "../../src/components/Footer";
+import Navbar from "../../src/components/Navbar/Navbar";
+import Footer from "../../src/components/Footer/Footer";
 import homepage from "../../src/images/homepage.png";
-import Button from "../../src/components/Button";
+import Button from "../../src/components/JobSeekerBtn/JobSeekerBtn";
 
 
 
