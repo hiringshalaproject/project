@@ -1,12 +1,18 @@
 import React from "react";
 import "./index.css";
-import Footer from "../components/Footer/Footer";
+import Navbar from "../../src/components/Navbar/Navbar";
+import Footer from "../../src/components/Footer/Footer";
 import homepage from "../../src/images/homepage.png";
-import JobSeekerBtn from "../components/JobSeekerBtn/JobSeekerBtn";
-import EmployeeBtn from "../components/EmployeeBtn/EmployeeBtn";
+import Button from "../../src/components/JobSeekerBtn/JobSeekerBtn";
+
+
+
 
 const Home = () => {
+  
   return (
+    <>
+     <Navbar/>
     <div
       style={{
         display: "flex",
@@ -16,8 +22,9 @@ const Home = () => {
       }}
     >
       {/* <h1>Home</h1> */}
-      <section className="container">
-        <div className="left-half">
+      <section class="container">
+      
+        <div class="left-half">
           <article>
             <img src={homepage} alt="img" />
           </article>
@@ -38,12 +45,13 @@ const Home = () => {
             link up with outstanding people to create a better future.
           </p>
 
-          <JobSeekerBtn />
-          <EmployeeBtn />
+          <Button />
+         {/* <Button2 /> */}
         </div>
       </section>
       <Footer />
     </div>
+    </>
   );
 };
 
