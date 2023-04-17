@@ -27,7 +27,7 @@ const buttonStyle1 = {
   transition: "all 0.2s ease-in-out",
 };
 
-const Button = ({ label, to }) => {
+const JobSeekerBtn = ({ label, to }) => {
   const navigate = useNavigate();
   return (
     <button
@@ -40,7 +40,7 @@ const Button = ({ label, to }) => {
   );
 };
 
-const Button2 = ({ label, to }) => {
+const EmployeeBtn = ({ label, to }) => {
   const navigate = useNavigate();
   return (
     <button
@@ -62,8 +62,8 @@ const buttonContainerStyle = {
 const buttonRow = () => {
   return (
       <div style={buttonContainerStyle} >
-      <Button label="I'm a Job Seeker" to="/login" />
-      <Button2 label="I'm an Employee"/>
+      <JobSeekerBtn label="I'm a Job Seeker" to="/login" />
+      <EmployeeBtn label="I'm an Employee"/>
     </div>
   );
 };
