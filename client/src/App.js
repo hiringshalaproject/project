@@ -8,7 +8,9 @@ import Platform from "./pages/platform";
 import Contact from "./pages/contact";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Signup from './pages/Signup'
+import Signup from "./pages/Signup";
+import Navbar from "./components/Navbar/Navbar";
+
 
 function App() {
 
@@ -16,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div  className='w-screen h-screen bg-white flex flex-col'>
-       {/* <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />  */}
+      <Navbar/>
         <Routes>
            <Route path="/" element={<Home/>} />
           <Route path="/about" element={<About/>} />

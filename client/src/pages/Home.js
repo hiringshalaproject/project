@@ -1,9 +1,8 @@
 import React from "react";
 import "./index.css";
-import Navbar from "../../src/components/Navbar/Navbar";
 import Footer from "../../src/components/Footer/Footer";
 import homepage from "../../src/images/homepage.png";
-import Button from "../../src/components/JobSeekerBtn/JobSeekerBtn";
+import Button from "../../src/components/Buttons/Buttons";
 
 
 
@@ -12,7 +11,6 @@ const Home = () => {
   
   return (
     <>
-     <Navbar/>
     <div
       style={{
         display: "flex",
@@ -21,10 +19,9 @@ const Home = () => {
         height: "100vh",
       }}
     >
-      {/* <h1>Home</h1> */}
-      <section class="container">
+      <section className="container">
       
-        <div class="left-half">
+        <div className="left-half">
           <article>
             <img src={homepage} alt="img" />
           </article>
@@ -46,7 +43,6 @@ const Home = () => {
           </p>
 
           <Button />
-         {/* <Button2 /> */}
         </div>
       </section>
       <Footer />

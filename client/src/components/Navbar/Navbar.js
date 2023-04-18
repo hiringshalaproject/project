@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Logo from '../../components/assets/Logo.png';
 
 const Navbar = () => {
 
@@ -7,8 +8,9 @@ const Navbar = () => {
   return (
     <div className='flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto'>
       <div className='flex items-center'>
-        <NavLink to="/">
-          <img src="../../src/components/assets/Logo.png" alt="Logo"/>
+        <NavLink to = "/">
+        <img src={Logo} alt="Logo" />
+        <h1 className="font-bold ml-2">Company Name</h1>
         </NavLink>
       </div>
       <nav>
@@ -31,8 +33,8 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/blog" activeStyle>
-                  Blog
+                <NavLink to="/dashboard" activeStyle>
+                  Dashboard
                 </NavLink>
               </li>
             </ul>
