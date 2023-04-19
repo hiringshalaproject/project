@@ -15,10 +15,22 @@ const getJobs = async (req,res) => {
             filters.expectedPackage = {$gte: filters.startingSalary}
             filters.startingSalary = null;
         }
-        console.log(filters);
         const jobs = await Jobs.find(filters);
         res.status(200).json({jobs})
 
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+const getJobFromId = async (req,res) => {
+    try {
+        const job = await Jobs.findOne({_id : req.params.id})
+        if(!job)
+        {
+            return res.status(404).json({msg: `No job with id ${req.params.id}`})
+        }
+        res.status(200).json({job})
     } catch (error) {
         res.status(500).json(error)
     }
@@ -55,4 +67,5 @@ module.exports = {
     getJobs
 ,   createNewJob
 ,   updateJobWithId
+,   getJobFromId
 }

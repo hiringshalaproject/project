@@ -1,7 +1,7 @@
 const connectDb = require('../db/connect')
 require('dotenv').config()
+require('aws-sdk/lib/maintenance_mode_message').suppress = true;
 const express = require('express')
-const multer = require('multer')
 const cors = require('cors')
 const app = express()
 const port = 8000;
@@ -16,25 +16,7 @@ app.use(express.static(staticPath))
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 
-// Allow CORS requests from any origin
 app.use(cors());
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, "uploads/")
-    },
-    filename: (req, file, cb) => {
-      cb(null, Date.now() + "-" + file.originalname)
-    },
-  })
-
-  const uploadStorage = multer({ storage: storage })
-
-  // Single file
-  app.post("/upload", uploadStorage.single("file"), (req, res) => {
-    console.log("file uploaded");
-    return res.send("Single file")
-  })
 
 app.use('/api/v1/tasks',tasksRouter)
 app.use('/api/v1/jobs',jobRouter)
