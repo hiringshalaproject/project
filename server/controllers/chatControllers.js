@@ -30,5 +30,7 @@ const accessChat = async(req,res) =>
             throw new Error(error.message);
         }
 }
+
+module.exports = accessChat;
     
 
