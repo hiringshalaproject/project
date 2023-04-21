@@ -12,7 +12,7 @@ function FileUploader() {
   };
 
   const handleUpload = () => {
-    let seekerId = "642c639872a7d2eca068e799";
+    const seekerId = "642c639872a7d2eca068e799";
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);
@@ -28,7 +28,7 @@ function FileUploader() {
         setLoading(false);
         setSuccess(true);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
         setError(true);
       });
@@ -38,19 +38,32 @@ function FileUploader() {
     <div className="flex items-center">
       <input type="file" onChange={handleFileChange} />
       {loading ? (
-        <button className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4 cursor-wait" disabled>
+        <button
+          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4 cursor-wait"
+          disabled
+        >
           Uploading...
         </button>
       ) : success ? (
-        <button className="w-52 h-[40px] bg-green-300 rounded-[8px] font-medium text-black ml-4 cursor-not-allowed" disabled>
+        <button
+          className="w-52 h-[40px] bg-green-300 rounded-[8px] font-medium text-black ml-4 cursor-not-allowed"
+          disabled
+        >
           Resume Uploaded &#10003;
         </button>
       ) : error ? (
-        <button className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4" onClick={handleUpload}>
+        <button
+          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4"
+          onClick={handleUpload}
+        >
           Upload Again
         </button>
       ) : (
-        <button className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4" onClick={handleUpload} disabled={!selectedFile}>
+        <button
+          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4"
+          onClick={handleUpload}
+          disabled={!selectedFile}
+        >
           Upload
         </button>
       )}
