@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import FileUploader from "./FileUploader/FileUploader";
 
-const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -21,7 +21,6 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    setIsLoggedIn(true);
     toast.success("Logged In");
     navigate("/Dashboard");
   }
