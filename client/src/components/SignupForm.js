@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 
-const SignupForm = ({setIsLoggedIn}) => {
+const SignupForm = () => {
     const  navigate = useNavigate(); 
 
     const [formData, setFormData] = useState({
@@ -34,8 +34,6 @@ const SignupForm = ({setIsLoggedIn}) => {
             toast.error("Passwords do not match");
             return;
           }
-
-          setIsLoggedIn(true);
           toast.success("/Account Created");
           navigate("/Dashboard");
      }

@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from 'react-router-dom';
 
-const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
+const Template = ({ title, desc1, desc2, image, formtype}) => {
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
@@ -31,9 +31,9 @@ const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
         </p>
 
         {formtype === "signup" ? (
-          <SignupForm setIsLoggedIn={setIsLoggedIn} />
+          <SignupForm/>
         ) : (
-          <LoginForm setIsLoggedIn={setIsLoggedIn} />
+          <LoginForm/>
         )}
 
         <div className="flex w-full items-center my-4 gap-x-2">
