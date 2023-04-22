@@ -1,16 +1,11 @@
 import React from "react";
 import "./index.css";
-import Footer from "../../src/components/Footer/Footer";
-import homepage from "../../src/images/homepage.png";
-import Button from "../../src/components/Buttons/Buttons";
+import Footer from "../components/Footer/Footer";
+import homepage from "../images/homepage.png";
+import Button from "../components/Buttons/Buttons";
 
-
-
-
-const Home = () => {
-  
-  return (
-    <>
+const Home = () => (
+  <>
     <div
       style={{
         display: "flex",
@@ -20,7 +15,7 @@ const Home = () => {
       }}
     >
       <section className="container">
-      
+
         <div className="left-half">
           <article>
             <img src={homepage} alt="img" />
@@ -47,8 +42,7 @@ const Home = () => {
       </section>
       <Footer />
     </div>
-    </>
-  );
-};
+  </>
+);
 
 export default Home;
