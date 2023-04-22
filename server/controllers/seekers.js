@@ -28,7 +28,7 @@ const getSeekers = async (req, res) => {
       else if (shortListedStatus === "true" && el.shortListedStatus === true)
         seekerIds.push(el.seekerId);
     });
-    if (seekerIds == []) {
+    if (seekerIds === []) {
       return res
         .status(200)
         .json({ msg: `No Seekers registered with id ${jobId}` });
@@ -125,10 +125,10 @@ const updateSeekersJobStatus = async (req, res) => {
     const jobId = req.body.jobId;
     let shortListedStatus = req.body.shortListedStatus;
     let referralStatus = req.body.referralStatus;
-    if (shortListedStatus == null) {
+    if (shortListedStatus === null) {
       res.status(500).json({ error: "shortListedStatus is missing from body" });
     }
-    if (referralStatus == null) {
+    if (referralStatus === null) {
       referralStatus = false;
     }
     const seeker = await Seekers.findOneAndUpdate(

@@ -120,8 +120,20 @@ const EmployeeSchema = new mongoose.Schema({
 
 const Employees = mongoose.model("Employees", EmployeeSchema);
 
+const OtpVerificationSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  otp: { type: String, required: true },
+  created_at: { type: Date, default: Date.now, expires: "5m" },
+});
+
+const OtpVerification = mongoose.model(
+  "OtpVerification",
+  OtpVerificationSchema
+);
+
 module.exports = {
   Employees: Employees,
   Jobs: Jobs,
   Seekers: Seekers,
+  OtpVerification: OtpVerification,
 };

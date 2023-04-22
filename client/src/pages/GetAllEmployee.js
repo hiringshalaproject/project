@@ -21,7 +21,7 @@ function GetAllEmployees() {
     deletBtn.innerText = "Deleting";
     const url = `http://localhost:8000/api/v1/employees/${id}`;
     axios.delete(url).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         deletBtn.closest("tr").remove();
         swal({
           title: "Deleted",

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 
 import swal from "sweetalert";
 import axios from "axios";
 
 function GetAllSeekers() {
-  const navigate = useNavigate();
-
   const [seekers, setSeeker] = useState([]);
 
   // const[active,setActive]=useState(false);
@@ -25,7 +23,7 @@ function GetAllSeekers() {
     const url = `http://localhost:8000/api/v1/seekers/${id}`;
 
     axios.delete(url).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         deletBtn.closest("tr").remove();
         swal({
           title: "Deleted",
