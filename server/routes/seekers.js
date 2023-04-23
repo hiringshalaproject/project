@@ -2,6 +2,7 @@ const express = require("express");
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+
 const router = express.Router();
 const {
   getAllSeekers,
@@ -22,13 +23,13 @@ const s3 = new AWS.S3({
 
 const upload = multer({
   storage: multerS3({
-    s3: s3,
+    s3,
     bucket: "myjobproject",
-    metadata: function (req, file, cb) {
+    metadata(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString() + "-" + file.originalname);
+    key(req, file, cb) {
+      cb(null, `${Date.now().toString()}-${file.originalname}`);
     },
   }),
 });

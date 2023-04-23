@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
-const About = () => {
-  return (
-    <div className='flex justify-center items-center text-black text-3xl h-full'>
+const About = () => (
+  <div className='flex justify-center items-center text-black text-3xl h-full'>
       About
-    </div>
-  )
-}
+  </div>
+);
 
 export default About;
