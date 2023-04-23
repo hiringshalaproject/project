@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import swal from 'sweetalert'
+import swal from "sweetalert";
 
 function AddSeeker() {
   const [form, setForm] = useState({});
@@ -16,37 +16,44 @@ function AddSeeker() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    axios
+      .post("http://localhost:8000/api/v1/seekers/", form)
+      .then((response) => {
+        if (response.status == 201) {
+          swal({
+            title: "Added",
+            text: "Seeker Added Successfully",
+            icon: "success",
+            button: "OK!",
+          });
+          setForm({});
+        } else {
+          swal({
+            title: "Failed",
+            text: "Seeker Could not be added",
+            icon: "error",
+            button: "OK",
+          });
+        }
+      });
 
-    axios.post("http://localhost:8000/api/v1/seekers/", form).then((response) => {
-      if (response.status==201) {
-        swal({
-          title: "Added",
-          text: "Seeker Added Successfully",
-          icon: "success",
-          button: "OK!"
-        })
-        setForm({})
-      }else{
-        swal({
-          title:"Failed",
-          text:"Seeker Could not be added",
-          icon:"error",
-          button:"OK"
-        })
-      }
-    })
-    
     document.getElementById("formData").reset();
   };
 
   return (
     <div>
-
-
-      <section className="h-100 h-custom" style={{ backgroundColor: '#8fc4b7' }}>
+      <section
+        className="h-100 h-custom"
+        style={{ backgroundColor: "#8fc4b7" }}
+      >
         <div className="container py-5 h-100">
           <Link to="/admin">
-            <button className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0" style={{ marginTop: '20px', marginRight: '20px' }}>Back to Dashboard</button>
+            <button
+              className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
+              style={{ marginTop: "20px", marginRight: "20px" }}
+            >
+              Back to Dashboard
+            </button>
           </Link>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
@@ -55,7 +62,11 @@ function AddSeeker() {
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Add a new Seeker
                   </h3>
-                  <form className="px-md-2" id="formData" onSubmit={handleSubmit}>
+                  <form
+                    className="px-md-2"
+                    id="formData"
+                    onSubmit={handleSubmit}
+                  >
                     <div className="form-outline mb-4">
                       <label className="form-label" for="form3Example1q">
                         Name
@@ -141,8 +152,10 @@ function AddSeeker() {
                       />
                     </div>
 
-
-                    <button type="submit" className="btn btn-success btn-lg mb-1">
+                    <button
+                      type="submit"
+                      className="btn btn-success btn-lg mb-1"
+                    >
                       Submit
                     </button>
                   </form>
@@ -152,7 +165,6 @@ function AddSeeker() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

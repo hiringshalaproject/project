@@ -6,7 +6,7 @@ const getSeekers = async (req, res) => {
     jobId = filters.jobId;
     if (!jobId) {
       const seekers = await Seekers.find({});
-      return res.status(200).json( seekers ); //changed
+      return res.status(200).json(seekers); //changed
     }
     const jobDetails = await Jobs.findOne({ _id: jobId });
     if (!jobDetails) {
@@ -197,19 +197,19 @@ const applyForJob = async (req, res) => {
   }
 };
 
-const deleteSeeker = async (req,res) => {
-    try {
-        const seeker = await Seekers.findOneAndDelete({_id:req.params.id})
-        if(!seeker)
-        {
-            return res.status(404).json({msg: `No seeker with id ${req.params.id}`})
-        }
-        res.status(200).json({msg:"Seeker deleted successfully"})
-    } catch (error) {
-        res.status(500).json(error)
+const deleteSeeker = async (req, res) => {
+  try {
+    const seeker = await Seekers.findOneAndDelete({ _id: req.params.id });
+    if (!seeker) {
+      return res
+        .status(404)
+        .json({ msg: `No seeker with id ${req.params.id}` });
     }
-}
-
+    res.status(200).json({ msg: "Seeker deleted successfully" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 module.exports = {
   getSeekers,
@@ -220,5 +220,5 @@ module.exports = {
   applyForJob,
   updateSeekersJobStatus,
   updateSeeker,
-  deleteSeeker
+  deleteSeeker,
 };
