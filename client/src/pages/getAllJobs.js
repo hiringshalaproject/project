@@ -12,13 +12,8 @@ function GetAllJobs() {
 
 
     const GetAllJobs = async () => {
-
-        axios.get("http://localhost:8000/api/v1/jobs/",{
-            headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        
-        }).then((response) =>{console.log(response); setJobs(response.data)});
+        console.log(jobs)
+        axios.get("http://localhost:8000/api/v1/jobs/",jobs).then((response) =>{console.log(response); setJobs(response.data)});
     };
 
     const routeChange = (event, data) => {
