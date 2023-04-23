@@ -9,6 +9,7 @@ const {
   createNewSeeker,
   uploadResume,
   getSeekerResume,
+  deleteSeeker,
 } = require("../controllers/seekers");
 
 const s3 = new AWS.S3({
@@ -37,5 +38,6 @@ router.get("/:id", getSeekerFromId);
 router.post("/", createNewSeeker);
 router.post("/upload", upload.single("file"), uploadResume);
 router.get("/:seekersId/resume", getSeekerResume);
+router.delete("/:id",deleteSeeker)
 
 module.exports = router;

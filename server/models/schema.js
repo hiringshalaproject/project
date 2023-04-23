@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const JobSchema = new mongoose.Schema({
-    jobId:{
-        type: String,
-        required: true
-    },
     companyName:{
         type: String,
         required: true
@@ -36,10 +32,7 @@ const JobSchema = new mongoose.Schema({
 const Jobs = mongoose.model("Jobs",JobSchema);
 
 const JobSeekerSchema = new mongoose.Schema({
-    seekerId:{
-        type: String,
-        required: true
-    },
+   
     seekerName: {
         type: String,
         required: true
@@ -85,15 +78,12 @@ const Seekers = mongoose.model("Seekers",JobSeekerSchema);
 
 
 const EmployeeSchema = new mongoose.Schema({
-    employeeId:{
-        type:String,
-        required:true
-    },
+   
     employeeName:{
         type: String,
         required: true
     },
-    emailId:{
+    employeeEmail:{
         type: String,
         required: true
     },

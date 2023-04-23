@@ -16,7 +16,7 @@ const getJobs = async (req,res) => {
             filters.startingSalary = null;
         }
         const jobs = await Jobs.find(filters);
-        res.status(200).json({jobs})
+        res.status(200).json(jobs)
 
     } catch (error) {
         res.status(500).json(error)
@@ -48,6 +48,7 @@ const createNewJob = async (req,res) => {
 
 const updateJobWithId = async (req,res) => {
     try {
+        console.log("Body",req.body)
         const job = await Jobs.findOneAndUpdate({_id:req.params.id},req.body, {
             new: true,
             runValidators: true
@@ -63,9 +64,24 @@ const updateJobWithId = async (req,res) => {
 }
 
 
+const deleteJobById = async (req,res) => {
+    try {
+        const job = await Jobs.findOneAndDelete({_id:req.params.id})
+        if(!job)
+        {
+            return res.status(404).json({msg: `No job with id ${req.params.id}`})
+        }
+        res.status(200).json({msg:"Job deleted successfully"})
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+
 module.exports = {
     getJobs
 ,   createNewJob
 ,   updateJobWithId
 ,   getJobFromId
+,   deleteJobById
 }

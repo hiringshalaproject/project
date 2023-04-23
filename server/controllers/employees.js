@@ -3,7 +3,7 @@ const {Employees} = require('../models/schema')
 const getAllEmployees = async (req,res) => {
     try {
         const employees = await Employees.find({});
-        res.status(200).json({employees})
+        res.status(200).json(employees)
 
     } catch (error) {
         res.status(500).json(error)
@@ -46,9 +46,25 @@ const updateEmployeeWithId = async (req,res) => {
     }
 }
 
+
+const deleteEmployee = async (req,res) => {
+    try {
+        const employee = await Employees.findOneAndDelete({_id:req.params.id})
+        if(!employee)
+        {
+            return res.status(404).json({msg: `No employee with id ${req.params.id}`})
+        }
+        res.status(200).json({msg:"Employee deleted successfully"})
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
+
 module.exports = {
     getAllEmployees,
     getEmployeeFromId,
     createNewEmployee,
-    updateEmployeeWithId
+    updateEmployeeWithId,
+    deleteEmployee
 }
