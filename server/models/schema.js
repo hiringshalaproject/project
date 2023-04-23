@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const JobSchema = new mongoose.Schema({
-  jobId: {
-    type: String,
-    required: true,
-  },
   companyName: {
     type: String,
     required: true,
@@ -20,26 +16,29 @@ const JobSchema = new mongoose.Schema({
     default: false,
   },
   numberOfOpenings: Number,
-  seekersRegistered: [{
-    seekerid: {
-      type: String,
-      required: true,
+  seekersRegistered: [
+    {
+      seekerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seekers",
+        required: true,
+      },
+      shortListedStatus: {
+        type: Boolean,
+        default: false,
+      },
+      referralStatus: {
+        type: Boolean,
+        default: false,
+      },
     },
-    referralStatus: {
-      type: Boolean,
-      default: false,
-    },
-  }],
+  ],
   shortlistedCount: Number,
 });
 
 const Jobs = mongoose.model("Jobs", JobSchema);
 
 const JobSeekerSchema = new mongoose.Schema({
-  seekerId: {
-    type: String,
-    required: true,
-  },
   seekerName: {
     type: String,
     required: true,
@@ -68,26 +67,28 @@ const JobSeekerSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  appliedJobList: [{
-    jobid: {
-      type: String,
-      required: true,
+  appliedJobList: [
+    {
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true,
+      },
+      shortListedStatus: {
+        type: Boolean,
+        default: false,
+      },
+      referralStatus: {
+        type: Boolean,
+        default: false,
+      },
     },
-    referralStatus: {
-      type: Boolean,
-      default: false,
-    },
-  }],
-
+  ],
 });
 
 const Seekers = mongoose.model("Seekers", JobSeekerSchema);
 
 const EmployeeSchema = new mongoose.Schema({
-  employeeId: {
-    type: String,
-    required: true,
-  },
   employeeName: {
     type: String,
     required: true,
@@ -108,19 +109,19 @@ const EmployeeSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  listOfJobsPosted: [{
-    jobid: {
-      type: String,
-      required: true,
+  listOfJobsPosted: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Jobs",
     },
-  }],
+  ],
   totalReferralGiven: Number,
 });
 
 const Employees = mongoose.model("Employees", EmployeeSchema);
 
 module.exports = {
-  Employees,
-  Jobs,
-  Seekers,
+  Employees: Employees,
+  Jobs: Jobs,
+  Seekers: Seekers,
 };
