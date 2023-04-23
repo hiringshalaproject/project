@@ -15,14 +15,13 @@ const Home = () => (
       }}
     >
       <section className="container">
-
         <div className="left-half">
           <article>
             <img src={homepage} alt="img" />
           </article>
         </div>
         <div className="right-half">
-          <h1 style={{ fontSize: 60 }}>
+          <h1 style={{ fontSize: 55 }}>
             unleash your talent potential with company name
           </h1>
           <p
