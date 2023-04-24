@@ -1,20 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { useNavigate } from 'react-router-dom';
 
-const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
-    const navigate = useNavigate();
+const Template = ({ title, desc1, desc2, image, formtype }) => {
+  const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-      if (formtype === "signup") {
-        navigate("/Login");
-      } else {
-        navigate("/Signup");
-      }
-    };
-  
+  const handleButtonClick = () => {
+    if (formtype === "signup") {
+      navigate("/Login");
+    } else {
+      navigate("/Signup");
+    }
+  };
 
   return (
     <div className="flex justify-evenly items-start w-11/12 max-w-[1160px] pt-12 mx-auto gap-x-12 gap-y-0">
@@ -30,11 +30,7 @@ const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
           <span className="text-blue-700 italic">{desc2}</span>
         </p>
 
-        {formtype === "signup" ? (
-          <SignupForm setIsLoggedIn={setIsLoggedIn} />
-        ) : (
-          <LoginForm setIsLoggedIn={setIsLoggedIn} />
-        )}
+        {formtype === "signup" ? <SignupForm /> : <LoginForm />}
 
         <div className="flex w-full items-center my-4 gap-x-2">
           <div className="w-full h-[1px] bg-slate-700"></div>
@@ -64,18 +60,25 @@ const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
 
       <div className="relative">
         <div className="absolute top-0 right-0 mr-6 mt-0 flex gap-x-4">
-        <p className="text-gray-500 text-sm mt-2">
+          <p className="text-gray-500 text-sm mt-2">
             {formtype === "signup" ? "Already have an account ?" : "New here?"}
           </p>
 
           {formtype === "signup" ? (
-            <button className="px-8 py-2 bg-teal-300 text-black rounded-tl-lg font-medium" onClick={handleButtonClick}>Login</button>
+            <button
+              className="px-8 py-2 bg-teal-300 text-black rounded-tl-lg font-medium"
+              onClick={handleButtonClick}
+            >
+              Login
+            </button>
           ) : (
-            <button className="px-4 py-2 bg-teal-600 text-white  rounded-tl-lg  font-medium" onClick={handleButtonClick}>
+            <button
+              className="px-4 py-2 bg-teal-600 text-white  rounded-tl-lg  font-medium"
+              onClick={handleButtonClick}
+            >
               Sign up
             </button>
           )}
-         
         </div>
         <img
           src={image}
@@ -87,5 +90,13 @@ const Template = ({ title, desc1, desc2, image, formtype, setIsLoggedIn }) => {
         />
       </div>
     </div>
-  )}
-export default Template 
+  );
+};
+Template.propTypes = {
+  title: PropTypes.string.isRequired,
+  desc1: PropTypes.string.isRequired,
+  desc2: PropTypes.string,
+  image: PropTypes.string,
+  formtype: PropTypes.string.isRequired,
+};
+export default Template;

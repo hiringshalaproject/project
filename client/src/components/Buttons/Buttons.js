@@ -58,14 +58,11 @@ const buttonContainerStyle = {
   alignItems: "center",
 };
 
-
-const buttonRow = () => {
-  return (
-      <div style={buttonContainerStyle} >
-      <JobSeekerBtn label="I'm a Job Seeker" to="/login" />
-      <EmployeeBtn label="I'm an Employee"/>
-    </div>
-  );
-};
+const buttonRow = () => (
+  <div style={buttonContainerStyle} >
+    <JobSeekerBtn label="I'm a Job Seeker" to="/login" />
+    <EmployeeBtn label="I'm an Employee"/>
+  </div>
+);
 
 export default buttonRow;
