@@ -11,6 +11,7 @@ const tasksRouter = require('../routes/tasks.js')
 const jobRouter = require('../routes/jobs.js')
 const employeesRouter = require('../routes/employees.js')
 const seekersRouter = require('../routes/seekers.js')
+const chatRouter = require("../routes/chatRoutes")
 
 app.use(express.static(staticPath))
 app.use(express.urlencoded({extended : false}))
@@ -22,6 +23,7 @@ app.use('/api/v1/tasks',tasksRouter)
 app.use('/api/v1/jobs',jobRouter)
 app.use('/api/v1/employees',employeesRouter)
 app.use('/api/v1/seekers',seekersRouter)
+app.use('/api/v1/chat',chatRouter)
 
 app.get("/",(req,res) => {
     res.status(200).send("Server Working")
