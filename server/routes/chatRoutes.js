@@ -6,5 +6,5 @@ const {accessChat,fetchChats, seekersChat, employeesChat,sendMessage} = require(
  router.get("/:id", fetchChats);
  router.get("/:model/:id",seekersChat);
  router.get("/:id", employeesChat);
- router.post("/:id",sendMessage);
+ router.post("/sendMessage",sendMessage);
 module.exports = router;

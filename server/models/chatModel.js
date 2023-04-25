@@ -36,7 +36,7 @@ const messageSchema = mongoose.Schema(
     message : { type: String, trim: true },
     sender : { type: mongoose.Schema.Types.ObjectId, refPath: 'model_user' }, 
     receiver : { type: mongoose.Schema.Types.ObjectId, refPath: 'model_user' },
-    model_user : {  type: String, enum: ['Employees', 'Seekers' ], required: true },
+    model_user : {  type: String, enum: ['Employees', 'Seekers' ] },
     }]
   },
   {

@@ -101,36 +101,64 @@ const accessChat = async (req, res) => {
                   throw new Error(error.message);
               }
       }
-const sendMessage = async(req, res)=> {
-  try {
+      
+      
+      const sendMessage = async (req, res) => {
+        const { chatId, message, senderId, receiverId, model_user } = req.body;
+      
+        try {
+          
+          const chat = await Chat.findById(chatId);
+          if (!chat) {
+            return res.status(404).json({ message: "Chat not found" });
+          }
+      
+          
+          const sender = chat.users.find(
+            (user) => user.User_model === model_user && user.userId == senderId
+          );
+          const receiver = chat.users.find(
+            (user) => user.User_model === model_user && user.userId == receiverId
+          );
+          console.log({sender});
+          if (!sender || !receiver) {
+            if(!sender && receiver)
+            {
+              return res.status(400).json({message:"sender not found"});
+            }
+            if(sender && !receiver)
+            {
+              return res.status(400).json({message:"receiver not found"});
+            }
+          }
+      
+          
+          const newMessage = new Message({
+            chat: chatId,
+            content: {
+              message:message,
+              sender: senderId,
+              receiver: receiverId,
+              model_user: model_user,
+            },
+          });
+      
+          
+          await newMessage.save();
+      
+          
+          chat.latestMessage = newMessage._id;
+          await chat.save();
+          
+          return res.status(200).json({ message: "Message sent successfully" });
+        } catch (error) {
+          console.log(error);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+      };
+      
     
-    const { chatId,senderId, receiverId, message } = req.body;
-
-    
-    const newMessage = new Message({
-      chatId : chatId,
-      content:{ message : message,
-      sender: senderId,
-      receiver: receiverId}
-    });
-
-    
-    await newMessage.save();
-
-    
-    await Chat.findByIdAndUpdate(
-      chatId,
-      { latestMessage: newMessage._id },
-      { new: true }
-    );
-
-    
-    res.status(200).json(newMessage);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-}
+      
 
 
   
