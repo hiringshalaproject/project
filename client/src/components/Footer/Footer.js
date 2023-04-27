@@ -10,24 +10,23 @@ import {
 
 const Footer = () => (
   <Box>
-    <Text>trusted by 150+ companies aroind the world</Text>
+    <Text >trusted by 150+ companies aroind the world</Text>
     <Container>
       <Row>
         <Column>
           <Heading>Expedia</Heading>
         </Column>
-
         <Column>
-          <Heading>asana</Heading>
+          <Heading>Juspay</Heading>
         </Column>
         <Column>
-          <Heading>Hubspot</Heading>
+          <Heading>Google</Heading>
         </Column>
         <Column>
-          <Heading>Loom</Heading>
+          <Heading>Walmart</Heading>
         </Column>
         <Column>
-          <Heading>Zenfits</Heading>
+          <Heading>Amazon</Heading>
         </Column>
       </Row>
     </Container>
