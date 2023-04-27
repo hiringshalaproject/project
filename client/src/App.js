@@ -22,7 +22,7 @@ import GetAllEmployees from "./pages/GetAllEmployee";
 function App() {
   return (
     <div className='w-screen h-screen bg-white flex flex-col'>
-        {/* <Navbar/> */}
+        <Navbar/>
       <Routes>
       <Route path="/" element={<Home/>} />
         <Route path="/admin" element={ <AdminDashboard/> } />
