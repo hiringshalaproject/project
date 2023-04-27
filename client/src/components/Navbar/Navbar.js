@@ -6,8 +6,7 @@ const Navbar = () => (
   <div className='flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto'>
     <div className='flex items-center'>
       <NavLink to = "/">
-        <img src={Logo} alt="Logo" />
-        <h1 className="font-bold ml-2">Company Name</h1>
+      <img src={Logo} alt="Logo" width="200" height="100" />
       </NavLink>
     </div>
     <nav>
@@ -15,22 +14,22 @@ const Navbar = () => (
         <li>
           <ul className="text-slate-700 flex gap-x-14 justify-evenly list-disc">
             <li>
-              <NavLink to="/about" activeStyle>
+              <NavLink to="/about">
                   About
               </NavLink>
             </li>
             <li>
-              <NavLink to="/platform" activeStyle>
+              <NavLink to="/platform">
                   Platform
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contact-us" activeStyle>
+              <NavLink to="/contact-us">
                   Contact Us
               </NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard" activeStyle>
+              <NavLink to="/dashboard">
                   Dashboard
               </NavLink>
             </li>
