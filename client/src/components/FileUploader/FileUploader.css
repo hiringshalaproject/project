@@ -1,0 +1,60 @@
+.choose-file-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 196px;
+  height: 63px;
+  background: #b3e8e5;
+  border-radius: 20px;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #000000;
+
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.5s;
+}
+.choose-file-button:hover {
+  background-color: #087572;
+}
+.upload-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 259px;
+  height: 63px;
+  background: #0a2647;
+  border-radius: 17px;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #000000;
+}
+.uploaded-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 259px;
+  height: 63px;
+  background: #0a2647;
+  border-radius: 17px;
+  font-family: "Fira Sans";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  margin-left: 35px;
+}
