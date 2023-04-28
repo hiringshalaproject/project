@@ -1,6 +1,6 @@
-import fetchUsers from "./FetchData";
 import BootstrapCard from "./BootstrapCards";
 import { useState, useEffect } from "react";
+import fetchUsers from "./FetchData";
 import "./BootstrapCards.css";
 
 const RenderUsersInCards = () => {
@@ -20,6 +20,8 @@ const RenderUsersInCards = () => {
   if (users.length === 0) {
     return <div>...Loading!</div>;
   }
+
+  const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (
     <div className="user-cards-container">
@@ -45,13 +47,9 @@ const RenderUsersInCards = () => {
       </div>
 
       <div className="user-cards">
-        {users.slice(0, 3).map((user, index) => {
+        {displayedUsers.map((user, index) => {
           return <BootstrapCard user={user} color={"info"} key={index} />;
         })}
-        {showAll &&
-          users.slice(3).map((user, index) => {
-            return <BootstrapCard user={user} color={"info"} key={index} />;
-          })}
       </div>
     </div>
   );
