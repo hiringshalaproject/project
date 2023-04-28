@@ -1,6 +1,6 @@
-import fetchUsers from "./FetchData";
 import BootstrapCard from "./BootstrapCards";
 import { useState, useEffect } from "react";
+import fetchUsers from "./FetchData";
 import "./BootstrapCards.css";
 
 const RenderUsersInCards = () => {
