@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import RoundButton from "../sidemenu/RoundButton";
+import "./FileUploader.css";
 
 function FileUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,37 +37,40 @@ function FileUploader() {
   };
 
   return (
-    <div className="flex items-center">
-      <input type="file" onChange={handleFileChange} />
-      {loading ? (
-        <button
-          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4 cursor-wait"
-          disabled
-        >
-          Uploading...
-        </button>
-      ) : success ? (
-        <button
-          className="w-52 h-[40px] bg-green-300 rounded-[8px] font-medium text-black ml-4 cursor-not-allowed"
-          disabled
-        >
-          Resume Uploaded &#10003;
-        </button>
-      ) : error ? (
-        <button
-          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4"
-          onClick={handleUpload}
-        >
-          Upload Again
-        </button>
-      ) : (
-        <button
-          className="w-52 h-[40px] bg-red-300 rounded-[8px] font-medium text-black ml-4"
-          onClick={handleUpload}
-          disabled={!selectedFile}
-        >
-          Upload
-        </button>
+    <div className="file-uploader">
+      <label htmlFor="fileInput" className="choose-file-button">
+        {selectedFile ? selectedFile.name : "Choose File"}
+      </label>
+      <input
+        type="file"
+        id="fileInput"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+      />
+
+      <RoundButton
+        text={
+          loading
+            ? "Uploading..."
+            : success
+            ? "Resume Uploaded \u2713"
+            : "Upload/update Resume"
+        }
+        className={
+          loading
+            ? "upload-button"
+            : success
+            ? "uploaded-button"
+            : "uploaded-button"
+        }
+        onClick={handleUpload}
+        disabled={!selectedFile || loading || success}
+      />
+
+      {error && (
+        <span className="text-red-500 ml-4">
+          Upload failed. Please try again.
+        </span>
       )}
     </div>
   );

@@ -3,42 +3,43 @@ import { NavLink } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 
 const Navbar = () => (
-  <div className='flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto'>
-    <div className='flex items-center'>
-      <NavLink to = "/">
+  <div className="flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto">
+    <div className="flex items-center">
+      <NavLink to="/" style={{ display: "flex" }}>
         <img src={Logo} alt="Logo" />
-        <h1 className="font-bold ml-2">Company Name</h1>
+        <h1 className="font-bold ml-2" style={{ marginTop: "13px" }}>
+          Company Name
+        </h1>
       </NavLink>
     </div>
     <nav>
-      <ul className='flex justify-evenly'>
+      <ul className="flex justify-evenly">
         <li>
           <ul className="text-slate-700 flex gap-x-14 justify-evenly list-disc">
             <li>
               <NavLink to="/about" activeStyle>
-                  About
+                About
               </NavLink>
             </li>
             <li>
               <NavLink to="/platform" activeStyle>
-                  Platform
+                Platform
               </NavLink>
             </li>
             <li>
               <NavLink to="/contact-us" activeStyle>
-                  Contact Us
+                Contact Us
               </NavLink>
             </li>
             <li>
               <NavLink to="/dashboard" activeStyle>
-                  Dashboard
+                Dashboard
               </NavLink>
             </li>
           </ul>
         </li>
       </ul>
     </nav>
-
   </div>
 );
 
