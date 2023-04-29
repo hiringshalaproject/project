@@ -28,7 +28,6 @@ const getSeekers = async (req, res) => {
       else if (shortListedStatus === "true" && el.shortListedStatus === true)
         seekerIds.push(el.seekerId);
     });
-    console.log(seekerIds);
     if (seekerIds == []) {
       return res
         .status(200)
@@ -132,7 +131,6 @@ const updateSeekersJobStatus = async (req, res) => {
     if (referralStatus == null) {
       referralStatus = false;
     }
-    console.log(referralStatus);
     const seeker = await Seekers.findOneAndUpdate(
       { _id: seekerId },
       {

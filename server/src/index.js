@@ -1,4 +1,4 @@
-const connectDb = require('../db/connect');
+const connectDb = require("../db/connect");
 require("dotenv").config();
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 const express = require("express");
@@ -8,7 +8,7 @@ const app = express();
 const port = 8000;
 const path = require("path");
 
-const staticPath = (path.join(__dirname, "../../client/build"));
+const staticPath = path.join(__dirname, "../../client/build");
 const tasksRouter = require("../routes/tasks");
 const jobRouter = require("../routes/jobs");
 const employeesRouter = require("../routes/employees");
