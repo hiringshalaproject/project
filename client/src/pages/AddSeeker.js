@@ -19,7 +19,7 @@ function AddSeeker() {
     axios
       .post("http://localhost:8000/api/v1/seekers/", form)
       .then((response) => {
-        if (response.status == 201) {
+        if (response.status === 201) {
           swal({
             title: "Added",
             text: "Seeker Added Successfully",
@@ -68,7 +68,7 @@ function AddSeeker() {
                     onSubmit={handleSubmit}
                   >
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Name
                       </label>
                       <input
@@ -77,12 +77,12 @@ function AddSeeker() {
                         name="seekerName"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Email
                       </label>
                       <input
@@ -91,12 +91,12 @@ function AddSeeker() {
                         name="seekerEmail"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Resume URL
                       </label>
                       <input
@@ -105,12 +105,12 @@ function AddSeeker() {
                         name="resumeUrl"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         College Name
                       </label>
                       <input
@@ -119,12 +119,12 @@ function AddSeeker() {
                         name="collegeName"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Company Name
                       </label>
                       <input
@@ -133,12 +133,12 @@ function AddSeeker() {
                         name="seekerCompanyName"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Contact Number
                       </label>
                       <input
@@ -147,7 +147,7 @@ function AddSeeker() {
                         name="contactNumber"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>

@@ -3,7 +3,6 @@ const { Jobs } = require("../models/schema");
 const getJobs = async (req, res) => {
   try {
     let filters = req.body;
-    console.log("filters",filters)
     let jobIds = filters.jobIds;
     if (jobIds != null) {
       const jobs = await Jobs.find({ _id: { $all: jobIds } });
@@ -22,7 +21,6 @@ const getJobs = async (req, res) => {
       filters.startingSalary = null;
     }
     const jobs = await Jobs.find(filters);
-    console.log("jobs",jobs);
     res.status(200).json( jobs );
   } catch (error) {
     res.status(500).json(error);
@@ -44,7 +42,6 @@ const getJobFromId = async (req, res) => {
 const createNewJob = async (req, res) => {
   try {
     const job = await Jobs.create(req.body);
-    console.log(job);
     res.status(201).json({job});
   } catch (error) {
     res.status(500).json(error);

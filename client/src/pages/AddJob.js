@@ -16,7 +16,7 @@ function AddJob() {
   const renderInput = (label, name, type, placeholder) => {
     return (
       <>
-        <label className="form-label" for="form3Example1q">
+        <label className="form-label" htmlFor="form3Example1q">
           {label}
         </label>
         <input
@@ -25,7 +25,7 @@ function AddJob() {
           name={name}
           onChange={handleForm}
           id="form3Example1q"
-          class="form-control"
+          className="form-control"
           autoComplete="off"
         />
       </>
@@ -37,7 +37,6 @@ function AddJob() {
     axios
       .post("http://localhost:8000/api/v1/jobs/create", form)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           swal({
             title: "Added",

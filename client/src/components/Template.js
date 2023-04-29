@@ -48,7 +48,6 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
               text="signin"
               logo_alignment="left"
               onSuccess={(credentialResponse) => {
-                console.log(credentialResponse);
               }}
               onError={() => {
                 console.log("Login Failed");

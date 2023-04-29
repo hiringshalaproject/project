@@ -15,9 +15,7 @@ function GetAllJobs() {
   const [jobs, setJobs] = useState([]);
 
   const GetAllJobs = async () => {
-    console.log(jobs);
     axios.post("http://localhost:8000/api/v1/jobs/").then((response) => {
-      console.log(response);
       setJobs(response.data);
     });
   };
@@ -105,8 +103,11 @@ function GetAllJobs() {
                 <p className="fw-normal mb-1">{job.numberOfOpenings}</p>
               </td>
               <td>
-                <p className="fw-normal mb-1">{job.jobDate.substring(0, 10)}</p>
+                <p className="fw-normal mb-1">
+                  {job.jobDate ? job.jobDate.substring(0, 10) : ""}
+                </p>
               </td>
+
               <td>
                 {job.isExpired ? (
                   <MDBBadge color="danger" pill>
@@ -146,7 +147,7 @@ function GetAllJobs() {
 
       <Link to="/admin">
         <button
-          class="btn btn-success btn-lg mb-1"
+          className="btn btn-success btn-lg mb-1"
           style={{ marginLeft: "10px" }}
         >
           Back to Dashboard
