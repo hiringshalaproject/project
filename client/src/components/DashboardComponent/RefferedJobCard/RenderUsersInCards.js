@@ -1,6 +1,6 @@
-import fetchUsers from "./FetchData";
 import BootstrapCard from "./BootstrapCards";
 import { useState, useEffect } from "react";
+import fetchUsers from "./FetchData";
 import "./BootstrapCards.css";
 
 const RenderUsersInCards = () => {
@@ -26,7 +26,7 @@ const RenderUsersInCards = () => {
   return (
     <div className="user-cards-container">
       <div className="user-cards-header">
-        <h2 style={{ fontSize: "25px", color: "#636C86" }}>
+        <h2 style={{ fontSize: "25px", color: "#636C86", fontWeight: "600" }}>
           Successful Referrals
         </h2>
         <div className="btn-container">

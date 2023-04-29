@@ -1,8 +1,9 @@
 import React from "react";
 import "./Dashboard.css";
-import RenderUsersInCards from "../components/RefferedJobCard/RenderUsersInCards";
+import RenderUsersInCards from "../components/DashboardComponent/RefferedJobCard/RenderUsersInCards";
 import Sidemenu from "../components/sidemenu/Sidemenu";
 import FileUploader from "../components/FileUploader/FileUploader";
+import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 
 const Dashboard = () => (
   // <div>
@@ -19,7 +20,9 @@ const Dashboard = () => (
       <Sidemenu />
     </div>
     <div className="mainContent">
-      <div className="topMenu"></div>
+      <div className="topMenu">
+        <TopHeading />
+      </div>
       <div className="ResumeSec">
         <div className="uploadSection">
           <FileUploader />
