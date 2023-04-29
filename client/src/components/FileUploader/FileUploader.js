@@ -12,7 +12,7 @@ function FileUploader() {
   };
 
   const handleUpload = () => {
-    const seekerId = "642c639872a7d2eca068e799";
+    const seekerId = "642c63ca9af7d583d5bce8f4";
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);

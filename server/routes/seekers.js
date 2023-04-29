@@ -17,7 +17,7 @@ const {
 } = require("../controllers/seekers");
 
 const s3 = new AWS.S3({
-  region: "ap-southeast-2",
+  region: "ap-south-1",
   credentials: {
     accessKeyId: process.env.ACCESS_KEY_ID,
     secretAccessKey: process.env.SECRET_ACCESS_KEY,
@@ -27,7 +27,7 @@ const s3 = new AWS.S3({
 const upload = multer({
   storage: multerS3({
     s3,
-    bucket: "myjobproject",
+    bucket: "hiringshala",
     metadata(req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
@@ -40,11 +40,11 @@ const upload = multer({
 router.get("/", getSeekers);
 router.get("/:id", getSeekerFromId);
 router.post("/", createNewSeeker);
-router.patch("/apply/:id", applyForJob)
-router.patch("/status/:id", updateSeekersJobStatus)
+router.patch("/apply/:id", applyForJob);
+router.patch("/status/:id", updateSeekersJobStatus);
 router.patch("/:id", updateSeeker);
 router.post("/upload", upload.single("file"), uploadResume);
 router.get("/:seekersId/resume", getSeekerResume);
-router.delete("/:id",deleteSeeker)
+router.delete("/:id", deleteSeeker);
 
 module.exports = router;
