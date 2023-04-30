@@ -35,7 +35,7 @@ function FileUploader() {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" style={{ marginTop: "20px" }}>
       <input type="file" onChange={handleFileChange} />
       {loading ? (
         <button
@@ -45,10 +45,7 @@ function FileUploader() {
           Uploading...
         </button>
       ) : success ? (
-        <button
-          className="w-52 h-[40px] bg-green-300 rounded-[8px] font-medium text-black ml-4 cursor-not-allowed"
-          disabled
-        >
+        <button className="w-52 h-[40px] bg-green-500 rounded-[8px] font-medium text-black ml-4 cursor-not-allowed" disabled>
           Resume Uploaded &#10003;
         </button>
       ) : error ? (

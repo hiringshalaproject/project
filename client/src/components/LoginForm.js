@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import FileUploader from "./FileUploader/FileUploader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -73,8 +72,6 @@ const LoginForm = () => {
           </p>
         </Link>
       </label>
-
-      <FileUploader />
 
       <button className="w-52 h-[40px] bg-teal-300 rounded-[8px] font-medium text-black mt-6">
         Login

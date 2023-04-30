@@ -3,7 +3,6 @@ require("dotenv").config();
 require("aws-sdk/lib/maintenance_mode_message").suppress = true;
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 const port = 8000;
 const path = require("path");
@@ -13,6 +12,7 @@ const tasksRouter = require("../routes/tasks");
 const jobRouter = require("../routes/jobs");
 const employeesRouter = require("../routes/employees");
 const seekersRouter = require("../routes/seekers");
+const otpRouter = require("../routes/otp.js");
 
 app.use(express.static(staticPath));
 app.use(express.urlencoded({ extended: false }));
@@ -24,6 +24,7 @@ app.use("/api/v1/tasks", tasksRouter);
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/employees", employeesRouter);
 app.use("/api/v1/seekers", seekersRouter);
+app.use("/api/v1/otp", otpRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("Server Working");
