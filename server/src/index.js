@@ -20,18 +20,18 @@ app.use(express.json());
 
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
+});
+
 app.use("/api/v1/tasks", tasksRouter);
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/employees", employeesRouter);
 app.use("/api/v1/seekers", seekersRouter);
 app.use("/api/v1/otp", otpRouter);
 
-app.get("/", (req, res) => {
-  res.status(200).send("Server Working");
-});
-
 app.get("*", (req, res) => {
-  res.status(404).send("Bhai Kya kr rha h tu????");
+  res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
 });
 
 const start = async () => {
