@@ -13,6 +13,7 @@ const jobRouter = require("../routes/jobs");
 const employeesRouter = require("../routes/employees");
 const seekersRouter = require("../routes/seekers");
 const otpRouter = require("../routes/otp.js");
+const chatRouter = require("../routes/chatRoutes");
 
 app.use(express.static(staticPath));
 app.use(express.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/employees", employeesRouter);
 app.use("/api/v1/seekers", seekersRouter);
 app.use("/api/v1/otp", otpRouter);
+app.use("/api/v1/chat", chatRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
