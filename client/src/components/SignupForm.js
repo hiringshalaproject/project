@@ -4,6 +4,8 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 const SignupForm = () => {
   const navigate = useNavigate();
 
@@ -43,7 +45,7 @@ const SignupForm = () => {
     // send the email input to the server to initiate sending OTP
     setLoading(true);
     axios
-      .post("http://localhost:8000/api/v1/otp/send", { email: formData.email })
+      .post(`${apiUrl}/api/v1/otp/send`, { email: formData.email })
       .then((response) => {
         // alert("OTP sent successfully!");
         setOtpSent(true);
@@ -59,7 +61,7 @@ const SignupForm = () => {
   const verifyOtpHandler = () => {
     setverifyOtpLoading(true);
     axios
-      .post("http://localhost:8000/api/v1/otp/verify", {
+      .post(`${apiUrl}/api/v1/otp/verify`, {
         email: formData.email,
         otp: formData.otp,
       })
