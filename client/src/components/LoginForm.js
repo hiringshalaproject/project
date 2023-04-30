@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import FileUploader from "../components/FileUploader/FileUploader";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -25,7 +26,10 @@ const LoginForm = () => {
   }
 
   return (
-    <form onSubmit={submitHandler} className="flex flex-col w-full gap-y-4 mt-6">
+    <form
+      onSubmit={submitHandler}
+      className="flex flex-col w-full gap-y-4 mt-6"
+    >
       <label className="w-full">
         <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem]">
           Email Address<sup className="text-red-700">*</sup>
@@ -73,6 +77,7 @@ const LoginForm = () => {
         </Link>
       </label>
 
+      <FileUploader />
       <button className="w-52 h-[40px] bg-teal-300 rounded-[8px] font-medium text-black mt-6">
         Login
       </button>
