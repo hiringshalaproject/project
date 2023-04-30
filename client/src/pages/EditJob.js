@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function EditJob() {
   const location = useLocation();
   const job = location.state?.job;
@@ -46,7 +48,7 @@ function EditJob() {
 
     form["isExpired"] = jobStatus;
 
-    const url = `http://localhost:8000/api/v1/jobs/${id}`;
+    const url = `${apiUrl}/api/v1/jobs/${id}`;
 
     axios.patch(url, form).then((response) => {
       if (response.status === 200) {

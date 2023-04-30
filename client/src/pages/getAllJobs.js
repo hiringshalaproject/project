@@ -9,13 +9,15 @@ import {
 import axios from "axios";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function GetAllJobs() {
   const navigate = useNavigate();
 
   const [jobs, setJobs] = useState([]);
 
   const GetAllJobs = async () => {
-    axios.post("http://localhost:8000/api/v1/jobs/").then((response) => {
+    axios.post(`${apiUrl}/api/v1/jobs/`).then((response) => {
       setJobs(response.data);
     });
   };
@@ -29,7 +31,7 @@ function GetAllJobs() {
     const deletBtn = e.currentTarget;
     deletBtn.innerText = "Deleting";
 
-    const url = `http://localhost:8000/api/v1/jobs/${id}`;
+    const url = `${apiUrl}/api/v1/jobs/${id}`;
 
     axios.delete(url).then((response) => {
       if (response.status === 200) {

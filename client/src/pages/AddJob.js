@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function AddJob() {
   const [form, setForm] = useState({});
 
@@ -34,26 +36,24 @@ function AddJob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/v1/jobs/create", form)
-      .then((response) => {
-        if (response.status === 201) {
-          swal({
-            title: "Added",
-            text: "Job Added Successfully",
-            icon: "success",
-            button: "OK!",
-          });
-        } else {
-          swal({
-            title: "Failed",
-            text: "Job Could not be added",
-            icon: "error",
-            button: "OK",
-          });
-        }
-        setForm({});
-      });
+    axios.post(`${apiUrl}/api/v1/jobs/create`, form).then((response) => {
+      if (response.status === 201) {
+        swal({
+          title: "Added",
+          text: "Job Added Successfully",
+          icon: "success",
+          button: "OK!",
+        });
+      } else {
+        swal({
+          title: "Failed",
+          text: "Job Could not be added",
+          icon: "error",
+          button: "OK",
+        });
+      }
+      setForm({});
+    });
 
     document.getElementById("formData").reset();
   };

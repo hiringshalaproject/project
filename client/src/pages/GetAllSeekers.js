@@ -5,6 +5,8 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import swal from "sweetalert";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function GetAllSeekers() {
   const [seekers, setSeeker] = useState([]);
 
@@ -12,7 +14,7 @@ function GetAllSeekers() {
 
   const GetAll = async () => {
     axios
-      .get("http://localhost:8000/api/v1/seekers/")
+      .get(`${apiUrl}/api/v1/seekers/`)
       .then((response) => setSeeker(response.data));
   };
 
@@ -20,7 +22,7 @@ function GetAllSeekers() {
     const deletBtn = e.currentTarget;
     deletBtn.innerText = "Deleting";
 
-    const url = `http://localhost:8000/api/v1/seekers/${id}`;
+    const url = `${apiUrl}/api/v1/seekers/${id}`;
 
     axios.delete(url).then((response) => {
       if (response.status === 200) {

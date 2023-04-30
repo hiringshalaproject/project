@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function AddSeeker() {
   const [form, setForm] = useState({});
 
@@ -16,26 +18,24 @@ function AddSeeker() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8000/api/v1/seekers/", form)
-      .then((response) => {
-        if (response.status === 201) {
-          swal({
-            title: "Added",
-            text: "Seeker Added Successfully",
-            icon: "success",
-            button: "OK!",
-          });
-          setForm({});
-        } else {
-          swal({
-            title: "Failed",
-            text: "Seeker Could not be added",
-            icon: "error",
-            button: "OK",
-          });
-        }
-      });
+    axios.post(`${apiUrl}/api/v1/seekers/`, form).then((response) => {
+      if (response.status === 201) {
+        swal({
+          title: "Added",
+          text: "Seeker Added Successfully",
+          icon: "success",
+          button: "OK!",
+        });
+        setForm({});
+      } else {
+        swal({
+          title: "Failed",
+          text: "Seeker Could not be added",
+          icon: "error",
+          button: "OK",
+        });
+      }
+    });
 
     document.getElementById("formData").reset();
   };
