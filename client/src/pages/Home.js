@@ -14,7 +14,7 @@ const Home = () => (
         height: "100vh",
       }}
     >
-      <section className="container">
+      <section className="homeContainer">
         <div className="left-half">
           <article>
             <img src={homepage} alt="img" />
@@ -39,8 +39,8 @@ const Home = () => (
           <Button />
         </div>
       </section>
-      <Footer />
     </div>
+    <Footer />
   </>
 );
 
