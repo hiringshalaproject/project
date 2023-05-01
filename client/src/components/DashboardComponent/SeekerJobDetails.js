@@ -16,19 +16,20 @@ const SeekerJobDetails = ({ seekerId }) => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
   useEffect(() => {
     const fetchSeeker = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/v1/seekers/${seekerId}`
+          `${apiUrl}/api/v1/seekers/${seekerId}`
         );
         const jobIds = response.data.seeker.appliedJobList.map(
           (appliedJob) => appliedJob.jobId
         );
 
         // console.log("jobid", jobIds);
-        const seekerJob = await axios.post("http://localhost:8000/api/v1/jobs");
+        const seekerJob = await axios.post(`${apiUrl}/api/v1/jobs`);
         const filteredJobs = seekerJob.data.filter((job) =>
           jobIds.includes(job._id)
         );
@@ -92,9 +93,7 @@ const SeekerJobDetails = ({ seekerId }) => {
         <h2 style={{ fontSize: "25px", color: "#636C86", fontWeight: "600" }}>
           Applied Opportunities
         </h2>
-        {/* <button onClick={() => setShowAll(!showAll)}>
-          {showAll ? "Show Less" : "Show All"}
-        </button> */}
+
         <RoundButton
           onClick={() => setShowAll(!showAll)}
           text={showAll ? "Show Less" : "Show All"}

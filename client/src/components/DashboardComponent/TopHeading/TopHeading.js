@@ -2,6 +2,7 @@ import React from "react";
 import "./heading.css";
 import { MdNotificationAdd } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
+import SeekerName from "./SeekerName";
 
 function Heading() {
   return (
@@ -18,7 +19,8 @@ function Heading() {
             <CgProfile />
           </i>
         </div>
-        <h4>Shiva Jha</h4>
+        <SeekerName seekerId={"644d6ef36ff422399c1639f2"} />
+        {/* <h4>Shiva Jha</h4> */}
       </div>
     </div>
   );

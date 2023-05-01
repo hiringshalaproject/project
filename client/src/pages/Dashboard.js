@@ -7,17 +7,8 @@ import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 import SeekerJobDetails from "../components/DashboardComponent/SeekerJobDetails";
 
 const Dashboard = () => (
-  // <div>
-  //   <RenderUsersInCards />
-  // </div>
   <div className="dashboard">
     <div className="sideMenu">
-      {/* <Link to="/" style={{ display: "flex" }}>
-        <img src={Logo} alt="Logo" />
-        <h2 className="font-bold ml-2" style={{ marginTop: "20px" }}>
-          HiringSala
-        </h2>
-      </Link> */}
       <Sidemenu />
     </div>
     <div className="mainContent">
