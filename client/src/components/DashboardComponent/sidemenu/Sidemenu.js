@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/Logo.png";
+import Logo from "../../assets/Logo.png";
 import { FaLaptopCode } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import ChangePassword from "./ChangePassword";
 import RoundButton from "./RoundButton";
 import "./sidemenu.css";
-
 const sidemenu = () => {
   const handleClick = () => {
     console.log("Button clicked!");
@@ -16,7 +15,7 @@ const sidemenu = () => {
       <div className="side">
         <Link to="/">
           <img src={Logo} alt="Logo" />
-          <h2 className="font-bold ml-2">HiringSala</h2>
+          {/* <h2 className="font-bold ml-2">HiringSala</h2> */}
         </Link>
       </div>
       <div className="body">
@@ -29,7 +28,10 @@ const sidemenu = () => {
             Dashboard
           </h2>
         </Link>
-        <h2 className="font-bold ml-2" style={{ marginTop: "17px" }}>
+        <h2
+          className="font-bold ml-3"
+          style={{ marginTop: "17px", fontSize: "20px" }}
+        >
           {" "}
           <FaLaptopCode />
           Opportunities

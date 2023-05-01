@@ -21,7 +21,7 @@
   flex-direction: column;
   flex: 1;
   overflow: auto;
-  background-color: rgb(118, 198, 7);
+  background-color: #ffffff;
   box-sizing: border-box;
   padding-top: 0;
 }
@@ -61,7 +61,7 @@
 .RefferalChart {
   height: auto;
   flex: 0 0 auto;
-  background-color: rgb(8, 182, 167);
+  background-color: #ffffff;
 }
 
 @media only screen and (min-width: 768px) {
@@ -84,7 +84,7 @@
 
   .topMenu {
     height: 80px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 
   .ResumeSec {
@@ -94,7 +94,8 @@
 
   .RefferalChart {
     /* height: 300px; */
-    margin-top: 30px;
+    /* margin-top: 30px; */
+    background-color: #ffffff;
   }
 
   .appliedJob {

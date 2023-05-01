@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import RoundButton from "../sidemenu/RoundButton";
+import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
 
 function FileUploader() {

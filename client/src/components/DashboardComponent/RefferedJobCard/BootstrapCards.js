@@ -11,7 +11,7 @@ const BootstrapCards = ({ user }) => {
       <Card>
         <Card.Header>
           <FcClock className="clock-icon" />
-          {format(new Date(user.jobDate), "dd/MM/yyyy")}
+          {user.jobDate && format(new Date(user.jobDate), "dd/MM/yyyy")}
         </Card.Header>
         <Card.Body>
           <Card.Title>{user.companyName}</Card.Title>

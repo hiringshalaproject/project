@@ -21,7 +21,10 @@ const ChangePassword = () => {
   return (
     <div>
       <div onClick={() => setDropdownOpen(!dropdownOpen)}>
-        <h1 className="changePassword" style={{ marginTop: "17px" }}>
+        <h1
+          className="changePassword"
+          style={{ marginTop: "17px", fontSize: "20px" }}
+        >
           Change Password
         </h1>
       </div>
