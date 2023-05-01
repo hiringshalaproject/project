@@ -16,10 +16,7 @@ const BootstrapCards = ({ user }) => {
         <Card.Body>
           <Card.Title>{user.companyName}</Card.Title>
           <Card.Text>{user.jobLocation}</Card.Text>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor
-          </p>
+          <p>{user.jobRequirements}</p>
           <hr></hr>
 
           <Card.Text style={{ color: "black" }}>

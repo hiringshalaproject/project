@@ -14,24 +14,16 @@ const Navbar = () => (
         <li>
           <ul className="text-slate-700 flex gap-x-14 justify-evenly list-disc">
             <li>
-              <NavLink to="/about" activeStyle>
-                About
-              </NavLink>
+              <NavLink to="/about">About</NavLink>
             </li>
             <li>
-              <NavLink to="/platform" activeStyle>
-                Platform
-              </NavLink>
+              <NavLink to="/platform">Platform</NavLink>
             </li>
             <li>
-              <NavLink to="/contact-us" activeStyle>
-                Contact Us
-              </NavLink>
+              <NavLink to="/contact-us">Contact Us</NavLink>
             </li>
             <li>
-              <NavLink to="/dashboard" activeStyle>
-                Dashboard
-              </NavLink>
+              <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
           </ul>
         </li>
