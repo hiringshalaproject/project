@@ -14,3 +14,10 @@
   flex: 1;
   padding: 1rem;
 }
+
+.homeContainer{
+    display: flex;
+    width: 80%;
+    height: 100vh;
+    justify-content: space-around;
+}
