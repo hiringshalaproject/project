@@ -39,8 +39,8 @@ const Home = () => (
           <Button />
         </div>
       </section>
-      <Footer />
     </div>
+    <Footer />
   </>
 );
 
