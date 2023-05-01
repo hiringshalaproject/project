@@ -1,0 +1,69 @@
+.AppliedJobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 40px;
+  margin-left: 15px;
+}
+
+thead {
+  background-color: #f4f4f4;
+}
+
+th {
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+th:hover {
+  cursor: pointer;
+}
+
+th:first-child {
+  border-top-left-radius: 5px;
+}
+
+th:last-child {
+  border-top-right-radius: 5px;
+}
+
+td {
+  padding: 20px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+}
+
+td:first-child {
+  border-left: 1px solid #ddd;
+}
+
+td:last-child {
+  border-right: 1px solid #ddd;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background-color: #f4f4f4;
+}
+.jobButton {
+  width: 129px;
+  height: 44px;
+  border: 1px solid #000000;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+.jobButton:hover {
+  background-color: #a7bba8;
+}

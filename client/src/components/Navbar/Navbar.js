@@ -6,10 +6,7 @@ const Navbar = () => (
   <div className="flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto">
     <div className="flex items-center">
       <NavLink to="/" style={{ display: "flex" }}>
-        <img src={Logo} alt="Logo" />
-        <h1 className="font-bold ml-2" style={{ marginTop: "13px" }}>
-          Company Name
-        </h1>
+        <img src={Logo} alt="Logo" width="200" height="100" />
       </NavLink>
     </div>
     <nav>
