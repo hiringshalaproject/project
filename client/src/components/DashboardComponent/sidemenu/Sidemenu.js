@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
 import { FaLaptopCode } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
-import ChangePassword from "./ChangePassword";
+
 import RoundButton from "./RoundButton";
 import "./sidemenu.css";
 const sidemenu = () => {
@@ -15,7 +15,6 @@ const sidemenu = () => {
       <div className="side">
         <Link to="/">
           <img src={Logo} alt="Logo" />
-          {/* <h2 className="font-bold ml-2">HiringSala</h2> */}
         </Link>
       </div>
       <div className="body">
@@ -36,13 +35,9 @@ const sidemenu = () => {
           <FaLaptopCode />
           Opportunities
         </h2>
-        <h2>
-          <ChangePassword />
-        </h2>
+
         <RoundButton text="Log Out" onClick={handleClick} />
       </div>
-
-      {/* <RoundButton text="Click me" onClick={handleClick} /> */}
     </div>
   );
 };
