@@ -30,7 +30,7 @@ function MDBCompanyCustom({ name }) {
       color="link"
       floating
       size="lg"
-      className="text-secondary mr-12 ml-12 text-decoration-none fw-bold"
+      className="text-secondary mr-12 ml-12 text-decoration-none fw-bold border-0"
       href=""
     >
       <div>{name}</div>
