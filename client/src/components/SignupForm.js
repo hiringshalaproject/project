@@ -3,6 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { setCookies } from "./Cookies";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -12,7 +13,7 @@ const SignupForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    seekerEmail: "",
     password: "",
     confirmPassword: "",
     otp: "",
@@ -20,8 +21,8 @@ const SignupForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpVerified, setOtpVerified] = useState(false);
+  const [isOtpSent, setOtpSent] = useState(false);
+  const [isOtpVerified, setOtpVerified] = useState(false);
   const [loading, setLoading] = useState(false);
   const [verifyOtpLoading, setverifyOtpLoading] = useState(false);
   function changeHandler(event) {
@@ -31,21 +32,11 @@ const SignupForm = () => {
     }));
   }
 
-  function submitHandler(event) {
-    event.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-    toast.success("/Account Created");
-    navigate("/Dashboard");
-  }
-
   const sendOtpHandler = () => {
     // send the email input to the server to initiate sending OTP
     setLoading(true);
     axios
-      .post(`${apiUrl}/api/v1/otp/send`, { email: formData.email })
+      .post(`${apiUrl}/api/v1/otp/send`, { email: formData.seekerEmail })
       .then((response) => {
         // alert("OTP sent successfully!");
         setOtpSent(true);
@@ -62,7 +53,7 @@ const SignupForm = () => {
     setverifyOtpLoading(true);
     axios
       .post(`${apiUrl}/api/v1/otp/verify`, {
-        email: formData.email,
+        email: formData.seekerEmail,
         otp: formData.otp,
       })
       .then((response) => {
@@ -76,6 +67,31 @@ const SignupForm = () => {
         alert("Failed to verify OTP. Please try again.");
       });
   };
+  function submitHandler(event) {
+    event.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    axios
+      .post(`${apiUrl}/api/v1/seekers`, {
+        seekerName: formData.firstName + formData.lastName,
+        seekerEmail: formData.seekerEmail,
+        password: formData.password,
+      })
+      .then((response) => {
+        setCookies(
+          formData.firstName + " " + formData.lastName,
+          "seeker",
+          response.data._id
+        );
+        toast.success("Account Created");
+        navigate(`/dashboard`);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.msg);
+      });
+  }
 
   return (
     <div>
@@ -121,24 +137,24 @@ const SignupForm = () => {
             <div className="flex items-center">
               <input
                 required
-                type="email"
-                name="email"
+                type="seekerEmail"
+                name="seekerEmail"
                 onChange={changeHandler}
                 placeholder="Enter Email Address"
-                value={formData.email}
+                value={formData.seekerEmail}
                 className={`outline-none border-b-[1px] ${
-                  otpVerified ? "bg-gray-200" : "border-black"
+                  isOtpVerified ? "bg-gray-200" : "border-black"
                 } text-black w-full p-[2px] pr-6`}
-                readOnly={otpVerified}
+                readOnly={isOtpVerified}
               />
-              {otpVerified && (
+              {isOtpVerified && (
                 <span className="text-gray-500 ml-2">&#10004;</span>
               )}
             </div>
           </label>
-          {formData.email && !otpVerified && (
+          {formData.seekerEmail && !isOtpVerified && (
             <>
-              {otpSent ? (
+              {isOtpSent ? (
                 <>
                   <label className="w-full">
                     <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
@@ -240,7 +256,24 @@ const SignupForm = () => {
             }
           </label>
         </div>
-        <button className="w-52 h-[40px] bg-teal-600 rounded-[8px] font-medium text-white mt-6">
+        <button
+          className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600 ${
+            isOtpVerified ? "cursor-pointer" : "cursor-not-allowed"
+          }`}
+          disabled={!isOtpVerified}
+          onMouseOver={(e) => {
+            if (!isOtpVerified) {
+              e.currentTarget.style.backgroundColor = "#b3e6cc";
+              e.currentTarget.style.cursor = "not-allowed";
+            }
+          }}
+          onMouseOut={(e) => {
+            if (!isOtpVerified) {
+              e.currentTarget.style.backgroundColor = "#e0e0e0";
+              e.currentTarget.style.cursor = "default";
+            }
+          }}
+        >
           Create Account
         </button>
       </form>

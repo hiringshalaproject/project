@@ -53,7 +53,7 @@ const JobSeekerSchema = new mongoose.Schema({
   },
   resumeUrl: {
     type: String,
-    required: true,
+    required: false,
   },
   collegeName: {
     type: String,

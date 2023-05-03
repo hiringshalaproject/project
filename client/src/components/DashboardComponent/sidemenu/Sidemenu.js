@@ -1,45 +1,61 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Logo from "../../assets/Logo.png";
-import { FaLaptopCode } from "react-icons/fa";
-import { RxDashboard } from "react-icons/rx";
-
+import { Link, useNavigate } from "react-router-dom";
 import RoundButton from "./RoundButton";
 import "./sidemenu.css";
-const sidemenu = () => {
+import { removeCookies } from "../../Cookies";
+
+const Sidemenu = () => {
+  const navigate = useNavigate();
+
   const handleClick = () => {
-    console.log("Button clicked!");
+    removeCookies();
+    navigate("/");
   };
   return (
     <div>
       <div className="side">
-        <Link to="/">
+        <Link to={"/dashboard"}>
           <img src={Logo} alt="Logo" />
         </Link>
       </div>
       <div className="body">
-        <Link to="/dashboard" style={{ display: "flex" }}>
-          <h2
-            className="font-bold ml-2"
-            style={{ marginTop: "20px", color: "#4164E3" }}
-          >
-            <RxDashboard />
-            Dashboard
-          </h2>
-        </Link>
         <h2
           className="font-bold ml-3"
           style={{ marginTop: "17px", fontSize: "20px" }}
         >
-          {" "}
-          <FaLaptopCode />
-          Opportunities
+          <Link
+            to="/joblist"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fas fa-laptop-code"></i> Opportunities
+          </Link>
         </h2>
 
-        <RoundButton text="Log Out" onClick={handleClick} />
+        <h2
+          className="font-bold ml-3"
+          style={{ marginTop: "17px", fontSize: "20px" }}
+        >
+          <Link
+            to="/contact-us"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+              cursor: "pointer",
+            }}
+          >
+            <i className="fas fa-laptop-code"></i> Contact Us
+          </Link>
+        </h2>
+
+        {<RoundButton text="Logout" onClick={handleClick} />}
       </div>
     </div>
   );
 };
 
-export default sidemenu;
+export default Sidemenu;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/about";
@@ -16,18 +16,27 @@ import AddSeeker from "./pages/AddSeeker";
 import AddEmployee from "./pages/AddEmployee";
 import GetAllEmployees from "./pages/GetAllEmployee";
 import JobList from "./pages/JobList";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const location = useLocation();
 
-  // Check if the current path is "/dashboard"
-  const isDashboardPage = location.pathname === "/dashboard";
+  const userId = Cookies.get("userId");
+  const isLoggedIn = userId !== undefined && userId !== "";
 
+  const isDashboardPage =
+    location.pathname.includes("/dashboard") ||
+    (isLoggedIn && location.pathname === "/");
   return (
     <div className="w-screen h-screen bg-white flex flex-col">
       {!isDashboardPage && <NavbarCmp />}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Home />}
+        />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/add" element={<AddJob />} />
         <Route path="/addSeeker" element={<AddSeeker />} />
@@ -38,10 +47,9 @@ function App() {
         <Route path="/edit" element={<EditJob />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/jobList" element={<JobList />} />
+        <Route path="/joblist" element={<JobList />} />
       </Routes>
     </div>
   );

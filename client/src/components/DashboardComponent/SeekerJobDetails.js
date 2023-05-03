@@ -9,31 +9,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
+import Cookies from "js-cookie";
 
-const SeekerJobDetails = ({ seekerId }) => {
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+const SeekerJobDetails = () => {
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
   useEffect(() => {
     const fetchSeeker = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/v1/seekers/${seekerId}`
+          `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
         );
         const jobIds = response.data.seeker.appliedJobList.map(
           (appliedJob) => appliedJob.jobId
         );
 
-        // console.log("jobid", jobIds);
         const seekerJob = await axios.post(`${apiUrl}/api/v1/jobs`);
         const filteredJobs = seekerJob.data.filter((job) =>
           jobIds.includes(job._id)
         );
-        // console.log("jobs", filteredJobs);
         setJobs(filteredJobs);
 
         // Update jobDetails state with combined information
@@ -41,7 +40,6 @@ const SeekerJobDetails = ({ seekerId }) => {
           const appliedJob = response.data.seeker.appliedJobList.find(
             (appliedJob) => appliedJob.jobId === job._id
           );
-          // console.log("status", appliedJob.shortListedStatus);
           return {
             ...job,
 
@@ -58,7 +56,7 @@ const SeekerJobDetails = ({ seekerId }) => {
     };
 
     fetchSeeker();
-  }, [seekerId]);
+  }, [Cookies.get("userId")]);
   const handleSort = (column) => {
     if (sortColumn === column) {
       // If the current sorting column is the same as the clicked column,

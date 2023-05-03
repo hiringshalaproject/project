@@ -2,7 +2,7 @@ import React from "react";
 import "./heading.css";
 import { MdNotificationAdd } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
-import SeekerName from "./SeekerName";
+import Cookies from "js-cookie";
 
 function Heading() {
   return (
@@ -19,8 +19,7 @@ function Heading() {
             <CgProfile />
           </i>
         </div>
-        <SeekerName seekerId={"644d6ef36ff422399c1639f2"} />
-        {/* <h4>Shiva Jha</h4> */}
+        {<h4>{Cookies.get("userName")}</h4>}
       </div>
     </div>
   );
