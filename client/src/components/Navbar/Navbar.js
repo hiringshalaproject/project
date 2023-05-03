@@ -1,35 +1,48 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import Logo from "../assets/Logo.png";
 
-const Navbar = () => (
-  <div className="flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto">
-    <div className="flex items-center">
-      <NavLink to="/" style={{ display: "flex" }}>
-        <img src={Logo} alt="Logo" width="200" height="100" />
-      </NavLink>
-    </div>
-    <nav>
-      <ul className="flex justify-evenly">
-        <li>
-          <ul className="text-slate-700 flex gap-x-14 justify-evenly list-disc">
-            <li>
-              <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/platform">Platform</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact-us">Contact Us</NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard">Dashboard</NavLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </div>
-);
+const NavbarCmp = () => {
+  const [expanded, setExpanded] = useState(false);
 
-export default Navbar;
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleSelect = () => {
+    setExpanded(false);
+  };
+
+  return (
+    <>
+      <Navbar
+        collapseOnSelect
+        fixed="top"
+        expand="sm"
+        bg="white"
+        variant="red"
+        style={{ marginBottom: "20px", zIndex: 1000, position: "fixed" }}
+        expanded={expanded}
+        onToggle={handleToggle}
+      >
+        <Container>
+          <Navbar.Brand href="/" className="brand-logo">
+            <img src={Logo} alt="Expand" width="200" height="100" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
+            <Nav className="ml-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/about">About</Nav.Link>
+              <Nav.Link href="/contact-us">Contact Us</Nav.Link>
+              <Nav.Link href="/jobList">Job List</Nav.Link>
+              {/* <Nav.Link href="/dashboard">Dashboard</Nav.Link> TODO - only visible if logged in */}
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
+};
+
+export default NavbarCmp;
