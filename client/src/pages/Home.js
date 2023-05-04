@@ -12,6 +12,7 @@ const Home = () => (
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        marginTop: "100px",
       }}
     >
       <section className="homeContainer">

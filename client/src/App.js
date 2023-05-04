@@ -2,12 +2,11 @@ import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/about";
-import Platform from "./pages/platform";
 import Contact from "./pages/contact";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Signup from "./pages/Signup";
-import Navbar from "./components/Navbar/Navbar";
+import NavbarCmp from "./components/Navbar/Navbar";
 import AddJob from "./pages/AddJob";
 import AdminDashboard from "./pages/AdminDashboard";
 import EditJob from "./pages/EditJob";
@@ -16,6 +15,7 @@ import GetAllSeekers from "./pages/GetAllSeekers";
 import AddSeeker from "./pages/AddSeeker";
 import AddEmployee from "./pages/AddEmployee";
 import GetAllEmployees from "./pages/GetAllEmployee";
+import JobList from "./pages/JobList";
 
 function App() {
   const location = useLocation();
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="w-screen h-screen bg-white flex flex-col">
-      {!isDashboardPage && <Navbar />}
+      {!isDashboardPage && <NavbarCmp />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminDashboard />} />
@@ -37,11 +37,11 @@ function App() {
         <Route path="/getSeekers" element={<GetAllSeekers />} />
         <Route path="/edit" element={<EditJob />} />
         <Route path="/about" element={<About />} />
-        <Route path="/platform" element={<Platform />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/jobList" element={<JobList />} />
       </Routes>
     </div>
   );
