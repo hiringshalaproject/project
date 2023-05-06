@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
+import Cookies from "js-cookie";
 
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
-
   const handleToggle = () => {
     setExpanded(!expanded);
   };
@@ -13,6 +14,8 @@ const NavbarCmp = () => {
     setExpanded(false);
   };
 
+  const userId = Cookies.get("userId");
+  const isLoggedIn = userId !== undefined && userId !== "";
   return (
     <>
       <Navbar
@@ -26,17 +29,30 @@ const NavbarCmp = () => {
         onToggle={handleToggle}
       >
         <Container>
-          <Navbar.Brand href="/" className="brand-logo">
+          <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
             <img src={Logo} alt="Expand" width="200" height="100" />
-          </Navbar.Brand>
+          </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/about">About</Nav.Link>
-              <Nav.Link href="/contact-us">Contact Us</Nav.Link>
-              <Nav.Link href="/jobList">Job List</Nav.Link>
-              {/* <Nav.Link href="/dashboard">Dashboard</Nav.Link> TODO - only visible if logged in */}
+              {isLoggedIn ? (
+                <Nav.Link as={Link} to="/dashboard">
+                  Dashboard
+                </Nav.Link>
+              ) : (
+                <Nav.Link as={Link} to="/">
+                  Home
+                </Nav.Link>
+              )}
+              <Nav.Link as={Link} to="/about">
+                About
+              </Nav.Link>
+              <Nav.Link as={Link} to="/contact-us">
+                Contact Us
+              </Nav.Link>
+              <Nav.Link as={Link} to="/joblist">
+                Job List
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

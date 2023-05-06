@@ -1,13 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { setCookies, getCookies } from "./Cookies";
+
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const Template = ({ title, desc1, desc2, image, formtype }) => {
   const navigate = useNavigate();
-
   const handleButtonClick = () => {
     if (formtype === "signup") {
       navigate("/Login");
@@ -16,8 +21,46 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
     }
   };
 
+  const handleGoogleLogin = (credentialResponse) => {
+    const decodedToken = jwt_decode(credentialResponse.credential);
+    const userData = {
+      type: "seeker",
+      seekerName: decodedToken.name,
+      seekerEmail: decodedToken.email,
+      resumeUrl: "",
+      isGoogleLogin: true,
+    };
+
+    // Set the Authorization header with the Google access token
+    const config = {
+      headers: { Authorization: `Bearer ${credentialResponse.credential}` },
+    };
+
+    // Send the user data to the server-side API
+    axios
+      .post(`${apiUrl}/api/v1/seekers/login`, userData, config)
+      .then((res) => {
+        setCookies(res.data.seeker.seekerName, "seeker", res.data.seeker._id);
+        const { userName, userType, userId } = getCookies();
+
+        if (userId && userName && userType) {
+          toast.success("Logged In");
+          navigate("/dashboard");
+        } else {
+          toast.error("Unable to Log In");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.response.data.msg);
+      });
+  };
+
+  const handleGoogleLoginError = () => {
+    toast.error("Unable to Log In");
+  };
+
   return (
-    <div className="flex justify-evenly items-start w-11/12 max-w-[1160px] pt-12 mx-auto gap-x-12 gap-y-0">
+    <div className="flex justify-evenly items-start w-11/12 max-w-[1160px] pt-12 mx-auto gap-x-12 gap-y-0 loginMargin">
       <div className="w-11/12 max-w-[450px]">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-black font-semibold text-[1.875rem] leading-[2.375rem]">
@@ -47,11 +90,8 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
               shape="rectangular"
               text="signin"
               logo_alignment="left"
-              onSuccess={(credentialResponse) => {
-              }}
-              onError={() => {
-                console.log("Login Failed");
-              }}
+              onSuccess={handleGoogleLogin}
+              onError={handleGoogleLoginError}
             />
           </GoogleOAuthProvider>
         </div>
@@ -65,7 +105,7 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
 
           {formtype === "signup" ? (
             <button
-              className="px-8 py-2 bg-teal-300 text-black rounded-tl-lg font-medium"
+              className="px-8 py-2 w-45 h-[40px] bg-teal-600 rounded-[8px] font-medium text-white mt-6m"
               onClick={handleButtonClick}
             >
               Login

@@ -11,7 +11,6 @@ const RenderUsersInCards = () => {
   useEffect(() => {
     const updateUsers = async () => {
       let myData = await fetchUsers();
-      // console.log("myData", myData);
 
       setUsers(myData);
     };

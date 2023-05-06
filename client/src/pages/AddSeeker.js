@@ -44,17 +44,9 @@ function AddSeeker() {
     <div>
       <section
         className="h-100 h-custom"
-        style={{ backgroundColor: "#8fc4b7" }}
+        style={{ backgroundColor: "#8fc4b7", marginTop: "100px" }}
       >
         <div className="container py-5 h-100">
-          <Link to="/admin">
-            <button
-              className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
-              style={{ marginTop: "20px", marginRight: "20px" }}
-            >
-              Back to Dashboard
-            </button>
-          </Link>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
@@ -75,6 +67,20 @@ function AddSeeker() {
                         type="text"
                         placeholder="Enter your Name"
                         name="seekerName"
+                        onChange={handleForm}
+                        id="form3Example1q"
+                        className="form-control"
+                        autoComplete="off"
+                      />
+                    </div>
+                    <div className="form-outline mb-4">
+                      <label className="form-label" htmlFor="form3Example1q">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="Enter your Name"
+                        name="password"
                         onChange={handleForm}
                         id="form3Example1q"
                         className="form-control"
@@ -158,6 +164,14 @@ function AddSeeker() {
                     >
                       Submit
                     </button>
+                    <Link to="/admin">
+                      <button
+                        className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
+                        style={{ marginTop: "20px", marginRight: "20px" }}
+                      >
+                        Back to Dashboard
+                      </button>
+                    </Link>
                   </form>
                 </div>
               </div>

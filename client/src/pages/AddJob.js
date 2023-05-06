@@ -62,17 +62,9 @@ function AddJob() {
     <div>
       <section
         className="h-100 h-custom"
-        style={{ backgroundColor: "#8fc4b7" }}
+        style={{ backgroundColor: "#8fc4b7", marginTop: "100px" }}
       >
         <div className="container py-5 h-100">
-          <Link to="/admin">
-            <button
-              className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
-              style={{ marginTop: "20px", marginRight: "20px" }}
-            >
-              Back to Dashboard
-            </button>
-          </Link>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
@@ -151,6 +143,15 @@ function AddJob() {
                     >
                       Submit
                     </button>
+
+                    <Link to="/admin">
+                      <button
+                        className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
+                        style={{ marginTop: "20px", marginRight: "20px" }}
+                      >
+                        Back to Dashboard
+                      </button>
+                    </Link>
                   </form>
                 </div>
               </div>

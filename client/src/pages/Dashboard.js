@@ -5,32 +5,44 @@ import Sidemenu from "../components/DashboardComponent/sidemenu/Sidemenu";
 import FileUploader from "../components/FileUploader/FileUploader";
 import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 import SeekerJobDetails from "../components/DashboardComponent/SeekerJobDetails";
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
-const Dashboard = () => (
-  <div className="dashboard">
-    <div className="sideMenu">
-      <Sidemenu />
-    </div>
-    <div className="mainContent">
-      <div className="topMenu">
-        <TopHeading />
+function Dashboard() {
+  const isLoggedIn =
+    Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
+
+  if (!isLoggedIn) {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <div className="dashboard">
+      <div className="sideMenu">
+        <Sidemenu />
       </div>
-      <div className="ResumeSec">
-        <div className="uploadSection">
-          <FileUploader />
-          <p>
-            Resume can be in pdf, doc, docs, png, jpg format. File size upto 5Mb
-          </p>
+      <div className="mainContent">
+        <div className="topMenu">
+          <TopHeading />
+        </div>
+        <div className="ResumeSec">
+          <div className="uploadSection">
+            <FileUploader />
+            <p>
+              Resume can be in pdf, doc, docs, png, jpg format. File size upto
+              5Mb
+            </p>
+          </div>
+        </div>
+        <div className="RefferalChart">
+          <RenderUsersInCards />
+        </div>
+        <div className="appliedJob">
+          <SeekerJobDetails />
         </div>
       </div>
-      <div className="RefferalChart">
-        <RenderUsersInCards />
-      </div>
-      <div className="appliedJob">
-        <SeekerJobDetails seekerId="644d6ef36ff422399c1639f2" />
-      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default Dashboard;

@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import FileUploader from "../components/FileUploader/FileUploader";
+import axios from "axios";
+import { setCookies } from "./Cookies";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: "",
+    seekerEmail: "",
     password: "",
   });
 
@@ -21,8 +23,20 @@ const LoginForm = () => {
 
   function submitHandler(event) {
     event.preventDefault();
-    toast.success("Logged In");
-    navigate("/Dashboard");
+    axios
+      .post(`${apiUrl}/api/v1/seekers/login`, formData)
+      .then((response) => {
+        toast.success("Logged In");
+        setCookies(
+          response.data.seeker.seekerName,
+          "seeker",
+          response.data.seeker._id
+        );
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.msg);
+      });
   }
 
   return (
@@ -36,11 +50,11 @@ const LoginForm = () => {
         </p>
         <input
           required
-          type="email"
-          value={formData.email}
+          type="seekerEmail"
+          value={formData.seekerEmail}
           onChange={changeHandler}
           placeholder="Enter Email address"
-          name="email"
+          name="seekerEmail"
           className="outline-none border-b-[1px] border-black text-black w-full p-[10px]"
         />
       </label>
@@ -77,16 +91,9 @@ const LoginForm = () => {
         </Link>
       </label>
 
-      <FileUploader />
-      <button className="w-52 h-[40px] bg-teal-300 rounded-[8px] font-medium text-black mt-6">
+      <button className="w-52 h-[40px] bg-teal-600 rounded-[8px] font-medium text-white mt-6">
         Login
       </button>
-
-      <Link to="#">
-        <p className="text-xs mt-1 text-blue-900 font-semibold max-w-max ml-auto">
-          Forgot Password ?
-        </p>
-      </Link>
     </form>
   );
 };
