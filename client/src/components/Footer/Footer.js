@@ -4,7 +4,7 @@ import { MDBFooter, MDBContainer, MDBBtn } from "mdb-react-ui-kit";
 const Footer = () => (
   <MDBFooter
     className="text-center text-white"
-    style={{ backgroundColor: "#b3e8e5" }}
+    style={{ backgroundColor: "#b3e8e5", marginTop: "auto" }}
   >
     <MDBContainer className="text-center" style={{ width: 350 }}>
       <div
@@ -14,13 +14,13 @@ const Footer = () => (
         Trusted by 150+ companies around the world
       </div>
     </MDBContainer>
-      <section className="mb-4">
-        <MDBCompanyCustom name={"Amazon"} />
-        <MDBCompanyCustom name={"Microsoft"} />
-        <MDBCompanyCustom name={"Linkedin"} />
-        <MDBCompanyCustom name={"Juspay"} />
-        <MDBCompanyCustom name={"Google"} />
-      </section>
+    <section className="mb-4">
+      <MDBCompanyCustom name={"Amazon"} />
+      <MDBCompanyCustom name={"Microsoft"} />
+      <MDBCompanyCustom name={"Linkedin"} />
+      <MDBCompanyCustom name={"Juspay"} />
+      <MDBCompanyCustom name={"Google"} />
+    </section>
   </MDBFooter>
 );
 
