@@ -28,8 +28,7 @@ const getSeekers = async (req, res) => {
       else if (shortListedStatus === "true" && el.shortListedStatus === true)
         seekerIds.push(el.seekerId);
     });
-    console.log(seekerIds);
-    if (seekerIds == []) {
+    if (seekerIds === []) {
       return res
         .status(200)
         .json({ msg: `No Seekers registered with id ${jobId}` });
@@ -60,8 +59,15 @@ const getSeekerFromId = async (req, res) => {
 
 const createNewSeeker = async (req, res) => {
   try {
+    const { seekerEmail } = req.body;
+    const existingSeeker = await Seekers.findOne({ seekerEmail });
+    if (existingSeeker) {
+      return res
+        .status(400)
+        .json({ msg: "Seeker with this email already exists" });
+    }
     const seeker = await Seekers.create(req.body);
-    res.status(201).json(seeker);
+    res.status(201).json({ msg: "User Created Succesfully", seeker });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -126,13 +132,12 @@ const updateSeekersJobStatus = async (req, res) => {
     const jobId = req.body.jobId;
     let shortListedStatus = req.body.shortListedStatus;
     let referralStatus = req.body.referralStatus;
-    if (shortListedStatus == null) {
+    if (shortListedStatus === null) {
       res.status(500).json({ error: "shortListedStatus is missing from body" });
     }
-    if (referralStatus == null) {
+    if (referralStatus === null) {
       referralStatus = false;
     }
-    console.log(referralStatus);
     const seeker = await Seekers.findOneAndUpdate(
       { _id: seekerId },
       {
@@ -211,6 +216,33 @@ const deleteSeeker = async (req, res) => {
   }
 };
 
+const loginSeeker = async (req, res) => {
+  try {
+    const { seekerEmail, password, isGoogleLogin } = req.body;
+    const seeker = await Seekers.findOne({ seekerEmail: seekerEmail });
+    if (!seeker) {
+      if (isGoogleLogin) {
+        return createNewSeeker(req, res);
+      }
+      return res
+        .status(404)
+        .json({ msg: `No seeker with email ${seekerEmail}` });
+    }
+
+    if (!password && isGoogleLogin) {
+      return res.status(200).json({ msg: "Login successful", seeker });
+    }
+
+    const isMatch = password === seeker.password; // await bcrypt.compare(password, seeker.password);
+    if (!isMatch) {
+      return res.status(401).json({ msg: "Invalid Credentials" });
+    }
+    res.status(200).json({ msg: "Login successful", seeker });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getSeekers,
   getSeekerFromId,
@@ -221,4 +253,5 @@ module.exports = {
   updateSeekersJobStatus,
   updateSeeker,
   deleteSeeker,
+  loginSeeker,
 };

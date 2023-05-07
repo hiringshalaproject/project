@@ -1,0 +1,20 @@
+:root{
+    /* --primary-color:white;
+    --secondary-color:black; */
+    --primary-color:white;
+    --secondary-color:black;
+  }
+  .dark-theme{
+    --primary-color:black;
+    --secondary-color:white;
+  }
+
+.footer{
+    /* height: 150px; */
+    padding-top: 20px;
+    /* background-color:#b3e8e5; */
+    background-color: black;
+}
+.container-footer{
+    margin-top: 30px !important;
+}

@@ -9,15 +9,15 @@ import {
 import axios from "axios";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function GetAllJobs() {
   const navigate = useNavigate();
 
   const [jobs, setJobs] = useState([]);
 
   const GetAllJobs = async () => {
-    console.log(jobs);
-    axios.post("http://localhost:8000/api/v1/jobs/").then((response) => {
-      console.log(response);
+    axios.post(`${apiUrl}/api/v1/jobs/`).then((response) => {
       setJobs(response.data);
     });
   };
@@ -31,7 +31,7 @@ function GetAllJobs() {
     const deletBtn = e.currentTarget;
     deletBtn.innerText = "Deleting";
 
-    const url = `http://localhost:8000/api/v1/jobs/${id}`;
+    const url = `${apiUrl}/api/v1/jobs/${id}`;
 
     axios.delete(url).then((response) => {
       if (response.status === 200) {
@@ -105,8 +105,11 @@ function GetAllJobs() {
                 <p className="fw-normal mb-1">{job.numberOfOpenings}</p>
               </td>
               <td>
-                <p className="fw-normal mb-1">{job.jobDate.substring(0, 10)}</p>
+                <p className="fw-normal mb-1">
+                  {job.jobDate ? job.jobDate.substring(0, 10) : ""}
+                </p>
               </td>
+
               <td>
                 {job.isExpired ? (
                   <MDBBadge color="danger" pill>
@@ -146,8 +149,8 @@ function GetAllJobs() {
 
       <Link to="/admin">
         <button
-          class="btn btn-success btn-lg mb-1"
-          style={{ marginLeft: "10px" }}
+          className="btn btn-success btn-lg mb-1"
+          style={{ marginLeft: "10px", marginTop: "100px" }}
         >
           Back to Dashboard
         </button>

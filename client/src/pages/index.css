@@ -1,18 +1,67 @@
-.container {
-  display: flex;
-  width: 80%;
-  height: 100vh;
-  justify-content: space-around;
+:root{
+  --primary-color:white;
+  --secondary-color:black;
+  /* --primary-color:black;
+  --secondary-color:white; */
+}
+.dark-theme{
+  --primary-color:black;
+  --secondary-color:white;
 }
 
+/* .outer-home{
+  --primary-color:black;
+  --secondary-color:white;
+} */
+
+.home-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
+  margin-top: 100px;
+  background-color:var(--primary-color);
+  margin-top: 30px;
+}
+
+
+.container {
+  max-width: 900px; /* adjust to the desired value */
+  margin: 0 auto;
+}
+
+
 .left-half {
-  background-color: #ffffff;
+  background-color:var(--primary-color);
   flex: 1;
   padding: 1rem;
 }
 
 .right-half {
-  background-color: #ffffff;
+  background-color: var(--primary-color);
   flex: 1;
   padding: 1rem;
+}
+
+.homeContainer{
+    display: flex;
+    width: 80%;
+    height: 65vh;
+    justify-content: space-around;
+}
+
+.loginMargin{
+  margin-top: 100px;
+}
+
+h1{
+  color: var(--secondary-color);
+}
+
+p{
+  color: var(--secondary-color);
+  /* text-align: left;
+  width: 200px;
+  margin-left: 350px;
+  font-size: 25px; */
 }

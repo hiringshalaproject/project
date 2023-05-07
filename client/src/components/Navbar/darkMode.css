@@ -1,0 +1,12 @@
+#modeToggler{
+    border-radius: 80px;
+}
+
+.dark-theme{
+    color: white !important;
+    /* background-color: wheat; */
+}
+
+.light-theme{
+    color: black;
+}

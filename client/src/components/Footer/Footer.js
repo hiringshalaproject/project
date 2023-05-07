@@ -1,35 +1,41 @@
 import React from "react";
-import {
-  Box,
-  Container,
-  Row,
-  Column,
-  Heading,
-  Text,
-} from "./FooterStyles";
+import { MDBFooter, MDBContainer, MDBBtn } from "mdb-react-ui-kit";
+import './footer.css';
 
 const Footer = () => (
-  <Box>
-    <Text >trusted by 150+ companies aroind the world</Text>
-    <Container>
-      <Row>
-        <Column>
-          <Heading>Expedia</Heading>
-        </Column>
-        <Column>
-          <Heading>Juspay</Heading>
-        </Column>
-        <Column>
-          <Heading>Google</Heading>
-        </Column>
-        <Column>
-          <Heading>Walmart</Heading>
-        </Column>
-        <Column>
-          <Heading>Amazon</Heading>
-        </Column>
-      </Row>
-    </Container>
-  </Box>
+  <MDBFooter
+    className="text-center text-white footer"
+    // style={{ backgroundColor: "#b3e8e5" }}
+  >
+    <MDBContainer className="text-center container-footer" style={{ width: 350 }}>
+      <div
+        className="text-dark p-2 rounded-pill m-1"
+        style={{ backgroundColor: "#A8DBD9" }}
+      >
+        Trusted by 150+ companies around the world
+      </div>
+    </MDBContainer>
+    <section className="mb-4">
+      <MDBCompanyCustom name={"Amazon"} />
+      <MDBCompanyCustom name={"Microsoft"} />
+      <MDBCompanyCustom name={"Linkedin"} />
+      <MDBCompanyCustom name={"Juspay"} />
+      <MDBCompanyCustom name={"Google"} />
+    </section>
+  </MDBFooter>
 );
+
+function MDBCompanyCustom({ name }) {
+  return (
+    <MDBBtn
+      color="link"
+      floating
+      size="md"
+      className="text-secondary mr-8 ml-8 text-decoration-none fw-bold border-0"
+      href=""
+    >
+      <div>{name}</div>
+    </MDBBtn>
+  );
+}
 export default Footer;

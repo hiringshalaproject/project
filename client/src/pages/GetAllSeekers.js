@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 
 import swal from "sweetalert";
 import axios from "axios";
 
-function GetAllSeekers() {
-  const navigate = useNavigate();
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
+function GetAllSeekers() {
   const [seekers, setSeeker] = useState([]);
 
   // const[active,setActive]=useState(false);
 
   const GetAll = async () => {
     axios
-      .get("http://localhost:8000/api/v1/seekers/")
+      .get(`${apiUrl}/api/v1/seekers/`)
       .then((response) => setSeeker(response.data));
   };
 
@@ -22,10 +22,10 @@ function GetAllSeekers() {
     const deletBtn = e.currentTarget;
     deletBtn.innerText = "Deleting";
 
-    const url = `http://localhost:8000/api/v1/seekers/${id}`;
+    const url = `${apiUrl}/api/v1/seekers/${id}`;
 
     axios.delete(url).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         deletBtn.closest("tr").remove();
         swal({
           title: "Deleted",
@@ -104,7 +104,7 @@ function GetAllSeekers() {
       <Link to="/admin">
         <button
           className="btn btn-success btn-lg mb-1"
-          style={{ marginLeft: "10px" }}
+          style={{ marginLeft: "10px", marginTop: "100px" }}
         >
           Back to Dashboard
         </button>

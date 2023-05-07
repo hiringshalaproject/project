@@ -3,27 +3,32 @@ import "./index.css";
 import Footer from "../components/Footer/Footer";
 import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
+import Cookies from "js-cookie";
 
-const Home = () => (
+const Home = () => {
+  const theme=Cookies.get("theme");
+  console.log(theme);
+  return(
   <>
     <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
+      className={`home-div`}
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      //   height: "100vh",
+      //   marginTop: "100px",
+      // }}
     >
-      <section className="container">
-
-        <div className="left-half">
+      <section className="homeContainer">
+        <div className={`left-half ${theme==='Dark'&&'dark-theme'}`}>
           <article>
             <img src={homepage} alt="img" />
           </article>
         </div>
         <div className="right-half">
-          <h1 style={{ fontSize: 60 }}>
-            unleash your talent potential with company name
+          <h1 style={{ fontSize: 55 }}>
+            hello unleash your talent potential with company name
           </h1>
           <p
             style={{
@@ -40,9 +45,10 @@ const Home = () => (
           <Button />
         </div>
       </section>
-      <Footer />
     </div>
+    <Footer />
   </>
-);
+  )
+};
 
 export default Home;

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function AddEmployee() {
   const [form, setForm] = useState({});
 
@@ -16,27 +18,24 @@ function AddEmployee() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8000/api/v1/employees/", form)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          swal({
-            title: "Added",
-            text: "Employee Added Successfully",
-            icon: "success",
-            button: "OK!",
-          });
-          setForm({});
-        } else {
-          swal({
-            title: "Failed",
-            text: "Employee Could not be added",
-            icon: "error",
-            button: "OK",
-          });
-        }
-      });
+    axios.post(`${apiUrl}/api/v1/employees/`, form).then((response) => {
+      if (response.status === 201) {
+        swal({
+          title: "Added",
+          text: "Employee Added Successfully",
+          icon: "success",
+          button: "OK!",
+        });
+        setForm({});
+      } else {
+        swal({
+          title: "Failed",
+          text: "Employee Could not be added",
+          icon: "error",
+          button: "OK",
+        });
+      }
+    });
     document.getElementById("formData").reset();
   };
 
@@ -44,17 +43,9 @@ function AddEmployee() {
     <div>
       <section
         className="h-100 h-custom"
-        style={{ backgroundColor: "#8fc4b7" }}
+        style={{ backgroundColor: "#8fc4b7", marginTop: "100px" }}
       >
         <div className="container py-5 h-100">
-          <Link to="/admin">
-            <button
-              className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
-              style={{ marginTop: "20px", marginRight: "20px" }}
-            >
-              Back to Dashboard
-            </button>
-          </Link>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
@@ -68,7 +59,7 @@ function AddEmployee() {
                     onSubmit={handleSubmit}
                   >
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Name
                       </label>
                       <input
@@ -77,12 +68,12 @@ function AddEmployee() {
                         name="employeeName"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Email
                       </label>
                       <input
@@ -91,13 +82,13 @@ function AddEmployee() {
                         name="employeeEmail"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
 
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Company Name
                       </label>
                       <input
@@ -106,12 +97,12 @@ function AddEmployee() {
                         name="employeeCompanyName"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
                     <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">
+                      <label className="form-label" htmlFor="form3Example1q">
                         Contact Number
                       </label>
                       <input
@@ -120,7 +111,7 @@ function AddEmployee() {
                         name="contactNumber"
                         onChange={handleForm}
                         id="form3Example1q"
-                        class="form-control"
+                        className="form-control"
                         autoComplete="off"
                       />
                     </div>
@@ -131,6 +122,14 @@ function AddEmployee() {
                     >
                       Submit
                     </button>
+                    <Link to="/admin">
+                      <button
+                        className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
+                        style={{ marginTop: "20px", marginRight: "20px" }}
+                      >
+                        Back to Dashboard
+                      </button>
+                    </Link>
                   </form>
                 </div>
               </div>

@@ -5,13 +5,15 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import swal from "sweetalert";
 import axios from "axios";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function GetAllEmployees() {
   const [emp, setEmp] = useState([]);
 
   // const[active,setActive]=useState(false);
 
   const GetAll = async () => {
-    axios.get("http://localhost:8000/api/v1/employees/").then((response) => {
+    axios.get(`${apiUrl}/api/v1/employees/`).then((response) => {
       setEmp(response.data);
     });
   };
@@ -19,9 +21,9 @@ function GetAllEmployees() {
   const handleDelete = async (e, id) => {
     const deletBtn = e.currentTarget;
     deletBtn.innerText = "Deleting";
-    const url = `http://localhost:8000/api/v1/employees/${id}`;
+    const url = `${apiUrl}/api/v1/employees/${id}`;
     axios.delete(url).then((response) => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         deletBtn.closest("tr").remove();
         swal({
           title: "Deleted",
@@ -136,7 +138,7 @@ function GetAllEmployees() {
       <Link to="/admin">
         <button
           className="btn btn-success btn-lg mb-1"
-          style={{ marginLeft: "10px" }}
+          style={{ marginLeft: "10px", marginTop: "100px" }}
         >
           Back to Dashboard
         </button>

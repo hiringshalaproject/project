@@ -1,44 +1,83 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
+import Cookies from "js-cookie";
+import {FaMoon} from 'react-icons/fa';
+import {BiSun} from 'react-icons/bi'
+import './darkMode.css'
+import { getCookies, setCookies, setTheme } from "../Cookies";
 
-const Navbar = () => (
-  <div className='flex justify-between items-center w-11/12 max-w-[1160px] py-4 mx-auto'>
-    <div className='flex items-center'>
-      <NavLink to = "/">
-      <img src={Logo} alt="Logo" width="200" height="100" />
-      </NavLink>
-    </div>
-    <nav>
-      <ul className='flex justify-evenly'>
-        <li>
-          <ul className="text-slate-700 flex gap-x-14 justify-evenly list-disc">
-            <li>
-              <NavLink to="/about">
-                  About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/platform">
-                  Platform
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact-us">
-                  Contact Us
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/dashboard">
+const NavbarCmp = () => {
+  const [expanded, setExpanded] = useState(false);
+
+  const [isDark,setDark]=useState(false);
+
+  const changeMode=()=>{
+      setDark(!isDark);
+      const theme=isDark?'dark':'light';
+      setTheme(theme);
+  }
+
+ 
+
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleSelect = () => {
+    setExpanded(false);
+  };
+
+  const userId = Cookies.get("userId");
+  const isLoggedIn = userId !== undefined && userId !== "";
+  return (
+    <>
+      <Navbar
+        collapseOnSelect
+        fixed="top"
+        expand="sm"
+        bg={isDark?"black":"white"}
+        variant="red"
+        style={{ marginBottom: "20px", zIndex: 1000, position: "fixed" }}
+        expanded={expanded}
+        onToggle={handleToggle}
+      >
+        <Container>
+          <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
+            <img src={Logo} alt="Expand" width="200" height="100" />
+          </Link>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
+            <Nav className="ml-auto">
+              {isLoggedIn ? (
+                <Nav.Link as={Link} to="/dashboard" className={isDark?'dark-theme':'light-theme'}>
                   Dashboard
-              </NavLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
+                </Nav.Link>
+              ) : (
+                <Nav.Link as={Link} to="/" className={isDark?'dark-theme':'light-theme'}>
+                  Home
+                </Nav.Link>
+              )}
+              <Nav.Link as={Link} to="/about" className={isDark?'dark-theme':'light-theme'}>
+                About
+              </Nav.Link>
+              <Nav.Link as={Link} to="/contact-us" className={isDark?'dark-theme':'light-theme'}>
+                Contact Us
+              </Nav.Link>
+              <Nav.Link as={Link} to="/joblist" className={isDark?'dark-theme':'light-theme'}>
+                Job List
+              </Nav.Link>
+              {isDark
+              ?<button class="btn btn-dark" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Light Mode" onClick={changeMode}><BiSun fontSize={20}/></button>
+              :<button class="btn btn-light" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Dark Mode" onClick={changeMode}><FaMoon fontSize={20}/></button>
+              }
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </>
+  );
+};
 
-  </div>
-);
-
-export default Navbar;
+export default NavbarCmp;

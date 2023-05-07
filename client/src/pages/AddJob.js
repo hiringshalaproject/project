@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 function AddJob() {
   const [form, setForm] = useState({});
 
@@ -16,7 +18,7 @@ function AddJob() {
   const renderInput = (label, name, type, placeholder) => {
     return (
       <>
-        <label className="form-label" for="form3Example1q">
+        <label className="form-label" htmlFor="form3Example1q">
           {label}
         </label>
         <input
@@ -25,7 +27,7 @@ function AddJob() {
           name={name}
           onChange={handleForm}
           id="form3Example1q"
-          class="form-control"
+          className="form-control"
           autoComplete="off"
         />
       </>
@@ -34,27 +36,24 @@ function AddJob() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:8000/api/v1/jobs/create", form)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          swal({
-            title: "Added",
-            text: "Job Added Successfully",
-            icon: "success",
-            button: "OK!",
-          });
-        } else {
-          swal({
-            title: "Failed",
-            text: "Job Could not be added",
-            icon: "error",
-            button: "OK",
-          });
-        }
-        setForm({});
-      });
+    axios.post(`${apiUrl}/api/v1/jobs/create`, form).then((response) => {
+      if (response.status === 201) {
+        swal({
+          title: "Added",
+          text: "Job Added Successfully",
+          icon: "success",
+          button: "OK!",
+        });
+      } else {
+        swal({
+          title: "Failed",
+          text: "Job Could not be added",
+          icon: "error",
+          button: "OK",
+        });
+      }
+      setForm({});
+    });
 
     document.getElementById("formData").reset();
   };
@@ -63,17 +62,9 @@ function AddJob() {
     <div>
       <section
         className="h-100 h-custom"
-        style={{ backgroundColor: "#8fc4b7" }}
+        style={{ backgroundColor: "#8fc4b7", marginTop: "100px" }}
       >
         <div className="container py-5 h-100">
-          <Link to="/admin">
-            <button
-              className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
-              style={{ marginTop: "20px", marginRight: "20px" }}
-            >
-              Back to Dashboard
-            </button>
-          </Link>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
@@ -152,6 +143,15 @@ function AddJob() {
                     >
                       Submit
                     </button>
+
+                    <Link to="/admin">
+                      <button
+                        className="btn btn-success btn-lg mb-1 position-absolute top-0 end-0"
+                        style={{ marginTop: "20px", marginRight: "20px" }}
+                      >
+                        Back to Dashboard
+                      </button>
+                    </Link>
                   </form>
                 </div>
               </div>
