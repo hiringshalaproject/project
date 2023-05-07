@@ -76,7 +76,7 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
                   {formtype === "signup" ? "existing user?" : "new here?"}
                 </p>
                 <button
-                  className="login-btn bg-teal-600 font-medium text-white col-sm-2 col-lg-3 ms-0 mx-lg-3"
+                  className="login-btn font-medium text-white col-sm-2 col-lg-3 ms-0 mx-lg-3"
                   style={{ borderRadius: "20px 0px 0px 0px" }}
                   onClick={handleButtonClick}
                 >

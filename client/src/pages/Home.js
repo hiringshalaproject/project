@@ -3,7 +3,7 @@ import "./index.css";
 import Footer from "../components/Footer/Footer";
 import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from "react-bootstrap";
 
 const Home = () => (
   <>
@@ -23,19 +23,12 @@ const Home = () => (
             link up with outstanding people to create a better future.
           </p>
 
-          <Button/>
+          <Button />
         </Col>
       </Row>
     </Container>
     <Footer />
   </>
 );
-
-
-
-
-
-
-
 
 export default Home;

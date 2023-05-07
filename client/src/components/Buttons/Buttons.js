@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const buttonStyle = {
+export const buttonStyle = {
   display: "flex-row",
   justifycontent: "space-between",
   background: "#2F8F9D",
-  color: "white" ,
+  color: "white",
   padding: "10 22",
   borderRadius: "20px 0px 0px 0px",
-  margin: 20,
+  margin: 2,
   height: 50,
   width: 240,
   cursor: "pointer",
@@ -22,7 +22,7 @@ const buttonStyle1 = {
   background: "#A8DBD9",
   padding: "10 22",
   borderRadius: "0px 0px 20px 0px",
-  margin: 20,
+  margin: 18,
   height: 50,
   width: 240,
   cursor: "pointer",
@@ -63,9 +63,9 @@ const buttonContainerStyle = {
 };
 
 const buttonRow = () => (
-  <div style={buttonContainerStyle} >
+  <div style={buttonContainerStyle}>
     <JobSeekerBtn label="I'm a Job Seeker" to="/login" />
-    <EmployeeBtn label="I'm an Employee"/>
+    <EmployeeBtn label="I'm an Employee" />
   </div>
 );
 
