@@ -5,13 +5,15 @@ const buttonStyle = {
   display: "flex-row",
   justifycontent: "space-between",
   background: "#2F8F9D",
+  color: "white" ,
   padding: "10 22",
   borderRadius: "20px 0px 0px 0px",
   margin: 20,
   height: 50,
   width: 240,
   cursor: "pointer",
-  transition: "all 0.2s ease-in-out",
+  transition: "all 0.2s ease-in-out ",
+  boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
 };
 
 const buttonStyle1 = {
@@ -25,13 +27,14 @@ const buttonStyle1 = {
   width: 240,
   cursor: "pointer",
   transition: "all 0.2s ease-in-out",
+  boxShadow: "0 0 4px rgba(0, 0, 0, 0.3)",
 };
 
 const JobSeekerBtn = ({ label, to }) => {
   const navigate = useNavigate();
   return (
     <button
-      className="btn btn-default"
+      className="btn btn-default hover:scale-110 "
       style={buttonStyle}
       onClick={() => navigate(to)}
     >
@@ -44,7 +47,8 @@ const EmployeeBtn = ({ label, to }) => {
   const navigate = useNavigate();
   return (
     <button
-      className="btn btn-default"
+      className="btn btn-default hover:scale-110 "
+      id="btn-1"
       style={buttonStyle1}
       onClick={() => navigate(to)}
     >
