@@ -4,6 +4,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCookies } from "./Cookies";
+import FileUploader from "../components/FileUploader/FileUploader";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -256,6 +257,7 @@ const SignupForm = () => {
             }
           </label>
         </div>
+        <FileUploader />
         <button
           className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600 ${
             isOtpVerified ? "cursor-pointer" : "cursor-not-allowed"
