@@ -4,12 +4,12 @@ import './footer.css';
 
 const Footer = () => (
   <MDBFooter
-    className="text-center text-white footer"
-    // style={{ backgroundColor: "#b3e8e5" }}
+    className="text-center text-white"
+    style={{ backgroundColor: "#b3e8e5" }}
   >
     <MDBContainer className="text-center container-footer" style={{ width: 350 }}>
       <div
-        className="text-dark p-2 rounded-pill m-1"
+        className="text-dark p-3 rounded-pill m-4"
         style={{ backgroundColor: "#A8DBD9" }}
       >
         Trusted by 150+ companies around the world
@@ -30,8 +30,8 @@ function MDBCompanyCustom({ name }) {
     <MDBBtn
       color="link"
       floating
-      size="md"
-      className="text-secondary mr-8 ml-8 text-decoration-none fw-bold border-0"
+      size="lg"
+      className="text-secondary mr-12 ml-12 text-decoration-none fw-bold border-0"
       href=""
     >
       <div>{name}</div>

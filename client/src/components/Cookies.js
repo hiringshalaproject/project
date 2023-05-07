@@ -27,7 +27,9 @@ export function getCookies() {
   const cookies = { userName, userType, userId ,theme};
   return cookies;
 }
-
+export function removeTheme(){
+  Cookies.remove('theme');
+}
 export function removeCookies() {
   Cookies.remove("userName");
   Cookies.remove("userType");

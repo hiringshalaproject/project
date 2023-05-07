@@ -4,51 +4,44 @@ import Footer from "../components/Footer/Footer";
 import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
 import Cookies from "js-cookie";
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Home = () => {
   const theme=Cookies.get("theme");
-  console.log(theme);
+  console.log("theme",theme);
+  
   return(
   <>
-    <div
-      className={`home-div`}
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "center",
-      //   alignItems: "center",
-      //   height: "100vh",
-      //   marginTop: "100px",
-      // }}
-    >
-      <section className="homeContainer">
-        <div className={`left-half ${theme==='Dark'&&'dark-theme'}`}>
+    <Container className={`mt-5 home-div ${theme==='dark'&&'dark-theme'}`}>
+      <Row className="justify-content-center align-items-center dark-theme">
+        <Col lg={6}>
           <article>
-            <img src={homepage} alt="img" />
+            <img src={homepage} alt="img" className="img-fluid" />
           </article>
-        </div>
-        <div className="right-half">
-          <h1 style={{ fontSize: 55 }}>
-            hello unleash your talent potential with company name
+        </Col>
+        <Col lg={6}>
+          <h1 className="mb-4">
+            unleash your talent potential with company name
           </h1>
-          <p
-            style={{
-              textAlign: "left",
-              width: 200,
-              marginLeft: 350,
-              fontsize: 25,
-            }}
-          >
+          <p className=" md:ml-64 sm:ml-0 text-sm md:text-base mt-4 md:mt-8">
             the largest pool of career opportunities that match your skill set.
             link up with outstanding people to create a better future.
           </p>
 
-          <Button />
-        </div>
-      </section>
-    </div>
+          <Button/>
+        </Col>
+      </Row>
+    </Container>
     <Footer />
   </>
   )
 };
+
+
+
+
+
+
+
 
 export default Home;
