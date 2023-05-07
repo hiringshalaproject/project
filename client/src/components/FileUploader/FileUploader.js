@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
+import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
-
 function FileUploader() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ function FileUploader() {
   };
 
   const handleUpload = () => {
-    const seekerId = "642c63ca9af7d583d5bce8f4";
+    const seekerId = Cookies.get("userId");
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);
