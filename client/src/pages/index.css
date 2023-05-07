@@ -1,5 +1,5 @@
 .container {
-  max-width: 900px; 
+  max-width: 1068px; 
   margin: 0 auto;
 }
 
@@ -12,7 +12,7 @@
 .right-half {
   background-color: #ffffff;
   flex: 1;
-  padding: 1rem;
+   padding: 1rem; 
 }
 
 .homeContainer{
@@ -28,6 +28,10 @@
     width: 120px
   }
 }
+
+
+
+
 
 @media (max-width: 767px) {
   .login-btn {
