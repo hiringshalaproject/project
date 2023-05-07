@@ -56,7 +56,7 @@ function FileUploader() {
             ? "Uploading..."
             : success
             ? "Resume Uploaded \u2713"
-            : "Upload/update Resume"
+            : "Upload Resume"
         }
         className={
           loading
