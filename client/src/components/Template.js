@@ -82,7 +82,7 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
         </div>
 
         <div>
-          <GoogleOAuthProvider clientId="553916619036-m3jrr0hhmltcr5rgcfjn52l2oq4r85sr.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId="894607433354-muue271qb4t1mvdo8evk95i896nhdt9i.apps.googleusercontent.com">
             <GoogleLogin
               size="large"
               theme="filled_blue"
