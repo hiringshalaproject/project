@@ -4,7 +4,7 @@ import LoginImg from "../components/assets/Login.jpg";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
 
@@ -18,6 +18,7 @@ const Login = () => {
       desc2="Job milega yha se..."
       image={LoginImg}
       formtype="login"
+      userType={props.userType}
     />
   );
 };

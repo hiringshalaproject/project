@@ -64,8 +64,8 @@ const buttonContainerStyle = {
 
 const buttonRow = () => (
   <div style={buttonContainerStyle}>
-    <JobSeekerBtn label="I'm a Job Seeker" to="/login" />
-    <EmployeeBtn label="I'm an Employee" />
+    <JobSeekerBtn label="I'm a Job Seeker" to="/seeker/login" />
+    <EmployeeBtn label="I'm an Employee" to="/employee/login" />
   </div>
 );
 

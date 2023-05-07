@@ -218,15 +218,14 @@ const deleteSeeker = async (req, res) => {
 
 const loginSeeker = async (req, res) => {
   try {
-    const { seekerEmail, password, isGoogleLogin } = req.body;
-    const seeker = await Seekers.findOne({ seekerEmail: seekerEmail });
+    const { email, password, isGoogleLogin } = req.body;
+    const seeker = await Seekers.findOne({ seekerEmail: email });
     if (!seeker) {
       if (isGoogleLogin) {
+        req.body.seekerEmail = email;
         return createNewSeeker(req, res);
       }
-      return res
-        .status(404)
-        .json({ msg: `No seeker with email ${seekerEmail}` });
+      return res.status(404).json({ msg: `No seeker with email ${email}` });
     }
 
     if (!password && isGoogleLogin) {
