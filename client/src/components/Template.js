@@ -13,38 +13,54 @@ import { MDBContainer, MDBCol, MDBRow, MDBBtn } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-const Template = ({ title, desc1, desc2, image, formtype }) => {
+const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (formtype === "signup") {
-      navigate("/Login");
+      navigate("/" + userType + "/login");
     } else {
-      navigate("/Signup");
+      navigate("/" + userType + "/signup");
     }
   };
 
   const handleGoogleLogin = (credentialResponse) => {
     const decodedToken = jwt_decode(credentialResponse.credential);
-    const userData = {
-      type: "seeker",
-      seekerName: decodedToken.name,
-      seekerEmail: decodedToken.email,
-      resumeUrl: "",
-      isGoogleLogin: true,
-    };
+    const userData =
+      userType === "seeker"
+        ? {
+            type: userType,
+            seekerName: decodedToken.name,
+            email: decodedToken.email,
+            resumeUrl: "",
+            isGoogleLogin: true,
+          }
+        : {
+            type: userType,
+            employeeName: decodedToken.name,
+            email: decodedToken.email,
+            isGoogleLogin: true,
+          };
 
     // Set the Authorization header with the Google access token
     const config = {
       headers: { Authorization: `Bearer ${credentialResponse.credential}` },
     };
-
+    const apiUrlSecondary =
+      userType === "seeker"
+        ? "/api/v1/seekers/login"
+        : "/api/v1/employees/login";
     // Send the user data to the server-side API
     axios
-      .post(`${apiUrl}/api/v1/seekers/login`, userData, config)
+      .post(`${apiUrl + apiUrlSecondary}`, userData, config)
       .then((res) => {
-        setCookies(res.data.seeker.seekerName, "seeker", res.data.seeker._id);
-        const { userName, userType, userId } = getCookies();
-
+        let userName =
+          userType === "seeker"
+            ? res.data.seeker.seekerName
+            : res.data.employee.employeeName;
+        let userId =
+          userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
+        setCookies(userName, userType, userId);
+        ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {
           toast.success("Logged In");
           navigate("/dashboard");
@@ -76,7 +92,7 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
                   {formtype === "signup" ? "existing user?" : "new here?"}
                 </p>
                 <button
-                  className="login-btn bg-teal-600 font-medium text-white col-sm-2 col-lg-3 ms-0 mx-lg-3"
+                  className="login-btn font-medium text-white col-sm-2 col-lg-3 ms-0 mx-lg-3"
                   style={{ borderRadius: "20px 0px 0px 0px" }}
                   onClick={handleButtonClick}
                 >
@@ -94,7 +110,11 @@ const Template = ({ title, desc1, desc2, image, formtype }) => {
                   <span className="text-slate-900 italic">{desc2}</span>
                 </p>
               </MDBContainer>
-              {formtype === "signup" ? <SignupForm /> : <LoginForm />}
+              {formtype === "signup" ? (
+                <SignupForm userType={userType} />
+              ) : (
+                <LoginForm userType={userType} />
+              )}
               <div className="my-5">
                 <GoogleOAuthProvider clientId="894607433354-muue271qb4t1mvdo8evk95i896nhdt9i.apps.googleusercontent.com">
                   <GoogleLogin
@@ -123,5 +143,6 @@ Template.propTypes = {
   desc2: PropTypes.string,
   image: PropTypes.string,
   formtype: PropTypes.string.isRequired,
+  userType: PropTypes.string.isRequired,
 };
 export default Template;

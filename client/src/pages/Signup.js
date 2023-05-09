@@ -1,10 +1,10 @@
 import React from "react";
 import Template from "../components/Template";
-import SignupImg from "../components/assets/SignupImg.png";
+import SignupImg from "../components/assets/Signup.jpg";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 
-const Signup = () => {
+const Signup = (props) => {
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
 
@@ -19,6 +19,7 @@ const Signup = () => {
       desc2="Job milega yha se..."
       image={SignupImg}
       formtype="signup"
+      userType={props.userType}
     />
   );
 };

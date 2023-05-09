@@ -28,7 +28,7 @@ const Home = () => {
             link up with outstanding people to create a better future.
           </p>
 
-          <Button/>
+          <Button />
         </Col>
       </Row>
     </Container>
@@ -36,12 +36,5 @@ const Home = () => {
   </>
   )
 };
-
-
-
-
-
-
-
 
 export default Home;

@@ -21,7 +21,7 @@ const getEmployeeFromId = async (req, res) => {
 const createNewEmployee = async (req, res) => {
   try {
     const employee = await Employees.create(req.body);
-    res.status(201).json( employee );
+    res.status(201).json(employee);
   } catch (error) {
     res.status(500).json(error);
   }
@@ -61,10 +61,37 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+const loginEmployee = async (req, res) => {
+  try {
+    const { email, password, isGoogleLogin } = req.body;
+    const employee = await Employees.findOne({ employeeEmail: email });
+    if (!employee) {
+      if (isGoogleLogin) {
+        req.body.employeeEmail = email;
+        return createNewEmployee(req, res);
+      }
+      return res.status(404).json({ msg: `No Employee with email ${email}` });
+    }
+
+    if (!password && isGoogleLogin) {
+      return res.status(200).json({ msg: "Login successful", employee });
+    }
+
+    const isMatch = password === employee.password; // await bcrypt.compare(password, seeker.password);
+    if (!isMatch) {
+      return res.status(401).json({ msg: "Invalid Credentials" });
+    }
+    res.status(200).json({ msg: "Login successful", employee });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 module.exports = {
   getAllEmployees,
   getEmployeeFromId,
   createNewEmployee,
   updateEmployeeWithId,
   deleteEmployee,
+  loginEmployee,
 };
