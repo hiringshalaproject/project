@@ -3,14 +3,14 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { setCookies } from "./Cookies";
+import { setCookies, getCookies } from "./Cookies";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
-const LoginForm = () => {
+const LoginForm = ({ userType }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    seekerEmail: "",
+    email: "",
     password: "",
   });
 
@@ -21,18 +21,22 @@ const LoginForm = () => {
       [event.target.name]: event.target.value,
     }));
   }
-
+  const apiUrlSecondary =
+    userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
     event.preventDefault();
     axios
-      .post(`${apiUrl}/api/v1/seekers/login`, formData)
-      .then((response) => {
+      .post(`${apiUrl + apiUrlSecondary}`, formData)
+      .then((res) => {
         toast.success("Logged In");
-        setCookies(
-          response.data.seeker.seekerName,
-          "seeker",
-          response.data.seeker._id
-        );
+        let userName =
+          userType === "seeker"
+            ? res.data.seeker.seekerName
+            : res.data.employee.employeeName;
+        let userId =
+          userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
+        setCookies(userName, userType, userId);
+        ({ userName, userType, userId } = getCookies());
         navigate("/dashboard");
       })
       .catch((error) => {
@@ -53,10 +57,10 @@ const LoginForm = () => {
           <input
             required
             type="email"
-            value={formData.seekerEmail}
+            value={formData.email}
             onChange={changeHandler}
             placeholder="Enter Email address"
-            name="seekerEmail"
+            name="email"
             className="outline-none border-b-[1px] border-black text-black w-full pt-[10px]"
           />
         </MDBContainer>

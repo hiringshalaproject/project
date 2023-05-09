@@ -8,13 +8,14 @@ import FileUploader from "../components/FileUploader/FileUploader";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-const SignupForm = () => {
+const SignupForm = ({ userType }) => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    seekerEmail: "",
+    email: "",
+    companyName: "",
     password: "",
     confirmPassword: "",
     otp: "",
@@ -37,7 +38,7 @@ const SignupForm = () => {
     // send the email input to the server to initiate sending OTP
     setLoading(true);
     axios
-      .post(`${apiUrl}/api/v1/otp/send`, { email: formData.seekerEmail })
+      .post(`${apiUrl}/api/v1/otp/send`, { email: formData.email })
       .then((response) => {
         // alert("OTP sent successfully!");
         setOtpSent(true);
@@ -54,7 +55,7 @@ const SignupForm = () => {
     setverifyOtpLoading(true);
     axios
       .post(`${apiUrl}/api/v1/otp/verify`, {
-        email: formData.seekerEmail,
+        email: formData.email,
         otp: formData.otp,
       })
       .then((response) => {
@@ -74,16 +75,27 @@ const SignupForm = () => {
       toast.error("Passwords do not match");
       return;
     }
+    const apiUrlSecondary =
+      userType === "seeker" ? "/api/v1/seekers" : "/api/v1/employees";
+    const userData =
+      userType === "seeker"
+        ? {
+            seekerName: formData.firstName + " " + formData.lastName,
+            seekerEmail: formData.email,
+            password: formData.password,
+          }
+        : {
+            employeeName: formData.firstName + " " + formData.lastName,
+            password: formData.password,
+            employeeEmail: formData.email,
+            employeeCompanyName: formData.companyName,
+          };
     axios
-      .post(`${apiUrl}/api/v1/seekers`, {
-        seekerName: formData.firstName + formData.lastName,
-        seekerEmail: formData.seekerEmail,
-        password: formData.password,
-      })
+      .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
         setCookies(
           formData.firstName + " " + formData.lastName,
-          "seeker",
+          userType,
           response.data._id
         );
         toast.success("Account Created");
@@ -129,6 +141,26 @@ const SignupForm = () => {
             />
           </label>
         </div>
+        {userType !== "seeker" ? (
+          <div className="flex  gap-x-6">
+            <label className="w-full">
+              <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+                Company Name<sup className="text-red-700">*</sup>
+              </p>
+              <input
+                required
+                type="text"
+                name="companyName"
+                onChange={changeHandler}
+                placeholder="Enter your company name"
+                value={formData.companyName}
+                className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+              />
+            </label>
+          </div>
+        ) : (
+          <></>
+        )}
         {/*Email address*/}
         <div>
           <label className="w-full">
@@ -138,11 +170,11 @@ const SignupForm = () => {
             <div className="flex items-center">
               <input
                 required
-                type="seekerEmail"
-                name="seekerEmail"
+                type="email"
+                name="email"
                 onChange={changeHandler}
                 placeholder="Enter Email Address"
-                value={formData.seekerEmail}
+                value={formData.email}
                 className={`outline-none border-b-[1px] ${
                   isOtpVerified ? "bg-gray-200" : "border-black"
                 } text-black w-full p-[2px] pr-6`}
@@ -153,7 +185,7 @@ const SignupForm = () => {
               )}
             </div>
           </label>
-          {formData.seekerEmail && !isOtpVerified && (
+          {formData.email && !isOtpVerified && (
             <>
               {isOtpSent ? (
                 <>
@@ -199,9 +231,7 @@ const SignupForm = () => {
             </>
           )}
         </div>
-
         {/*Create Password & Confirm Password */}
-
         <div className="flex gap-x-6">
           <label className="relative w-full">
             <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
