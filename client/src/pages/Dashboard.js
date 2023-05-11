@@ -11,6 +11,7 @@ import { Navigate } from "react-router-dom";
 function Dashboard() {
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
+  const userType = Cookies.get("userType");
 
   if (!isLoggedIn) {
     return <Navigate to="/" />;
@@ -25,21 +26,27 @@ function Dashboard() {
         <div className="topMenu">
           <TopHeading />
         </div>
-        <div className="ResumeSec">
-          <div className="uploadSection">
-            <FileUploader />
-            <p>
-              Resume can be in pdf, doc, docs, png, jpg format. File size upto
-              5Mb
-            </p>
+        {userType === "seeker" ? (
+          <div>
+            <div className="ResumeSec">
+              <div className="uploadSection">
+                <FileUploader />
+                <p>
+                  Resume can be in pdf, doc, docs, png, jpg format. File size
+                  upto 5Mb
+                </p>
+              </div>
+            </div>
+            <div className="RefferalChart">
+              <RenderUsersInCards />
+            </div>
+            <div className="appliedJob">
+              <SeekerJobDetails />
+            </div>
           </div>
-        </div>
-        <div className="RefferalChart">
-          <RenderUsersInCards />
-        </div>
-        <div className="appliedJob">
-          <SeekerJobDetails />
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
