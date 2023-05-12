@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 import Cookies from "js-cookie";
+import {FaMoon} from 'react-icons/fa';
+import {BiSun} from 'react-icons/bi';
 
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
@@ -16,19 +18,37 @@ const NavbarCmp = () => {
 
   const userId = Cookies.get("userId");
   const isLoggedIn = userId !== undefined && userId !== "";
+
+  const [isDark,setDark]=useState(Cookies.get("theme")===undefined || Cookies.get("theme")==="light"?false:true);
+  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
+  const toggleDarkTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+      Cookies.set("theme", "dark");
+    } else {
+      setTheme("light");
+      Cookies.set("theme", "light");
+    }
+  };
+  
+
+  useEffect(() => {
+    console.log("theme", theme);
+    document.body.className = theme;
+  }, [theme]);
+
   return (
     <>
       <Navbar
         collapseOnSelect
         fixed="top"
         expand="sm"
-        bg="white"
+        className="custom-navbar"
         variant="red"
-        style={{ marginBottom: "20px", zIndex: 1000, position: "fixed" }}
         expanded={expanded}
         onToggle={handleToggle}
       >
-        <Container >
+        <Container>
           <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
             <img src={Logo} alt="Expand" width="200" height="90" />
           </Link>
@@ -66,6 +86,14 @@ const NavbarCmp = () => {
                   <Nav.Link as={Link} to="/joblist">
                     Internships
                   </Nav.Link>
+                </li>
+                <li>
+                <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
+                {isDark
+                  ?<button class="btn btn-dark" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Light Mode"><BiSun fontSize={20}/></button>
+                  :<button class="btn btn-light" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Dark Mode"><FaMoon fontSize={20}/></button>
+                  }
+                </Nav.Link>
                 </li>
               </ul>
             </Nav>

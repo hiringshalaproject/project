@@ -18,6 +18,7 @@ import GetAllEmployees from "./pages/GetAllEmployee";
 import JobList from "./pages/JobList";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
+import "./pages/index.css";
 
 function App() {
   const location = useLocation();
@@ -29,7 +30,7 @@ function App() {
     location.pathname.includes("/dashboard") ||
     (isLoggedIn && location.pathname === "/");
   return (
-    <div className="w-screen h-screen bg-white flex flex-col">
+    <div className="w-screen h-screen flex flex-col app">
       {!isDashboardPage && <NavbarCmp />}
       <Routes>
         <Route

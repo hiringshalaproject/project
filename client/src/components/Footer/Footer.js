@@ -3,8 +3,8 @@ import { MDBFooter, MDBContainer, MDBBtn } from "mdb-react-ui-kit";
 
 const Footer = () => (
   <MDBFooter
-    className="text-center text-white"
-    style={{ backgroundColor: "#b3e8e5", marginTop: "auto" }}
+    className="text-center text-white footers"
+    style={{ marginTop: "auto" }}
   >
     <MDBContainer className="text-center" style={{ width: 350 }}>
       <div
@@ -25,15 +25,18 @@ const Footer = () => (
 );
 
 function MDBCompanyCustom({ name }) {
+  const companyTextStyle = {
+    color: "blue", // Change the text color here
+  };
   return (
     <MDBBtn
       color="link"
       floating
       size="lg"
-      className="text-secondary mr-12 ml-12 text-decoration-none fw-bold border-0"
+      className="text-secondary mr-12 ml-12 text-decoration-none fw-bold border-0 footer-texts"
       href=""
     >
-      <div>{name}</div>
+      <div className="footer-texts">{name}</div>
     </MDBBtn>
   );
 }
