@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
-import homepage from "../images/homepage.png";
+import homepage from "../images/home.jpg";
 import Button from "../components/Buttons/Buttons";
 import { Container, Row, Col } from "react-bootstrap";
 
