@@ -28,45 +28,45 @@ const NavbarCmp = () => {
         expanded={expanded}
         onToggle={handleToggle}
       >
-        <Container>
+        <Container >
           <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
-            <img src={Logo} alt="Expand" width="200" height="90"/>
+            <img src={Logo} alt="Expand" width="200" height="90" />
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
-            <ul className="xl:flex xl:flex-row xl:gap-x-6 xl:list-disc lg:flex lg:flex-row lg:gap-x-5 lg:list-disc md:flex md:flex-row md:gap-x-6 md:list-disc">
-            <li>
-              {isLoggedIn ? (
-                <Nav.Link as={Link} to="/dashboard">
-                  Dashboard
-                </Nav.Link>
-              ) : (
-                <Nav.Link as={Link} to="/">
-                  Home
-                </Nav.Link>
-              )}
-              </li>
-              <li>
-              <Nav.Link as={Link} to="/about">
-                About
-              </Nav.Link>
-              </li>
-              <li>
-              <Nav.Link as={Link} to="/contact-us">
-                Contact Us
-              </Nav.Link>
-              </li>
-              <li>
-              <Nav.Link as={Link} to="/joblist">
-                Jobs
-              </Nav.Link>
-              </li>
-              <li>
-              <Nav.Link as={Link} to="/internships">
-                Internships
-              </Nav.Link>
-              </li>
+              <ul className="xl:flex xl:flex-row xl:gap-x-6 xl:list-disc lg:flex lg:flex-row lg:gap-x-5 lg:list-disc md:flex md:flex-row md:gap-x-6 md:list-disc">
+                <li>
+                  {isLoggedIn ? (
+                    <Nav.Link as={Link} to="/dashboard">
+                      Dashboard
+                    </Nav.Link>
+                  ) : (
+                    <Nav.Link as={Link} to="/">
+                      Home
+                    </Nav.Link>
+                  )}
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/about">
+                    About
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/contact-us">
+                    Contact Us
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist">
+                    Jobs
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist">
+                    Internships
+                  </Nav.Link>
+                </li>
               </ul>
             </Nav>
           </Navbar.Collapse>

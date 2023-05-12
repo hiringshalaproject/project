@@ -7,7 +7,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 const Home = () => (
   <>
-    <Container className="mt-5">
+    <Container className="home">
       <Row className="justify-content-center align-items-center">
         <Col lg={6}>
           <article>
