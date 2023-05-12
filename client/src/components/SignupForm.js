@@ -112,7 +112,7 @@ const SignupForm = ({ userType }) => {
         {/*First Name & Last Name */}
         <div className="flex  gap-x-6">
           <label className="w-full">
-            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
               First Name<sup className="text-red-700">*</sup>
             </p>
             <input
@@ -127,7 +127,7 @@ const SignupForm = ({ userType }) => {
           </label>
 
           <label className="w-full">
-            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
               Last Name<sup className="text-red-700">*</sup>
             </p>
             <input
@@ -144,7 +144,7 @@ const SignupForm = ({ userType }) => {
         {userType !== "seeker" ? (
           <div className="flex  gap-x-6">
             <label className="w-full">
-              <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+              <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
                 Company Name<sup className="text-red-700">*</sup>
               </p>
               <input
@@ -164,7 +164,7 @@ const SignupForm = ({ userType }) => {
         {/*Email address*/}
         <div>
           <label className="w-full">
-            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
               Email Address<sup className="text-red-700">*</sup>
             </p>
             <div className="flex items-center">
@@ -190,7 +190,7 @@ const SignupForm = ({ userType }) => {
               {isOtpSent ? (
                 <>
                   <label className="w-full">
-                    <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+                    <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
                       OTP<sup className="text-red-700">*</sup>
                     </p>
                     <input
@@ -234,7 +234,7 @@ const SignupForm = ({ userType }) => {
         {/*Create Password & Confirm Password */}
         <div className="flex gap-x-6">
           <label className="relative w-full">
-            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
               Create Password<sup className="text-red-700">*</sup>
             </p>
             <input
@@ -260,7 +260,7 @@ const SignupForm = ({ userType }) => {
           </label>
 
           <label className="relative w-full">
-            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
               Confirm Password<sup className="text-red-700">*</sup>
             </p>
             <input

@@ -51,7 +51,7 @@ const LoginForm = ({ userType }) => {
     >
       <label className="w-full">
         <MDBContainer>
-          <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem]">
+          <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem] loginText">
             Email Address<sup className="text-red-700">*</sup>
           </p>
           <input
@@ -69,7 +69,7 @@ const LoginForm = ({ userType }) => {
       <label className="w-full relative">
         <MDBContainer>
           <MDBRow>
-            <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem]">
+            <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem] loginText">
               Password<sup className="text-red-700">*</sup>
             </p>
             <MDBCol size="md" className="col-lg-8 col-xxl-8">
@@ -80,7 +80,7 @@ const LoginForm = ({ userType }) => {
                 value={formData.password}
                 onChange={changeHandler}
                 placeholder="Enter Password"
-                className="outline-none border-b-[1px] border-black text-black w-full pt-[10px]"
+                className="outline-none border-b-[1px] border-black text-black w-full pt-[10px] loginText"
               />
 
               <span
