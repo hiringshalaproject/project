@@ -9,6 +9,10 @@
   padding: 1rem;
 }
 
+.home{
+  margin-top: 100px;
+}
+
 .right-half {
   background-color: #ffffff;
   flex: 1;
