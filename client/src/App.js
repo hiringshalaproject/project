@@ -48,6 +48,7 @@ function App() {
         <Route path="/edit" element={<EditJob />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
+        <Route path="/internships" element={<Contact />} />
         <Route
           path="/employee/login"
           element={<Login userType={"employee"} />}

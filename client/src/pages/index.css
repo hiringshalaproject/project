@@ -1,40 +1,32 @@
+.light{
+  --primary-color: white;
+  --secondary-color: black;
+  --bg-image: (white);
+  --footer-color: rgb(179, 232, 229);
+}
+
+.dark{
+  --primary-color: black;
+  --secondary-color: white;
+  --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+}
+
 .container {
   max-width: 900px; 
   margin: 0 auto;
 }
 
-.light{
-  --bg-color: white;
-  --bg-image: linear-gradient(white);
-  --h1-color: black;
-  --p-color: black;
-  --footer-color: rgb(179, 232, 229);
-  --footer-text-color: rgb(84, 92, 86);
-  --navbar-color: white;
-  --text-color: black;
-}
-
-.dark{
-  --bg-color: black;
-  --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
-  --h1-color: white;
-  --p-color: white;
-  --footer-color: rgb(62, 79, 67);
-  --footer-text-color: white;
-  --navbar-color: rgb(62, 79, 67);
-  --text-color: white;
-}
-
 .loginTitle{
-  color: var(--text-color);
+  color: var(--secondary-color);
 }
 
 .loginDesc{
-  color: var(--text-color);
+  color: var(--secondary-color);
 }
 
 .loginText{
-  color: var(--text-color);
+  color: var(--secondary-color);
 }
 
 .footer-texts{
@@ -46,24 +38,24 @@
 }
 
 .custom-navbar{
-  background-color: var(--navbar-color);
+  background-color: var(--primary-color);
   background-image: var(--bg-image);
 }
 
 .nav-link{
-  color: var(--h1-color)
+  color: var(--secondary-color)
 }
 
 h1{
-  color: var(--h1-color);
+  color: var(--secondary-color);
 }
 
 p{
-  color: var(--p-color);
+  color: var(--secondary-color);
 }
 
 .app{
-  background-color: var(--bg-color);
+  background-color: var(--primary-color);
   background-image: var(--bg-image);
 }
 
@@ -72,15 +64,8 @@ p{
   background-image: var(--bg-image);
 }
 
-/* .moon-button{
-  
-} */
-
-.homeContainer{
-    display: flex;
-    width: 80%;
-    height: 100%;
-    justify-content: space-around;
+.footerTexts{
+  color:  var(--secondary-color);
 }
 
 .login-btn {
@@ -99,9 +84,4 @@ p{
     height: 35px;
     width: 80px
   }
-}
-
-
-.loginMargin{
-  margin-top: 100px;
 }
