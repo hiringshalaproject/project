@@ -5,6 +5,7 @@
 
 .light{
   --bg-color: white;
+  --bg-image: linear-gradient(white);
   --h1-color: black;
   --p-color: black;
   --footer-color: rgb(179, 232, 229);
@@ -15,11 +16,12 @@
 
 .dark{
   --bg-color: black;
+  --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --h1-color: white;
   --p-color: white;
   --footer-color: rgb(62, 79, 67);
   --footer-text-color: white;
-  --navbar-color:rgb(62, 79, 67);
+  --navbar-color: rgb(62, 79, 67);
   --text-color: white;
 }
 
@@ -41,11 +43,11 @@
 
 .home{
   margin-top: 100px;
-  background-color: var(--bg-color);
 }
 
 .custom-navbar{
   background-color: var(--navbar-color);
+  background-image: var(--bg-image);
 }
 
 .nav-link{
@@ -62,10 +64,12 @@ p{
 
 .app{
   background-color: var(--bg-color);
+  background-image: var(--bg-image);
 }
 
 .footers{
   background-color: var(--footer-color);
+  background-image: var(--bg-image);
 }
 
 /* .moon-button{

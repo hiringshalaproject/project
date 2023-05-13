@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Logo from "../assets/Logo.png";
+import Logo_dark from "../assets/Logo_dark.png";
+import Logo_light from "../assets/Logo_light.png";
 import Cookies from "js-cookie";
-import {FaMoon} from 'react-icons/fa';
-import {BiSun} from 'react-icons/bi';
+import { FaMoon } from "react-icons/fa";
+import { BiSun } from "react-icons/bi";
 
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
@@ -19,7 +20,11 @@ const NavbarCmp = () => {
   const userId = Cookies.get("userId");
   const isLoggedIn = userId !== undefined && userId !== "";
 
-  const [isDark,setDark]=useState(Cookies.get("theme")===undefined || Cookies.get("theme")==="light"?false:true);
+  const [isDark, setDark] = useState(
+    Cookies.get("theme") === undefined || Cookies.get("theme") === "light"
+      ? false
+      : true
+  );
   const [theme, setTheme] = useState(Cookies.get("theme") || "light");
   const toggleDarkTheme = () => {
     if (theme === "light") {
@@ -30,7 +35,6 @@ const NavbarCmp = () => {
       Cookies.set("theme", "light");
     }
   };
-  
 
   useEffect(() => {
     console.log("theme", theme);
@@ -50,7 +54,12 @@ const NavbarCmp = () => {
       >
         <Container>
           <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
-            <img src={Logo} alt="Expand" width="200" height="90" />
+            <img
+              src={theme === "light" ? Logo_dark : Logo_light}
+              alt="Expand"
+              width="200"
+              height="90"
+            />
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
@@ -88,12 +97,29 @@ const NavbarCmp = () => {
                   </Nav.Link>
                 </li>
                 <li>
-                <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
-                {isDark
-                  ?<button class="btn btn-dark" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Light Mode"><BiSun fontSize={20}/></button>
-                  :<button class="btn btn-light" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Dark Mode"><FaMoon fontSize={20}/></button>
-                  }
-                </Nav.Link>
+                  <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
+                    {isDark ? (
+                      <button
+                        class="btn btn-dark"
+                        id="modeToggler"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Switch to Light Mode"
+                      >
+                        <BiSun fontSize={20} />
+                      </button>
+                    ) : (
+                      <button
+                        class="btn btn-light"
+                        id="modeToggler"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Switch to Dark Mode"
+                      >
+                        <FaMoon fontSize={20} />
+                      </button>
+                    )}
+                  </Nav.Link>
                 </li>
               </ul>
             </Nav>

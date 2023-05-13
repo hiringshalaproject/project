@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../assets/Logo.png";
+import Logo_dark from "../../assets/Logo_dark.png";
 import { Link, useNavigate } from "react-router-dom";
 import RoundButton from "./RoundButton";
 import "./sidemenu.css";
@@ -16,7 +16,7 @@ const Sidemenu = () => {
     <div>
       <div className="side">
         <Link to={"/dashboard"}>
-          <img src={Logo} alt="Logo" />
+          <img src={Logo_dark} alt="Logo" />
         </Link>
       </div>
       <div className="body">
