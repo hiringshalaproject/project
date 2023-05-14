@@ -25,7 +25,7 @@ const NavbarCmp = () => {
       ? false
       : true
   );
-  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
+  const [theme, setTheme] = useState(Cookies.get("theme") || "dark");
   const toggleDarkTheme = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -53,14 +53,18 @@ const NavbarCmp = () => {
         onToggle={handleToggle}
       >
         <Container>
-          <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
+          <Nav.Link
+            as={Link}
+            to={isLoggedIn ? "/dashboard" : "/"}
+            className="brand-logo"
+          >
             <img
               src={theme === "light" ? Logo_dark : Logo_light}
               alt="Expand"
               width="200"
               height="90"
             />
-          </Link>
+          </Nav.Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
@@ -100,7 +104,7 @@ const NavbarCmp = () => {
                   <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
                     {isDark ? (
                       <button
-                        class="btn btn-dark"
+                        className="btn btn-dark"
                         id="modeToggler"
                         data-toggle="tooltip"
                         data-placement="bottom"
@@ -110,7 +114,7 @@ const NavbarCmp = () => {
                       </button>
                     ) : (
                       <button
-                        class="btn btn-light"
+                        className="btn btn-light"
                         id="modeToggler"
                         data-toggle="tooltip"
                         data-placement="bottom"

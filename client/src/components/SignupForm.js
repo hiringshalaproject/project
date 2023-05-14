@@ -107,8 +107,8 @@ const SignupForm = ({ userType }) => {
   }
 
   return (
-    <div >
-      <form onSubmit={submitHandler} >
+    <div>
+      <form onSubmit={submitHandler}>
         {/*First Name & Last Name */}
         <div className="flex  gap-x-6">
           <label className="w-full">
@@ -176,12 +176,16 @@ const SignupForm = ({ userType }) => {
                 placeholder="Enter Email Address"
                 value={formData.email}
                 className={`outline-none border-b-[1px] ${
-                  isOtpVerified ? "bg-gray-200 bg-transparent border-bottom-color"  : "border-black bg-transparent border-bottom-color"
+                  isOtpVerified
+                    ? "bg-gray-200 bg-transparent border-bottom-color"
+                    : "border-black bg-transparent border-bottom-color"
                 } text-black w-full p-[2px] pr-6`}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
-                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">&#10004;</span>
+                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">
+                  &#10004;
+                </span>
               )}
             </div>
           </label>
