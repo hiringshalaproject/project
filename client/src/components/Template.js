@@ -79,7 +79,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
 
   return (
     <>
-      <div>
+      <div >
         <MDBContainer fluid className="p-3 mt-20">
           <MDBRow center>
             <MDBCol size="5">
@@ -101,7 +101,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
               </div>
 
               <MDBContainer>
-                <h1 className="text-black font-semibold text-[1.875rem] leading-[2.375rem] mt-8 loginTitle">
+                <h1 className=" font-semibold text-[1.875rem] leading-[2.375rem] mt-8 loginTitle ">
                   {title}
                 </h1>
                 <p className="text-[1.125rem] leading[1.625rem] mt-2">

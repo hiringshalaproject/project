@@ -61,7 +61,7 @@ const LoginForm = ({ userType }) => {
             onChange={changeHandler}
             placeholder="Enter Email address"
             name="email"
-            className="outline-none border-b-[1px] border-black text-black w-full pt-[10px]"
+            className="outline-none border-b-[1px] border-black text-black w-full pt-[10px] border-bottom-color bg-transparent "
           />
         </MDBContainer>
       </label>
@@ -69,7 +69,7 @@ const LoginForm = ({ userType }) => {
       <label className="w-full relative">
         <MDBContainer>
           <MDBRow>
-            <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem] loginText">
+            <p className="text-[0.875rem] text-slate-600 mb-1 leading-[1.375rem] loginText  ">
               Password<sup className="text-red-700">*</sup>
             </p>
             <MDBCol size="md" className="col-lg-8 col-xxl-8">
@@ -80,11 +80,11 @@ const LoginForm = ({ userType }) => {
                 value={formData.password}
                 onChange={changeHandler}
                 placeholder="Enter Password"
-                className="outline-none border-b-[1px] border-black text-black w-full pt-[10px] loginText"
+                className="outline-none border-b-[1px] text-black w-full pt-[10px] loginText loginInput border-bottom-color bg-transparent"
               />
 
               <span
-                className="absolute mt-2 cursor-pointer"
+                className="absolute mt-2  cursor-pointer"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
                 {showPassword ? (
@@ -103,7 +103,7 @@ const LoginForm = ({ userType }) => {
         </MDBContainer>
         <MDBContainer>
           <Link to="#">
-            <p className="float-left mt-1 text-dark font-regular max-w-max ml-auto">
+            <p className="float-left mt-1  font-regular max-w-max ml-auto loginPasswordText">
               Forgot Password?
             </p>
           </Link>
