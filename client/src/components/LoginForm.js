@@ -61,7 +61,7 @@ const LoginForm = ({ userType }) => {
             onChange={changeHandler}
             placeholder="Enter Email address"
             name="email"
-            className="outline-none border-b-[1px] border-black text-black w-full pt-[10px] border-bottom-color bg-transparent "
+            className="outline-none border-b-[1px] border-black w-full pt-[10px] border-bottom-color bg-transparent "
           />
         </MDBContainer>
       </label>
@@ -80,7 +80,7 @@ const LoginForm = ({ userType }) => {
                 value={formData.password}
                 onChange={changeHandler}
                 placeholder="Enter Password"
-                className="outline-none border-b-[1px] text-black w-full pt-[10px] loginText loginInput border-bottom-color bg-transparent"
+                className="outline-none border-b-[1px] w-full pt-[10px] loginText loginInput border-bottom-color bg-transparent"
               />
 
               <span
@@ -95,7 +95,7 @@ const LoginForm = ({ userType }) => {
               </span>
             </MDBCol>
             <MDBCol size="md mt-4 mt-lg-0" className="col-lg-4 col-xxl-4">
-              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium text-black col-12 col-lg-10 ms-0 mx-lg-5">
+              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium  col-12 col-lg-10 ms-0 mx-lg-5">
                 Login
               </button>
             </MDBCol>

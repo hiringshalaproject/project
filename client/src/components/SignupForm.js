@@ -122,7 +122,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter first name"
               value={formData.firstName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
 
@@ -137,7 +137,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter last name"
               value={formData.lastName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
         </div>
@@ -154,7 +154,7 @@ const SignupForm = ({ userType }) => {
                 onChange={changeHandler}
                 placeholder="Enter your company name"
                 value={formData.companyName}
-                className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+                className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
               />
             </label>
           </div>
@@ -179,7 +179,7 @@ const SignupForm = ({ userType }) => {
                   isOtpVerified
                     ? "bg-gray-200 bg-transparent border-bottom-color"
                     : "border-black bg-transparent border-bottom-color"
-                } text-black w-full p-[2px] pr-6`}
+                }  w-full p-[2px] pr-6`}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
@@ -204,7 +204,7 @@ const SignupForm = ({ userType }) => {
                       onChange={changeHandler}
                       placeholder="Enter OTP"
                       value={formData.otp}
-                      className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+                      className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
                     />
                   </label>
                   <button
@@ -248,7 +248,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter Password"
               value={formData.password}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             <span
@@ -274,7 +274,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Confirm Password"
               value={formData.confirmPassword}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             {

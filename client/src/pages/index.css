@@ -138,6 +138,10 @@
   background-color: #2F8F9D;
 }
 
+input{
+  color:var(--secondary-color);
+}
+
 @media (min-width: 768px) {
   .login-btn {
     height: 45px;
@@ -154,11 +158,6 @@
   .card{
     margin: auto;
   }
-  .home-text{
-    margin-top: 10px;
-  }
 }
-
-
 
 
