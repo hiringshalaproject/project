@@ -1,6 +1,7 @@
 .light{
   --primary-color: white;
   --secondary-color: black;
+  --secondary-color-password: black;
   --bg-image: (white);
   --footer-color: rgb(179, 232, 229);
 }
@@ -8,6 +9,7 @@
 .dark{
   --primary-color: black;
   --secondary-color: white;
+  --secondary-color-password: rgb(107, 144, 254);
   --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
 }
@@ -18,7 +20,7 @@
 }
 
 .loginTitle{
-  color: var(--secondary-color);
+ color: var(--secondary-color);
 }
 
 .loginDesc{
@@ -28,13 +30,19 @@
 .loginText{
   color: var(--secondary-color);
 }
-
+.loginPasswordText{
+  color:var(  --secondary-color-password);
+}
+.border-bottom-color{
+  border-bottom-color:var(--secondary-color);
+}
 .footer-texts{
   color: var(--footer-text-color);
 }
 
 .home{
   margin-top: 100px;
+  height: 100%;
 }
 
 .custom-navbar{

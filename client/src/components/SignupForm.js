@@ -107,8 +107,8 @@ const SignupForm = ({ userType }) => {
   }
 
   return (
-    <div>
-      <form onSubmit={submitHandler}>
+    <div >
+      <form onSubmit={submitHandler} >
         {/*First Name & Last Name */}
         <div className="flex  gap-x-6">
           <label className="w-full">
@@ -122,7 +122,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter first name"
               value={formData.firstName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
 
@@ -137,7 +137,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter last name"
               value={formData.lastName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
         </div>
@@ -154,7 +154,7 @@ const SignupForm = ({ userType }) => {
                 onChange={changeHandler}
                 placeholder="Enter your company name"
                 value={formData.companyName}
-                className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+                className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-colo"
               />
             </label>
           </div>
@@ -176,12 +176,12 @@ const SignupForm = ({ userType }) => {
                 placeholder="Enter Email Address"
                 value={formData.email}
                 className={`outline-none border-b-[1px] ${
-                  isOtpVerified ? "bg-gray-200" : "border-black"
+                  isOtpVerified ? "bg-gray-200 bg-transparent border-bottom-color"  : "border-black bg-transparent border-bottom-color"
                 } text-black w-full p-[2px] pr-6`}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
-                <span className="text-gray-500 ml-2">&#10004;</span>
+                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">&#10004;</span>
               )}
             </div>
           </label>
@@ -200,7 +200,7 @@ const SignupForm = ({ userType }) => {
                       onChange={changeHandler}
                       placeholder="Enter OTP"
                       value={formData.otp}
-                      className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+                      className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
                     />
                   </label>
                   <button
@@ -244,11 +244,11 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter Password"
               value={formData.password}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             <span
-              className="absolute right-1 top-[45px] cursor-pointer"
+              className="absolute right-[3px] top-[52px] cursor-pointer"
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? (
@@ -270,12 +270,12 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Confirm Password"
               value={formData.confirmPassword}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px]"
+              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             {
               <span
-                className="absolute right-1 top-[45px]  cursor-pointer"
+                className="absolute right-[3px] top-[52px]  cursor-pointer"
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
               >
                 {showConfirmPassword ? (
