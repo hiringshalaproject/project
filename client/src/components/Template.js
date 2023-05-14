@@ -82,7 +82,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
       <div>
         <MDBContainer fluid className="p-3 mt-20">
           <MDBRow center>
-            <MDBCol size="4">
+            <MDBCol size="5">
               <img src={image} class="img-fluid" />
             </MDBCol>
 
@@ -101,13 +101,13 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
               </div>
 
               <MDBContainer>
-                <h1 className="text-black font-semibold text-[1.875rem] leading-[2.375rem] mt-8">
+                <h1 className="text-black font-semibold text-[1.875rem] leading-[2.375rem] mt-8 loginTitle">
                   {title}
                 </h1>
                 <p className="text-[1.125rem] leading[1.625rem] mt-2">
-                  <span className="text-slate-900 italic">{desc1}</span>
+                  <span className="text-slate-900 italic loginDesc">{desc1}</span>
                   <br />
-                  <span className="text-slate-900 italic">{desc2}</span>
+                  <span className="text-slate-900 italic loginDesc">{desc2}</span>
                 </p>
               </MDBContainer>
               {formtype === "signup" ? (

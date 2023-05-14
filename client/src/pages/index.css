@@ -1,31 +1,40 @@
+.light{
+  --primary-color: white;
+  --secondary-color: black;
+  --bg-image: (white);
+  --card-bg:white;
+  --footer-color: rgb(179, 232, 229);
+  --home-text:#5399b0;
+  --card-text:black;
+}
+
+.dark{
+  --primary-color: black;
+  --secondary-color: white;
+  --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --card-bg:linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --home-text:white;
+  --card-text:white;
+}
+
+
 .container-col {
   margin-top: 75px;
 }
 
-.text{
+.home-text{
   text-align: left;
   margin: auto;
-}
-
-h1{
-  color: #36829b;
-  /* color: #2F8F9D; */
-}
-
-h3,h2{
-  color: black;
-}
-
-p{
-  color: #36829b;
-}
-
-.content{
-  text-align: center;
-  color: black !important;
+  color: var(--home-text);
 }
 
 
+
+
+.home-img{
+  margin: auto;
+}
 
 /* card css*/
 .card-button{
@@ -38,8 +47,14 @@ p{
   color: white;
 }
 
+.card-content{
+  text-align: center;
+  color:var(--card-text) !important;
+}
+
+
 .card-container{
-  margin-top: 10px;
+  margin-top: 50px;
   margin-bottom: 35px;
 }
 
@@ -51,11 +66,16 @@ p{
 .card{
   transition: all 0.3s;
   border-top-color: #2F8F9D !important;
+  background-color: var(--card-bg);
 }
+
+
 
 .card:hover{
   transform: scale(1.11);
 }
+
+/* home page */
 
 .left-half {
   background-color:white;
@@ -69,11 +89,61 @@ p{
   padding: 1rem;
 }
 
-.homeContainer{
-    display: flex;
-    width: 80%;
-    height: 100%;
-    justify-content: space-around;
+.container {
+  /* max-width: 900px; 
+  margin: 0 auto; */
+  background-color:  var(--bg-image);
+}
+
+.loginTitle{
+  color: var(--secondary-color);
+}
+
+.loginDesc{
+  color: var(--secondary-color);
+}
+
+.loginText{
+  color: var(--secondary-color);
+}
+
+.footer-texts{
+  color: var(--footer-text-color);
+}
+
+/* .home{
+  margin-top: 100px;
+} */
+
+.custom-navbar{
+  background-color: var(--primary-color);
+  background-image: var(--bg-image);
+}
+
+.nav-link{
+  color: var(--secondary-color)
+}
+
+/* h1{
+  color: var(--secondary-color);
+}
+
+p{
+  color: var(--secondary-color);
+} */
+
+.app{
+  background-color: var(--primary-color);
+  background-image: var(--bg-image);
+}
+
+.footers{
+  background-color: var(--footer-color);
+  background-image: var(--bg-image);
+}
+
+.footerTexts{
+  color:  var(--secondary-color);
 }
 
 .login-btn {
@@ -98,5 +168,6 @@ p{
 .loginMargin{
   margin-top: 100px;
 }
+
 
 

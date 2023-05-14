@@ -1,6 +1,6 @@
 import React from "react";
 import Template from "../components/Template";
-import LoginImg from "../components/assets/Login.jpg";
+import LoginImg from "../components/assets/Login.png";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 

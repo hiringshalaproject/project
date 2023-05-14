@@ -1,25 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Logo from "../assets/Logo.png";
+import Logo_dark from "../assets/Logo_dark.png";
+import Logo_light from "../assets/Logo_light.png";
 import Cookies from "js-cookie";
-import {FaMoon} from 'react-icons/fa';
-import {BiSun} from 'react-icons/bi'
-import './darkMode.css'
-import { getCookies, removeCookies, removeTheme, setTheme } from "../Cookies";
+import { FaMoon } from "react-icons/fa";
+import { BiSun } from "react-icons/bi";
 
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
 
-  const [isDark,setDark]=useState(false);
 
-  const changeMode=()=>{
-      removeTheme();
-      setDark(!isDark);
-      // const theme=isDark?'dark':'light';
-      // setTheme(theme);
-      // console.log(getCookies().theme);
-  }
+  // const changeMode=()=>{
+  //     removeTheme();
+  //     setDark(!isDark);
+  //     // const theme=isDark?'dark':'light';
+  //     // setTheme(theme);
+  //     // console.log(getCookies().theme);
+  // }
 
  
 
@@ -33,47 +31,109 @@ const NavbarCmp = () => {
 
   const userId = Cookies.get("userId");
   const isLoggedIn = userId !== undefined && userId !== "";
+
+  const [isDark, setDark] = useState(
+    Cookies.get("theme") === undefined || Cookies.get("theme") === "light"
+      ? false
+      : true
+  );
+  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
+  const toggleDarkTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+      Cookies.set("theme", "dark");
+    } else {
+      setTheme("light");
+      Cookies.set("theme", "light");
+    }
+  };
+
+  useEffect(() => {
+    console.log("theme", theme);
+    document.body.className = theme;
+  }, [theme]);
+
   return (
     <>
       <Navbar
         collapseOnSelect
         fixed="top"
         expand="sm"
-        bg={isDark?"black":"white"}
+        className="custom-navbar"
         variant="red"
-        style={{ marginBottom: "20px", zIndex: 1000, position: "fixed" }}
         expanded={expanded}
         onToggle={handleToggle}
       >
         <Container>
           <Link to={isLoggedIn ? "/dashboard" : "/"} className="brand-logo">
-            <img src={Logo} alt="Expand" width="200" height="100" />
+            <img
+              src={theme === "light" ? Logo_dark : Logo_light}
+              alt="Expand"
+              width="200"
+              height="90"
+            />
           </Link>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
-              {isLoggedIn ? (
-                <Nav.Link as={Link} to="/dashboard" className={isDark?'dark-theme':'light-theme'}>
-                  Dashboard
-                </Nav.Link>
-              ) : (
-                <Nav.Link as={Link} to="/" className={isDark?'dark-theme':'light-theme'}>
-                  Home
-                </Nav.Link>
-              )}
-              <Nav.Link as={Link} to="/about" className={isDark?'dark-theme':'light-theme'}>
-                About
-              </Nav.Link>
-              <Nav.Link as={Link} to="/contact-us" className={isDark?'dark-theme':'light-theme'}>
-                Contact Us
-              </Nav.Link>
-              <Nav.Link as={Link} to="/joblist" className={isDark?'dark-theme':'light-theme'}>
-                Job List
-              </Nav.Link>
-              {isDark
-              ?<button class="btn btn-dark" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Light Mode" onClick={changeMode}><BiSun fontSize={20}/></button>
-              :<button class="btn btn-light" id="modeToggler" data-toggle="tooltip" data-placement="bottom" title="Switch to Dark Mode" onClick={changeMode}><FaMoon fontSize={20}/></button>
-              }
+              <ul className="xl:flex xl:flex-row xl:gap-x-6 xl:list-disc lg:flex lg:flex-row lg:gap-x-5 lg:list-disc md:flex md:flex-row md:gap-x-6 md:list-disc">
+                <li>
+                  {isLoggedIn ? (
+                    <Nav.Link as={Link} to="/dashboard">
+                      Dashboard
+                    </Nav.Link>
+                  ) : (
+                    <Nav.Link as={Link} to="/">
+                      Home
+                    </Nav.Link>
+                  )}
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/about">
+                    About
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/contact-us">
+                    Contact Us
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist">
+                    Jobs
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist">
+                    Internships
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
+                    {isDark ? (
+                      <button
+                        class="btn btn-dark"
+                        id="modeToggler"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Switch to Light Mode"
+                      >
+                        <BiSun fontSize={20} />
+                      </button>
+                    ) : (
+                      <button
+                        class="btn btn-light"
+                        id="modeToggler"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Switch to Dark Mode"
+                      >
+                        <FaMoon fontSize={20} />
+                      </button>
+                    )}
+                  </Nav.Link>
+                </li>
+              </ul>
             </Nav>
           </Navbar.Collapse>
         </Container>
