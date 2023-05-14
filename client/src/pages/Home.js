@@ -1,40 +1,77 @@
 import React from "react";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
-import homepage from "../images/homepage.png";
+// import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
-import Cookies from "js-cookie";
-import { Container, Row, Col } from 'react-bootstrap';
+// import Cookies from "js-cookie";
+import { Container, Row, Col } from "react-bootstrap";
+import HomeImg from "../components/assets/home-page-img.jpg";
+import ApplyImg from "../components/assets/apply-for-referral.jpg";
+import ContactImg from "../components/assets/contact-us.jpg";
+import SearchJob from "../components/assets/job-search.jpg";
 
 const Home = () => {
-  const theme=Cookies.get("theme");
-  console.log("theme",theme);
-  
-  return(
-  <>
-    <Container className={`mt-5 home-div ${theme==='dark'&&'dark-theme'}`}>
-      <Row className="justify-content-center align-items-center dark-theme">
-        <Col lg={6}>
-          <article>
-            <img src={homepage} alt="img" className="img-fluid" />
-          </article>
-        </Col>
-        <Col lg={6}>
-          <h1 className="mb-4">
-            unleash your talent potential with company name
-          </h1>
-          <p className=" md:ml-64 sm:ml-0 text-sm md:text-base mt-4 md:mt-8">
-            the largest pool of career opportunities that match your skill set.
-            link up with outstanding people to create a better future.
-          </p>
+  const renderCard = (cardTitle, buttonValue, ImgSrc) => {
+    return (
+      <>
+        <div
+          className="card h-100"
+          style={{
+            width: "20rem"
+          }}
+        >
+          <img src={ImgSrc}></img>
+          <div className="card-body">
+            <h3 className="card-title content">{cardTitle}</h3>
+            <p className="card-text content">
+              the largest pool of career opportunities that match your skill
+              set. link up with outstanding people to create a better future.
+            </p>
+          </div>
+          <button type="submit" className="btn card-button">
+            {buttonValue}
+          </button>
+        </div>
+      </>
+    );
+  };
 
-          <Button />
-        </Col>
-      </Row>
-    </Container>
-    <Footer />
-  </>
-  )
+  return (
+    <>
+      <Container fluid>
+        <Row>
+          <Col className="container-col">
+            <img src={HomeImg} alt="img"></img>
+          </Col>
+          <Col className="container-col text">
+            <Row>
+              <h1 className="mb-4">
+                Unleash your potential with HiringShala
+              </h1>
+              <p>
+                the largest pool of career opportunities that match your skill
+                set. link up with outstanding people to create a better
+                future.the largest pool of career opportunities that match your
+                skill set. link up with outstanding people to create a better
+                future.
+              </p>
+            </Row>
+            <Row className="buttons">
+              <Button />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+        <Container className="card-container">
+          <Row>
+            <Col>{renderCard("Search Job", "Search", SearchJob)}</Col>
+            <Col>{renderCard("Apply for Referrals", "Apply", ApplyImg)}</Col>
+            <Col>{renderCard("Chat Support", "Start a Chat", ContactImg)}</Col>
+          </Row>
+        </Container>
+      <Footer />
+    </>
+  );
 };
 
 export default Home;

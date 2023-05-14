@@ -58,8 +58,7 @@ const EmployeeBtn = ({ label, to }) => {
 };
 
 const buttonContainerStyle = {
-  display: "flex",
-  alignItems: "center",
+  
 };
 
 const buttonRow = () => (

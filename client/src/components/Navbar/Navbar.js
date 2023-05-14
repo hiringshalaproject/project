@@ -11,15 +11,14 @@ import { getCookies, removeCookies, removeTheme, setTheme } from "../Cookies";
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
 
-  const [isDark,setDark]=useState(getCookies().theme===undefined || getCookies().theme==="light"?false:true);
+  const [isDark,setDark]=useState(false);
 
   const changeMode=()=>{
       removeTheme();
       setDark(!isDark);
-      console.log(getCookies().theme);
-      const theme=isDark?'dark':'light';
-      setTheme(theme);
-      console.log(getCookies().theme);
+      // const theme=isDark?'dark':'light';
+      // setTheme(theme);
+      // console.log(getCookies().theme);
   }
 
  
