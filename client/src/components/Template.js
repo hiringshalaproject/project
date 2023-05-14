@@ -88,7 +88,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
 
             <MDBCol col="4" md="6">
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-end mt-4">
-                <p className="lead fw-normal mb-0 me-3">
+                <p className="lead fw-normal mb-0 me-3 loginText">
                   {formtype === "signup" ? "existing user?" : "new here?"}
                 </p>
                 <button

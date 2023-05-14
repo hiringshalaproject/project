@@ -176,15 +176,12 @@ const SignupForm = ({ userType }) => {
                 placeholder="Enter Email Address"
                 value={formData.email}
                 className={`outline-none border-b-[1px] ${
-                  isOtpVerified
-                    ? "bg-gray-200 bg-transparent border-bottom-color"
-                    : "border-black bg-transparent border-bottom-color"
-                }  w-full p-[2px] pr-6`}
+                  isOtpVerified ? "bg-gray-200 bg-transparent border-bottom-color"  : "border-black bg-transparent border-bottom-color"
+                }  w-full p-[2px] pr-6 `}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
                 <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">
-                  &#10004;
                 </span>
               )}
             </div>

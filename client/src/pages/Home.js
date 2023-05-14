@@ -3,7 +3,7 @@ import "./index.css";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Buttons";
 import { Container, Row, Col } from "react-bootstrap";
-import HomeImg from "../components/assets/home-page.png";
+import HomeImg from "../components/assets/home-page-img1.png";
 import ApplyImg from "../components/assets/apply-for-referral.png";
 import ContactImg from "../components/assets/contact-us.png";
 import SearchJob from "../components/assets/job-search.png";
