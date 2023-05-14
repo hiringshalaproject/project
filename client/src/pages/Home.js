@@ -1,9 +1,7 @@
 import React from "react";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
-// import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
-// import Cookies from "js-cookie";
 import { Container, Row, Col } from "react-bootstrap";
 import HomeImg from "../components/assets/home-page.png";
 import ApplyImg from "../components/assets/apply-for-referral.png";
@@ -16,9 +14,6 @@ const Home = () => {
       <>
         <div
           className="card h-100"
-          style={{
-            width: "20rem"
-          }}
         >
           <img src={ImgSrc} alt="img"></img>
           <div className="card-body card-content">
@@ -64,7 +59,7 @@ const Home = () => {
       </Container>
       <Container className="card-container">
         <Row>
-          <Col>{renderCard("Search Job", "Search", SearchJob)}</Col>
+          <Col className="card-col">{renderCard("Search Job", "Search", SearchJob)}</Col>
           <Col>{renderCard("Apply for Referrals", "Apply", ApplyImg)}</Col>
           <Col>{renderCard("Chat Support", "Start a Chat", ContactImg)}</Col>
         </Row>
