@@ -1,9 +1,7 @@
 import React from "react";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
-// import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
-// import Cookies from "js-cookie";
 import { Container, Row, Col } from "react-bootstrap";
 import HomeImg from "../components/assets/home-page.png";
 import ApplyImg from "../components/assets/apply-for-referral.png";

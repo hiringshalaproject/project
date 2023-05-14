@@ -1,6 +1,7 @@
 .light{
   --primary-color: white;
   --secondary-color: black;
+  --secondary-color-password: black;
   --bg-image: (white);
   --card-bg:white;
   --footer-color: rgb(179, 232, 229);
@@ -11,6 +12,7 @@
 .dark{
   --primary-color: black;
   --secondary-color: white;
+  --secondary-color-password: rgb(107, 144, 254);
   --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --card-bg:linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
@@ -90,13 +92,16 @@
 }
 
 .container {
-  /* max-width: 900px; 
-  margin: 0 auto; */
   background-color:  var(--bg-image);
 }
 
 .loginTitle{
-  color: var(--secondary-color);
+ color: var(--secondary-color);
+}
+
+.eye-icon{
+  fill: var(--secondary-color);
+  font-size : 24px;
 }
 
 .loginDesc{
@@ -106,14 +111,16 @@
 .loginText{
   color: var(--secondary-color);
 }
-
+.loginPasswordText{
+  color:var(  --secondary-color-password);
+}
+.border-bottom-color{
+  border-bottom-color:var(--secondary-color);
+}
 .footer-texts{
   color: var(--footer-text-color);
 }
 
-/* .home{
-  margin-top: 100px;
-} */
 
 .custom-navbar{
   background-color: var(--primary-color);
@@ -124,13 +131,7 @@
   color: var(--secondary-color)
 }
 
-/* h1{
-  color: var(--secondary-color);
-}
 
-p{
-  color: var(--secondary-color);
-} */
 
 .app{
   background-color: var(--primary-color);

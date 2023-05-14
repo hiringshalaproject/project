@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/about";
@@ -21,6 +21,7 @@ import { Navigate } from "react-router-dom";
 import "./pages/index.css";
 
 function App() {
+  window.scrollTo(0, 0);
   const location = useLocation();
 
   const userId = Cookies.get("userId");
