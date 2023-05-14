@@ -21,6 +21,7 @@ import { Navigate } from "react-router-dom";
 import "./pages/index.css";
 
 function App() {
+  window.scrollTo(0, 0);
   const location = useLocation();
 
   const userId = Cookies.get("userId");

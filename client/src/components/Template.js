@@ -83,7 +83,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         <MDBContainer fluid className="p-3 mt-20">
           <MDBRow center>
             <MDBCol size="5">
-              <img src={image} class="img-fluid" />
+              <img src={image} className="img-fluid" />
             </MDBCol>
 
             <MDBCol col="4" md="6">
