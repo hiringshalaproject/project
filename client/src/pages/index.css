@@ -19,6 +19,10 @@
   margin: 0 auto;
 }
 
+input{
+   color:var(--secondary-color);
+}
+
 .loginTitle{
  color: var(--secondary-color);
 }
