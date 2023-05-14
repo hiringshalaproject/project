@@ -87,11 +87,11 @@ const LoginForm = ({ userType }) => {
                 className="absolute mt-2  cursor-pointer"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? (
-                  <AiOutlineEyeInvisible fontSize={24} fill="#000000" />
-                ) : (
-                  <AiOutlineEye fontSize={24} fill="#000000" />
-                )}
+        {showPassword ? (
+          <AiOutlineEyeInvisible className="eye-icon" />
+        ) : (
+          <AiOutlineEye className="eye-icon" />
+        )}
               </span>
             </MDBCol>
             <MDBCol size="md mt-4 mt-lg-0" className="col-lg-4 col-xxl-4">
