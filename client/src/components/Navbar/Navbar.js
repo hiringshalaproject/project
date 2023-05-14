@@ -15,8 +15,10 @@ const NavbarCmp = () => {
   };
 
   const handleSelect = () => {
-    setExpanded(false);
-  };
+    if (expanded) {
+      setExpanded(false);
+    }
+  };  
 
   const userId = Cookies.get("userId");
   const isLoggedIn = userId !== undefined && userId !== "";
@@ -37,6 +39,7 @@ const NavbarCmp = () => {
       setDark(false);
       Cookies.set("theme", "light");
     }
+    handleSelect();
   };
 
   useEffect(() => {
@@ -68,38 +71,41 @@ const NavbarCmp = () => {
               height="90"
             />
           </Nav.Link>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle
+            aria-controls="responsive-navbar-nav"
+            style={{ color: isDark ? "white" : "black" , backgroundColor: isDark ? "white" : "transparent"}}
+          />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
               <ul className="xl:flex xl:flex-row xl:gap-x-6 xl:list-disc lg:flex lg:flex-row lg:gap-x-5 lg:list-disc md:flex md:flex-row md:gap-x-6 md:list-disc">
                 <li>
                   {isLoggedIn ? (
-                    <Nav.Link as={Link} to="/dashboard">
+                    <Nav.Link as={Link} to="/dashboard" onClick={handleSelect}>
                       Dashboard
                     </Nav.Link>
                   ) : (
-                    <Nav.Link as={Link} to="/">
+                    <Nav.Link as={Link} to="/" onClick={handleSelect}>
                       Home
                     </Nav.Link>
                   )}
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/about">
+                  <Nav.Link as={Link} to="/about" onClick={handleSelect}>
                     About
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/contact-us">
+                  <Nav.Link as={Link} to="/contact-us" onClick={handleSelect}>
                     Contact Us
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/joblist">
+                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
                     Jobs
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/joblist">
+                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
                     Internships
                   </Nav.Link>
                 </li>
