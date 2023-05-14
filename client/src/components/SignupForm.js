@@ -154,7 +154,7 @@ const SignupForm = ({ userType }) => {
                 onChange={changeHandler}
                 placeholder="Enter your company name"
                 value={formData.companyName}
-                className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-colo"
+                className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
               />
             </label>
           </div>
@@ -252,9 +252,9 @@ const SignupForm = ({ userType }) => {
               onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? (
-                <AiOutlineEyeInvisible fontSize={24} fill="#000000" />
+                <AiOutlineEyeInvisible className="eye-icon" />
               ) : (
-                <AiOutlineEye fontSize={24} fill="#000000" />
+                <AiOutlineEye className="eye-icon" />
               )}
             </span>
           </label>
@@ -279,9 +279,9 @@ const SignupForm = ({ userType }) => {
                 onClick={() => setShowConfirmPassword((prev) => !prev)}
               >
                 {showConfirmPassword ? (
-                  <AiOutlineEyeInvisible fontSize={24} fill="#000000" />
+                  <AiOutlineEyeInvisible className="eye-icon" />
                 ) : (
-                  <AiOutlineEye fontSize={24} fill="#000000" />
+                  <AiOutlineEye className="eye-icon" />
                 )}
               </span>
             }

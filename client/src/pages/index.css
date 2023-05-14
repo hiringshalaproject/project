@@ -23,6 +23,11 @@
  color: var(--secondary-color);
 }
 
+.eye-icon{
+  fill: var(--secondary-color);
+  font-size : 24px;
+}
+
 .loginDesc{
   color: var(--secondary-color);
 }
