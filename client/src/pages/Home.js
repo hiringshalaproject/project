@@ -1,34 +1,72 @@
 import React from "react";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
-import homepage from "../images/homepage.png";
 import Button from "../components/Buttons/Buttons";
 import { Container, Row, Col } from "react-bootstrap";
+import HomeImg from "../components/assets/home-page-img1.png";
+import ApplyImg from "../components/assets/apply-for-referral.png";
+import ContactImg from "../components/assets/contact-us.png";
+import SearchJob from "../components/assets/job-search.png";
 
-const Home = () => (
-  <>
-    <Container className="home">
-      <Row className="justify-content-center align-items-center">
-        <Col lg={6}>
-          <article>
-            <img src={homepage} alt="img" className="img-fluid" />
-          </article>
-        </Col>
-        <Col lg={6}>
-          <h1 className="mb-4">
-            unleash your talent potential with company name
-          </h1>
-          <p className=" md:ml-64 sm:ml-0 text-sm md:text-base mt-4 md:mt-8">
-            the largest pool of career opportunities that match your skill set.
-            link up with outstanding people to create a better future.
-          </p>
+const Home = () => {
+  const renderCard = (cardTitle, buttonValue, ImgSrc) => {
+    return (
+      <>
+        <div
+          className="card h-100"
+        >
+          <img src={ImgSrc} alt="img"></img>
+          <div className="card-body card-content">
+            <h3 className="card-title">{cardTitle}</h3>
+            <p>
+              the largest pool of career opportunities that match your skill
+              set. link up with outstanding people to create a better future.
+            </p>
+          </div>
+          <button type="submit" className="btn card-button">
+            {buttonValue}
+          </button>
+        </div>
+      </>
+    );
+  };
 
-          <Button />
-        </Col>
-      </Row>
-    </Container>
-    <Footer />
-  </>
-);
+  return (
+    <>
+      <Container fluid>
+        <Row>
+          <Col className="container-col">
+            <img src={HomeImg} alt="img" className="home-img"></img>
+          </Col>
+          <Col className="container-col home-text">
+            <Row>
+              <h1 className="mb-4">
+                Unleash your potential with HiringShala
+              </h1>
+              <p>
+                the largest pool of career opportunities that match your skill
+                set. link up with outstanding people to create a better
+                future.the largest pool of career opportunities that match your
+                skill set. link up with outstanding people to create a better
+                future.
+              </p>
+            </Row>
+            <Row className="buttons">
+              <Button />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+      <Container className="card-container">
+        <Row>
+          <Col className="card-col">{renderCard("Search Job", "Search", SearchJob)}</Col>
+          <Col>{renderCard("Apply for Referrals", "Apply", ApplyImg)}</Col>
+          <Col>{renderCard("Chat Support", "Start a Chat", ContactImg)}</Col>
+        </Row>
+      </Container>
+      <Footer />
+    </>
+  );
+};
 
 export default Home;

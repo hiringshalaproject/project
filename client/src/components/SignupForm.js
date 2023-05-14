@@ -271,7 +271,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Confirm Password"
               value={formData.confirmPassword}
-              className="outline-none border-b-[1px] border-black  w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             {

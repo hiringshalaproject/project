@@ -95,7 +95,7 @@ const LoginForm = ({ userType }) => {
               </span>
             </MDBCol>
             <MDBCol size="md mt-4 mt-lg-0" className="col-lg-4 col-xxl-4">
-              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium text-black col-12 col-lg-10 ms-0 mx-lg-5">
+              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium  col-12 col-lg-10 ms-0 mx-lg-5">
                 Login
               </button>
             </MDBCol>

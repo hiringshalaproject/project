@@ -3,7 +3,11 @@
   --secondary-color: black;
   --secondary-color-password: black;
   --bg-image: (white);
+  --card-bg:white;
   --footer-color: rgb(179, 232, 229);
+  --home-text:#5399b0;
+  --card-text:black;
+  --card-border:black;
 }
 
 .dark{
@@ -12,12 +16,72 @@
   --secondary-color-password: rgb(107, 144, 254);
   --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --card-bg:linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
+  --home-text:white;
+  --card-text:white;
+  --card-border:#2F8F9D;
+
 }
 
-.container {
-  max-width: 900px; 
-  margin: 0 auto;
+
+.container-col {
+  margin-top: 75px;
 }
+
+.home-text{
+  text-align: left;
+  margin: auto;
+  color: var(--home-text);
+}
+
+
+
+
+.home-img{
+  margin: auto;
+}
+
+/* card css*/
+.card-button{
+  background-color: #2F8F9D;
+  color: white;
+}
+
+.card-button:hover{
+  background-color: #246a74;
+  color: white;
+}
+
+.card-content{
+  text-align: center;
+  color:var(--card-text) !important;
+}
+
+
+.card-container{
+  margin-top: 50px;
+  margin-bottom: 35px;
+}
+
+.card-img-top{
+  height: 500px;
+  width: 500px;
+}
+
+.card{
+  transition: all 0.3s;
+  width: 20rem !important;
+  border-top-color: #2F8F9D !important;
+  border-left-color: var(--card-border) !important;
+  border-right-color: var(--card-border) !important;
+  border-bottom-color: var(--card-border) !important;
+  background-color: var(--card-bg);
+}
+
+.card:hover{
+  transform: scale(1.11);
+}
+
 
 input{
    color:var(--secondary-color);
@@ -49,10 +113,6 @@ input{
   color: var(--footer-text-color);
 }
 
-.home{
-  margin-top: 100px;
-  height: 100%;
-}
 
 .custom-navbar{
   background-color: var(--primary-color);
@@ -63,13 +123,6 @@ input{
   color: var(--secondary-color)
 }
 
-h1{
-  color: var(--secondary-color);
-}
-
-p{
-  color: var(--secondary-color);
-}
 
 .app{
   background-color: var(--primary-color);
@@ -89,11 +142,16 @@ p{
   background-color: #2F8F9D;
 }
 
+input{
+  color:var(--secondary-color);
+}
+
 @media (min-width: 768px) {
   .login-btn {
     height: 45px;
     width: 120px;
   }
+  
 }
 
 @media (max-width: 767px) {
@@ -101,4 +159,9 @@ p{
     height: 35px;
     width: 80px
   }
+  .card{
+    margin: auto;
+  }
 }
+
+

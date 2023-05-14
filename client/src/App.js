@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/about";
@@ -31,7 +31,7 @@ function App() {
     location.pathname.includes("/dashboard") ||
     (isLoggedIn && location.pathname === "/");
   return (
-    <div className="w-screen h-screen flex flex-col app">
+    <div className="w-screen flex flex-col app">
       {!isDashboardPage && <NavbarCmp />}
       <Routes>
         <Route

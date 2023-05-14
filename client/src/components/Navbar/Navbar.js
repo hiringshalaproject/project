@@ -9,6 +9,7 @@ import { BiSun } from "react-icons/bi";
 
 const NavbarCmp = () => {
   const [expanded, setExpanded] = useState(false);
+
   const handleToggle = () => {
     setExpanded(!expanded);
   };
@@ -29,9 +30,11 @@ const NavbarCmp = () => {
   const toggleDarkTheme = () => {
     if (theme === "light") {
       setTheme("dark");
+      setDark(true);
       Cookies.set("theme", "dark");
     } else {
       setTheme("light");
+      setDark(false);
       Cookies.set("theme", "light");
     }
   };

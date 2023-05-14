@@ -8,7 +8,7 @@ function LandingPage() {
           className="card"
           style={{ width: "18rem", marginTop: "20px", marginLeft: "20px" }}
         >
-          <div className="card">
+          
             <div className="card-body">
               <h5 className="card-title">{cardTitle}</h5>
               <p className="card-text">
@@ -19,7 +19,7 @@ function LandingPage() {
                 </Link>
               </p>
             </div>
-          </div>
+          
         </div>
       </>
     );

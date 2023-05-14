@@ -14,8 +14,7 @@ export function getCookies() {
   const userName = Cookies.get("userName");
   const userType = Cookies.get("userType");
   const userId = Cookies.get("userId");
-
-  const cookies = { userName, userType, userId };
+  const cookies = { userName, userType, userId};
   return cookies;
 }
 
