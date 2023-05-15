@@ -11,7 +11,7 @@ import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 import Cookies from "js-cookie";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
 const SeekerJobDetails = () => {
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
@@ -83,6 +83,13 @@ const SeekerJobDetails = () => {
       }
     });
   }
+  // if (sortedJobDetails.length === 0) {
+  //   return (
+  //     <div style={{ fontWeight: "300px", fontSize: "20px" }}>
+  //       You haven’t applied to any openings yet. Applied opening appear here.
+  //     </div>
+  //   );
+  // }
   const visibleRows = showAll ? sortedJobDetails : sortedJobDetails.slice(0, 3);
 
   return (
@@ -92,63 +99,72 @@ const SeekerJobDetails = () => {
           Applied Opportunities
         </h2>
 
-        <RoundButton
-          onClick={() => setShowAll(!showAll)}
-          text={showAll ? "Show Less" : "Show All"}
-          className={"jobButton"}
-        />
+        {sortedJobDetails.length > 0 && (
+          <RoundButton
+            onClick={() => setShowAll(!showAll)}
+            text={showAll ? "Show Less" : "Show All"}
+            className={"jobButton"}
+          />
+        )}
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            <th onClick={() => handleSort("jobDate")}>
-              job Date <FontAwesomeIcon icon={faSort} />
-            </th>
-            <th onClick={() => handleSort("companyName")}>
-              Company Name{" "}
-              {sortColumn === "companyName" &&
-                (sortDirection === "asc" ? (
-                  <FontAwesomeIcon icon={faSortUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faSortDown} />
-                ))}
-              {!sortColumn && <FontAwesomeIcon icon={faSort} />}
-            </th>
-            <th onClick={() => handleSort("jobLocation")}>
-              Location{" "}
-              {sortColumn === "jobLocation" &&
-                (sortDirection === "asc" ? (
-                  <FontAwesomeIcon icon={faSortUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faSortDown} />
-                ))}
-              {!sortColumn && <FontAwesomeIcon icon={faSort} />}
-            </th>
-            <th onClick={() => handleSort("expectedPackage")}>
-              Salary <FontAwesomeIcon icon={faSort} />
-            </th>
-            <th>ShortListed Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {visibleRows.map((job) => (
-            <tr key={job._id}>
-              <td>
-                {job.jobDate && format(new Date(job.jobDate), "dd/MM/yyyy")}
-              </td>
-              <td>{job.companyName}</td>
-              <td>{job.jobLocation}</td>
-              <td>{job.expectedPackage}</td>
-              <td>
-                {" "}
-                {job.shortListedStatus !== null ? job.shortListedStatus : "N/A"}
-              </td>
+      {visibleRows.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th onClick={() => handleSort("jobDate")}>
+                job Date <FontAwesomeIcon icon={faSort} />
+              </th>
+              <th onClick={() => handleSort("companyName")}>
+                Company Name{" "}
+                {sortColumn === "companyName" &&
+                  (sortDirection === "asc" ? (
+                    <FontAwesomeIcon icon={faSortUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faSortDown} />
+                  ))}
+                {!sortColumn && <FontAwesomeIcon icon={faSort} />}
+              </th>
+              <th onClick={() => handleSort("jobLocation")}>
+                Location{" "}
+                {sortColumn === "jobLocation" &&
+                  (sortDirection === "asc" ? (
+                    <FontAwesomeIcon icon={faSortUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faSortDown} />
+                  ))}
+                {!sortColumn && <FontAwesomeIcon icon={faSort} />}
+              </th>
+              <th onClick={() => handleSort("expectedPackage")}>
+                Salary <FontAwesomeIcon icon={faSort} />
+              </th>
+              <th>ShortListed Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {visibleRows.map((job) => (
+              <tr key={job._id}>
+                <td>
+                  {job.jobDate && format(new Date(job.jobDate), "dd/MM/yyyy")}
+                </td>
+                <td>{job.companyName}</td>
+                <td>{job.jobLocation}</td>
+                <td>{job.expectedPackage}</td>
+                <td>
+                  {" "}
+                  {job.shortListedStatus !== null
+                    ? job.shortListedStatus
+                    : "N/A"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div style={{ fontWeight: "300px", fontSize: "20px", margin: "10px" }}>
+          You haven’t applied to any openings yet. Applied opening appear here.
+        </div>
+      )}
     </div>
   );
 };

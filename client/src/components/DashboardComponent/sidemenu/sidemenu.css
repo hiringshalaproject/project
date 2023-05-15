@@ -32,9 +32,24 @@
 .body h2 svg {
   margin-right: 0.5rem;
 }
-.ChangePassword {
+
+.dropdown-menu {
+  display: none;
+  cursor: pointer;
+  margin-top: 0.8rem;
+}
+
+.open .dropdown-menu {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+}
+
+.dropdown-menu i {
+  font-size: 24px;
+}
+
+@media only screen and (max-width: 768px) {
+  .body.open h2,
+  .body.open .round-button {
+    display: none;
+  }
 }

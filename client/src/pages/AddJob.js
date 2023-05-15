@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
 
 function AddJob() {
   const [form, setForm] = useState({});
