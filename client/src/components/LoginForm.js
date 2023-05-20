@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { setCookies, getCookies } from "./Cookies";
+import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -35,8 +35,10 @@ const LoginForm = ({ userType }) => {
             : res.data.employee.employeeName;
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
-        setCookies(userName, userType, userId);
+        setUserCookies(userName, userType, userId);
         ({ userName, userType, userId } = getCookies());
+        if (userType === "employee")
+          setCookies("companyName", res.data.employee.employeeCompanyName);
         navigate("/dashboard");
       })
       .catch((error) => {

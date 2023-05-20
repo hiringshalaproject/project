@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setCookies } from "./Cookies";
+import { setUserCookies, setCookies } from "./Cookies";
 import FileUploader from "../components/FileUploader/FileUploader";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -93,11 +93,14 @@ const SignupForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
-        setCookies(
+        setUserCookies(
           formData.firstName + " " + formData.lastName,
           userType,
           response.data._id
         );
+        if (userType === "employee") {
+          setCookies("companyName", formData.companyName);
+        }
         toast.success("Account Created");
         navigate(`/dashboard`);
       })
@@ -176,13 +179,14 @@ const SignupForm = ({ userType }) => {
                 placeholder="Enter Email Address"
                 value={formData.email}
                 className={`outline-none border-b-[1px] ${
-                  isOtpVerified ? "bg-gray-200 bg-transparent border-bottom-color"  : "border-black bg-transparent border-bottom-color"
+                  isOtpVerified
+                    ? "bg-gray-200 bg-transparent border-bottom-color"
+                    : "border-black bg-transparent border-bottom-color"
                 }  w-full p-[2px] pr-6 `}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
-                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">
-                </span>
+                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color"></span>
               )}
             </div>
           </label>

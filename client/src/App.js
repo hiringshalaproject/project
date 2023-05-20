@@ -16,6 +16,7 @@ import AddSeeker from "./pages/AddSeeker";
 import AddEmployee from "./pages/AddEmployee";
 import GetAllEmployees from "./pages/GetAllEmployee";
 import JobList from "./pages/JobList";
+import JobPost from "./pages/jobPost";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 import "./pages/index.css";
@@ -50,6 +51,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/internships" element={<Contact />} />
+        <Route path="/jobPost" element={<JobPost />} />
         <Route
           path="/employee/login"
           element={<Login userType={"employee"} />}
