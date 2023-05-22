@@ -1,15 +1,26 @@
 import React from "react";
+import Footer from "../components/Footer/Footer";
 
 const Contact = () => (
   <div
     style={{
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "90vh",
+      flexDirection: "column",
+      minHeight: "100vh",
     }}
   >
-    <h1>Contact Us</h1>
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      className="contact"
+    >
+      <h1>Contact us</h1>
+    </div>
+    <Footer />
   </div>
 );
 

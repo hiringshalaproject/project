@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { setCookies, getCookies } from "./Cookies";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const LoginForm = ({ userType }) => {
@@ -14,6 +15,7 @@ const LoginForm = ({ userType }) => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false); // Track the loading state
   const [showPassword, setShowPassword] = useState(false);
   function changeHandler(event) {
     setFormData((prevData) => ({
@@ -25,6 +27,7 @@ const LoginForm = ({ userType }) => {
     userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
     event.preventDefault();
+    setLoading(true);
     axios
       .post(`${apiUrl + apiUrlSecondary}`, formData)
       .then((res) => {
@@ -41,6 +44,9 @@ const LoginForm = ({ userType }) => {
       })
       .catch((error) => {
         toast.error(error.response.data.msg);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -95,8 +101,14 @@ const LoginForm = ({ userType }) => {
               </span>
             </MDBCol>
             <MDBCol size="md mt-4 mt-lg-0" className="col-lg-4 col-xxl-4">
-              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium  col-12 col-lg-10 ms-0 mx-lg-5">
-                Login
+              <button className="h-[40px] bg-teal-600 rounded-[12px] font-medium text-white  col-12 col-lg-10 ms-0 mx-lg-5">
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <ClipLoader color="#36d7b7" />
+                  </div>
+                ) : (
+                  "Login"
+                )}
               </button>
             </MDBCol>
           </MDBRow>

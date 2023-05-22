@@ -86,7 +86,6 @@ const uploadResume = async (req, res) => {
     }
     res.send("Resume URL updated successfully");
   } catch (error) {
-    console.error(error);
     res.status(500).send("Error updating resume URL");
   }
 };
@@ -233,7 +232,11 @@ const loginSeeker = async (req, res) => {
     }
 
     const isMatch = password === seeker.password; // await bcrypt.compare(password, seeker.password);
-    if (!isMatch) {
+    if(seeker && !isMatch)
+    {
+      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
+    }
+    else if (!isMatch) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
     res.status(200).json({ msg: "Login successful", seeker });
