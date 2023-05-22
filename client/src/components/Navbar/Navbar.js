@@ -43,7 +43,6 @@ const NavbarCmp = () => {
   };
 
   useEffect(() => {
-    console.log("theme", theme);
     document.body.className = theme;
   }, [theme]);
 

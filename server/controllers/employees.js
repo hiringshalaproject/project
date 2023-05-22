@@ -20,8 +20,15 @@ const getEmployeeFromId = async (req, res) => {
 
 const createNewEmployee = async (req, res) => {
   try {
+    const { employeeEmail } = req.body;
+    const existingEmployee = await Employees.findOne({ employeeEmail });
+    if (existingEmployee) {
+      return res
+        .status(400)
+        .json({ msg: "Employee with this email already exists" });
+    }
     const employee = await Employees.create(req.body);
-    res.status(201).json(employee);
+    res.status(201).json({ msg: "User Created Succesfully", employee });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -78,7 +85,11 @@ const loginEmployee = async (req, res) => {
     }
 
     const isMatch = password === employee.password; // await bcrypt.compare(password, seeker.password);
-    if (!isMatch) {
+    if(employee && !isMatch)
+    {
+      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
+    }
+    else if (!isMatch) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
     res.status(200).json({ msg: "Login successful", employee });

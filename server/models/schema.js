@@ -103,7 +103,7 @@ const EmployeeSchema = new mongoose.Schema({
   },
   employeeCompanyName: {
     type: String,
-    required: true,
+    required: false,
   },
   contactNumber: {
     type: Number,

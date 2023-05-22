@@ -35,11 +35,16 @@
   color: var(--home-text);
 }
 
-
-
-
 .home-img{
   margin: auto;
+}
+
+.about{
+  color: var(--secondary-color);
+}
+
+.contact{
+  color: var(--secondary-color);
 }
 
 /* card css*/
@@ -174,5 +179,3 @@ input{
     margin: auto;
   }
 }
-
-

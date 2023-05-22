@@ -45,7 +45,6 @@ const sendOtp = async (req, res) => {
 
       res.status(200).send("OTP sent successfully");
     } catch (err) {
-      console.error("Email sending failed:", err);
       res.status(500).send("Email sending failed");
     }
   } catch {
@@ -80,7 +79,6 @@ const verifyOtp = async (req, res) => {
 
     res.status(200).send("OTP verified successfully");
   } catch (err) {
-    console.error("Error verifying OTP:", err);
     res.status(500).send("Error verifying OTP");
   }
 };
