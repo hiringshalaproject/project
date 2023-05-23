@@ -3,7 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setCookies } from "./Cookies";
+import { setUserCookies, setCookies } from "./Cookies";
 import FileUploader from "../components/FileUploader/FileUploader";
 import ClipLoader from "react-spinners/ClipLoader";
 
@@ -94,11 +94,14 @@ const SignupForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
-        setCookies(
+        setUserCookies(
           formData.firstName + " " + formData.lastName,
           userType,
           response.data._id
         );
+        if (userType === "employee") {
+          setCookies("companyName", formData.companyName);
+        }
         toast.success("Account Created");
         navigate(`/dashboard`);
       })

@@ -8,7 +8,7 @@ import { removeCookies } from "../../Cookies";
 const Sidemenu = () => {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleLogOut = () => {
     removeCookies();
     navigate("/");
   };
@@ -52,7 +52,7 @@ const Sidemenu = () => {
           </Link>
         </h2>
 
-        {<RoundButton text="Logout" onClick={handleClick} />}
+        {<RoundButton text="Logout" onClick={handleLogOut} />}
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { setCookies, getCookies } from "./Cookies";
+import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import Footer from "./Footer/Footer";
 import { MDBContainer, MDBCol, MDBRow} from "mdb-react-ui-kit";
 
@@ -59,7 +59,10 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
             : res.data.employee.employeeName;
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
-        setCookies(userName, userType, userId);
+        setUserCookies(userName, userType, userId);
+        if (userType === "employee") {
+          setCookies("companyName", res.data.employee.employeeCompanyName);
+        }
         ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {
           toast.success("Logged In");

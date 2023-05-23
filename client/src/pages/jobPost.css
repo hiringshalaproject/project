@@ -1,0 +1,399 @@
+@media (max-width: 767px) {
+    .input-container {
+        margin-top: 10px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+
+.amountDiv {
+    width: 380px;
+}
+
+.addJobText{
+    color: var(--secondary-color);
+}
+
+@media (max-width: 767px) {
+    .input-container1 {
+        margin-top: 10px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+}
+
+@media (min-width:768px) {
+
+
+    .jobidText {
+        font-size: 24px,
+
+    }
+}
+
+@media (min-width: 768px) {
+    .form-group {
+        display: flex;
+        align-items: center;
+
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0px;
+    }
+
+    .label-container {
+        flex: 1;
+    }
+
+    .input-container {
+        flex: 1;
+
+    }
+
+    .label-container {
+        margin-right: 00px;
+
+    }
+
+    .input-container {
+        flex-grow: 1;
+        width: 500px;
+        height: 40px;
+        border: 2px solid black;
+        border-radius: 5px;
+        margin-left: 500px;
+    }
+
+    .job-position-input {
+        width: 410px;
+        height: 40px;
+        border: 2px solid black;
+    }
+
+    .form-control {
+        width: 400px;
+    }
+
+
+    .job-position-label {
+        font-size: 16px;
+        margin-top: 20px;
+
+    }
+
+    .job-description-title {
+        font-size: 24px;
+        /* color: black; */
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    .job-description-text {
+        font-size: 14px;
+        /* color: gray; */
+        margin-top: 10px;
+    }
+
+    .job-description-textarea {
+        border-top: 2px solid black;
+        border-bottom: 4px solid black;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-radius: 5px 5px 10px 5px;
+        width: 400px;
+        margin-left: 230px;
+    }
+
+    @media (max-width: 767px) {
+        .job-description-textarea {
+            width: 100%;
+            height: 150px;
+            resize: vertical;
+            border: 2px solid black;
+        }
+    }
+
+
+    .flex-container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .text-container {
+        margin-right: 350px;
+    }
+
+
+    .text-Key {
+        font-size: 24px;
+        /* color: black; */
+        margin-top: 10px;
+        font-weight: bold;
+        margin-left: 0px;
+    }
+
+    .text-secondary {
+        font-size: 14px;
+        /* color: gray; */
+        margin-top: 10px;
+        margin-left: 0px;
+    }
+
+    .textarea {
+        width: 100%;
+        height: 250px;
+        resize: vertical;
+        border-top: 2px solid black;
+        border-bottom: 4px solid black;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-radius: 5px 5px 10px 5px;
+        margin-left: 25px;
+        width: 400px;
+    }
+
+    .additional-textarea {
+        width: 100%;
+        height: 250px;
+        resize: vertical;
+        border-top: 2px solid black;
+        border-bottom: 4px solid black;
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-radius: 5px 5px 10px 5px;
+        margin-left: 25px;
+        width: 400px;
+    }
+
+    @media (max-width: 767px) {
+        .textarea {
+            width: 100%;
+            height: 150;
+            resize: vertical;
+            border: 2px solid black;
+        }
+
+        @media (max-width: 767px) {
+            .additional-textarea {
+                width: 100%;
+                height: 150;
+                resize: vertical;
+                border: 2px solid black;
+            }
+        }
+
+        @media(max-width:767px) {
+            .text-primary {
+                font-size: 24px;
+                color: black;
+            }
+
+        }
+
+    }
+
+    .checkbox-container-empType {
+        border: 1px solid black;
+        transition: border-color 0.3s ease-in-out;
+        width: px;
+        cursor: pointer;
+        /* margin-bottom: 20px; */
+        margin-left: 250px;
+
+    }
+
+    .checkbox-container-empType {
+        display: block;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    /* .checkbox-content {
+        margin-bottom: 20px;
+    } */
+
+    .checkbox-content:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* .checkbox-input {
+        display: none;
+    } */
+
+    .checkbox-input:checked+.allcheckbox {
+        font-weight: bold;
+    }
+
+    /* @media (max-width: 767px) {
+        .checkbox-content {
+            margin-bottom: 20px;
+        }
+    } */
+
+
+    .checkbox-container-empType input[type="checkbox"]:checked+.border {
+        border-color: blue;
+    }
+
+    .checkbox-container-empType :hover {
+        border-color: blue;
+    }
+
+    .checkbox-container-empType input[type="checkbox"]:checked+.allcheckbox {
+        color: blue;
+    }
+
+    .checkbox-container-empType input[type="checkbox"]:checked+.allcheckbox::before {
+        background-color: blue;
+    }
+
+    .checkbox-container-empType input[type="checkbox"]:checked {
+        border-color: blue;
+    }
+
+    .checkbox-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 500px;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+
+    }
+
+    .checkbox-input {
+        margin-right: 20px;
+    }
+
+
+    .checkbox-input[type="checkbox"] {
+
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+
+
+        width: 16px;
+        height: 16px;
+        border: 2px solid BLACK;
+        border-radius: 3px;
+        margin-right: 10px;
+        outline: none;
+        transition: border-color 0.3s;
+
+
+        background-color: #fff;
+    }
+
+    .checkbox-input[type="checkbox"]:checked {
+        /* Customize checked state */
+        border-color: #007bff;
+        background-color: #007bff;
+    }
+
+
+
+    /* .checkbox-label-hourly {
+
+        margin-left: 20px;
+    } */
+
+    .checkbox-label-custom {
+        margin-left: 20px;
+    }
+
+    .hourly-box {
+        height: 100px;
+        width: 180px;
+        margin-left: 240px;
+    }
+
+    .custom-box {
+        height: 100px;
+        width: 180px;
+        margin-left: 110px;
+    }
+
+
+    .saveDraft {
+        margin-left: 850px;
+        width: 180px;
+        margin-right: 30px;
+    }
+
+    .postJob {
+        margin-left: 0px;
+        width: 180px;
+        /* margin-right: 30px; */
+    }
+
+
+
+
+    .employementType {
+        margin-left: 240px;
+
+    }
+
+    .text-margin {
+        margin-top: 200px;
+    }
+
+    .form-control1 {
+        width: 200px;
+        padding: 0.5rem;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        margin-bottom: 10px;
+
+
+    }
+
+    @media (min-width: 992px) {
+
+        .textarea-container {
+            margin-left: 185px;
+            flex: 1;
+
+        }
+    }
+
+    @media (max-width: 767px) {
+
+        .textarea-container {
+            width: 100%;
+            /* flex: 1; */
+
+        }
+    }
+
+    .Isnegotiable {
+        margin-left: 870px;
+    }
+
+    @media (min-width: 992px) {
+
+        .textarea-container-keyQualification-textarea {
+            margin-left: 200px;
+            flex: 1;
+
+        }
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+    }
+
+
+
+}
