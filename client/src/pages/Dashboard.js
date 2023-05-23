@@ -14,43 +14,15 @@ function Dashboard() {
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
   const userType = Cookies.get("userType");
 
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 768);
-    };
-
-    handleResize(); // Check on initial render
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
 
   return (
     <div className="dashboard">
-      {isSmallScreen ? (
-        <div className={`sideMenu ${isOpen ? "open" : ""}`}>
-          console.log("size");
-          <Sidemenu toggleDropdown={toggleDropdown} />
-        </div>
-      ) : (
         <div className="sideMenu">
           <Sidemenu />
         </div>
-      )}
       <div className="mainContent">
         <div className="topMenu">
           <TopHeading />

@@ -11,6 +11,7 @@ function FileUploader() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -21,11 +22,16 @@ function FileUploader() {
       allowedExtensions.includes(file.name.split(".").pop().toLowerCase())
     ) {
       setSelectedFile(file);
+      setError(false);
+      setErrorMessage("");
     } else {
       setSelectedFile(null);
+      setError(true);
+      setErrorMessage(
+        "Invalid file format. Please select a PDF, DOC, or DOCX file."
+      );
     }
   };
-
   const handleUpload = () => {
     const seekerId = Cookies.get("userId");
     const formData = new FormData();
@@ -112,6 +118,9 @@ function FileUploader() {
         <span className="text-red-500 ml-4">
           Upload failed. Please try again.
         </span>
+      )}
+      {errorMessage && (
+        <span className="text-red-500 ml-4">Invalid Format</span>
       )}
     </div>
   );
