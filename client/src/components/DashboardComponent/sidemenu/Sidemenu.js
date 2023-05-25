@@ -90,7 +90,7 @@ const Sidemenu = () => {
             }}
           />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
-            <Nav className="ml-auto">
+            <Nav className="ml-auto1">
               <ul className="side">
                 <li>
                   <Nav.Link as={Link} to="/contact-us" onClick={handleSelect}>
