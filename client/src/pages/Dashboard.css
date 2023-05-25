@@ -6,14 +6,18 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background-color: var(--bg-image);
 }
 
 .sideMenu {
-  background-color: #fafbfc;
-  flex: 0 0 250px;
+  background-color: var(--bg-image);
+  color: var(--home-text);
+  /* flex: 0 0 250px; */
   box-sizing: border-box;
-  border: 1px black;
-  border-style: inherit; /* specify the border width and style */
+  border-right: 1px black;
+  border-style: inherit;
+  padding-bottom: 0.8rem;
+  /* specify the border width and style */
 }
 
 .mainContent {
@@ -21,41 +25,63 @@
   flex-direction: column;
   flex: 1;
   overflow: auto;
-  background-color: #ffffff;
+  background-color: var(--bg-image);
+  color: var(--home-text);
   box-sizing: border-box;
   padding-top: 0;
+  margin-left: 25px;
 }
 
 .topMenu {
   margin: 0;
   height: auto;
   flex: 0 0 auto;
-  background-color: #fafbfc;
+  background-color: var(--bg-image);
+  color: var(--home-text);
   border-bottom: 1px black;
   border-style: inherit;
 }
 /* Set the height of other divs in mainContent based on their content */
 
-.ResumeSec {
-  height: auto;
-  flex: 0 0 auto;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.ResumeSec p {
+  display: inline-flex;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  background-color: var(--bg-image);
+  color: var(--home-text);
 }
-.uploadSection {
-  align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  border-radius: 20px;
-  padding: 25px;
-  margin-top: -30px;
-}
-.appliedJob,
+
 .RefferalChart {
   height: auto;
+  margin-top: 30px;
+  margin-bottom: 30px; /* Add margin-bottom to create space below the RefferalChart */
+}
+
+.uploadSection {
+  align-items: center;
+  background: rgba(179, 232, 229, 0.6);
+  border: 2px dashed #2f8f9d;
+  border-radius: 20px;
+  padding-top: 20px;
+  width: 50%;
+  margin-bottom: 15px;
+  text-align: center;
+  background-color: var(--bg-image);
+  color: var(--home-text);
+}
+@media only screen and (max-width: 767px) {
+  .uploadSection {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+.appliedJob,
+.FeaturedJob {
+  height: auto;
   flex: 0 0 auto;
-  background-color: #ffffff;
+  background-color: var(--bg-image);
+  color: var(--home-text);
 }
 
 @media only screen and (min-width: 768px) {
@@ -64,7 +90,8 @@
   }
 
   .sideMenu {
-    flex: 0 0 250px;
+    /* flex: 0 0 250px; */
+    margin-bottom: 10px;
   }
 
   .mainContent {
@@ -84,11 +111,16 @@
   }
 
   .RefferalChart {
-    background-color: #ffffff;
+    background-color: var(--bg-image);
+    color: var(--home-text);
   }
 
   .appliedJob {
-    height: 400px;
+    height: auto;
+    margin-top: 30px;
+  }
+  .FeaturedJob {
+    height: auto;
     margin-top: 30px;
   }
 }

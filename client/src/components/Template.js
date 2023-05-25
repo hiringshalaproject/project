@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import Footer from "./Footer/Footer";
-import { MDBContainer, MDBCol, MDBRow} from "mdb-react-ui-kit";
+import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -82,7 +82,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
 
   return (
     <>
-      <div >
+      <div>
         <MDBContainer fluid className="p-3 mt-20">
           <MDBRow center>
             <MDBCol size="5">
@@ -108,9 +108,13 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
                   {title}
                 </h1>
                 <p className="text-[1.125rem] leading[1.625rem] mt-2">
-                  <span className="text-slate-900 italic loginDesc">{desc1}</span>
+                  <span className="text-slate-900 italic loginDesc">
+                    {desc1}
+                  </span>
                   <br />
-                  <span className="text-slate-900 italic loginDesc">{desc2}</span>
+                  <span className="text-slate-900 italic loginDesc">
+                    {desc2}
+                  </span>
                 </p>
               </MDBContainer>
               {formtype === "signup" ? (

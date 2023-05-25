@@ -10,12 +10,12 @@ const fetchUsers = async () => {
     const jobIds = response.data.seeker.appliedJobList.map(
       (appliedJob) => appliedJob.jobId
     );
-
+    console.log("JobID", jobIds);
     const seekerJob = await axios.post(`${apiUrl}/api/v1/jobs`);
     const filteredJobs = seekerJob.data.filter((job) =>
       jobIds.includes(job._id)
     );
-
+    console.log("job", filteredJobs);
     return filteredJobs;
   } catch (error) {
     console.error(error);

@@ -1,40 +1,32 @@
 import BootstrapCard from "./BootstrapCards";
 import { useState, useEffect } from "react";
-import fetchUsers from "./FetchData";
+import fetchJobs from "./FetchJob";
 import "./BootstrapCards.css";
 import RoundButton from "../sidemenu/RoundButton";
 import { Container } from "react-bootstrap";
 import SearchJob from "../../assets/job-search.png";
 
-const RenderUsersInCards = () => {
+const RenderJobsInCards = () => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const updateUsers = async () => {
-      let myData = await fetchUsers();
+      let myData = await fetchJobs();
 
       setUsers(myData);
     };
     updateUsers();
   }, []);
-
+  console.log("JObs", users);
   const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (
     <div className="user-cards-container">
       <div className="user-cards-header">
         <h2 style={{ fontSize: "25px", color: "#636C86", fontWeight: "600" }}>
-          Successful Referrals
+          Featured Openings
         </h2>
-
-        {users.length > 0 && (
-          <RoundButton
-            onClick={() => setShowAll(!showAll)}
-            text={showAll ? "Show Less" : "Show All"}
-            className={"RefferedjobButton"}
-          />
-        )}
       </div>
 
       {displayedUsers.length > 0 ? (
@@ -48,12 +40,15 @@ const RenderUsersInCards = () => {
           </div>
         </Container>
       ) : (
-        <div style={{ fontWeight: "300px", fontSize: "20px" }}>
-          You haven’t received any referrals yet. Keep applying.
-        </div>
+        <div style={{ fontWeight: "300px", fontSize: "20px" }}>Loading....</div>
       )}
+      <RoundButton
+        onClick={() => setShowAll(!showAll)}
+        text={showAll ? "Show Less" : "explore more"}
+        className={"ListedjobButton"}
+      />
     </div>
   );
 };
 
-export default RenderUsersInCards;
+export default RenderJobsInCards;

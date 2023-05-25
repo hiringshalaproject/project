@@ -2,6 +2,10 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .clock-icon {
   font-size: 15px;
   color: #440bf1;
@@ -35,7 +39,7 @@
 .card-container {
   margin-top: 10px;
   margin-bottom: 15px;
-  margin-right: 24px;
+  margin-right: 80px;
 }
 
 .card-img-top {
@@ -203,4 +207,17 @@
   .card {
     margin: auto;
   }
+}
+
+.ListedjobButton {
+  width: 262px;
+  height: 66px;
+  border: 1px solid #000000;
+  background-color: #2f8f9d;
+  color: #393e4f;
+  border-radius: 0px 25px 0px 0px;
+  margin-bottom: 20px;
+}
+.ListedjobButton:hover {
+  background-color: #a7bba8;
 }
