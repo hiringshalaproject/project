@@ -1,399 +1,249 @@
-@media (max-width: 767px) {
-    .input-container {
-        margin-top: 10px;
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-    }
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
 
-.amountDiv {
-    width: 380px;
+.label-container {
+    display: flex;
+    flex-direction: column;
 }
 
-.addJobText{
-    color: var(--secondary-color);
+.input-container {
+    position: relative;
 }
 
-@media (max-width: 767px) {
-    .input-container1 {
-        margin-top: 10px;
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-    }
+.input-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-@media (min-width:768px) {
-
-
-    .jobidText {
-        font-size: 24px,
-
-    }
+.input-row input,
+.input-row textarea {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-@media (min-width: 768px) {
+/* Media Queries */
+
+@media (min-width: 992px) {
     .form-group {
-        display: flex;
-        align-items: center;
-
-    }
-
-    .form-group {
-        display: flex;
         flex-direction: row;
-        align-items: center;
-        gap: 0px;
+        align-items: start;
     }
 
     .label-container {
-        flex: 1;
+        width: 50%;
     }
 
     .input-container {
-        flex: 1;
+        width: 50%;
 
     }
 
-    .label-container {
-        margin-right: 00px;
-
+    .input-row {
+        margin-left: 10px;
     }
+}
 
-    .input-container {
-        flex-grow: 1;
-        width: 500px;
-        height: 40px;
-        border: 2px solid black;
-        border-radius: 5px;
-        margin-left: 500px;
-    }
-
-    .job-position-input {
-        width: 410px;
-        height: 40px;
-        border: 2px solid black;
-    }
-
-    .form-control {
-        width: 400px;
-    }
-
-
-    .job-position-label {
-        font-size: 16px;
-        margin-top: 20px;
-
-    }
-
-    .job-description-title {
-        font-size: 24px;
-        /* color: black; */
-        margin-top: 10px;
-        font-weight: bold;
-    }
-
-    .job-description-text {
-        font-size: 14px;
-        /* color: gray; */
-        margin-top: 10px;
-    }
-
-    .job-description-textarea {
-        border-top: 2px solid black;
-        border-bottom: 4px solid black;
-        border-left: 2px solid black;
-        border-right: 2px solid black;
-        border-radius: 5px 5px 10px 5px;
-        width: 400px;
-        margin-left: 230px;
-    }
-
-    @media (max-width: 767px) {
-        .job-description-textarea {
-            width: 100%;
-            height: 150px;
-            resize: vertical;
-            border: 2px solid black;
-        }
-    }
-
-
-    .flex-container {
-        display: flex;
+@media (min-width: 768px) and (max-width: 992px) {
+    .form-group {
+        flex-direction: row;
         align-items: flex-start;
     }
 
-    .text-container {
-        margin-right: 350px;
+    .label-container {
+        width: 30%;
     }
 
-
-    .text-Key {
-        font-size: 24px;
-        /* color: black; */
-        margin-top: 10px;
-        font-weight: bold;
-        margin-left: 0px;
+    .input-container {
+        width: 70%;
     }
 
-    .text-secondary {
-        font-size: 14px;
-        /* color: gray; */
-        margin-top: 10px;
-        margin-left: 0px;
+    .input-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-left: 150px;
     }
 
-    .textarea {
+    .input-row input {
         width: 100%;
-        height: 250px;
-        resize: vertical;
-        border-top: 2px solid black;
-        border-bottom: 4px solid black;
-        border-left: 2px solid black;
-        border-right: 2px solid black;
-        border-radius: 5px 5px 10px 5px;
-        margin-left: 25px;
-        width: 400px;
+        margin-bottom: 10px;
     }
+}
 
-    .additional-textarea {
-        width: 100%;
-        height: 250px;
-        resize: vertical;
-        border-top: 2px solid black;
-        border-bottom: 4px solid black;
-        border-left: 2px solid black;
-        border-right: 2px solid black;
-        border-radius: 5px 5px 10px 5px;
-        margin-left: 25px;
-        width: 400px;
-    }
 
-    @media (max-width: 767px) {
-        .textarea {
-            width: 100%;
-            height: 150;
-            resize: vertical;
-            border: 2px solid black;
-        }
+.addJobText {
+    color: var(--secondary-color);
+}
 
-        @media (max-width: 767px) {
-            .additional-textarea {
-                width: 100%;
-                height: 150;
-                resize: vertical;
-                border: 2px solid black;
-            }
-        }
-
-        @media(max-width:767px) {
-            .text-primary {
-                font-size: 24px;
-                color: black;
-            }
-
-        }
-
-    }
-
+@media (min-width: 992px) {
     .checkbox-container-empType {
-        border: 1px solid black;
-        transition: border-color 0.3s ease-in-out;
-        width: px;
-        cursor: pointer;
-        /* margin-bottom: 20px; */
-        margin-left: 250px;
-
-    }
-
-    .checkbox-container-empType {
-        display: block;
-        width: 100%;
-        cursor: pointer;
-    }
-
-    /* .checkbox-content {
-        margin-bottom: 20px;
-    } */
-
-    .checkbox-content:hover {
-        background-color: #f5f5f5;
-    }
-
-    /* .checkbox-input {
-        display: none;
-    } */
-
-    .checkbox-input:checked+.allcheckbox {
-        font-weight: bold;
-    }
-
-    /* @media (max-width: 767px) {
-        .checkbox-content {
-            margin-bottom: 20px;
-        }
-    } */
-
-
-    .checkbox-container-empType input[type="checkbox"]:checked+.border {
-        border-color: blue;
-    }
-
-    .checkbox-container-empType :hover {
-        border-color: blue;
-    }
-
-    .checkbox-container-empType input[type="checkbox"]:checked+.allcheckbox {
-        color: blue;
-    }
-
-    .checkbox-container-empType input[type="checkbox"]:checked+.allcheckbox::before {
-        background-color: blue;
-    }
-
-    .checkbox-container-empType input[type="checkbox"]:checked {
-        border-color: blue;
-    }
-
-    .checkbox-container {
         display: flex;
         flex-direction: column;
-        margin-left: 500px;
+        align-self: flex-start;
     }
 
-    .checkbox-label {
+    .checkbox-content {
+        /* align-self: flex-start; */
+        width: 100%;
+    }
+}
+
+.body-container {
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .checkbox-container-empType {
+        width: 100%;
+
+    }
+
+    .checkbox-content {
+        width: 100%;
+
+    }
+}
+
+.checkbox-content {
+    margin-bottom: 20px;
+}
+
+.checkbox-content:hover {
+    background-color: #f5f5f5;
+}
+
+
+
+.checkbox-input:checked+.allcheckbox {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .flex-container {
         display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
-    .checkbox-input {
-        margin-right: 20px;
+    .col-lg-6 {
+        width: 50%;
     }
 
-
-    .checkbox-input[type="checkbox"] {
-
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-
-
-        width: 16px;
-        height: 16px;
-        border: 2px solid BLACK;
-        border-radius: 3px;
-        margin-right: 10px;
-        outline: none;
-        transition: border-color 0.3s;
-
-
-        background-color: #fff;
+    .employementType {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-left: 10px;
     }
 
-    .checkbox-input[type="checkbox"]:checked {
-        /* Customize checked state */
-        border-color: #007bff;
-        background-color: #007bff;
+    .col-md-12 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .flex-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
-
-
-    /* .checkbox-label-hourly {
-
-        margin-left: 20px;
-    } */
-
-    .checkbox-label-custom {
-        margin-left: 20px;
+    .col-lg-6 {
+        width: 50%;
     }
 
-    .hourly-box {
-        height: 100px;
-        width: 180px;
-        margin-left: 240px;
+    .salaryBox {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-left: 10px;
     }
 
-    .custom-box {
-        height: 100px;
-        width: 180px;
-        margin-left: 110px;
+    .col-md-6.offset-lg-4 {
+        width: 100%;
+        margin-bottom: 20px;
+
     }
+}
+
+.checkbox-input:checked+.allcheckbox {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
 
 
     .saveDraft {
-        margin-left: 850px;
-        width: 180px;
+        flex-grow: 1;
+        border-radius: 10px 5px 0 0;
+        height: 50px;
+        margin-top: 30px;
+        margin-bottom: 50px;
         margin-right: 30px;
+        margin-left: 20px;
+
     }
 
     .postJob {
-        margin-left: 0px;
-        width: 180px;
-        /* margin-right: 30px; */
+        flex-grow: 1;
+        border-radius: 0 0 10px 5px;
+        height: 50px;
+        margin-top: 30px;
+        margin-bottom: 50px;
     }
 
-
-
-
-    .employementType {
-        margin-left: 240px;
-
+    .saveDraft {
+        border-right: none;
     }
 
-    .text-margin {
-        margin-top: 200px;
-    }
-
-    .form-control1 {
-        width: 200px;
-        padding: 0.5rem;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        margin-bottom: 10px;
-
-
-    }
-
-    @media (min-width: 992px) {
-
-        .textarea-container {
-            margin-left: 185px;
-            flex: 1;
-
-        }
-    }
-
-    @media (max-width: 767px) {
-
-        .textarea-container {
-            width: 100%;
-            /* flex: 1; */
-
-        }
-    }
-
-    .Isnegotiable {
-        margin-left: 870px;
-    }
-
-    @media (min-width: 992px) {
-
-        .textarea-container-keyQualification-textarea {
-            margin-left: 200px;
-            flex: 1;
-
-        }
+    .postJob {
+        border-left: none;
     }
 
     .btn:hover {
         transform: scale(1.1);
     }
+}
 
 
+@media (max-width: 767px) {
 
+
+    .saveDraft {
+        flex-grow: 1;
+        border-radius: 10px 5px 0 0;
+        height: 50px;
+        margin-top: 30px;
+        margin-bottom: 50px;
+        margin-right: 10px;
+
+    }
+
+    .postJob {
+        flex-grow: 1;
+        border-radius: 0 0 10px 5px;
+        height: 50px;
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    .addJobText {
+        margin-right: 10px;
+
+    }
+}
+
+.required-field {
+    color: red;
+    font-size: 12px
 }
