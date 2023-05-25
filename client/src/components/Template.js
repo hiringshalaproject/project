@@ -11,7 +11,7 @@ import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import Footer from "./Footer/Footer";
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
   const navigate = useNavigate();

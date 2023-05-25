@@ -19,14 +19,6 @@ const RenderUsersInCards = () => {
     updateUsers();
   }, []);
 
-  // if (users.length === 0) {
-  //   return (
-  //     <div style={{ fontWeight: "300px", fontSize: "20px" }}>
-  //       You haven’t receive any referrals yet. Keep Applying
-  //     </div>
-  //   );
-  // }
-
   const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (

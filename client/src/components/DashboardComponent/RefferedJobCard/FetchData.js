@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const fetchUsers = async () => {
   try {

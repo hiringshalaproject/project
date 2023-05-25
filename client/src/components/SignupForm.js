@@ -7,7 +7,7 @@ import { setUserCookies, setCookies } from "./Cookies";
 import FileUploader from "../components/FileUploader/FileUploader";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const SignupForm = ({ userType }) => {
   const navigate = useNavigate();

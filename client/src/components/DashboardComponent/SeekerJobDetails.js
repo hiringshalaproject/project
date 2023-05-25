@@ -11,7 +11,7 @@ import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 import Cookies from "js-cookie";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const SeekerJobDetails = () => {
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
@@ -83,13 +83,6 @@ const SeekerJobDetails = () => {
       }
     });
   }
-  // if (sortedJobDetails.length === 0) {
-  //   return (
-  //     <div style={{ fontWeight: "300px", fontSize: "20px" }}>
-  //       You haven’t applied to any openings yet. Applied opening appear here.
-  //     </div>
-  //   );
-  // }
   const visibleRows = showAll ? sortedJobDetails : sortedJobDetails.slice(0, 3);
 
   return (
