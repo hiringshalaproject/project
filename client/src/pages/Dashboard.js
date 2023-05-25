@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Dashboard.css";
 import RenderUsersInCards from "../components/DashboardComponent/RefferedJobCard/RenderUsersInCards";
 import Sidemenu from "../components/DashboardComponent/sidemenu/Sidemenu";
@@ -12,7 +12,6 @@ import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/
 function Dashboard() {
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
-  const userType = Cookies.get("userType");
 
   if (!isLoggedIn) {
     return <Navigate to="/" />;

@@ -1,10 +1,6 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
 import "./BootstrapCards.css";
-import { format } from "date-fns";
-import { FcClock } from "react-icons/fc";
 import { AiFillDollarCircle } from "react-icons/ai";
-import { Container, Row, Col } from "react-bootstrap";
 
 const BootstrapCards = ({ user, ImgSrc }) => {
   // Convert single user object to an array if necessary

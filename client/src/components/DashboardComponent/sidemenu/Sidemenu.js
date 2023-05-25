@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Logo_dark from "../../assets/Logo_dark.png";
 import Logo_light from "../../assets/Logo_light.png";
 import { Link, useNavigate } from "react-router-dom";
-import RoundButton from "./RoundButton";
 import "./sidemenu.css";
 import { removeCookies } from "../../Cookies";
 import Cookies from "js-cookie";
@@ -10,6 +9,7 @@ import Cookies from "js-cookie";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaMoon } from "react-icons/fa";
 import { BiSun } from "react-icons/bi";
+import { FiInstagram, FiMail, FiBriefcase, FiUser, FiLogOut } from "react-icons/fi"; // Import the icons you want to use
 
 const Sidemenu = () => {
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ const Sidemenu = () => {
         collapseOnSelect
         fixed="left"
         expand="sm"
-        className=""
+        className="sidemenu-custom-navbar"
         variant="red"
         expanded={expanded}
         onToggle={handleToggle}
@@ -94,21 +94,31 @@ const Sidemenu = () => {
               <ul className="side">
                 <li>
                   <Nav.Link as={Link} to="/contact-us" onClick={handleSelect}>
-                    Contact Us
+                    <FiMail className="navbar-icon" /> Contact Us
                   </Nav.Link>
                 </li>
                 <li>
                   <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
-                    Opportunities
+                    <FiBriefcase className="navbar-icon" /> Jobs
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
+                    <FiBriefcase className="navbar-icon" /> Internships
+                  </Nav.Link>
+                </li>
+                <li>
+                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
+                    <FiInstagram className="navbar-icon" /> Referrals
                   </Nav.Link>
                 </li>
                 <li>
                   <Nav.Link className="logout-button" onClick={handleLogOut}>
-                    Logout
+                    <FiLogOut className="navbar-icon-logout" /> Logout
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link className="moon-button" onClick={toggleDarkTheme}>
+                  <Nav.Link className="sidemenu-moon-button" onClick={toggleDarkTheme}>
                     {isDark ? (
                       <button
                         className="btn btn-dark"

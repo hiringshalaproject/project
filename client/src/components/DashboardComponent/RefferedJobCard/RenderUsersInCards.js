@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import fetchUsers from "./FetchData";
 import "./BootstrapCards.css";
 import RoundButton from "../sidemenu/RoundButton";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import SearchJob from "../../assets/job-search.png";
 
 const RenderUsersInCards = () => {
