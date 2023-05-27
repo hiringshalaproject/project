@@ -55,7 +55,6 @@ const Sidemenu = () => {
   };
 
   useEffect(() => {
-    console.log("theme", theme);
     document.body.className = theme;
   }, [theme]);
 

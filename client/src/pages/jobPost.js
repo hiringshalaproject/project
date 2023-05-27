@@ -86,7 +86,7 @@ const JobPost = () => {
         setAdditionalRequirement("");
         setIsFormComplete(false);
     }
-    
+
     const handlePostJob = () => {
         const companyName = Cookies.get("companyName")
         if (!companyName) {
@@ -101,7 +101,6 @@ const JobPost = () => {
             expectedPackage: parseFloat(amount),
             applyLink: additionalRequirement,
         };
-        console.log("formdata", formData);
         axios
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
             .then((res) => {

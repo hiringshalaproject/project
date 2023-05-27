@@ -18,7 +18,6 @@ const RenderJobsInCards = () => {
     };
     updateUsers();
   }, []);
-  console.log("JObs", users);
   const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (
