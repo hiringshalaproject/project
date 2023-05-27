@@ -192,7 +192,6 @@ const JobPost = () => {
 
 
             <hr style={{ borderTop: "1px solid black", margin: "20px 0" }} />
-
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
@@ -202,39 +201,40 @@ const JobPost = () => {
                 </div>
                 <div className="col-lg-7 employementType">
                     <div className="col-md-12">
-                        <div className="checkbox-container-empType" >
+                        <label htmlFor="checkbox1" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox1" className="checkbox-input" />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
                     <div className="col-md-12">
-                        <div className="checkbox-container-empType" >
+                        <label htmlFor="checkbox2" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox2" className="checkbox-input" />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
                     <div className="col-md-12">
-                        <div className="checkbox-container-empType" >
+                        <label htmlFor="checkbox3" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox3" className="checkbox-input" />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>On demand</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
-                    <div className="col-md-12">
-                        <div className="checkbox-container-empType" style={{ marginBottom: "20px", }}>
+                    <div className="col-md-12 ">
+                        <label htmlFor="checkbox4" className="checkbox-container-empType" style={{ marginBottom: "20px" }}>
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox4" className="checkbox-input" />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Negotiable</span>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 </div>
             </div>
+
 
 
 
