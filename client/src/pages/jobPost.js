@@ -76,8 +76,17 @@ const JobPost = () => {
         setIsFormComplete(isjobTitleFilled && isjobDescriptionFilled && iskeyQualificationsFilled);
     };
 
-
-
+    const setInputsEmpty = () => {
+        setJobTitle("");
+        setJobPosition("");
+        setJobDescription("");
+        setKeyQualifications("");
+        setAmount("");
+        setSelectedOption("");
+        setAdditionalRequirement("");
+        setIsFormComplete(false);
+    }
+    
     const handlePostJob = () => {
         const companyName = Cookies.get("companyName")
         if (!companyName) {
@@ -92,11 +101,27 @@ const JobPost = () => {
             expectedPackage: parseFloat(amount),
             applyLink: additionalRequirement,
         };
+        console.log("formdata", formData);
         axios
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
             .then((res) => {
                 toast.success("Job Posted Successfully");
-                navigate("/dashboard");
+                setTimeout(() => {
+                    const form = document.getElementById("jobPostForm"); // Replace "your-form-id" with the actual ID of your form
+
+                    // Reset each input field
+                    const inputFields = form.querySelectorAll("input");
+                    inputFields.forEach((input) => {
+                    input.value = "";
+                    });
+                    const textareaFields = form.querySelectorAll("textarea");
+                    textareaFields.forEach((textarea) => {
+                        textarea.value = "";
+                    });
+                    setInputsEmpty();
+                    // window.location.reload();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }, 2000);
             })
             .catch((error) => {
                 toast.error(error.response.data.msg);
@@ -105,7 +130,7 @@ const JobPost = () => {
 
     return (
 
-        <div className="container addJobText"  >
+        <div className="container addJobText" id="jobPostForm" >
             <h2 className="text-primary font-weight-bold post-job-title" style={{ fontWeight: "bold", fontSize: "24px", marginTop: "100px", marginBottom: "50px" }}>Post New Job Opening</h2>
             <div className="form-group">
                 <div className="label-container">
@@ -326,21 +351,35 @@ const JobPost = () => {
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row custom-margin">
                     <div className="col-md-6 offset-md-6">
                         <div className="d-flex justify-content-lg-end justify-content-end align-items-center">
                             <button
                                 onClick={handleSaveAsDraft}
-                                className="btn btn-success saveDraft mr-2"
+                                className={`save-job-button`}   
                             >
                                 Save as Draft
                             </button>
 
                             <button
                                 onClick={handlePostJob}
-                                className="btn btn-primary postJob"
+                                className={`post-job-button ${
+                                    isFormComplete ? "cursor-pointer" : "cursor-not-allowed"
+                                  }`}                                  
                                 disabled={!isFormComplete}
-                            >
+                                onMouseOver={(e) => {
+                                    if (!isFormComplete) {
+                                    e.currentTarget.style.backgroundColor = "#b3e6cc";
+                                    e.currentTarget.style.cursor = "not-allowed";
+                                    }
+                                }}
+                                onMouseOut={(e) => {
+                                    if (!isFormComplete) {
+                                    e.currentTarget.style.backgroundColor = "#e0e0e0";
+                                    e.currentTarget.style.cursor = "default";
+                                    }
+                                }}
+                                >
                                 Post New Job
                             </button>
                         </div>
