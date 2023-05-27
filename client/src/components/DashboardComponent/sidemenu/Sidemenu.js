@@ -9,7 +9,7 @@ import Cookies from "js-cookie";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaMoon } from "react-icons/fa";
 import { BiSun } from "react-icons/bi";
-import { FiInstagram, FiMail, FiBriefcase, FiUser, FiLogOut } from "react-icons/fi"; // Import the icons you want to use
+import { FiInstagram, FiMail, FiBriefcase, FiUser, FiLogOut , FiInbox} from "react-icons/fi"; // Import the icons you want to use
 
 const Sidemenu = () => {
   const navigate = useNavigate();
@@ -32,6 +32,7 @@ const Sidemenu = () => {
   };
 
   const userId = Cookies.get("userId");
+  const userType = Cookies.get("userType");
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const [isDark, setDark] = useState(
@@ -92,6 +93,11 @@ const Sidemenu = () => {
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto1">
               <ul className="side">
+              <li>
+                  <Nav.Link as={Link} to="/jobpost" onClick={handleSelect} style={{ visibility: userType === "employee" ? "visible" : "hidden" }}>
+                    <FiInbox className="navbar-icon" /> Post Job
+                  </Nav.Link>
+                </li>
                 <li>
                   <Nav.Link as={Link} to="/contact-us" onClick={handleSelect}>
                     <FiMail className="navbar-icon" /> Contact Us

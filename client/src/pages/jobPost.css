@@ -258,3 +258,41 @@
     color: red;
     font-size: 12px
 }
+
+.custom-margin{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.post-job-button {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    width: 262px;
+    height: 55px;
+    color: white;
+    margin-top: 6px;
+    margin-left: 35px;
+    background-color: #4164E3;
+    border-radius: 0 0 0.75rem 0;
+  }
+  
+.save-job-button {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    width: 262px;
+    height: 55px;
+    color: white;
+    margin-top: 6px;
+    margin-left: 0px;
+    margin-right: 35px;
+    background-color: #82DBD8;
+    border-radius: 0.75rem 0 0 0;
+  }
