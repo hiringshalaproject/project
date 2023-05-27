@@ -12,35 +12,36 @@ import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/
 function Dashboard() {
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
-
+  const userType = Cookies.get("userType");
+  const isSeeker = userType === "seeker";
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
 
   return (
     <div className="dashboard">
-        <div className="sideMenu">
-          <Sidemenu />
-        </div>
+      <div className="sideMenu">
+        <Sidemenu />
+      </div>
       <div className="mainContent">
         <div className="topMenu">
           <TopHeading />
         </div>
-        <div className="ResumeSec">
-          <p style={{ display: "inline-flex", marginBottom: "10px" }}>
-            Upload your Resume (Optional)
-          </p>
-          <div className="uploadSection">
-            <FileUploader />
-            <p>Resume can be in pdf, doc, docs format. File size up to 5Mb</p>
+        {isSeeker && (
+          <div className="ResumeSec">
+            <p style={{ display: "inline-flex", marginBottom: "10px" }}>
+              Upload your Resume (Optional)
+            </p>
+            <div className="uploadSection">
+              <FileUploader />
+              <p>Resume can be in pdf, doc, docs format. File size up to 5Mb</p>
+            </div>
           </div>
-        </div>
+        )}
         <div className="RefferalChart">
           <RenderUsersInCards />
         </div>
-        <div className="appliedJob">
-          <SeekerJobDetails />
-        </div>
+        <div className="appliedJob">{isSeeker && <SeekerJobDetails />}</div>
         <div className="FeaturedJob">
           <RenderJobsInCards />
         </div>
