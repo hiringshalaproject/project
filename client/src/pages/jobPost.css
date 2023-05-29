@@ -79,19 +79,6 @@
     color: var(--secondary-color);
 }
 
-/* @media (min-width: 992px) {
-    .checkbox-container-empType {
-        display: flex;
-        flex-direction: column;
-        align-self: flex-start;
-    }
-
-    .checkbox-content {
-        align-self: flex-start;
-        width: 100%;
-    }
-} */
-
 .body-container {
     cursor: pointer;
 }
@@ -259,7 +246,7 @@
     font-size: 12px
 }
 
-.custom-margin{
+.custom-margin {
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -278,8 +265,8 @@
     margin-left: 35px;
     background-color: #4164E3;
     border-radius: 0 0 0.75rem 0;
-  }
-  
+}
+
 .save-job-button {
     font-family: 'Fira Sans';
     font-style: normal;
@@ -295,4 +282,4 @@
     margin-right: 35px;
     background-color: #82DBD8;
     border-radius: 0.75rem 0 0 0;
-  }
+}

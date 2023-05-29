@@ -15,6 +15,7 @@ const JobPost = () => {
     const [jobDescription, setJobDescription] = useState("");
     const [keyQualifications, setKeyQualifications] = useState("");
     const [amount, setAmount] = useState("");
+    const [employementType, setEmployementType] = useState("");
     const [selectedOption, setSelectedOption] = useState("yearly");
     const [additionalRequirement, setAdditionalRequirement] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
@@ -23,13 +24,16 @@ const JobPost = () => {
     const [isChecked, setIsChecked] = useState(false);
     const navigate = useNavigate();
 
-    const handleCheckboxChange = (event) => {
-        setIsChecked(event.target.checked);
+    const handleCheckboxChange = (e) => {
+        setEmployementType(e.target.checked);
+        checkFormCompletion();
+
     };
 
     const handleJobTitleChange = (e) => {
         setJobTitle(e.target.value);
         checkFormCompletion();
+
     };
 
     const handleJobPositionChange = (e) => {
@@ -40,18 +44,21 @@ const JobPost = () => {
     const handleJobDescriptionChange = (e) => {
         setJobDescription(e.target.value);
         checkFormCompletion();
+
     };
     const handleKeyQualificationChange = (e) => {
         setKeyQualifications(e.target.value);
         checkFormCompletion();
+
     }
     const handleAmountChange = (e) => {
         setAmount(e.target.value);
-
+        checkFormCompletion();
     };
 
     const handleOptionChange = (e) => {
         setSelectedOption(e.target.value);
+        checkFormCompletion();
     };
     const handleAdditionalRequirementChange = (e) => {
         setAdditionalRequirement(e.target.value);
@@ -59,6 +66,55 @@ const JobPost = () => {
     const handleSaveAsDraft = () => {
         // Logic for saving as draft
     };
+    function validateForm() {
+        // Get references to the checkboxes
+        var checkbox1 = document.getElementById("checkbox1");
+        var checkbox2 = document.getElementById("checkbox2");
+        var checkbox3 = document.getElementById("checkbox3");
+        var checkbox4 = document.getElementById("checkbox4");
+
+        if (
+            checkbox1.checked ||
+            checkbox2.checked ||
+            checkbox3.checked ||
+            checkbox4.checked
+        ) {
+
+            return true;
+        }
+        return false;
+    }
+    function validateSalForm() {
+        var checkbox5 = document.getElementById("checkbox5");
+        var checkbox6 = document.getElementById("checkbox6");
+        var checkbox7 = document.getElementById("checkbox7");
+        var checkbox8 = document.getElementById("checkbox8");
+
+        if (
+            checkbox5.checked ||
+            checkbox6.checked ||
+            checkbox7.checked ||
+            checkbox8.checked
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+    const checkFormCompletion = () => {
+        const isJobTitleFilled = jobTitle.trim() !== '';
+        const isJobDescriptionFilled = jobDescription.trim() !== '';
+        const isKeyQualificationsFilled = keyQualifications.trim() !== '';
+        const isEmploymentTypeFilled = validateForm();
+        const isSalaryOptionChange = validateSalForm();
+        const isamountFilled = amount.trim() !== '';
+        const isFormComplete = isJobTitleFilled && isJobDescriptionFilled && isKeyQualificationsFilled && isEmploymentTypeFilled
+            && isSalaryOptionChange && isamountFilled;
+        setIsFormComplete(isFormComplete);
+    };
+
     const handleAmountKeyPress = (event) => {
         const keyCode = event.which ? event.which : event.keyCode;
         const isValidKey = /^[0-9]+$/.test(String.fromCharCode(keyCode));
@@ -66,16 +122,6 @@ const JobPost = () => {
             event.preventDefault();
         }
     };
-
-    const checkFormCompletion = () => {
-
-        const isjobTitleFilled = jobTitle.trim() !== '';
-        const isjobDescriptionFilled = jobDescription.trim() !== '';
-        const iskeyQualificationsFilled = keyQualifications.trim() !== '';
-
-        setIsFormComplete(isjobTitleFilled && isjobDescriptionFilled && iskeyQualificationsFilled);
-    };
-
     const setInputsEmpty = () => {
         setJobTitle("");
         setJobPosition("");
@@ -111,7 +157,7 @@ const JobPost = () => {
                     // Reset each input field
                     const inputFields = form.querySelectorAll("input");
                     inputFields.forEach((input) => {
-                    input.value = "";
+                        input.value = "";
                     });
                     const textareaFields = form.querySelectorAll("textarea");
                     textareaFields.forEach((textarea) => {
@@ -120,7 +166,7 @@ const JobPost = () => {
                     setInputsEmpty();
                     // window.location.reload();
                     window.scrollTo({ top: 0, behavior: "smooth" });
-                  }, 2000);
+                }, 2000);
             })
             .catch((error) => {
                 toast.error(error.response.data.msg);
@@ -130,13 +176,13 @@ const JobPost = () => {
     return (
 
         <div className="container addJobText" id="jobPostForm" >
-            <h2 className="text-primary font-weight-bold post-job-title" style={{ fontWeight: "bold", fontSize: "24px", marginTop: "100px", marginBottom: "50px" }}>Post New Job Opening</h2>
+            <h2 className="text-primary font-weight-bold post-job-title" style={{ fontWeight: "bold", fontSize: "24px", marginTop: "100px", marginBottom: "70px" }}>Post New Job Opening</h2>
             <div className="form-group">
                 <div className="label-container">
                     <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
-                        Job Id and Title <span className="required-field">*</span>
+                        Job Title <span className="required-field">*</span>
                     </p>
-                    <label className="font-weight-bold label-large job-position-label">A job title must describe one position only</label>
+                    <p> Enter the specific name or designation of the job position you are hiring for.</p>
                 </div>
                 <div className="col-md-6 input-container">
                     <div className="input-row">
@@ -151,7 +197,20 @@ const JobPost = () => {
                             onChange={handleJobTitleChange}
                             className="form-control"
                         />
+                    </div>
+                </div>
 
+            </div>
+            <hr style={{ borderTop: "1px solid black" }} />
+            <div className="form-group">
+                <div className="label-container">
+                    <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
+                        Job ID
+                    </p>
+                    <p> Enter the unique identification number or code assigned to this job posting.</p>
+                </div>
+                <div className="col-md-6 input-container">
+                    <div className="input-row">
                         <input
                             type="text"
                             id="jobPosition"
@@ -164,7 +223,6 @@ const JobPost = () => {
                     </div>
                 </div>
             </div>
-
 
             <hr style={{ borderTop: "1px solid black" }} />
             <div className="row">
@@ -219,7 +277,7 @@ const JobPost = () => {
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
-                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Employment Type</p>
+                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Employment Type <span className="required-field">*</span></p>
                         <p className="employement-title">Description text goes here</p>
                     </div>
                 </div>
@@ -227,7 +285,7 @@ const JobPost = () => {
                     <div className="col-md-12">
                         <label htmlFor="checkbox1" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox1" className="checkbox-input" />
+                                <input type="checkbox" id="checkbox1" className="checkbox-input" onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                             </div>
                         </label>
@@ -235,7 +293,7 @@ const JobPost = () => {
                     <div className="col-md-12">
                         <label htmlFor="checkbox2" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox2" className="checkbox-input" />
+                                <input type="checkbox" id="checkbox2" className="checkbox-input" onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
                             </div>
                         </label>
@@ -243,7 +301,7 @@ const JobPost = () => {
                     <div className="col-md-12">
                         <label htmlFor="checkbox3" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox3" className="checkbox-input" />
+                                <input type="checkbox" id="checkbox3" className="checkbox-input" onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>On demand</span>
                             </div>
                         </label>
@@ -251,7 +309,7 @@ const JobPost = () => {
                     <div className="col-md-12 ">
                         <label htmlFor="checkbox4" className="checkbox-container-empType" style={{ marginBottom: "20px" }}>
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox4" className="checkbox-input" />
+                                <input type="checkbox" id="checkbox4" className="checkbox-input" onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Negotiable</span>
                             </div>
                         </label>
@@ -266,7 +324,7 @@ const JobPost = () => {
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
-                        <h4 className="font-weight-bold Salary-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Salary</h4>
+                        <h4 className="font-weight-bold Salary-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Salary <span className="required-field">*</span></h4>
                         <p className=" allcheckbox" >Choose the salary for this job</p>
                     </div>
                 </div>
@@ -320,6 +378,7 @@ const JobPost = () => {
                                 onKeyPress={handleAmountKeyPress}
                                 placeholder="Enter amount"
                                 className="form-control"
+                                required
                                 id="amount"
                             />
                         </div>
@@ -355,30 +414,29 @@ const JobPost = () => {
                         <div className="d-flex justify-content-lg-end justify-content-end align-items-center">
                             <button
                                 onClick={handleSaveAsDraft}
-                                className={`save-job-button`}   
+                                className={`save-job-button`}
                             >
                                 Save as Draft
                             </button>
 
                             <button
                                 onClick={handlePostJob}
-                                className={`post-job-button ${
-                                    isFormComplete ? "cursor-pointer" : "cursor-not-allowed"
-                                  }`}                                  
+                                className={`post-job-button ${isFormComplete ? "cursor-pointer" : "cursor-not-allowed"
+                                    }`}
                                 disabled={!isFormComplete}
                                 onMouseOver={(e) => {
                                     if (!isFormComplete) {
-                                    e.currentTarget.style.backgroundColor = "#b3e6cc";
-                                    e.currentTarget.style.cursor = "not-allowed";
+                                        e.currentTarget.style.backgroundColor = "#b3e6cc";
+                                        e.currentTarget.style.cursor = "not-allowed";
                                     }
                                 }}
                                 onMouseOut={(e) => {
                                     if (!isFormComplete) {
-                                    e.currentTarget.style.backgroundColor = "#e0e0e0";
-                                    e.currentTarget.style.cursor = "default";
+                                        e.currentTarget.style.backgroundColor = "#e0e0e0";
+                                        e.currentTarget.style.cursor = "default";
                                     }
                                 }}
-                                >
+                            >
                                 Post New Job
                             </button>
                         </div>
