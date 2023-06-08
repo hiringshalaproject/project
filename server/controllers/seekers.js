@@ -1,4 +1,5 @@
 const { Jobs, Seekers } = require("../models/schema");
+const jwt = require("jsonwebtoken");
 
 const getSeekers = async (req, res) => {
   try {
@@ -215,6 +216,14 @@ const deleteSeeker = async (req, res) => {
   }
 };
 
+const generateToken = (userId) => {
+  const payload = {
+    userId: userId,
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  return token;
+};
+
 const loginSeeker = async (req, res) => {
   try {
     const { email, password, isGoogleLogin } = req.body;
@@ -228,18 +237,20 @@ const loginSeeker = async (req, res) => {
     }
 
     if (!password && isGoogleLogin) {
-      return res.status(200).json({ msg: "Login successful", seeker });
+      const token = generateToken(seeker._id);
+      return res.status(200).json({ msg: "Login successful", token });
     }
 
-    const isMatch = password === seeker.password; // await bcrypt.compare(password, seeker.password);
-    if(seeker && !isMatch)
-    {
+    const isMatch = password === seeker.password;
+
+    if (seeker && !isMatch) {
       return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
-    }
-    else if (!isMatch) {
+    } else if (!isMatch) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
-    res.status(200).json({ msg: "Login successful", seeker });
+
+    const token = generateToken(seeker._id);
+    res.status(200).json({ msg: "Login successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
   }

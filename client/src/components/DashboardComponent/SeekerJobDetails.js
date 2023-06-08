@@ -18,13 +18,18 @@ const SeekerJobDetails = () => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const userId = Cookies.get("userId");
+  const token = Cookies.get("token");
+  const headers = {
+    authorization: `Bearer ${token}`,
+  };
 
   useEffect(() => {
     const fetchSeeker = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
-        );
+          `${apiUrl}/api/v1/seekers/${userId}`
+        , {headers});
         const jobIds = response.data.seeker.appliedJobList.map(
           (appliedJob) => appliedJob.jobId
         );
@@ -56,7 +61,7 @@ const SeekerJobDetails = () => {
     };
 
     fetchSeeker();
-  }, [Cookies.get("userId")]);
+  }, [userId]);
   const handleSort = (column) => {
     if (sortColumn === column) {
       // If the current sorting column is the same as the clicked column,
