@@ -63,7 +63,6 @@ const fetchChats = async (req, res) => {
 
     res.status(200).json({ chat, messages });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -80,7 +79,6 @@ const seekersChat = async (req, res) => {
     }).populate("latestMessage");
 
     return res.status(200).json({ chats });
-    console.log(chats);
   } catch (error) {
     res.status(500).json({ message: "Server error." });
     throw new Error(error.message);
@@ -107,7 +105,6 @@ const employeesChat = async (req, res) => {
 const isUserValid = async (userType, userId) => {
   try {
     let user;
-    console.log(userId);
     if (userType === "Employees") {
       user = await Employees.findById(userId);
     } else if (userType === "Seekers") {
@@ -115,7 +112,6 @@ const isUserValid = async (userType, userId) => {
     }
     return !!user;
   } catch (error) {
-    console.error(error);
     return false;
   }
 };
@@ -159,7 +155,6 @@ const sendMessage = async (req, res) => {
       message: savedMessage,
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ response: "Internal server error" });
   }
 };

@@ -1,13 +1,20 @@
 import Cookies from "js-cookie";
 
 //specifically for userCookies
-export function setCookies(userName, userType, userId) {
+export function setUserCookies(userName, userType, userId) {
   const expires = new Date();
   expires.setFullYear(expires.getFullYear() + 1);
 
   Cookies.set("userName", userName, { expires, path: "/" });
   Cookies.set("userType", userType, { expires, path: "/" });
   Cookies.set("userId", userId, { expires, path: "/" });
+}
+
+export function setCookies(key,value) {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 1);
+
+  Cookies.set(key, value, { expires, path: "/" });
 }
 
 export function getCookies() {
@@ -22,4 +29,6 @@ export function removeCookies() {
   Cookies.remove("userName");
   Cookies.remove("userType");
   Cookies.remove("userId");
+  Cookies.remove("companyName");
+  Cookies.remove("token");
 }

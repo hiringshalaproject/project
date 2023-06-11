@@ -8,6 +8,7 @@
   --home-text:#5399b0;
   --card-text:black;
   --card-border:black;
+  --primary-text-color:#5399b0;
 }
 
 .dark{
@@ -20,7 +21,7 @@
   --home-text:white;
   --card-text:white;
   --card-border:#2F8F9D;
-
+  --primary-text-color: white;
 }
 
 
@@ -34,11 +35,16 @@
   color: var(--home-text);
 }
 
-
-
-
 .home-img{
   margin: auto;
+}
+
+.about{
+  color: var(--secondary-color);
+}
+
+.contact{
+  color: var(--secondary-color);
 }
 
 /* card css*/
@@ -78,13 +84,28 @@
   background-color: var(--card-bg);
 }
 
-.card:hover{
-  transform: scale(1.11);
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+    background-color: transparent !important;
 }
 
+@media (hover: hover) {
+  /* Hover styles for non-mobile devices */
+  .card:hover {
+    transform: scale(1.11);
+    z-index: 1;
+  }
+}
+
+input{
+   color:var(--secondary-color);
+}
 
 .loginTitle{
- color: var(--secondary-color);
+ color: var(--primary-text-color);
 }
 
 .eye-icon{
@@ -93,7 +114,7 @@
 }
 
 .loginDesc{
-  color: var(--secondary-color);
+  color: var(--primary-text-color);
 }
 
 .loginText{
@@ -119,7 +140,6 @@
   color: var(--secondary-color)
 }
 
-
 .app{
   background-color: var(--primary-color);
   background-image: var(--bg-image);
@@ -136,6 +156,10 @@
 
 .login-btn {
   background-color: #2F8F9D;
+}
+
+input{
+  color:var(--secondary-color);
 }
 
 @media (min-width: 768px) {
@@ -155,7 +179,3 @@
     margin: auto;
   }
 }
-
-
-
-
