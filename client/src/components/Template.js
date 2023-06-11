@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { setCookies, getCookies } from "./Cookies";
+import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import Footer from "./Footer/Footer";
-import { MDBContainer, MDBCol, MDBRow} from "mdb-react-ui-kit";
+import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -59,7 +59,10 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
             : res.data.employee.employeeName;
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
-        setCookies(userName, userType, userId);
+        setUserCookies(userName, userType, userId);
+        if (userType === "employee") {
+          setCookies("companyName", res.data.employee.employeeCompanyName);
+        }
         ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {
           toast.success("Logged In");
@@ -79,7 +82,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
 
   return (
     <>
-      <div >
+      <div>
         <MDBContainer fluid className="p-3 mt-20">
           <MDBRow center>
             <MDBCol size="5">
@@ -88,7 +91,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
 
             <MDBCol col="4" md="6">
               <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-end mt-4">
-                <p className="lead fw-normal mb-0 me-3">
+                <p className="lead fw-normal mb-0 me-3 loginText">
                   {formtype === "signup" ? "existing user?" : "new here?"}
                 </p>
                 <button
@@ -105,9 +108,13 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
                   {title}
                 </h1>
                 <p className="text-[1.125rem] leading[1.625rem] mt-2">
-                  <span className="text-slate-900 italic loginDesc">{desc1}</span>
+                  <span className="text-slate-900 italic loginDesc">
+                    {desc1}
+                  </span>
                   <br />
-                  <span className="text-slate-900 italic loginDesc">{desc2}</span>
+                  <span className="text-slate-900 italic loginDesc">
+                    {desc2}
+                  </span>
                 </p>
               </MDBContainer>
               {formtype === "signup" ? (

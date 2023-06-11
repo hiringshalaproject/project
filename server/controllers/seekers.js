@@ -1,4 +1,6 @@
 const { Jobs, Seekers } = require("../models/schema");
+const jwt = require("jsonwebtoken");
+
 
 const getSeekers = async (req, res) => {
   try {
@@ -57,6 +59,9 @@ const getSeekerFromId = async (req, res) => {
   }
 };
 
+
+
+
 const createNewSeeker = async (req, res) => {
   try {
     const { seekerEmail } = req.body;
@@ -67,7 +72,9 @@ const createNewSeeker = async (req, res) => {
         .json({ msg: "Seeker with this email already exists" });
     }
     const seeker = await Seekers.create(req.body);
-    res.status(201).json({ msg: "User Created Succesfully", seeker });
+    //generate token for that seeker
+    const token=generateToken(seeker._id,'Seeker');
+    return res.status(200).json({ msg: "Signup successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -86,7 +93,6 @@ const uploadResume = async (req, res) => {
     }
     res.send("Resume URL updated successfully");
   } catch (error) {
-    console.error(error);
     res.status(500).send("Error updating resume URL");
   }
 };
@@ -216,6 +222,15 @@ const deleteSeeker = async (req, res) => {
   }
 };
 
+const generateToken = (userId,role) => {
+  const payload = {
+    userId: userId,
+    role:role
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  return token;
+};
+
 const loginSeeker = async (req, res) => {
   try {
     const { email, password, isGoogleLogin } = req.body;
@@ -229,14 +244,20 @@ const loginSeeker = async (req, res) => {
     }
 
     if (!password && isGoogleLogin) {
-      return res.status(200).json({ msg: "Login successful", seeker });
+      const token = generateToken(seeker._id,'Seeker');
+      return res.status(200).json({ msg: "Login successful", token });
     }
 
-    const isMatch = password === seeker.password; // await bcrypt.compare(password, seeker.password);
-    if (!isMatch) {
+    const isMatch = password === seeker.password;
+
+    if (seeker && !isMatch) {
+      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
+    } else if (!isMatch) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
-    res.status(200).json({ msg: "Login successful", seeker });
+
+    const token = generateToken(seeker._id,'Seeker');
+    res.status(200).json({ msg: "Login successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -252,5 +273,5 @@ module.exports = {
   updateSeekersJobStatus,
   updateSeeker,
   deleteSeeker,
-  loginSeeker,
+  loginSeeker
 };

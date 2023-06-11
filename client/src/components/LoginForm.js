@@ -3,8 +3,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { setCookies, getCookies } from "./Cookies";
+import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const LoginForm = ({ userType }) => {
@@ -14,6 +16,7 @@ const LoginForm = ({ userType }) => {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false); // Track the loading state
   const [showPassword, setShowPassword] = useState(false);
   function changeHandler(event) {
     setFormData((prevData) => ({
@@ -25,6 +28,7 @@ const LoginForm = ({ userType }) => {
     userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
     event.preventDefault();
+    setLoading(true);
     axios
       .post(`${apiUrl + apiUrlSecondary}`, formData)
       .then((res) => {
@@ -35,12 +39,18 @@ const LoginForm = ({ userType }) => {
             : res.data.employee.employeeName;
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
-        setCookies(userName, userType, userId);
+        setUserCookies(userName, userType, userId);
+        Cookies.set("token", res.data.token);
         ({ userName, userType, userId } = getCookies());
+        if (userType === "employee")
+          setCookies("companyName", res.data.employee.employeeCompanyName);
         navigate("/dashboard");
       })
       .catch((error) => {
         toast.error(error.response.data.msg);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -61,7 +71,7 @@ const LoginForm = ({ userType }) => {
             onChange={changeHandler}
             placeholder="Enter Email address"
             name="email"
-            className="outline-none border-b-[1px] border-black text-black w-full pt-[10px] border-bottom-color bg-transparent "
+            className="outline-none border-b-[1px] border-black w-full pt-[10px] border-bottom-color bg-transparent "
           />
         </MDBContainer>
       </label>
@@ -80,7 +90,7 @@ const LoginForm = ({ userType }) => {
                 value={formData.password}
                 onChange={changeHandler}
                 placeholder="Enter Password"
-                className="outline-none border-b-[1px] text-black w-full pt-[10px] loginText loginInput border-bottom-color bg-transparent"
+                className="outline-none border-b-[1px] w-full pt-[10px] loginText loginInput border-bottom-color bg-transparent"
               />
 
               <span
@@ -95,8 +105,14 @@ const LoginForm = ({ userType }) => {
               </span>
             </MDBCol>
             <MDBCol size="md mt-4 mt-lg-0" className="col-lg-4 col-xxl-4">
-              <button className="h-[40px] bg-teal-300 rounded-[12px] font-medium text-black col-12 col-lg-10 ms-0 mx-lg-5">
-                Login
+              <button className="h-[40px] bg-teal-600 rounded-[12px] font-medium text-white  col-12 col-lg-10 ms-0 mx-lg-5">
+                {loading ? (
+                  <div className="flex items-center justify-center">
+                    <ClipLoader color="#36d7b7" />
+                  </div>
+                ) : (
+                  "Login"
+                )}
               </button>
             </MDBCol>
           </MDBRow>

@@ -3,8 +3,10 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setCookies } from "./Cookies";
+import { setUserCookies, setCookies } from "./Cookies";
 import FileUploader from "../components/FileUploader/FileUploader";
+import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -25,7 +27,8 @@ const SignupForm = ({ userType }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isOtpSent, setOtpSent] = useState(false);
   const [isOtpVerified, setOtpVerified] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [buttonLoading, setButtonLoadin] = useState(false);
   const [verifyOtpLoading, setverifyOtpLoading] = useState(false);
   function changeHandler(event) {
     setFormData((prevData) => ({
@@ -36,18 +39,17 @@ const SignupForm = ({ userType }) => {
 
   const sendOtpHandler = () => {
     // send the email input to the server to initiate sending OTP
-    setLoading(true);
+    setOtpLoading(true);
     axios
       .post(`${apiUrl}/api/v1/otp/send`, { email: formData.email })
       .then((response) => {
         // alert("OTP sent successfully!");
         setOtpSent(true);
-        setLoading(false);
+        setOtpLoading(false);
       })
       .catch((error) => {
-        console.error(error);
         alert("Failed to send OTP. Please try again.");
-        setLoading(false);
+        setOtpLoading(false);
       });
   };
 
@@ -64,19 +66,19 @@ const SignupForm = ({ userType }) => {
         setverifyOtpLoading(false);
       })
       .catch((error) => {
-        console.error(error);
         setverifyOtpLoading(false);
         alert("Failed to verify OTP. Please try again.");
       });
   };
   function submitHandler(event) {
     event.preventDefault();
+    setButtonLoadin(true);
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
     const apiUrlSecondary =
-      userType === "seeker" ? "/api/v1/seekers" : "/api/v1/employees";
+      userType === "seeker" ? "/api/v1/seekers/" : "/api/v1/employees";
     const userData =
       userType === "seeker"
         ? {
@@ -93,16 +95,23 @@ const SignupForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
-        setCookies(
+        setUserCookies(
           formData.firstName + " " + formData.lastName,
           userType,
           response.data._id
         );
+        Cookies.set("token", response.data.token);
+        if (userType === "employee") {
+          setCookies("companyName", formData.companyName);
+        }
         toast.success("Account Created");
         navigate(`/dashboard`);
       })
       .catch((error) => {
         toast.error(error.response.data.msg);
+      })
+      .finally(() => {
+        setButtonLoadin(false);
       });
   }
 
@@ -122,7 +131,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter first name"
               value={formData.firstName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
 
@@ -137,7 +146,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter last name"
               value={formData.lastName}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
           </label>
         </div>
@@ -154,7 +163,7 @@ const SignupForm = ({ userType }) => {
                 onChange={changeHandler}
                 placeholder="Enter your company name"
                 value={formData.companyName}
-                className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+                className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
               />
             </label>
           </div>
@@ -179,13 +188,11 @@ const SignupForm = ({ userType }) => {
                   isOtpVerified
                     ? "bg-gray-200 bg-transparent border-bottom-color"
                     : "border-black bg-transparent border-bottom-color"
-                } text-black w-full p-[2px] pr-6`}
+                }  w-full p-[2px] pr-6 `}
                 readOnly={isOtpVerified}
               />
               {isOtpVerified && (
-                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color">
-                  &#10004;
-                </span>
+                <span className="text-gray-500 ml-2 bg-transparent border-bottom-color"></span>
               )}
             </div>
           </label>
@@ -204,7 +211,7 @@ const SignupForm = ({ userType }) => {
                       onChange={changeHandler}
                       placeholder="Enter OTP"
                       value={formData.otp}
-                      className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+                      className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
                     />
                   </label>
                   <button
@@ -223,13 +230,13 @@ const SignupForm = ({ userType }) => {
                 <button
                   onClick={sendOtpHandler}
                   className={
-                    loading
+                    otpLoading
                       ? "w-50 h-[40px] bg-blue-200 rounded-[8px] font-medium text-white mt-6 cursor-wait"
                       : "w-28 h-[35px] bg-blue-500 rounded-[8px] font-medium text-white mt-6"
                   }
-                  disabled={loading}
+                  disabled={otpLoading}
                 >
-                  {loading ? "Sending OTP..." : "Send OTP"}
+                  {otpLoading ? "Sending OTP..." : "Send OTP"}
                 </button>
               )}
             </>
@@ -248,7 +255,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Enter Password"
               value={formData.password}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             <span
@@ -274,7 +281,7 @@ const SignupForm = ({ userType }) => {
               onChange={changeHandler}
               placeholder="Confirm Password"
               value={formData.confirmPassword}
-              className="outline-none border-b-[1px] border-black text-black w-full p-[2px] bg-transparent border-bottom-color"
+              className="outline-none border-b-[1px] border-black w-full p-[2px] bg-transparent border-bottom-color"
             />
 
             {
@@ -310,7 +317,7 @@ const SignupForm = ({ userType }) => {
             }
           }}
         >
-          Create Account
+          {buttonLoading ? <ClipLoader color="#36d7b7" /> : "Create Account"}
         </button>
       </form>
     </div>

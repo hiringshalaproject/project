@@ -44,7 +44,7 @@ const createNewJob = async (req, res) => {
     const job = await Jobs.create(req.body);
     res.status(201).json({job});
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({msg: "Unable to Upload Job. Please try again!"});
   }
 };
 

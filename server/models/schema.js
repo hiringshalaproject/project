@@ -5,6 +5,10 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  jobTitle:{
+    type: String,
+    required: true,
+  },
   jobDate: Date,
   jobRequirements: String,
   jobEligibility: String,
@@ -103,7 +107,7 @@ const EmployeeSchema = new mongoose.Schema({
   },
   employeeCompanyName: {
     type: String,
-    required: true,
+    required: false,
   },
   contactNumber: {
     type: Number,

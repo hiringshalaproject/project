@@ -3,7 +3,7 @@ import "./index.css";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Buttons";
 import { Container, Row, Col } from "react-bootstrap";
-import HomeImg from "../components/assets/home-page.png";
+import HomeImg from "../components/assets/home-page-img1.png";
 import ApplyImg from "../components/assets/apply-for-referral.png";
 import ContactImg from "../components/assets/contact-us.png";
 import SearchJob from "../components/assets/job-search.png";
@@ -12,9 +12,7 @@ const Home = () => {
   const renderCard = (cardTitle, buttonValue, ImgSrc) => {
     return (
       <>
-        <div
-          className="card h-100"
-        >
+        <div className="card h-100">
           <img src={ImgSrc} alt="img"></img>
           <div className="card-body card-content">
             <h3 className="card-title">{cardTitle}</h3>
@@ -40,9 +38,7 @@ const Home = () => {
           </Col>
           <Col className="container-col home-text">
             <Row>
-              <h1 className="mb-4">
-                Unleash your potential with HiringShala
-              </h1>
+              <h1 className="mb-4">Unleash your potential with HiringShala</h1>
               <p>
                 the largest pool of career opportunities that match your skill
                 set. link up with outstanding people to create a better
@@ -59,9 +55,15 @@ const Home = () => {
       </Container>
       <Container className="card-container">
         <Row>
-          <Col className="card-col">{renderCard("Search Job", "Search", SearchJob)}</Col>
-          <Col>{renderCard("Apply for Referrals", "Apply", ApplyImg)}</Col>
-          <Col>{renderCard("Chat Support", "Start a Chat", ContactImg)}</Col>
+          <Col className="card-col" xs={12} md={6} lg={4}>
+            {renderCard("Search Job", "Search", SearchJob)}
+          </Col>
+          <Col className="card-col" xs={12} md={6} lg={4}>
+            {renderCard("Apply for Referrals", "Apply", ApplyImg)}
+          </Col>
+          <Col className="card-col" xs={12} md={6} lg={4}>
+            {renderCard("Chat Support", "Start a Chat", ContactImg)}
+          </Col>
         </Row>
       </Container>
       <Footer />
