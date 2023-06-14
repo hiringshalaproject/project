@@ -78,7 +78,7 @@ const SignupForm = ({ userType }) => {
       return;
     }
     const apiUrlSecondary =
-      userType === "seeker" ? "/api/v1/seekers" : "/api/v1/employees";
+      userType === "seeker" ? "/api/v1/seekers/" : "/api/v1/employees";
     const userData =
       userType === "seeker"
         ? {

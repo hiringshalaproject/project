@@ -83,7 +83,6 @@ const createNewSeeker = async (req, res) => {
     const seeker = await Seekers.create(req.body);
     //generate token for that seeker
     const token=generateToken(seeker._id,'Seeker');
-    
     return res.status(200).json({ msg: "Signup successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
@@ -231,7 +230,6 @@ const deleteSeeker = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
 
 
 const loginSeeker = async (req, res) => {
