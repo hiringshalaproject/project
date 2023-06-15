@@ -1,4 +1,15 @@
 const { Employees } = require("../models/schema");
+const jwt = require("jsonwebtoken");
+
+const generateToken = (userId,role) => {
+  const payload = {
+    userId: userId,
+    role:role
+  };
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  return token;
+};
+
 
 const getAllEmployees = async (req, res) => {
   try {
@@ -28,7 +39,8 @@ const createNewEmployee = async (req, res) => {
         .json({ msg: "Employee with this email already exists" });
     }
     const employee = await Employees.create(req.body);
-    res.status(201).json({ msg: "User Created Succesfully", employee });
+    const token=generateToken(employee._id,'Employee');
+    return res.status(200).json({ msg: "Signup successful", token, employee });
   } catch (error) {
     res.status(500).json(error);
   }
@@ -80,10 +92,6 @@ const loginEmployee = async (req, res) => {
       return res.status(404).json({ msg: `No Employee with email ${email}` });
     }
 
-    if (!password && isGoogleLogin) {
-      return res.status(200).json({ msg: "Login successful", employee });
-    }
-
     const isMatch = password === employee.password; // await bcrypt.compare(password, seeker.password);
     if(employee && !isMatch)
     {
@@ -92,8 +100,10 @@ const loginEmployee = async (req, res) => {
     else if (!isMatch) {
       return res.status(401).json({ msg: "Invalid Credentials" });
     }
-    res.status(200).json({ msg: "Login successful", employee });
+    const token = generateToken(employee._id,'Employee');
+    res.status(200).json({ msg: "Login successful", token, employee });
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 };

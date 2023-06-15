@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../../client/build", "index.html"));
 });
 
-app.use("/api/v1/tasks", tasksRouter);
 app.use("/api/v1/jobs", jobRouter);
 app.use("/api/v1/employees", employeesRouter);
 app.use("/api/v1/seekers", seekersRouter);

@@ -30,4 +30,5 @@ export function removeCookies() {
   Cookies.remove("userType");
   Cookies.remove("userId");
   Cookies.remove("companyName");
+  Cookies.remove("token");
 }

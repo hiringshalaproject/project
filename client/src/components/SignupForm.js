@@ -6,6 +6,7 @@ import axios from "axios";
 import { setUserCookies, setCookies } from "./Cookies";
 import FileUploader from "../components/FileUploader/FileUploader";
 import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -77,7 +78,7 @@ const SignupForm = ({ userType }) => {
       return;
     }
     const apiUrlSecondary =
-      userType === "seeker" ? "/api/v1/seekers" : "/api/v1/employees";
+      userType === "seeker" ? "/api/v1/seekers/" : "/api/v1/employees";
     const userData =
       userType === "seeker"
         ? {
@@ -99,6 +100,7 @@ const SignupForm = ({ userType }) => {
           userType,
           response.data._id
         );
+        Cookies.set("token", response.data.token);
         if (userType === "employee") {
           setCookies("companyName", formData.companyName);
         }

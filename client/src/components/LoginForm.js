@@ -6,6 +6,7 @@ import axios from "axios";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import ClipLoader from "react-spinners/ClipLoader";
+import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const LoginForm = ({ userType }) => {
@@ -39,6 +40,7 @@ const LoginForm = ({ userType }) => {
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
         setUserCookies(userName, userType, userId);
+        Cookies.set("token", res.data.token);
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
           setCookies("companyName", res.data.employee.employeeCompanyName);
