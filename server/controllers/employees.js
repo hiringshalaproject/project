@@ -1,4 +1,4 @@
-const { Employees } = require("../models/schema");
+const { Employees, Jobs, Seekers } = require("../models/schema");
 const jwt = require("jsonwebtoken");
 
 const generateToken = (userId,role) => {
@@ -108,6 +108,40 @@ const loginEmployee = async (req, res) => {
   }
 };
 
+const referSeeker = async (req, res) => {
+  try {
+    const { seekerId, jobId, employeeId } = req.body;
+    const seeker = await Seekers.findById(seekerId);
+    const employee = await Employees.findById(employeeId);
+    const job = await Jobs.findById(jobId);
+
+    if (!seeker || !employee || !job) {
+      return res.status(404).json({ error: "Invalid seeker, employee, or job" });
+    }
+
+    // Updating the referral status in the job's seekersRegistered array
+    const referralIndex = job.seekersRegistered.findIndex(
+      (seekerReferral) => seekerReferral.seekerId.toString() === seekerId
+    );
+
+    if (referralIndex === -1) {
+      return res.status(404).json({ error: "Seeker not found in job's seekersRegistered array" });
+    }
+
+    job.seekersRegistered[referralIndex].referralStatus = true;
+    await job.save();
+
+    // Updating the totalReferralGiven in the employee model
+    employee.totalReferralGiven += 1;
+    await employee.save();
+
+    res.status(200).json({ msg: "Referred successfully" });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+
 module.exports = {
   getAllEmployees,
   getEmployeeFromId,
@@ -115,4 +149,5 @@ module.exports = {
   updateEmployeeWithId,
   deleteEmployee,
   loginEmployee,
+  referSeeker,
 };
