@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { motion } from 'framer-motion';
 
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
-const apiUrlSecondary = "/api/v1/jobs/";
+const apiUrlSecondary = "/api/v1/jobs";
 
 const JobDescription = () => {
   const [companyDetails, setCompanyDetails] = useState(null);
@@ -15,10 +14,11 @@ const JobDescription = () => {
   }, []);
 
   const fetchCompanyDetails = () => {
-    axios.post(`${apiUrl + apiUrlSecondary}`)
+    axios.get(`${apiUrl + apiUrlSecondary}/64985560673062b875c9a7b7`)
       .then(response => {
-        const companyId = "6431a3b60212c614a61e9741";
-        const companyDetails = response.data.find(company => company._id === companyId);
+        console.log("here resp", response);
+        const companyId = "64985560673062b875c9a7b7";
+        const companyDetails = response.data.job;
         setCompanyDetails(companyDetails);
       })
       .catch(error => {
@@ -53,13 +53,13 @@ const JobDescription = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <motion.h1 className="m-3 text-red-600" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+            <h1 className="m-3 text-red-600">
               {companyName}
-            </motion.h1>
+            </h1>
             {jobTitle && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.2 }}>
-                <h2 className="ml-3">-{jobTitle}</h2>
-              </motion.div>
+              <div >
+                <h2 className="ml-3">{jobTitle}</h2>
+              </div>
             )}
             <div className="mt-3 ml-3">
               <h4>Job Description</h4>
@@ -67,30 +67,27 @@ const JobDescription = () => {
                 <li>{__v}</li>
               </ul>
               {jobEligibility && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
+                <div >
                   <h4>Job Eligibility</h4>
                   <ul>
                     <li>{jobEligibility}</li>
                   </ul>
-                </motion.div>
+                </div>
               )}
               {jobRequirements && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.6 }}>
+                <div>
                   <h4>Job Requirements</h4>
                   <ul>
                     <li>{jobRequirements}</li>
                   </ul>
-                </motion.div>
+                </div>
               )}
             </div>
           </div>
 
           <div className="col-lg-4 d-flex flex-column mb-2">
             <div className="flex-grow-1">
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 }}
+              <div
                 className="flex align-item-center justify-content-center gap-x-10"
               >
                 <svg
@@ -113,21 +110,13 @@ const JobDescription = () => {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                 </svg>
-              </motion.div>
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 1 }}
+              </div>
+              <button
                 className="btn btn-primary mt-3 mb-3 w-100"
               >
                 Apply Now
-              </motion.button>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 1.2 }}
-                className="p-4 bg-transparent border rounded-2xl mt-3"
-              >
+              </button>
+              <div className="p-4 bg-transparent border rounded-2xl mt-3" >
                 {jobLocation && (
                   <div>
                     <h4>Job Location</h4>
@@ -155,7 +144,7 @@ const JobDescription = () => {
                    <div>
                      <h4>Seekers Registered</h4>
                      <ul>
-                       <li>{seekersRegistered}</li>
+                       <li>{seekersRegistered.length}</li>
                      </ul>
                    </div>
                  )}
@@ -191,7 +180,7 @@ const JobDescription = () => {
                      </ul>
                   </div>
                 )}
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
