@@ -6,18 +6,20 @@ import axios from 'axios';
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
 
-const JobDescription = () => {
+const JobDescription = (Id) => {
   const [companyDetails, setCompanyDetails] = useState(null);
 
   useEffect(() => {
     fetchCompanyDetails();
   }, []);
 
+  // 64985560673062b875c9a7b7
+
   const fetchCompanyDetails = () => {
-    axios.get(`${apiUrl + apiUrlSecondary}/64985560673062b875c9a7b7`)
+    axios.get(`${apiUrl + apiUrlSecondary}/${Id}`)
       .then(response => {
         console.log("here resp", response);
-        const companyId = "64985560673062b875c9a7b7";
+        const companyId = Id;
         const companyDetails = response.data.job;
         setCompanyDetails(companyDetails);
       })
