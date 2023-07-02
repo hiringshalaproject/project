@@ -1,0 +1,58 @@
+body{
+    overflow-x: hidden;
+}
+.jobs-details-card{
+    width: 440px !important;
+    margin-top: 25px !important;
+}
+
+.joblist-card{
+    margin-left: 60px !important;
+}
+
+.leftmost-card{
+    margin-left: 340px !important;
+}
+
+.card{
+    border-radius: 25px !important;
+    pointer-events: none !important;
+}
+
+.job-count{
+    margin-top: 120px;
+    margin-left: 340px;
+}
+
+.pill{
+    width: 100%;
+    padding: 10px;
+}
+
+
+.card-top-content{
+    height: auto;
+    
+}
+
+.border{
+   border-radius: 25px !important;
+   border-color: black !important;
+}
+
+.content{
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.experience-icon{
+    display: inline-block;
+}
+
+.lower-card-content{
+    margin-top: 15px;
+}
+
+.container p{
+    margin-bottom: 0;
+}
