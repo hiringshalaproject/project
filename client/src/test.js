@@ -2,7 +2,7 @@ const ResumeParser = require('./resume-parser/src');
 
 const fileDir = "/Users/ankit.mishra/Documents/repos/project/client/src" + '/files/';
 ResumeParser
-  .parseResumeFile(fileDir + 'resume.txt', fileDir + 'compiled') //input file, output dir
+  .parseResumeFile(fileDir + 'resume.pdf', fileDir + 'compiled') //input file, output dir
   .then(file => {
     console.log("Yay! " + file);
   })
