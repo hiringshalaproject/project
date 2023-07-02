@@ -189,8 +189,15 @@ const JobDescription = () => {
   );
 }
 
-export default JobDescription;
+const Details = () => {
 
+  return (
+    <div  className="inlineStyles">
+      <JobDescription />
+    </div>
+  );
+}
+export default Details;
 
 
 
