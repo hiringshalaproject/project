@@ -22,13 +22,19 @@
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
     "sweetalert": "^2.1.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.83.0",
+    "textract": "^2.5.0",
+    "tracer": "^0.8.11",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "resume:test": "node src/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"
