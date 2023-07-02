@@ -9,12 +9,14 @@ const {
   updateEmployeeWithId,
   deleteEmployee,
   loginEmployee,
+  referSeeker,
 } = require("../controllers/employees");
 
 const checkIfUserExists = async (userId) => {
   const user = await Employees.findOne({ _id: userId });
   return user !== null;
 };
+
 const authenticateUser = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
@@ -26,7 +28,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decodedToken.userId;
-    const userExists = await checkIfUserExists(req.userId); // Use req.userId instead of undefined variable userId
+    const userExists = await checkIfUserExists(req.userId);
 
     if (userExists) {
       next();
@@ -46,4 +48,5 @@ router.post("/",createNewEmployee);
 router.patch("/:id", authenticateUser,updateEmployeeWithId);
 router.delete("/:id",deleteEmployee);
 router.post("/login",loginEmployee);
+router.post("/refer",referSeeker);
 module.exports = router;

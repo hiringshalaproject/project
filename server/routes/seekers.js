@@ -56,7 +56,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decodedToken.userId;
-    const userExists = await checkIfUserExists(req.userId); // Use req.userId instead of undefined variable userId
+    const userExists = await checkIfUserExists(req.userId);
 
     if (userExists) {
       next();

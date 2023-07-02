@@ -42,7 +42,7 @@ const JobSchema = new mongoose.Schema({
 
 const Jobs = mongoose.model("Jobs", JobSchema);
 
-const JobSeekerSchema = new mongoose.Schema({
+const SeekerSchema = new mongoose.Schema({
   seekerName: {
     type: String,
     required: true,
@@ -90,7 +90,7 @@ const JobSeekerSchema = new mongoose.Schema({
   ],
 });
 
-const Seekers = mongoose.model("Seekers", JobSeekerSchema);
+const Seekers = mongoose.model("Seekers", SeekerSchema);
 
 const EmployeeSchema = new mongoose.Schema({
   employeeName: {
