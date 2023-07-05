@@ -183,7 +183,3 @@ input{
   color:var(--secondary-color);
 }
 
-.inlineStyles{
-  height: '100vh';
-  background-color:var(--bg-image);
-}
