@@ -1,19 +1,20 @@
 .light{
   --primary-color: white;
-  --secondary-color: black;
-  --secondary-color-password: black;
+  --secondary-color: white;
+  --tertiary-color: black;
   --bg-image: (white);
   --card-bg:white;
-  --footer-color: rgb(179, 232, 229);
-  --home-text:#5399b0;
+  --footer-color: #47A992;
+  --home-text: #47A992;
   --card-text:black;
   --card-border:black;
-  --primary-text-color:#5399b0;
+  --primary-text-color:#47A992;
 }
 
 .dark{
   --primary-color: black;
   --secondary-color: white;
+  --tertiary-color: white;
   --secondary-color-password: rgb(107, 144, 254);
   --bg-image: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
   --footer-color: linear-gradient(to right, rgb(43, 120, 120), black, rgb(43, 120, 120), black);
@@ -23,7 +24,6 @@
   --card-border:#2F8F9D;
   --primary-text-color: white;
 }
-
 
 .container-col {
   margin-top: 75px;
@@ -49,12 +49,12 @@
 
 /* card css*/
 .card-button{
-  background-color: #2F8F9D;
+  background-color: #47A992;
   color: white;
 }
 
 .card-button:hover{
-  background-color: #246a74;
+  background-color: #47A992;
   color: white;
 }
 
@@ -77,7 +77,7 @@
 .card{
   transition: all 0.3s;
   width: 20rem !important;
-  border-top-color: #2F8F9D !important;
+  border-top-color: #47A992 !important;
   border-left-color: var(--card-border) !important;
   border-right-color: var(--card-border) !important;
   border-bottom-color: var(--card-border) !important;
@@ -101,7 +101,7 @@ input[data-autocompleted] {
 }
 
 input{
-   color:var(--secondary-color);
+   color:var(--tertiary-color);
 }
 
 .loginTitle{
@@ -118,13 +118,13 @@ input{
 }
 
 .loginText{
-  color: var(--secondary-color);
+  color: var(--tertiary-color);
 }
 .loginPasswordText{
-  color:var(  --secondary-color-password);
+  color:var(  --tertiary-color);
 }
 .border-bottom-color{
-  border-bottom-color:var(--secondary-color);
+  border-bottom-color:var(--tertiary-color);
 }
 .footer-texts{
   color: var(--footer-text-color);
@@ -132,8 +132,16 @@ input{
 
 
 .custom-navbar{
-  background-color: var(--primary-color);
+  background-color: var(--home-text);
   background-image: var(--bg-image);
+  height: 70px;
+}
+
+.nav-links-container {
+  display: flex;
+  align-items: left;
+  height: 100%;
+  margin-top: 1rem;
 }
 
 .nav-link{
@@ -155,11 +163,11 @@ input{
 }
 
 .login-btn {
-  background-color: #2F8F9D;
+  background-color: #47A992;
 }
 
 input{
-  color:var(--secondary-color);
+  color:var(--tertiary-color);
 }
 
 @media (min-width: 768px) {

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Logo_dark from "../assets/Logo_dark.png";
 import Logo_light from "../assets/Logo_light.png";
 import Cookies from "js-cookie";
 import { FaMoon } from "react-icons/fa";
@@ -64,10 +63,10 @@ const NavbarCmp = () => {
             className="brand-logo"
           >
             <img
-              src={theme === "light" ? Logo_dark : Logo_light}
+              src= {Logo_light}
               alt="Expand"
-              width="200"
-              height="90"
+              width="140"
+              height="70"
             />
           </Nav.Link>
           <Navbar.Toggle
@@ -76,7 +75,8 @@ const NavbarCmp = () => {
           />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
-              <ul className="xl:flex xl:flex-row xl:gap-x-6 xl:list-disc lg:flex lg:flex-row lg:gap-x-5 lg:list-disc md:flex md:flex-row md:gap-x-6 md:list-disc">
+            <div className="nav-links-container">
+              <ul className="xl:flex xl:flex-row xl:gap-x-7 lg:flex lg:flex-row lg:gap-x-5 md:flex md:flex-row md:gap-x-6">
                 <li>
                   {isLoggedIn ? (
                     <Nav.Link as={Link} to="/dashboard" onClick={handleSelect}>
@@ -128,12 +128,13 @@ const NavbarCmp = () => {
                         data-placement="bottom"
                         title="Switch to Dark Mode"
                       >
-                        <FaMoon fontSize={20} />
+                        <FaMoon fontSize={15} />
                       </button>
                     )}
                   </Nav.Link>
                 </li>
               </ul>
+            </div>
             </Nav>
           </Navbar.Collapse>
         </Container>
