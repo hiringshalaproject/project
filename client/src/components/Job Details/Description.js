@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Footer from "../Footer/Footer";
+import CompanyIcon from "../assets/CompanyIcon.png";
 import axios from 'axios';
 
 
@@ -51,20 +53,22 @@ const JobDescription = (Id) => {
   const formattedJobDate = jobDate ? new Date(jobDate).toLocaleDateString() : '';
 
   return (
-    <div className="mt-20 Jobdetails">
+    <>
+    <div className="mt-20 mb-4 Jobdetails">
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-            <h1 className="m-3 text-red-600">
-              {companyName}
-            </h1>
+          <div className="d-flex align-items-center">
+             <img src={CompanyIcon} className="w-8 h-8 ml-2 mt-2" /> 
+               <h1 className="m-3 text-red-600">{companyName}</h1> 
+          </div>
             {jobTitle && (
               <div >
-                <h2 className="ml-3">{jobTitle}</h2>
+                <h2 className="ml-3 text-blue-300">--{jobTitle}</h2>
               </div>
             )}
             <div className="mt-3 ml-3">
-              <h4>Job Description</h4>
+              <h4 >Job Description</h4>
               <ul>
                 <li>{__v}</li>
               </ul>
@@ -177,8 +181,10 @@ const JobDescription = (Id) => {
                  {applyLink && (
                    <div>
                     <h4>Apply Link</h4>
-                   <ul>
-                     <li>{applyLink}</li>
+                    <ul>
+                    <li>
+                     <a href={applyLink} target="_blank" rel="noopener noreferrer">{applyLink}</a>
+                     </li>
                      </ul>
                   </div>
                 )}
@@ -188,11 +194,13 @@ const JobDescription = (Id) => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
 
-export default JobDescription;
 
+export default JobDescription;
 
 
 
