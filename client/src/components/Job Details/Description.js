@@ -18,10 +18,10 @@ const JobDescription = (Id) => {
   // 64985560673062b875c9a7b7
 
   const fetchCompanyDetails = () => {
-    axios.get(`${apiUrl + apiUrlSecondary}/${Id}`)
+    axios.get(`${apiUrl + apiUrlSecondary}/64985560673062b875c9a7b7`)
       .then(response => {
         console.log("here resp", response);
-        const companyId = Id;
+        const companyId = "64985560673062b875c9a7b7";
         const companyDetails = response.data.job;
         setCompanyDetails(companyDetails);
       })
@@ -64,7 +64,7 @@ const JobDescription = (Id) => {
           </div>
             {jobTitle && (
               <div >
-                <h2 className="ml-3 text-blue-300">--{jobTitle}</h2>
+                <h2 className="ml-3 text-blue-300">{jobTitle}</h2>
               </div>
             )}
             <div className="mt-3 ml-3">

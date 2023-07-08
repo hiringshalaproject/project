@@ -3,15 +3,15 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--bg-image);
-  color: var(--home-text);
-  padding: 10px;
+  color: white;
+  padding-top: 1.2rem;
 }
 
 .top-left {
   font-style: normal;
   font-weight: 400;
   font-size: 30px;
-  color: #636c86;
+  color: white;
   font-family: "Fira Sans";
 }
 
@@ -19,13 +19,14 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-right: 2rem;
 }
 
 .top-notification-icon,
 .top-profile-icon {
   margin: 0 10px;
   font-size: 24px;
-  color: #888;
+  color: "white";
   cursor: pointer;
 }
 

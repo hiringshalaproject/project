@@ -61,10 +61,10 @@
 .logout-button {
   width: 150px;
   height: 39px;
-  border: 2px solid #e51414;
+  border: 2px solid #1f5448;
   border-radius: 17px;
   font-size: 20px;
-  color: #e51414 !important;
+  color: #1f5448 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,6 +75,9 @@
   margin-top: 20px;
 }
 
+.sidemenu{
+  background-color:  #47A992 !important;
+}
 .sidemenu-moon-button {
   width: 161px;
   height: 63px;

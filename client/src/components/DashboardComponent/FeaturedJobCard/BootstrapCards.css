@@ -22,12 +22,12 @@
 }
 
 .card-button {
-  background-color: #2f8f9d;
+  background-color: #47A992;
   color: white;
 }
 
 .card-button:hover {
-  background-color: #246a74;
+  background-color: #47A992;
   color: white;
 }
 
@@ -109,7 +109,7 @@
   width: 120px;
   border: 1px solid #000000;
   border-radius: 15px;
-  background-color: #2f8f9d;
+  background-color: #47A992;
   color: white;
   display: flex;
   align-items: center;
@@ -146,12 +146,12 @@
 }
 
 .card-button {
-  background-color: #2f8f9d;
+  background-color: #47A992;
   color: white;
 }
 
 .card-button:hover {
-  background-color: #246a74;
+  background-color: #47A992;
   color: white;
 }
 
@@ -213,7 +213,7 @@
   width: 262px;
   height: 66px;
   border: 1px solid #000000;
-  background-color: #2f8f9d;
+  background-color: #47A992;
   color: #393e4f;
   border-radius: 0px 25px 0px 0px;
   margin-bottom: 20px;

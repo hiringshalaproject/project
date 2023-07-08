@@ -76,10 +76,11 @@ const Sidemenu = () => {
             className="brand-logo"
           >
             <img
-              src={theme === "light" ? Logo_dark : Logo_light}
+              src= {Logo_light}
               alt="Expand"
-              width="200"
-              height="90"
+              width="180"
+              height="80"
+              style={{ margin: "10px" }}
             />
           </Nav.Link>
           <Navbar.Toggle

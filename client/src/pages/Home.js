@@ -59,10 +59,10 @@ const Home = () => {
             {renderCard("Search Job", "Search", SearchJob)}
           </Col>
           <Col className="card-col" xs={12} md={6} lg={4}>
-            {renderCard("Apply for Referrals", "Apply", ApplyImg)}
+            {renderCard("Search Internships", "Search", ApplyImg)}
           </Col>
           <Col className="card-col" xs={12} md={6} lg={4}>
-            {renderCard("Chat Support", "Start a Chat", ContactImg)}
+            {renderCard("Apply for Referrals", "Get Referral", ContactImg)}
           </Col>
         </Row>
       </Container>

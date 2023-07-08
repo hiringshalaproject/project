@@ -11,7 +11,7 @@ const Footer = () => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0
       text-center pt-2 text-sm pb-8 footerTexts"
       >
-        <span>© 2023 Appy. All rights reserved.</span>
+        <span>© 2023 Hiring Shala. All rights reserved.</span>
         <span>Terms · Privacy Policy</span>
         <SocialIcons Icons={Icons} />
       </div>
