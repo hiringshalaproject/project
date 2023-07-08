@@ -191,3 +191,72 @@ input{
   color:var(--secondary-color);
 }
 
+.company-name{
+  margin: 10px 10px 10px 10px;
+}
+
+.company-name-text {
+  color: #154036;
+  font-size: 25px;
+  text-transform: uppercase;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+.job-title{
+  color: #154036;
+  font-size: 20px;
+  text-transform: uppercase;
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  letter-spacing: 2px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+
+.job-desc{
+  color: var(--tertiary-color);
+}
+
+.job-desc-text{
+  color: black;
+}
+
+.bullet-list {
+  list-style-type: disc; /* Use disc as the bullet style */
+  margin-left: 20px; /* Adjust the indentation as per your preference */
+  color: #555555; /* Set the color of the list items */
+}
+
+.job-req{
+  color: var(--tertiary-color);
+}
+
+.job-box{
+  color: var(--tertiary-color);
+}
+
+.horizontal-container {
+  display: flex;
+  align-items: center;
+}
+
+.horizontal-container svg {
+  margin-right: 5px;
+}
+
+.apply-button{
+  width: 350px;
+  height: 45px;
+  /* border: 4px solid #47A992; */
+  border-radius: 10px;
+  font-size: 20px;
+  background-color: var(--home-text);
+  color: white;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.5s;
+  margin-top: 40px;
+  margin-left: 45px;
+}

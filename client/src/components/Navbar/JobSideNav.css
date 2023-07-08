@@ -15,6 +15,9 @@ body {
   pointer-events: none !important;
 }
 
+#sidebarMenu{
+  background-color : var(--home-text) !important;
+}
 /* Sidebar */
 .sidebar {
   position: fixed;
