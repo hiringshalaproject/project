@@ -3,7 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../Footer/Footer";
 import CompanyIcon from "../assets/CompanyIcon.png";
 import axios from 'axios';
-
+import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
+import {FaRegCalendarTimes} from "react-icons/fa"
+import {BiLocationPlus} from "react-icons/bi"
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
@@ -51,6 +53,7 @@ const JobDescription = (Id) => {
   } = companyDetails;
 
   const formattedJobDate = jobDate ? new Date(jobDate).toLocaleDateString() : '';
+  const sentences = jobRequirements.split(". ");
 
   return (
     <>
@@ -58,19 +61,19 @@ const JobDescription = (Id) => {
       <div className="container">
         <div className="row">
           <div className="col-lg-8">
-          <div className="d-flex align-items-center">
-             <img src={CompanyIcon} className="w-8 h-8 ml-2 mt-2" /> 
-               <h1 className="m-3 text-red-600">{companyName}</h1> 
+          <div className="d-flex align-items-center company-name">
+             {/* <img src={CompanyIcon} className="w-8 h-8 ml-2 mt-2" />  */}
+               <h1 className="company-name-text">{companyName}</h1> 
           </div>
             {jobTitle && (
               <div >
-                <h2 className="ml-3 text-blue-300">{jobTitle}</h2>
+                <h2 className="job-title">{jobTitle}</h2>
               </div>
             )}
-            <div className="mt-3 ml-3">
-              <h4 >Job Description</h4>
+            <div className="mt-3 ml-3 job-desc">
+              <h4 className= "job-desc-text">Job Description</h4>
               <ul>
-                <li>{__v}</li>
+                <li>{companyName} is hiring for {jobTitle} at {jobLocation}</li>
               </ul>
               {jobEligibility && (
                 <div >
@@ -81,13 +84,15 @@ const JobDescription = (Id) => {
                 </div>
               )}
               {jobRequirements && (
-                <div>
-                  <h4>Job Requirements</h4>
-                  <ul>
-                    <li>{jobRequirements}</li>
-                  </ul>
-                </div>
-              )}
+                  <div>
+                    <h4>Job Requirements</h4>
+                    <ul className="bullet-list">
+                      {sentences.map((sentence, index) => (
+                        <li key={index}>{sentence}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
             </div>
           </div>
 
@@ -117,49 +122,49 @@ const JobDescription = (Id) => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                 </svg>
               </div>
-              <button
-                className="btn btn-primary mt-3 mb-3 w-100"
-              >
-                Apply Now
-              </button>
-              <div className="p-4 bg-transparent border rounded-2xl mt-3" >
+              <div className="p-4 bg-transparent border rounded-2xl mt-3 job-box" >
                 {jobLocation && (
                   <div>
                     <h4>Job Location</h4>
-                    <ul className="flex gap-x-5">
-                      <li className="list-disc">{jobLocation}</li>
-                    </ul>
+                    <div className="horizontal-container">
+                      <BiLocationPlus />
+                      <span>{jobLocation}</span>
+                    </div>
                   </div>
                 )}
                 {expectedPackage && (
                   <div>
                     <h4>Salary</h4>
-                    <ul>
-                      <li>{expectedPackage}</li>
-                    </ul>
+                    <div className="horizontal-container">
+                      <AiFillDollarCircle />
+                      <span>{expectedPackage}</span>
+                    </div>
                   </div>
                 )}
                 {formattedJobDate && (
                   <div>
                     <h4>Job Date</h4>
-                    <ul>
-                      <li>{formattedJobDate}</li>
-                    </ul>
+                    <div className="horizontal-container">
+                      <FaRegCalendarTimes />
+                      <span>{formattedJobDate}</span>
+                    </div>
                   </div>
                 )}              {seekersRegistered && (
                    <div>
                      <h4>Seekers Registered</h4>
-                     <ul>
-                       <li>{seekersRegistered.length}</li>
-                     </ul>
+                     <div className="horizontal-container">
+                      <AiOutlineMan />
+                      <span>{seekersRegistered.length}</span>
+                    </div>
                    </div>
                  )}
                  {jobId && (
                    <div>
                      <h4>Job Id</h4>
-                     <ul>
-                       <li>{jobId}</li>
-                     </ul>
+                     <div className="horizontal-container">
+                      <AiFillDollarCircle />
+                      <span>{jobId}</span>
+                    </div>
                    </div>
                  )}
                  {isExpired && (
@@ -178,17 +183,21 @@ const JobDescription = (Id) => {
                     </ul>
                   </div>
                 )}
-                 {applyLink && (
+                 {/* {applyLink && (
                    <div>
                     <h4>Apply Link</h4>
-                    <ul>
-                    <li>
-                     <a href={applyLink} target="_blank" rel="noopener noreferrer">{applyLink}</a>
-                     </li>
-                     </ul>
+                    <div className="horizontal-container">
+                      <AiOutlineLink />
+                      <span><a href={applyLink} target="_blank" rel="noopener noreferrer">{applyLink}</a></span>
+                    </div>
                   </div>
-                )}
+                )} */}
               </div>
+              <button
+                className="apply-button"
+              >
+                Apply For Referral
+              </button>
             </div>
           </div>
         </div>
