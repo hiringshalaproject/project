@@ -1,18 +1,17 @@
 import React from "react";
 import "./JobSideNav.css";
-import { AiOutlineSearch } from "react-icons/ai";
 
 function JobsSideNav() {
   const renderCheckbox = (jobType) => {
     return (
-      <div class="form-check">
+      <div className="form-check">
         <input
-          class="form-check-input"
+          className="form-check-input"
           type="checkbox"
           value=""
           id="flexCheckDefault"
         />
-        <label class="form-check-label" for="flexCheckDefault">
+        <label className="form-check-label sidebar-content" for="flexCheckDefault">
           {jobType}
         </label>
       </div>
@@ -42,11 +41,11 @@ function JobsSideNav() {
           </div>
 
           <h5>
-            <b>Filters</b>
+            <b className="sidebar-heading">Filters</b>
           </h5>
           <div className="job-type">
             <p>
-              <b>Job Type</b>
+              <b className="sidebar-heading">Job Type</b>
             </p>
             {renderCheckbox("Full Time")}
             {renderCheckbox("Part Time")}
@@ -61,13 +60,13 @@ function JobsSideNav() {
               id="flexSwitchCheckDefault"
             />
             <label class="form-check-label" for="flexSwitchCheckDefault">
-              <b>Open to Remote</b>
+              <b className="sidebar-heading">Open to Remote</b>
             </label>
           </div>
 
           <div className="job-category">
             <p>
-              <b>Job Categories</b>
+              <b className="sidebar-heading">Job Categories</b>
             </p>
             <div class="input-group">
               <div class="form-outline">

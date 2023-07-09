@@ -53,7 +53,7 @@ function App() {
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/internships" element={<Contact />} />
         <Route path="/jobPost" element={<JobPost />} />
-        <Route path="/Description" element={<Description />} />
+        <Route path="/description" element={<Description />} />
         <Route
           path="/employee/login"
           element={<Login userType={"employee"} />}

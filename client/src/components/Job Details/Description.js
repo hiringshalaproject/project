@@ -6,13 +6,18 @@ import axios from 'axios';
 import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
 import {FaRegCalendarTimes} from "react-icons/fa"
 import {BiLocationPlus} from "react-icons/bi"
+import { useLocation } from 'react-router-dom';
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
 
-const JobDescription = (Id) => {
-  const [companyDetails, setCompanyDetails] = useState(null);
+const JobDescription = () => {
+  const location = useLocation();
+  const jobid = location.state?.jobId;
+  console.log(jobid);
 
+
+  const [companyDetails, setCompanyDetails] = useState(null);
   useEffect(() => {
     fetchCompanyDetails();
   }, []);
@@ -20,10 +25,9 @@ const JobDescription = (Id) => {
   // 64985560673062b875c9a7b7
 
   const fetchCompanyDetails = () => {
-    axios.get(`${apiUrl + apiUrlSecondary}/64985560673062b875c9a7b7`)
+    axios.get(`${apiUrl + apiUrlSecondary}/${jobid}`)
       .then(response => {
-        console.log("here resp", response);
-        const companyId = "64985560673062b875c9a7b7";
+        // const companyId = "64985560673062b875c9a7b7";
         const companyDetails = response.data.job;
         setCompanyDetails(companyDetails);
       })
