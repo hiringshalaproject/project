@@ -14,7 +14,7 @@ const Home = () => {
       <>
         <div className="card h-100">
           <img src={ImgSrc} alt="img"></img>
-          <div className="card-body card-content">
+          <div className="card-body card-content ">
             <h3 className="card-title">{cardTitle}</h3>
             <p>
               the largest pool of career opportunities that match your skill

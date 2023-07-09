@@ -198,7 +198,7 @@ const JobDescription = () => {
                 )} */}
               </div>
               <button
-                className="apply-button"
+                className="apply-button "
               >
                 Apply For Referral
               </button>

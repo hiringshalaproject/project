@@ -134,14 +134,7 @@ input{
 .custom-navbar{
   background-color: var(--home-text);
   background-image: var(--bg-image);
-  height: 70px;
-}
-
-.nav-links-container {
-  display: flex;
-  align-items: left;
-  height: 100%;
-  margin-top: 1rem;
+  /* height: 70px; */
 }
 
 .nav-link{
@@ -260,3 +253,4 @@ input{
   margin-top: 40px;
   margin-left: 45px;
 }
+
