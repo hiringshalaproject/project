@@ -5,7 +5,7 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  jobTitle:{
+  jobTitle: {
     type: String,
     required: true,
   },
@@ -115,8 +115,11 @@ const EmployeeSchema = new mongoose.Schema({
   },
   listOfJobsPosted: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Jobs",
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true,
+      },
     },
   ],
   totalReferralGiven: Number,
