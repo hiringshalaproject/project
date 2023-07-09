@@ -5,9 +5,10 @@ import { BsBookmark } from "react-icons/bs";
 import { FaAmazon } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
 import JobsSideNav from "../components/Navbar/JobsSideNav";
-import JobDescription from "../components/Job Details/Description";
+import { useNavigate } from "react-router-dom";
 
 const JobList = () => {
+  const navigate = useNavigate();
   const [job, setJob] = useState([]);
 
   useEffect(() => {
@@ -29,19 +30,27 @@ const JobList = () => {
     return color;
   };
 
+  const routeChange = (event, id) => {
+    // event.preventDefault();
+    console.log("Button clicked");
+    navigate("/description", { state: { jobId: id } });
+  };
+
   const renderCard = (
     ind,
+    jobId,
     companyName,
     jobTitle,
     jobDate,
     jobEligibility,
     jobLocation,
-    expectedPackage
+    expectedPackage,
+    routeChange
   ) => {
     return (
       <>
         <div
-          className={`card jobs-details-card ${
+          className={`card card-without-hover jobs-details-card ${
             ind % 2 === 0 ? "leftmost-card" : "joblist-card"
           }`}
         >
@@ -53,7 +62,7 @@ const JobList = () => {
               <div className="row justify-content-between">
                 <div className="col-6 text-left">
                   <p className="content">
-                    <span className="border border-black rounded-pill pill">
+                    <span className="border border-black rounded-pill pill d-inline-block">
                       {jobDate.substring(0, 10)}
                     </span>
                   </p>
@@ -74,14 +83,14 @@ const JobList = () => {
               <div className="row">
                 <div className="col-6 d-flex align-items-left justify-content-left">
                   <p className="content">
-                    <span className="border border-black rounded-pill pill">
+                    <span className="border border-black rounded-pill pill d-inline-block">
                       Project Work
                     </span>
                   </p>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-center">
                   <p className="content">
-                    <span className="border border-black rounded-pill pill">
+                    <span className="border border-black rounded-pill pill d-inline-block">
                       <MdWork fontSize={20} className="experience-icon" />{" "}
                       2+years
                     </span>
@@ -91,14 +100,14 @@ const JobList = () => {
               <div className="row">
                 <div className="col-6 d-flex align-items-left justify-content-left">
                   <p className="content">
-                    <span className="border border-black rounded-pill pill">
+                    <span className="border border-black rounded-pill pill d-inline-block">
                       Full Time
                     </span>
                   </p>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-center">
                   <p className="content">
-                    <span className="border border-black rounded-pill pill">
+                    <span className="border border-black rounded-pill pill d-inline-block">
                       Senior Level
                     </span>
                   </p>
@@ -113,10 +122,13 @@ const JobList = () => {
                   <p className="card-text">{expectedPackage}</p>
                   <p className="card-text">{jobLocation}</p>
                 </div>
+                
                 <div className="col-6 d-flex align-items-center justify-content-center">
-                  <button
+                <button
                     type="button"
                     className="btn btn-lg btn-dark rounded-pill"
+                    style={{pointerEvents:"visible"}}
+                    onClick={event=>routeChange(event,jobId)}
                   >
                     Details
                   </button>
@@ -133,22 +145,26 @@ const JobList = () => {
     <>
       <JobsSideNav />
       <h3 className="job-count">
-        <b>Recommended Jobs </b>{" "}
-        <span className="border border-black rounded-pill pill">
-          {job.length}
-        </span>
+        <b className="count-heading">
+          Recommended Jobs{"  "}
+          <span className="border border-black rounded-pill pill">
+            {job.length}
+          </span>
+        </b>
       </h3>
       <div className="row">
         {job.map((currJob, ind) => (
-          <div className="col-6">
+          <div className="col-12 col-6 col-sm-6">
             {renderCard(
               ind,
+              currJob._id,
               currJob.companyName,
               currJob.jobTitle,
               currJob.jobDate,
               currJob.jobEligibility,
               currJob.jobLocation,
-              currJob.expectedPackage
+              currJob.expectedPackage,
+              routeChange
             )}
           </div>
         ))}
