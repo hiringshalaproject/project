@@ -95,10 +95,10 @@ const loginEmployee = async (req, res) => {
     const isMatch = password === employee.password; // await bcrypt.compare(password, seeker.password);
     if(employee && !isMatch)
     {
-      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
+      return res.status(401).json({ msg: "Invalid Credentials." });
     }
     else if (!isMatch) {
-      return res.status(401).json({ msg: "Invalid Credentials" });
+      return res.status(401).json({ msg: "Login Through Google or Signup using this email!" });
     }
     const token = generateToken(employee._id,'Employee');
     res.status(200).json({ msg: "Login successful", token, employee });

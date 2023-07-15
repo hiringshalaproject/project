@@ -6,6 +6,7 @@ import { FaAmazon } from "react-icons/fa";
 import { MdWork } from "react-icons/md";
 import JobsSideNav from "../components/Navbar/JobsSideNav";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const JobList = () => {
   const navigate = useNavigate();
@@ -14,8 +15,18 @@ const JobList = () => {
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
     const GetAllJobs = async () => {
-      axios.post(`${apiUrl}/api/v1/jobs/`).then((response) => {
+      axios.post(`${apiUrl}/api/v1/jobs/`)
+      .then((response) => {
         setJob(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data.msg);
+        } else if (error.request) {
+          toast.error("Network failure or timeout");
+        } else {
+          toast.error("An unexpected error occurred");
+        }
       });
     };
     GetAllJobs();
