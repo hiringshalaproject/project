@@ -108,7 +108,13 @@ const SignupForm = ({ userType }) => {
         navigate(`/dashboard`);
       })
       .catch((error) => {
-        toast.error(error.response.data.msg);
+        if (error.response) {
+          toast.error(error.response.data.msg);
+        } else if (error.request) {
+          toast.error("Network failure or timeout");
+        } else {
+          toast.error("An unexpected error occurred");
+        }
       })
       .finally(() => {
         setButtonLoadin(false);
