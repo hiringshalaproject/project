@@ -42,31 +42,31 @@ const Contact = () => (
         }}
       >
         <div>
-          <strong>University/college associations</strong>
+          <strong>University/College associations</strong>
           <p>
             Email us:
-            <a href="mailto:example@example.com">example@example.com</a>
+            <a href="mailto:info@hiringshala.com">info@hiringshala.com</a>
           </p>
         </div>
         <div>
-          <strong>Media queries</strong>
+          <strong>Startups hiring</strong>
           <p>
             Email us:
-            <a href="mailto:example@example.com">example@example.com</a>
+            <a href="mailto:info@hiringshala.com">info@hiringshala.com</a>
           </p>
         </div>
         <div>
-          <strong>Fest sponsorships</strong>
+          <strong>Referrals</strong>
           <p>
             Email us:
-            <a href="mailto:example@example.com">example@example.com</a>
+            <a href="mailto:info@hiringshala.com">info@hiringshala.com</a>
           </p>
         </div>
         <div>
-          <strong>For everything else</strong>
+          <strong>For anything else</strong>
           <p>
             Email us:
-            <a href="mailto:example@example.com">example@example.com</a>
+            <a href="mailto:info@hiringshala.com">info@hiringshala.com</a>
           </p>
         </div>
       </div>

@@ -244,10 +244,10 @@ const loginSeeker = async (req, res) => {
       return res.status(404).json({ msg: `No seeker with email ${email}` });
     }
 
-    // if (!password && isGoogleLogin) {
-    //   const token = generateToken(seeker._id,'Seeker');
-    //   return res.status(200).json({ msg: "Login successful", token });
-    // }
+    if (!password && isGoogleLogin) {
+      const token = generateToken(seeker._id,'Seeker');
+      return res.status(200).json({ msg: "Login successful", token, seeker });
+    }
 
     const isMatch = password === seeker.password;
 
