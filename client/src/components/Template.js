@@ -8,6 +8,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
+import Cookies from "js-cookie";
 import Footer from "./Footer/Footer";
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
@@ -67,6 +68,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         if (userId && userName && userType) {
           toast.success("Logged In");
           navigate("/dashboard");
+          Cookies.set("token", res.data.token);
         } else {
           toast.error("Unable to Log In");
         }

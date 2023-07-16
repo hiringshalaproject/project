@@ -155,7 +155,7 @@ const JobDescription = () => {
                   </div>
                 )}              {seekersRegistered && (
                    <div>
-                     <h4>Seekers Registered</h4>
+                     <h4>Candidates Interested</h4>
                      <div className="horizontal-container">
                       <AiOutlineMan />
                       <span>{seekersRegistered.length}</span>
