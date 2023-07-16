@@ -146,6 +146,7 @@ const JobPost = () => {
             jobEligibility: keyQualifications,
             expectedPackage: parseFloat(amount),
             applyLink: additionalRequirement,
+            jobType: employementType
         };
         axios
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
@@ -300,7 +301,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox2" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox2" className="checkbox-input" onChange={handleCheckboxChange} />
-                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
+                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                             </div>
                         </label>
                     </div>
@@ -308,7 +309,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox3" className="checkbox-container-empType">
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox3" className="checkbox-input" onChange={handleCheckboxChange} />
-                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>On demand</span>
+                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
                             </div>
                         </label>
                     </div>
@@ -316,7 +317,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox4" className="checkbox-container-empType" style={{ marginBottom: "20px" }}>
                             <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
                                 <input type="checkbox" id="checkbox4" className="checkbox-input" onChange={handleCheckboxChange} />
-                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>Negotiable</span>
+                                <span className="allcheckbox" style={{ marginLeft: '8px' }}>Contract</span>
                             </div>
                         </label>
                     </div>
