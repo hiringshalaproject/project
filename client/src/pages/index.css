@@ -6,9 +6,10 @@
   --card-bg: white;
   --footer-color: #47A992;
   --home-text: #47A992;
-  --card-text: black;
-  --card-border: black;
-  --primary-text-color: #47A992;
+  --card-text:black;
+  --card-border:black;
+  --primary-text-color:hsl(166, 77%, 22%);
+  --div-color:rgb(17,94,89);
 }
 
 .dark {
@@ -23,6 +24,7 @@
   --card-text: white;
   --card-border: #2F8F9D;
   --primary-text-color: white;
+  --div-color:rgb(17,94,89);
 }
 
 .container-col {
@@ -249,17 +251,35 @@ input {
   margin-right: 5px;
 }
 
-.apply-button {
-  width: 350px;
-  height: 45px;
-  /* border: 4px solid #47A992; */
+.apply-button{
+  width: 300px;
+  height: 40px;
   border-radius: 10px;
   font-size: 20px;
-  background-color: var(--home-text);
+  background-color:#47a985;
   color: white;
   cursor: pointer;
   outline: none;
   transition: background-color 0.5s;
-  margin-top: 40px;
-  margin-left: 45px;
+  margin-top: 20px;
+}
+
+.apply-button:hover{
+  background-color: #c90909;
+}
+
+.details{
+  background-color:var(--div-color) ;
+}
+
+@media (max-width: 768px) {
+  .text-xl {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .text-xl {
+    font-size: 1.2rem;
+  }
 }
