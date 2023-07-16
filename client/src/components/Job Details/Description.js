@@ -260,6 +260,3 @@ const JobDescription = () => {
 
 
 export default JobDescription;
-
-
-
