@@ -25,9 +25,20 @@ const JobPost = () => {
     const navigate = useNavigate();
 
     const handleCheckboxChange = (e) => {
-        setEmployementType(e.target.checked);
+        const checkboxId = e.target.id;
+        
+        if (checkboxId === "checkbox1") {
+          setEmployementType("Full-time");
+        } else if (checkboxId === "checkbox2") {
+          setEmployementType("Internship");
+        } else if (checkboxId === "checkbox3") {
+            console.log("working 3");
+          setEmployementType("Part-time");
+        } else if (checkboxId === "checkbox4") {
+          setEmployementType("Contract");
+        }
+        
         checkFormCompletion();
-
     };
 
     const handleJobTitleChange = (e) => {
@@ -285,7 +296,7 @@ const JobPost = () => {
                 <div className="col-lg-6">
                     <div className="mb-4">
                         <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Employment Type <span className="required-field">*</span></p>
-                        <p className="employement-title">Description text goes here</p>
+                        <p className="employement-title">Provide type of Employment</p>
                     </div>
                 </div>
                 <div className="col-lg-7 employementType">
