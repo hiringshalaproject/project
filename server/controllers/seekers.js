@@ -1,5 +1,6 @@
 const { Jobs, Seekers } = require("../models/schema");
 const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 
 const generateToken = (userId,role) => {
   const payload = {
@@ -234,7 +235,22 @@ const deleteSeeker = async (req, res) => {
 
 const loginSeeker = async (req, res) => {
   try {
-    const { email, password, isGoogleLogin } = req.body;
+    const { isGoogleLogin } = req.body;
+    let email,password, picture;
+    if(isGoogleLogin){
+      const credential = req.headers.authorization;
+      if (!credential || !credential.startsWith("Bearer ")) {
+        return res.status(401).json({ msg: "Invalid Credentials!" });
+      }
+      const decodedToken = jwt_decode(credential);
+      email = decodedToken.email;
+      picture = decodedToken.picture;
+    }
+    else
+    {
+      email = req.body.email;
+      password = req.body.password;
+    }
     const seeker = await Seekers.findOne({ seekerEmail: email });
     if (!seeker) {
       if (isGoogleLogin) {
@@ -244,9 +260,9 @@ const loginSeeker = async (req, res) => {
       return res.status(404).json({ msg: `No seeker with email ${email}` });
     }
 
-    if (!password && isGoogleLogin) {
+    if (isGoogleLogin) {
       const token = generateToken(seeker._id,'Seeker');
-      return res.status(200).json({ msg: "Login successful", token, seeker });
+      return res.status(200).json({ msg: "Login successful", token, seeker , picture});
     }
 
     const isMatch = password === seeker.password;
