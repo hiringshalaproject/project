@@ -4,7 +4,6 @@ import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
@@ -25,34 +24,14 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
   };
 
   const handleGoogleLogin = (credentialResponse) => {
-    const decodedToken = jwt_decode(credentialResponse.credential);
-    const userData =
-      userType === "seeker"
-        ? {
-            type: userType,
-            seekerName: decodedToken.name,
-            email: decodedToken.email,
-            resumeUrl: "",
-            isGoogleLogin: true,
-          }
-        : {
-            type: userType,
-            employeeName: decodedToken.name,
-            email: decodedToken.email,
-            isGoogleLogin: true,
-          };
-
-    // Set the Authorization header with the Google access token
-    const config = {
-      headers: { Authorization: `Bearer ${credentialResponse.credential}` },
-    };
+    const headers = { Authorization: `Bearer ${credentialResponse.credential}` };
     const apiUrlSecondary =
       userType === "seeker"
         ? "/api/v1/seekers/login"
         : "/api/v1/employees/login";
     // Send the user data to the server-side API
     axios
-      .post(`${apiUrl + apiUrlSecondary}`, userData, config)
+      .post(`${apiUrl + apiUrlSecondary}`, {isGoogleLogin: true}, {headers})
       .then((res) => {
         let userName =
           userType === "seeker"
@@ -61,6 +40,10 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
         setUserCookies(userName, userType, userId);
+        if(res.data.picture)
+        {
+          setCookies("picture",res.data.picture)
+        }
         if (userType === "employee") {
           setCookies("companyName", res.data.employee.employeeCompanyName);
         }

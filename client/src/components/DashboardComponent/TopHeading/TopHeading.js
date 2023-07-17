@@ -5,6 +5,8 @@ import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
 
 function Heading() {
+  const pictureLink = Cookies.get("picture");
+
   return (
     <div className="top">
       <div className="top-left">Dashboard</div>
@@ -15,11 +17,13 @@ function Heading() {
           </i>
         </div>
         <div className="top-profile-icon">
-          <i className="fa fa-user">
-            <CgProfile />
-          </i>
+          {pictureLink ? (
+            <img src={pictureLink} alt="img" className="img-fluid profile-image" />
+          ) : (
+            <CgProfile className="default-profile-icon" />
+          )}
         </div>
-        {<h4>{Cookies.get("userName")}</h4>}
+        <h4>{Cookies.get("userName")}</h4>
       </div>
     </div>
   );
