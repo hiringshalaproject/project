@@ -21,6 +21,7 @@ const SignupForm = ({ userType }) => {
     password: "",
     confirmPassword: "",
     otp: "",
+    isGoogleLogin: false
   });
 
   const [showPassword, setShowPassword] = useState(false);

@@ -236,7 +236,7 @@ const deleteSeeker = async (req, res) => {
 const loginSeeker = async (req, res) => {
   try {
     const { isGoogleLogin } = req.body;
-    let email,password, picture;
+    let email,password, picture, name;
     if(isGoogleLogin){
       const credential = req.headers.authorization;
       if (!credential || !credential.startsWith("Bearer ")) {
@@ -245,6 +245,7 @@ const loginSeeker = async (req, res) => {
       const decodedToken = jwt_decode(credential);
       email = decodedToken.email;
       picture = decodedToken.picture;
+      name = decodedToken.name;
     }
     else
     {
@@ -255,19 +256,15 @@ const loginSeeker = async (req, res) => {
     if (!seeker) {
       if (isGoogleLogin) {
         req.body.seekerEmail = email;
+        req.body.seekerName = name;
         return createNewSeeker(req, res);
       }
       return res.status(404).json({ msg: `No seeker with email ${email}` });
     }
-
-    if (isGoogleLogin) {
-      const token = generateToken(seeker._id,'Seeker');
-      return res.status(200).json({ msg: "Login successful", token, seeker , picture});
-    }
-
+    
     const isMatch = password === seeker.password;
 
-    if (seeker && !isMatch) {
+    if (!isMatch && !seeker.password) {
       return res.status(401).json({ msg: "Invalid Credentials!" });
     } else if (!isMatch) {
       return res.status(401).json({ msg: "Login Through Google or Signup using this email!" });

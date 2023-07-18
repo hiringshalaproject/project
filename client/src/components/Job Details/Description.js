@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../Footer/Footer";
-import CompanyIcon from "../assets/CompanyIcon.png";
 import axios from 'axios';
 import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
 import {FaRegCalendarTimes} from "react-icons/fa"
