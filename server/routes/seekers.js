@@ -122,7 +122,7 @@ const authenticateGetSeekerId = async (req, res, next) => {
 router.get("/", authenticateGetSeekers, getSeekers);
 router.get("/:id",authenticateGetSeekerId, getSeekerFromId);
 router.post("/",createNewSeeker);
-router.patch("/apply/:id", authenticateUser, applyForJob);
+router.patch("/apply/:id", applyForJob);
 router.patch("/status/:id", authenticateUser, updateSeekersJobStatus);
 router.patch("/:id", authenticateUser, updateSeeker);
 router.post("/upload", upload.single("file"), uploadResume);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
@@ -25,6 +25,9 @@ const LoginForm = ({ userType }) => {
       [event.target.name]: event.target.value,
     }));
   }
+  const location = useLocation();
+  const jobid = location.state?.jobId;
+  console.log("jobbbbb", jobid);
   const apiUrlSecondary =
     userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
@@ -33,6 +36,7 @@ const LoginForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, formData)
       .then((res) => {
+        console.log("jobbbbb22", jobid);
         toast.success("Logged In");
         let userName =
           userType === "seeker"
@@ -45,7 +49,8 @@ const LoginForm = ({ userType }) => {
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
           setCookies("companyName", res.data.employee.employeeCompanyName);
-        navigate("/dashboard");
+        console.log("bhavnava", jobid);
+        navigate("/dashboard", { state: { jobId: jobid } } );
       })
       .catch((error) => {
         if (error.response) {

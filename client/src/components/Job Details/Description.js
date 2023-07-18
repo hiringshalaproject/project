@@ -5,15 +5,52 @@ import axios from 'axios';
 import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
 import {FaRegCalendarTimes} from "react-icons/fa"
 import {BiLocationPlus} from "react-icons/bi"
-import { useLocation } from 'react-router-dom';
+import Cookies from "js-cookie";
+import { Route, useLocation, useNavigate } from "react-router-dom";
+import Login from "../../pages/Login";
+import { toast } from "react-hot-toast";
+
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
+console.log("bhavrun");
 
 const JobDescription = () => {
   const location = useLocation();
   const jobid = location.state?.jobId;
+  const seekerId = Cookies.get("userId")
+  const isLoggedIn = seekerId !== undefined && seekerId !== "";
   console.log(jobid);
+  const navigate = useNavigate();
+
+  const applyJobFlow = () => {
+    const formData = {
+      jobId : jobid
+    };
+    axios
+        .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
+        .then((res) => {
+            toast.success("Applied SuccessFully");
+        })
+      .catch((error) => {
+            if (error.response) {
+                toast.error(error.response.data.msg);
+              } else if (error.request) {
+                toast.error("Network failure or timeout");
+              } else {
+                toast.error("An unexpected error occurred");
+              }
+        });
+};
+
+  const applyForReferalFlow = () => {
+    if (isLoggedIn) {
+      applyJobFlow();
+    }
+    else {
+      navigate("/seeker/login", { state: { jobId: jobid } });
+    }
+  };
 
 
   const [companyDetails, setCompanyDetails] = useState(null);
@@ -197,7 +234,8 @@ const JobDescription = () => {
                 )} */}
               </div>
               <button
-                className="apply-button "
+                  className="apply-button "
+                  onClick={event=>applyForReferalFlow()}
               >
                 Apply For Referral
               </button>
