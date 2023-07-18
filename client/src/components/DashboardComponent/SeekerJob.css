@@ -39,7 +39,7 @@ th:last-child {
 
 td {
   padding: 20px;
-  font-size: 14px;
+  font-size: 18px;
   background-color: var(--bg-image);
   color: var(--home-text);
   border-bottom: 1px solid #ddd;
