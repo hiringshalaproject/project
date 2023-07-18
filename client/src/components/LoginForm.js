@@ -14,6 +14,7 @@ const LoginForm = ({ userType }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    isGoogleLogin: false
   });
 
   const [loading, setLoading] = useState(false); // Track the loading state
