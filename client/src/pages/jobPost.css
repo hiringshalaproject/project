@@ -95,8 +95,13 @@
     }
 }
 
+.empContentbox {
+    margin-bottom: 20px;
+}
+
 .checkbox-content {
     margin-bottom: 20px;
+
 }
 
 .checkbox-content:hover {
@@ -262,7 +267,7 @@
     height: 55px;
     color: white;
     margin-top: 6px;
-    margin-left: 35px;
+    /* margin-left: px; */
     background-color: #4164E3;
     border-radius: 0 0 0.75rem 0;
 }
