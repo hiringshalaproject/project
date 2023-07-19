@@ -15,7 +15,6 @@ const RenderUsersInCards = () => {
   useEffect(() => {
     const updateUsers = async () => {
       let myData = userType === "employee" ? await fetchEmployee() : await fetchSeeker();
-
       setUsers(myData);
     };
     updateUsers();

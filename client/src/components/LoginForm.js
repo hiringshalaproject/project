@@ -27,7 +27,6 @@ const LoginForm = ({ userType }) => {
   }
   const location = useLocation();
   const jobid = location.state?.jobId;
-  console.log("jobbbbb", jobid);
   const apiUrlSecondary =
     userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
@@ -36,7 +35,6 @@ const LoginForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, formData)
       .then((res) => {
-        console.log("jobbbbb22", jobid);
         toast.success("Logged In");
         let userName =
           userType === "seeker"
@@ -49,7 +47,6 @@ const LoginForm = ({ userType }) => {
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
           setCookies("companyName", res.data.employee.employeeCompanyName);
-        console.log("bhavnava", jobid);
         navigate("/dashboard", { state: { jobId: jobid } } );
       })
       .catch((error) => {

@@ -22,7 +22,6 @@ function Dashboard() {
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
-  console.log("here111", jobId);
   if (isLoggedIn && jobId !== undefined) {
     return <Navigate to="/description" state = {{ jobId: jobId }} />;
     // return navigate("/description", { state: { jobId: jobId } });

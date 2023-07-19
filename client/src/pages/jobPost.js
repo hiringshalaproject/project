@@ -32,7 +32,6 @@ const JobPost = () => {
         } else if (checkboxId === "checkbox2") {
           setEmployementType("Internship");
         } else if (checkboxId === "checkbox3") {
-            console.log("working 3");
           setEmployementType("Part-time");
         } else if (checkboxId === "checkbox4") {
           setEmployementType("Contract");

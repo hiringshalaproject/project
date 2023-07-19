@@ -13,14 +13,12 @@ import { toast } from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
-console.log("bhavrun");
 
 const JobDescription = () => {
   const location = useLocation();
   const jobid = location.state?.jobId;
   const seekerId = Cookies.get("userId")
   const isLoggedIn = seekerId !== undefined && seekerId !== "";
-  console.log(jobid);
   const navigate = useNavigate();
 
   const applyJobFlow = () => {

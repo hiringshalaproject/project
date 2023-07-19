@@ -16,7 +16,6 @@ const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
   const location = useLocation();
   const jobid = location.state?.jobId;
-  console.log("jobbbbb344", jobid);
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (formtype === "signup") {
