@@ -36,7 +36,6 @@ const EmployeeJobDetails = () => {
         const jobIds = response.data.employee.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
-        console.log("JobId", jobIds);
 
         const employeeJob = await axios.post(`${apiUrl}/api/v1/jobs`);
         const filteredJobs = employeeJob.data.filter((job) =>

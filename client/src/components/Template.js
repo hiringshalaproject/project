@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
@@ -14,6 +14,8 @@ import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
+  const location = useLocation();
+  const jobid = location.state?.jobId;
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (formtype === "signup") {
@@ -50,7 +52,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {
           toast.success("Logged In");
-          navigate("/dashboard");
+          navigate("/dashboard", { state: { jobId: jobid } } );
           Cookies.set("token", res.data.token);
         } else {
           toast.error("Unable to Log In");

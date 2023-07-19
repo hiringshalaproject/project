@@ -7,7 +7,7 @@ import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 import SeekerJobDetails from "../components/DashboardComponent/SeekerJobDetails";
 import EmployeeJobDetails from "../components/DashboardComponent/EmployeeJobDetails";
 import Cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/RenderJobsInCards";
 
 function Dashboard() {
@@ -16,8 +16,15 @@ function Dashboard() {
   const userType = Cookies.get("userType");
   const isSeeker = userType === "seeker";
   const isEmployee = userType === "employee";
+  const location = useLocation();
+  const jobId = location.state?.jobId;
+  const navigate = useNavigate();
   if (!isLoggedIn) {
     return <Navigate to="/" />;
+  }
+  if (isLoggedIn && jobId !== undefined) {
+    return <Navigate to="/description" state = {{ jobId: jobId }} />;
+    // return navigate("/description", { state: { jobId: jobId } });
   }
 
   return (

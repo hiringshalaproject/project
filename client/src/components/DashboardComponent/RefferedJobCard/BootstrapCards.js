@@ -17,7 +17,7 @@ const BootstrapCards = ({ user, ImgSrc }) => {
                 <h3 className="card-title">{user.companyName}</h3>
                 <h4>{user.jobLocation}</h4>
                 <p>
-                  the largest pool of career opportunities that match your skill
+                  ankit largest pool of career opportunities that match your skill
                   set. link up with outstanding people to create a better
                   future.
                 </p>
