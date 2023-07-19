@@ -1,67 +1,49 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSort,
-  faSortUp,
-  faSortDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
-import Cookies from "js-cookie";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
-const SeekerJobDetails = () => {
+const SeekerJobDetails = ({ userData, jobData }) => {
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const userId = Cookies.get("userId");
-  const token = Cookies.get("token");
-  const headers = {
-    authorization: `Bearer ${token}`,
-  };
 
   useEffect(() => {
-    const fetchSeeker = async () => {
+    const fetchSeekerJobs = async () => {
       try {
-        const response = await axios.get(
-          `${apiUrl}/api/v1/seekers/${userId}`
-        , {headers});
-        const jobIds = response.data.seeker.appliedJobList.map(
-          (appliedJob) => appliedJob.jobId
-        );
+        const resolveduserData = await userData;
+        const resolvedJobData = await jobData;
+        const jobIds = resolveduserData.appliedJobList.map((appliedJob) => appliedJob.jobId);
+        console.log("jobIds", jobIds);
 
-        const seekerJob = await axios.post(`${apiUrl}/api/v1/jobs`);
-        const filteredJobs = seekerJob.data.filter((job) =>
-          jobIds.includes(job._id)
-        );
-        setJobs(filteredJobs);
+        if (jobIds) {
+          const filteredJobs = resolvedJobData.filter((job) => jobIds.includes(job._id));
+          setJobs(filteredJobs);
 
-        // Update jobDetails state with combined information
-        const newJobDetails = filteredJobs.map((job) => {
-          const appliedJob = response.data.seeker.appliedJobList.find(
-            (appliedJob) => appliedJob.jobId === job._id
-          );
-          return {
-            ...job,
-
-            shortListedStatus: "False",
-            seekerName: response.data.seeker.seekerName,
-            seekerEmail: response.data.seeker.seekerEmail,
-            seekerPhone: response.data.seeker.phone,
-          };
-        });
-        setJobDetails(newJobDetails);
+          // Update jobDetails state with combined information
+          const newJobDetails = filteredJobs.map((job) => {
+            return {
+              ...job,
+              shortListedStatus: "False",
+              seekerName: resolveduserData.seekerName,
+              seekerEmail: resolveduserData.seekerEmail,
+              seekerPhone: resolveduserData.phone,
+            };
+          });
+          setJobDetails(newJobDetails);
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching seeker jobs:", error);
       }
     };
 
-    fetchSeeker();
-  }, [userId]);
+    fetchSeekerJobs();
+  }, [userData, jobData]);
+
   const handleSort = (column) => {
     if (sortColumn === column) {
       // If the current sorting column is the same as the clicked column,
@@ -88,6 +70,7 @@ const SeekerJobDetails = () => {
       }
     });
   }
+
   const visibleRows = showAll ? sortedJobDetails : sortedJobDetails.slice(0, 3);
 
   return (
@@ -149,10 +132,7 @@ const SeekerJobDetails = () => {
                 <td>{job.jobLocation}</td>
                 <td>{job.expectedPackage}</td>
                 <td>
-                  {" "}
-                  {job.shortListedStatus !== null
-                    ? job.shortListedStatus
-                    : "N/A"}
+                  {job.shortListedStatus !== null ? job.shortListedStatus : "N/A"}
                 </td>
               </tr>
             ))}

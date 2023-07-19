@@ -11,14 +11,7 @@ const fetchSeeker = async () => {
     const response = await axios.get(
       `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
     , {headers});
-    const jobIds = response.data.seeker.appliedJobList
-      .filter((appliedJob) => appliedJob.referralStatus === true)
-      .map((appliedJob) => appliedJob.jobId);
-    const seekerJob = await axios.post(`${apiUrl}/api/v1/jobs`);
-    const filteredJobs = seekerJob.data.filter((job) =>
-      jobIds.includes(job._id)
-    );
-    return filteredJobs;
+    return response.data.seeker;
   } catch (error) {
     console.error(error);
     return [];
