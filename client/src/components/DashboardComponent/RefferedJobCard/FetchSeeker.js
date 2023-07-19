@@ -8,10 +8,19 @@ const token = Cookies.get("token");
 
 const fetchSeeker = async () => {
   try {
-    const response = await axios.get(
-      `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
-    , {headers});
-    return response.data.seeker;
+    const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
+    var seekerDetails = JSON.parse(stringifiedUserData);
+    console.log("hiringShala_user", seekerDetails);
+    if (stringifiedUserData === null)
+        { console.log("hiringShala_user1", seekerDetails);
+        const response = await axios.get(
+          `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
+        , {headers});
+            seekerDetails = response.data.seeker;
+            const stringifiedUserDetails = JSON.stringify(response.data.seeker);
+            sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+          }
+    return seekerDetails;
   } catch (error) {
     console.error(error);
     return [];

@@ -22,20 +22,45 @@ const JobDescription = () => {
   const navigate = useNavigate();
 
   const applyJobFlow = () => {
+    const userId = Cookies.get("userId");
+    const token = Cookies.get("token");
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
     const formData = {
       jobId : jobid
     };
     axios
         .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
         .then((res) => {
-            toast.success("Applied SuccessFully");
+          toast.success("Applied SuccessFully");
+          const response = axios.get(
+            `${apiUrl}/api/v1/seekers/${userId}`
+            , { headers })
+            .then((res) => {
+              const stringifiedUserDetails = JSON.stringify(res.data.seeker);
+              sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+            })
+            .catch((e) => {
+              if (e.response) {
+                  toast.error(e.response.data.msg);
+                } else if (e.request) {
+                  toast.error("Network failure or timeout");
+              } else {
+                  console.log("here eerr");
+                  toast.error("An unexpected error occurred");
+                }
+          });
+          
+          
         })
       .catch((error) => {
             if (error.response) {
                 toast.error(error.response.data.msg);
               } else if (error.request) {
                 toast.error("Network failure or timeout");
-              } else {
+            } else {
+                console.log("or  here eerr");
                 toast.error("An unexpected error occurred");
               }
         });
