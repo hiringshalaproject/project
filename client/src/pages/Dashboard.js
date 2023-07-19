@@ -9,6 +9,9 @@ import EmployeeJobDetails from "../components/DashboardComponent/EmployeeJobDeta
 import Cookies from "js-cookie";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/RenderJobsInCards";
+import fetchSeeker from "../components/DashboardComponent/RefferedJobCard/FetchSeeker.js";
+import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/FetchEmployee.js";
+import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob";
 
 function Dashboard() {
   const isLoggedIn =
@@ -18,13 +21,22 @@ function Dashboard() {
   const isEmployee = userType === "employee";
   const location = useLocation();
   const jobId = location.state?.jobId;
-  const navigate = useNavigate();
+  let userData;
+  if(userType === "employee")
+  {
+    userData = fetchEmployee();
+  }
+  else
+  {
+    userData = fetchSeeker();
+
+  }
+  let jobData = fetchJobs();
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
   if (isLoggedIn && jobId !== undefined) {
     return <Navigate to="/description" state = {{ jobId: jobId }} />;
-    // return navigate("/description", { state: { jobId: jobId } });
   }
 
   return (
@@ -48,9 +60,9 @@ function Dashboard() {
           </div>
         )}
         <div className="RefferalChart">
-          <RenderUsersInCards />
+          <RenderUsersInCards userData = {userData} jobData = {jobData}/>
         </div>
-        <div className="appliedJob">{isSeeker && <SeekerJobDetails />}</div>
+        <div className="appliedJob">{isSeeker && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
         <div className="appliedJob">{isEmployee && <EmployeeJobDetails />}</div>
         <div className="FeaturedJob">
           <RenderJobsInCards />
