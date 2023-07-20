@@ -24,20 +24,11 @@ const JobPost = () => {
     const [isChecked, setIsChecked] = useState(false);
     const navigate = useNavigate();
 
-    const handleCheckboxChange = (e) => {
-        const checkboxId = e.target.id;
-        
-        if (checkboxId === "checkbox1") {
-          setEmployementType("Full-time");
-        } else if (checkboxId === "checkbox2") {
-          setEmployementType("Internship");
-        } else if (checkboxId === "checkbox3") {
-          setEmployementType("Part-time");
-        } else if (checkboxId === "checkbox4") {
-          setEmployementType("Contract");
-        }
-        
+    const handleCheckboxChange = (event) => {
+        const selectedValue = event.target.id;
+        setEmployementType(selectedValue);
         checkFormCompletion();
+
     };
 
     const handleJobTitleChange = (e) => {
@@ -182,11 +173,11 @@ const JobPost = () => {
             .catch((error) => {
                 if (error.response) {
                     toast.error(error.response.data.msg);
-                  } else if (error.request) {
+                } else if (error.request) {
                     toast.error("Network failure or timeout");
-                  } else {
+                } else {
                     toast.error("An unexpected error occurred");
-                  }
+                }
             });
     };
 
@@ -301,32 +292,32 @@ const JobPost = () => {
                 <div className="col-lg-7 employementType">
                     <div className="col-md-12">
                         <label htmlFor="checkbox1" className="checkbox-container-empType">
-                            <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox1" className="checkbox-input" onChange={handleCheckboxChange} />
+                            <div className={`form-control empContentbox  ${employementType === 'checkbox1' ? 'selected' : ''}`} style={{ alignSelf: "flex-end" }}>
+                                <input type="checkbox" id="checkbox1" className="checkbox-input" checked={employementType === "checkbox1"} onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                             </div>
                         </label>
                     </div>
                     <div className="col-md-12">
                         <label htmlFor="checkbox2" className="checkbox-container-empType">
-                            <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox2" className="checkbox-input" onChange={handleCheckboxChange} />
+                            <div className={`form-control empContentbox  ${employementType === 'checkbox1' ? 'selected' : ''}`} style={{ alignSelf: "flex-end" }}>
+                                <input type="checkbox" id="checkbox2" className="checkbox-input" checked={employementType === "checkbox2"} onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                             </div>
                         </label>
                     </div>
                     <div className="col-md-12">
                         <label htmlFor="checkbox3" className="checkbox-container-empType">
-                            <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox3" className="checkbox-input" onChange={handleCheckboxChange} />
+                            <div className={`form-control empContentbox  ${employementType === 'checkbox1' ? 'selected' : ''}`} style={{ alignSelf: "flex-end" }}>
+                                <input type="checkbox" id="checkbox3" className="checkbox-input" checked={employementType === "checkbox3"} onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
                             </div>
                         </label>
                     </div>
                     <div className="col-md-12 ">
                         <label htmlFor="checkbox4" className="checkbox-container-empType" style={{ marginBottom: "20px" }}>
-                            <div className="border p-2 checkbox-content" style={{ alignSelf: "flex-end" }}>
-                                <input type="checkbox" id="checkbox4" className="checkbox-input" onChange={handleCheckboxChange} />
+                            <div className={`form-control empContentbox  ${employementType === 'checkbox1' ? 'selected' : ''}`} style={{ alignSelf: "flex-end" }}>
+                                <input type="checkbox" id="checkbox4" className="checkbox-input" checked={employementType === "checkbox4"} onChange={handleCheckboxChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Contract</span>
                             </div>
                         </label>
@@ -348,7 +339,7 @@ const JobPost = () => {
                 <div className="col-lg-7 salaryBox">
                     <div className="col-md-6 offset-lg-4">
                         <label htmlFor="checkbox5" className="checkbox-container-SalType" style={{ width: "100%", }}>
-                            <div className="border p-2 checkbox-content " >
+                            <div className="form-control" >
                                 <input type="checkbox" id="checkbox5" name="salaryType"
                                     value="Hourly" className="checkbox-input" checked={selectedOption === "Hourly"} onChange={handleOptionChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Hourly</span>
@@ -358,7 +349,7 @@ const JobPost = () => {
                     </div>
                     <div className="col-md-6 offset-lg-4">
                         <label htmlFor="checkbox6" className="checkbox-container-SalType" style={{ width: "100%", }}>
-                            <div className="border p-2 checkbox-content" >
+                            <div className="form-control " >
                                 <input type="checkbox" id="checkbox6" className="checkbox-input" name="salaryType"
                                     value="Weekly" checked={selectedOption === "Weekly"} onChange={handleOptionChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Weekly</span>
@@ -368,7 +359,7 @@ const JobPost = () => {
                     </div>
                     <div className="col-md-6 offset-lg-4">
                         <label htmlFor="checkbox7" className="checkbox-container-SalType" style={{ width: "100%", }}>
-                            <div className="border p-2 checkbox-content" >
+                            <div className="form-control " >
                                 <input type="checkbox" id="checkbox7" className="checkbox-input" name="salaryType"
                                     value="Monthly" checked={selectedOption === "Monthly"} onChange={handleOptionChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Monthly</span>
@@ -378,7 +369,7 @@ const JobPost = () => {
                     </div>
                     <div className="col-md-6 offset-lg-4">
                         <label htmlFor="checkbox8" className="checkbox-container-SalType" style={{ width: "100%", }}>
-                            <div className="border p-2 checkbox-content" >
+                            <div className="form-control " >
                                 <input type="checkbox" id="checkbox8" className="checkbox-input" name="salaryType"
                                     value="Yearly" checked={selectedOption === "Yearly"} onChange={handleOptionChange} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Yearly</span>
@@ -386,22 +377,34 @@ const JobPost = () => {
                         </label>
 
                     </div>
-                    <div className="col-md-6 offset-lg-4">
-                        <div className="">
-                            <input
-                                type="text"
-                                value={amount}
-                                onChange={handleAmountChange}
-                                onKeyPress={handleAmountKeyPress}
-                                placeholder="Enter amount"
-                                className="form-control"
-                                required
-                                id="amount"
-                            />
-                        </div>
+                </div>
+            </div>
+            <hr style={{ borderTop: "1px solid black" }} />
+            <div className="form-group">
+                <div className="label-container">
+                    <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
+                        Amout<span className="required-field" > *</span>
+                    </p>
+                    <p> Enter the amount you are offering</p>
+                </div>
+
+
+                <div className="col-md-6 input-container">
+                    <div className="input-row">
+                        <input
+                            type="text"
+                            value={amount}
+                            onChange={handleAmountChange}
+                            onKeyPress={handleAmountKeyPress}
+                            placeholder="Enter amount"
+                            className="form-control"
+                            required
+                            id="amount"
+                        />
                     </div>
                 </div>
             </div>
+
 
             <hr style={{ borderTop: "1px solid black" }} />
             <div className="row">
@@ -424,47 +427,49 @@ const JobPost = () => {
                             style={{ resize: 'none' }}
                         />
                     </div>
-                </div>
 
-                <div className="row custom-margin">
-                    <div className="col-md-6 offset-md-6">
-                        <div className="d-flex justify-content-lg-end justify-content-end align-items-center">
-                            <button
-                                onClick={handleSaveAsDraft}
-                                className={`save-job-button`}
-                            >
-                                Save as Draft
-                            </button>
+                    <div
+                        style={{
+                            flex: 1,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginTop: "50px",
+                            marginBottom: "60px"
 
-                            <button
-                                onClick={handlePostJob}
-                                className={`post-job-button ${isFormComplete ? "cursor-pointer" : "cursor-not-allowed"
-                                    }`}
-                                disabled={!isFormComplete}
-                                onMouseOver={(e) => {
-                                    if (!isFormComplete) {
-                                        e.currentTarget.style.backgroundColor = "#b3e6cc";
-                                        e.currentTarget.style.cursor = "not-allowed";
-                                    }
-                                }}
-                                onMouseOut={(e) => {
-                                    if (!isFormComplete) {
-                                        e.currentTarget.style.backgroundColor = "#e0e0e0";
-                                        e.currentTarget.style.cursor = "default";
-                                    }
-                                }}
-                            >
-                                Post New Job
-                            </button>
-                        </div>
+                        }}>
+
+
+
+                        <button
+                            onClick={handlePostJob}
+                            className={`post-job-button ${isFormComplete ? "cursor-pointer" : "cursor-not-allowed"
+                                }`}
+                            disabled={!isFormComplete}
+                            onMouseOver={(e) => {
+                                if (!isFormComplete) {
+                                    e.currentTarget.style.backgroundColor = "#b3e6cc";
+                                    e.currentTarget.style.cursor = "not-allowed";
+                                }
+                            }}
+                            onMouseOut={(e) => {
+                                if (!isFormComplete) {
+                                    e.currentTarget.style.backgroundColor = "#e0e0e0";
+                                    e.currentTarget.style.cursor = "default";
+                                }
+                            }}
+                        >
+                            Post New Job
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
 
 
 
 
-        </div >
+
 
 
 
