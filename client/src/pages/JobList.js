@@ -43,7 +43,6 @@ const JobList = () => {
 
   const routeChange = (event, id) => {
     // event.preventDefault();
-    console.log("Button clicked");
     navigate("/description", { state: { jobId: id } });
   };
 

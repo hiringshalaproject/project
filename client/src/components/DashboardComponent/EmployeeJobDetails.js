@@ -25,7 +25,7 @@ const EmployeeJobDetails = () => {
   };
 
   useEffect(() => {
-    const fetchSeeker = async () => {
+    const fetchEmployee = async () => {
       try {
         const response = await axios.get(
           `${apiUrl}/api/v1/employees/${userId}`,
@@ -64,7 +64,7 @@ const EmployeeJobDetails = () => {
       }
     };
 
-    fetchSeeker();
+    fetchEmployee();
   }, [userId]);
   const handleSort = (column) => {
     if (sortColumn === column) {

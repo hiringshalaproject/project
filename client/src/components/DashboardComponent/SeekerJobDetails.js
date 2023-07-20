@@ -6,7 +6,6 @@ import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 
 const SeekerJobDetails = ({ userData, jobData }) => {
-  const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
@@ -17,46 +16,42 @@ const SeekerJobDetails = ({ userData, jobData }) => {
       try {
         const resolveduserData = await userData;
         const resolvedJobData = await jobData;
+  
         const jobIds = resolveduserData.appliedJobList.map((appliedJob) => appliedJob.jobId);
-        console.log("jobIds", jobIds);
-
-        if (jobIds) {
+        const shortListedStatus = resolveduserData.appliedJobList.map((appliedJob) => appliedJob.shortListedStatus);
+  
+        if (jobIds.length > 0) {
           const filteredJobs = resolvedJobData.filter((job) => jobIds.includes(job._id));
-          setJobs(filteredJobs);
-
-          // Update jobDetails state with combined information
-          const newJobDetails = filteredJobs.map((job) => {
+            const newJobDetails = filteredJobs.map((job) => {
+            const index = jobIds.indexOf(job._id);
             return {
               ...job,
-              shortListedStatus: "False",
-              seekerName: resolveduserData.seekerName,
-              seekerEmail: resolveduserData.seekerEmail,
-              seekerPhone: resolveduserData.phone,
+              shortListedStatus: shortListedStatus[index].toString(),
             };
           });
+  
           setJobDetails(newJobDetails);
         }
       } catch (error) {
         console.error("Error fetching seeker jobs:", error);
       }
     };
-
+  
     fetchSeekerJobs();
   }, [userData, jobData]);
+  
+  
 
   const handleSort = (column) => {
     if (sortColumn === column) {
-      // If the current sorting column is the same as the clicked column,
-      // reverse the sort direction
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // Otherwise, set the clicked column as the sorting column
       setSortColumn(column);
       setSortDirection("asc");
     }
   };
 
-  const sortedJobDetails = [...jobDetails]; // create a copy of jobDetails to avoid mutating state directly
+  const sortedJobDetails = [...jobDetails];
 
   if (sortColumn !== null) {
     // Sort the jobDetails array based on the current sorting column and direction
@@ -132,7 +127,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
                 <td>{job.jobLocation}</td>
                 <td>{job.expectedPackage}</td>
                 <td>
-                  {job.shortListedStatus !== null ? job.shortListedStatus : "N/A"}
+                  {job.shortListedStatus}
                 </td>
               </tr>
             ))}

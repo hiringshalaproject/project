@@ -32,4 +32,5 @@ export function removeCookies() {
   Cookies.remove("companyName");
   Cookies.remove("token");
   Cookies.remove("picture");
+  sessionStorage.clear();
 }

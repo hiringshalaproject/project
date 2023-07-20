@@ -3,6 +3,7 @@ import axios from "axios";
 import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
 import Cookies from "js-cookie";
+import { toast } from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -35,6 +36,7 @@ function FileUploader() {
   const handleUpload = () => {
     const seekerId = Cookies.get("userId");
     const formData = new FormData();
+    const token = Cookies.get("token");
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);
 
@@ -48,6 +50,24 @@ function FileUploader() {
       .then((response) => {
         setLoading(false);
         setSuccess(true);
+        const fetchSeekerResp = axios.get(
+          `${apiUrl}/api/v1/seekers/${seekerId}`
+          , { headers : {
+            authorization: `Bearer ${token}`,
+          } })
+          .then((res) => {
+            const stringifiedUserDetails = JSON.stringify(res.data.seeker);
+            sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+          })
+          .catch((e) => {
+            if (e.response) {
+                toast.error(e.response.data.msg);
+              } else if (e.request) {
+                toast.error("Network failure or timeout");
+            } else {
+                toast.error("An unexpected error occurred");
+              }
+        });
       })
       .catch(() => {
         setLoading(false);

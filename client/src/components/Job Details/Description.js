@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../Footer/Footer";
 import axios from 'axios';
-import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
+import {AiFillDollarCircle, AiOutlineMan} from "react-icons/ai"
 import {FaRegCalendarTimes} from "react-icons/fa"
 import {BiLocationPlus} from "react-icons/bi"
 import Cookies from "js-cookie";
-import { Route, useLocation, useNavigate } from "react-router-dom";
-import Login from "../../pages/Login";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 
@@ -22,20 +21,43 @@ const JobDescription = () => {
   const navigate = useNavigate();
 
   const applyJobFlow = () => {
+    const userId = Cookies.get("userId");
+    const token = Cookies.get("token");
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
     const formData = {
       jobId : jobid
     };
     axios
         .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
         .then((res) => {
-            toast.success("Applied SuccessFully");
+          toast.success("Applied SuccessFully");
+          const response = axios.get(
+            `${apiUrl}/api/v1/seekers/${userId}`
+            , { headers })
+            .then((res) => {
+              const stringifiedUserDetails = JSON.stringify(res.data.seeker);
+              sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+            })
+            .catch((e) => {
+              if (e.response) {
+                  toast.error(e.response.data.msg);
+                } else if (e.request) {
+                  toast.error("Network failure or timeout");
+              } else {
+                  toast.error("An unexpected error occurred");
+                }
+          });
+          
+          
         })
       .catch((error) => {
             if (error.response) {
                 toast.error(error.response.data.msg);
               } else if (error.request) {
                 toast.error("Network failure or timeout");
-              } else {
+            } else {
                 toast.error("An unexpected error occurred");
               }
         });
@@ -82,12 +104,10 @@ const JobDescription = () => {
     expectedPackage,
     jobEligibility,
     jobRequirements,
-    applyLink,
     seekersRegistered,
     jobId,
     noOfOpenings,
     isExpired,
-    __v
   } = companyDetails;
 
   const formattedJobDate = jobDate ? new Date(jobDate).toLocaleDateString() : '';
@@ -221,15 +241,6 @@ const JobDescription = () => {
                     </ul>
                   </div>
                 )}
-                 {/* {applyLink && (
-                   <div>
-                    <h4>Apply Link</h4>
-                    <div className="horizontal-container">
-                      <AiOutlineLink />
-                      <span><a href={applyLink} target="_blank" rel="noopener noreferrer">{applyLink}</a></span>
-                    </div>
-                  </div>
-                )} */}
               </div>
               <button
                   className="apply-button "
