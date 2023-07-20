@@ -65,7 +65,6 @@ function FileUploader() {
               } else if (e.request) {
                 toast.error("Network failure or timeout");
             } else {
-                console.log("here eerr");
                 toast.error("An unexpected error occurred");
               }
         });

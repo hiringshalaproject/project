@@ -53,13 +53,13 @@ function JobsSideNav() {
             {renderCheckbox("Remote")}
           </div>
 
-          <div class="form-check form-switch remote-option">
+          <div className="form-check form-switch remote-option">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               id="flexSwitchCheckDefault"
             />
-            <label class="form-check-label" for="flexSwitchCheckDefault">
+            <label className="form-check-label" for="flexSwitchCheckDefault">
               <b className="sidebar-heading">Open to Remote</b>
             </label>
           </div>
@@ -68,12 +68,12 @@ function JobsSideNav() {
             <p>
               <b className="sidebar-heading">Job Categories</b>
             </p>
-            <div class="input-group">
-              <div class="form-outline">
+            <div className="input-group">
+              <div className="form-outline">
                 <input
                   type="search"
                   id="form1"
-                  class="form-control"
+                  className="form-control"
                   placeholder="Search"
                 />
               </div>
