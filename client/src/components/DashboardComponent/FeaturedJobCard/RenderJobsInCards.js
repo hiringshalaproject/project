@@ -6,13 +6,13 @@ import RoundButton from "../sidemenu/RoundButton";
 import { Container } from "react-bootstrap";
 import SearchJob from "../../assets/job-search.png";
 
-const RenderJobsInCards = () => {
+const RenderJobsInCards = ({jobData}) => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const updateUsers = async () => {
-      let myData = await fetchJobs();
+      let myData = await jobData;
 
       setUsers(myData);
     };

@@ -7,7 +7,7 @@ import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 import SeekerJobDetails from "../components/DashboardComponent/SeekerJobDetails";
 import EmployeeJobDetails from "../components/DashboardComponent/EmployeeJobDetails";
 import Cookies from "js-cookie";
-import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/RenderJobsInCards";
 import fetchSeeker from "../components/DashboardComponent/RefferedJobCard/FetchSeeker.js";
 import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/FetchEmployee.js";
@@ -65,7 +65,7 @@ function Dashboard() {
         <div className="appliedJob">{isSeeker && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
         <div className="appliedJob">{isEmployee && <EmployeeJobDetails />}</div>
         <div className="FeaturedJob">
-          <RenderJobsInCards />
+          <RenderJobsInCards jobData={jobData}/>
         </div>
       </div>
     </div>
