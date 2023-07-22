@@ -39,7 +39,7 @@ th:last-child {
 
 td {
   padding: 20px;
-  font-size: 14px;
+  font-size: 18px;
   background-color: var(--bg-image);
   color: var(--home-text);
   border-bottom: 1px solid #ddd;
@@ -62,7 +62,7 @@ tr:last-child td {
   color: aliceblue;
 } */
 .round-button {
-  width: 150px;
+  /* width: 150px; */
   height: 50px;
   border: 4px solid #47a992;
   border-radius: 17px;
