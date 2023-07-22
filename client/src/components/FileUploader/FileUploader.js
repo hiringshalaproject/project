@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
@@ -13,6 +13,28 @@ function FileUploader() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [resumeUrl, setResumeUrl] = useState("");
+
+  useEffect(() => {
+    const fetchResume = async () => {
+      // Check if the resume is already present in sessionStorage
+      const storedUserDetails = await sessionStorage.getItem(
+        "hiringShala_user"
+      );
+      const userDetails = JSON.parse(storedUserDetails);
+      if (userDetails && userDetails.resumeUrl) {
+        setResumeUrl(userDetails.resumeUrl); // Set the resume URL if present
+      }
+    };
+
+    fetchResume(); // Call the asynchronous function
+  }, []);
+
+  const getFileNameFromUrl = (url) => {
+    if (!url) return "";
+    const parts = url.split("/");
+    return parts[parts.length - 1];
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -33,6 +55,7 @@ function FileUploader() {
       );
     }
   };
+
   const handleUpload = () => {
     const seekerId = Cookies.get("userId");
     const formData = new FormData();
@@ -50,24 +73,25 @@ function FileUploader() {
       .then((response) => {
         setLoading(false);
         setSuccess(true);
-        const fetchSeekerResp = axios.get(
-          `${apiUrl}/api/v1/seekers/${seekerId}`
-          , { headers : {
-            authorization: `Bearer ${token}`,
-          } })
+        const fetchSeekerResp = axios
+          .get(`${apiUrl}/api/v1/seekers/${seekerId}`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          })
           .then((res) => {
             const stringifiedUserDetails = JSON.stringify(res.data.seeker);
-            sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+            sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);
           })
           .catch((e) => {
             if (e.response) {
-                toast.error(e.response.data.msg);
-              } else if (e.request) {
-                toast.error("Network failure or timeout");
+              toast.error(e.response.data.msg);
+            } else if (e.request) {
+              toast.error("Network failure or timeout");
             } else {
-                toast.error("An unexpected error occurred");
-              }
-        });
+              toast.error("An unexpected error occurred");
+            }
+          });
       })
       .catch(() => {
         setLoading(false);
@@ -83,64 +107,129 @@ function FileUploader() {
     event.preventDefault();
     setSelectedFile(event.dataTransfer.files[0]);
   };
+  const fileInputRef = useRef(null);
 
   return (
     <div className="file-uploader">
-      <div
-        className="drop-zone"
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <label htmlFor="fileInput" className="choose-file-text">
-          <strong>{selectedFile ? selectedFile.name : "Drag and Drop"} </strong>
-          <span> or </span>
-          <a
-            href="#"
-            onClick={() => document.getElementById("fileInput").click()}
+      {resumeUrl ? (
+        <div>
+          {/* <p>{getFileNameFromUrl(resumeUrl)}</p> */}
+          <div
+            className="drop-zone"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
           >
-            Browse
-          </a>
-        </label>
-      </div>
-
-      <input
-        type="file"
-        id="fileInput"
-        onChange={handleFileChange}
-        style={{ display: "none" }}
-      />
-
-      {selectedFile && (
-        <RoundButton
-          text={
-            loading
-              ? "Uploading..."
-              : success
-              ? "Resume Uploaded \u2713"
-              : "Upload Resume"
-          }
-          className={`${
-            loading
-              ? "upload-button"
-              : success
-              ? "uploaded-button"
-              : "uploaded-button"
-          } ${selectedFile ? "has-file" : ""} ${
-            error ? "has-error" : ""
-          } sm:rounded`}
-          onClick={handleUpload}
-          disabled={loading || success}
-          style={{ maxWidth: "100%" }}
-        />
-      )}
-
-      {error && (
-        <span className="text-red-500 ml-4">
-          Upload failed. Please try again.
-        </span>
-      )}
-      {errorMessage && (
-        <span className="text-red-500 ml-4">Invalid Format</span>
+            <label htmlFor="fileInput" className="choose-file-text">
+              <strong>
+                {selectedFile
+                  ? selectedFile.name
+                  : getFileNameFromUrl(resumeUrl)}
+              </strong>
+              <br></br>
+              <a
+                href="#"
+                onClick={() => document.getElementById("fileInput").click()}
+              >
+                {" "}
+                Update Resume
+              </a>
+            </label>
+            <input
+              type="file"
+              id="fileInput"
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            <br></br>
+            {selectedFile && (
+              <RoundButton
+                text={
+                  loading
+                    ? "Uploading..."
+                    : success
+                    ? "Resume Uploaded \u2713"
+                    : "Upload Resume"
+                }
+                className={`${
+                  loading
+                    ? "upload-button"
+                    : success
+                    ? "uploaded-button"
+                    : "uploaded-button"
+                } ${selectedFile ? "has-file" : ""} ${
+                  error ? "has-error" : ""
+                } sm:rounded`}
+                onClick={handleUpload}
+                disabled={loading || success}
+                style={{ maxWidth: "100%" }}
+              />
+            )}
+            {error && (
+              <span className="text-red-500 ml-4">
+                Upload failed. Please try again.
+              </span>
+            )}
+            {errorMessage && (
+              <span className="text-red-500 ml-4">Invalid Format</span>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div
+          className="drop-zone"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <label htmlFor="fileInput" className="choose-file-text">
+            <strong>
+              {selectedFile ? selectedFile.name : "Drag and Drop"}
+            </strong>
+            <span> or </span>
+            <a
+              href="#"
+              onClick={() => document.getElementById("fileInput").click()}
+            >
+              Browse
+            </a>
+          </label>
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileChange}
+            style={{ display: "none" }}
+          />
+          {selectedFile && (
+            <RoundButton
+              text={
+                loading
+                  ? "Uploading..."
+                  : success
+                  ? "Resume Uploaded \u2713"
+                  : "Upload Resume"
+              }
+              className={`${
+                loading
+                  ? "upload-button"
+                  : success
+                  ? "uploaded-button"
+                  : "uploaded-button"
+              } ${selectedFile ? "has-file" : ""} ${
+                error ? "has-error" : ""
+              } sm:rounded`}
+              onClick={handleUpload}
+              disabled={loading || success}
+              style={{ maxWidth: "100%" }}
+            />
+          )}
+          {error && (
+            <span className="text-red-500 ml-4">
+              Upload failed. Please try again.
+            </span>
+          )}
+          {errorMessage && (
+            <span className="text-red-500 ml-4">Invalid Format</span>
+          )}
+        </div>
       )}
     </div>
   );
