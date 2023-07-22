@@ -21,6 +21,7 @@ import Cookies from "js-cookie";
 import Description from "./components/Job Details/Description";
 import { Navigate } from "react-router-dom";
 import "./pages/index.css";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   window.scrollTo(0, 0);
@@ -54,6 +55,8 @@ function App() {
         <Route path="/internships" element={<Contact />} />
         <Route path="/jobPost" element={<JobPost />} />
         <Route path="/description" element={<Description />} />
+        <Route path="/seeker/login/forgotPassword" element={<ForgotPassword userType={"seeker"}/>} />
+        <Route path="/employee/login/forgotPassword" element={<ForgotPassword userType={"employee"}/>} />
         <Route
           path="/employee/login"
           element={<Login userType={"employee"} />}
