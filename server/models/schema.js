@@ -123,7 +123,7 @@ const EmployeeSchema = new mongoose.Schema({
       },
     },
   ],
-  totalReferralGiven: Number,
+  totalReferralGiven: {type : Number, default : 0},
 });
 
 const Employees = mongoose.model("Employees", EmployeeSchema);
