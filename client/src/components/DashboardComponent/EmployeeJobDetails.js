@@ -12,7 +12,7 @@ import RoundButton from "./sidemenu/RoundButton";
 import Cookies from "js-cookie";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
-const EmployeeJobDetails = () => {
+const EmployeeJobDetails = ({userData,jobData}) => {
   const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
@@ -27,13 +27,9 @@ const EmployeeJobDetails = () => {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(
-          `${apiUrl}/api/v1/employees/${userId}`,
-          {
-            headers,
-          }
-        );
-        const jobIds = response.data.employee.listOfJobsPosted.map(
+        const resolveduserData = await userData;
+        const resolvedJobData = await jobData;
+        const jobIds = resolveduserData.data.employee.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
 
@@ -45,17 +41,12 @@ const EmployeeJobDetails = () => {
 
         // Update jobDetails state with combined information
         const newJobDetails = filteredJobs.map((job) => {
-          const appliedJob = response.data.employee.listOfJobsPosted.find(
+          const appliedJob = resolveduserData.data.employee.listOfJobsPosted.find(
             (appliedJob) => appliedJob.jobId === job._id
           );
           return {
             ...job,
-
-            shortListedStatus: "False",
-            totalReferralGiven: response.data.employee.totalReferralGiven,
-            // seekerName: response.data.seeker.seekerName,
-            // seekerEmail: response.data.seeker.seekerEmail,
-            // seekerPhone: response.data.seeker.phone,
+            totalReferralGiven: resolveduserData.data.employee.totalReferralGiven,
           };
         });
         setJobDetails(newJobDetails);
@@ -68,20 +59,16 @@ const EmployeeJobDetails = () => {
   }, [userId]);
   const handleSort = (column) => {
     if (sortColumn === column) {
-      // If the current sorting column is the same as the clicked column,
-      // reverse the sort direction
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
-      // Otherwise, set the clicked column as the sorting column
       setSortColumn(column);
       setSortDirection("asc");
     }
   };
 
-  const sortedJobDetails = [...jobDetails]; // create a copy of jobDetails to avoid mutating state directly
+  const sortedJobDetails = [...jobDetails];
 
   if (sortColumn !== null) {
-    // Sort the jobDetails array based on the current sorting column and direction
     sortedJobDetails.sort((a, b) => {
       if (a[sortColumn] < b[sortColumn]) {
         return sortDirection === "asc" ? -1 : 1;
