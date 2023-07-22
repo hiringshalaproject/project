@@ -263,11 +263,10 @@ const loginSeeker = async (req, res) => {
     }
     
     const isMatch = password === seeker.password;
-
     if (!isMatch && !seeker.password) {
-      return res.status(401).json({ msg: "Invalid Credentials!" });
-    } else if (!isMatch) {
       return res.status(401).json({ msg: "Login Through Google or Signup using this email!" });
+    } else if (!isMatch) {
+      return res.status(401).json({ msg: "Invalid Credentials!" });
     }
 
     const token = generateToken(seeker._id,'Seeker');

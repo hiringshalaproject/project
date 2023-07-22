@@ -1,5 +1,5 @@
 const usedOtps = new Set();
-const { OtpVerification } = require("../models/schema");
+const { OtpVerification, Employees, Seekers } = require("../models/schema");
 
 function generateUniqueOtp() {
   let otp;
@@ -54,7 +54,7 @@ const sendOtp = async (req, res) => {
 
 // Route for verifying OTP
 const verifyOtp = async (req, res) => {
-  const { email, otp } = req.body;
+  const { email, otp , userType} = req.body;
 
   try {
     // Find document with email and OTP combination
@@ -77,7 +77,10 @@ const verifyOtp = async (req, res) => {
     // Delete document from collection
     await otpVerification.delete();
 
-    res.status(200).send("OTP verified successfully");
+    const existingUser = userType === "seeker" ? await Seekers.findOne({ seekerEmail: email }) : await Employees.findOne({ employeeEmail: email });
+
+
+    res.status(200).send({msg:"OTP verified successfully", userId:existingUser._id});
   } catch (err) {
     res.status(500).send("Error verifying OTP");
   }

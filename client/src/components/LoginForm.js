@@ -127,7 +127,7 @@ const LoginForm = ({ userType }) => {
           </MDBRow>
         </MDBContainer>
         <MDBContainer>
-          <Link to="#">
+          <Link to={ userType === "seeker" ? "/seeker/login/forgotPassword" : "/employee/login/forgotPassword"}>
             <p className="float-left mt-1  font-regular max-w-max ml-auto loginPasswordText">
               Forgot Password?
             </p>
