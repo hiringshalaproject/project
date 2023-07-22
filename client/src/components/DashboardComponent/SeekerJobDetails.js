@@ -82,7 +82,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
   return (
     <div>
       <div className="AppliedJobHeader">
-        <h2 style={{ fontSize: "25px", color: "#636C86", fontWeight: "600" }}>
+        <h2 style={{ fontSize: "25px", color: "#111111", fontWeight: "300" }}>
           Applied Opportunities
         </h2>
 

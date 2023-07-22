@@ -81,37 +81,43 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+const handleGoogleLogin = async (req, res) => {
+  try {
+    let email, picture, name;
+    const credential = req.headers.authorization;
+    if (!credential || !credential.startsWith("Bearer ")) {
+      return res.status(401).json({ msg: "Invalid Credentials!" });
+    }
+    const decodedToken = jwt_decode(credential);
+    email = decodedToken.email;
+    picture = decodedToken.picture;
+    name = decodedToken.name;
+    const employee = await Employees.findOne({ employeeEmail: email });
+    if(!employee)
+    {
+      req.body.employeeEmail = email;
+      req.body.employeeName = name;
+      return createNewEmployee(req, res);
+    }
+    const token = generateToken(employee._id,'Employee');
+    res.status(200).json({ msg: "Login successful", token, employee, picture });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
 const loginEmployee = async (req, res) => {
   try {
     const { isGoogleLogin } = req.body;
-    let email,password, picture, name;
     if(isGoogleLogin){
-      const credential = req.headers.authorization;
-      if (!credential || !credential.startsWith("Bearer ")) {
-        return res.status(401).json({ msg: "Invalid Credentials!" });
-      }
-      const decodedToken = jwt_decode(credential);
-      email = decodedToken.email;
-      picture = decodedToken.picture;
-      name = decodedToken.name;
+      return handleGoogleLogin(req,res);
     }
-    else
-    {
-      email = req.body.email;
-      password = req.body.password;
-    }
+    let email = req.body.email, password = req.body.password;
     const employee = await Employees.findOne({ employeeEmail: email });
     if (!employee) {
-      if (isGoogleLogin) {
-        req.body.employeeEmail = email;
-        req.body.employeeName = name;
-        return createNewEmployee(req, res);
-      }
       return res.status(404).json({ msg: `No employee with email ${email}` });
     }
-    
-    const isMatch = password === employee.password;
-
+    const isMatch = password === employee.password
     if (!isMatch && !employee.password) {
       return res.status(401).json({  msg: "Login Through Google or Signup using this email!"});
     } else if(!isMatch) {
@@ -119,7 +125,7 @@ const loginEmployee = async (req, res) => {
     }
 
     const token = generateToken(employee._id,'Employee');
-    res.status(200).json({ msg: "Login successful", token, employee, picture});
+    res.status(200).json({ msg: "Login successful", token, employee});
   } catch (error) {
     res.status(500).json(error);
   }
