@@ -63,7 +63,7 @@ function Dashboard() {
           <RenderUsersInCards userData = {userData} jobData = {jobData}/>
         </div>
         <div className="appliedJob">{isSeeker && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
-        <div className="appliedJob">{isEmployee && <EmployeeJobDetails />}</div>
+        <div className="appliedJob">{isEmployee && <EmployeeJobDetails userData = {userData} jobData = {jobData}/>}</div>
         <div className="FeaturedJob">
           <RenderJobsInCards jobData={jobData}/>
         </div>

@@ -22,14 +22,10 @@ const RenderUsersInCards = ({ userData, jobData }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (userType === "employee") {
-          setUsers(userData);
-        } else {
-          const resolvedJobData = await jobData;
-          const resolveduserData = await userData;
-          let filteredData = filterData(resolveduserData, resolvedJobData);
-          setUsers(filteredData);
-        }
+        const resolvedJobData = await jobData;
+        const resolveduserData = await userData;
+        let filteredData = filterData(resolveduserData, resolvedJobData);
+        setUsers(filteredData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

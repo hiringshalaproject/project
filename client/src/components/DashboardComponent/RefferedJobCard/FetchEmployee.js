@@ -11,10 +11,7 @@ const fetchEmployee = async () => {
     const response = await axios.get(
       `${apiUrl}/api/v1/employees/${Cookies.get("userId")}`
     , {headers});
-    const jobIds = response.data.seeker.appliedJobList.map(
-      (appliedJob) => appliedJob.jobId
-    );
-    return response.data.employee;
+    return response;
   } catch (error) {
     console.error(error);
     return [];
