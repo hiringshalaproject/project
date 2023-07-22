@@ -32,14 +32,11 @@ const EmployeeJobDetails = ({userData,jobData}) => {
         const jobIds = resolveduserData.data.employee.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
-
-        const employeeJob = await axios.post(`${apiUrl}/api/v1/jobs`);
-        const filteredJobs = employeeJob.data.filter((job) =>
+        const filteredJobs = resolvedJobData.filter((job) =>
           jobIds.includes(job._id)
         );
         setJobs(filteredJobs);
 
-        // Update jobDetails state with combined information
         const newJobDetails = filteredJobs.map((job) => {
           const appliedJob = resolveduserData.data.employee.listOfJobsPosted.find(
             (appliedJob) => appliedJob.jobId === job._id
