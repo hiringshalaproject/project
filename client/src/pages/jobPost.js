@@ -148,8 +148,14 @@ const JobPost = () => {
         if (!companyName) {
             toast("Please Login!");
         }
+        const userId = Cookies.get("userId");
+        const token = Cookies.get("token");
+        const headers = {
+        authorization: `Bearer ${token}`,
+        };
         const formData = {
             companyName: companyName,
+            employeeId: userId,
             jobTitle: jobTitle,
             jobDate: new Date(),
             jobRequirements: jobDescription,
@@ -162,6 +168,22 @@ const JobPost = () => {
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
             .then((res) => {
                 toast.success("Job Posted Successfully");
+                const response = axios.get(
+                    `${apiUrl}/api/v1/employees/${userId}`
+                    , { headers })
+                    .then((res) => {
+                      const stringifiedUserDetails = JSON.stringify(res.data.employee);
+                      sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+                    })
+                    .catch((e) => {
+                      if (e.response) {
+                          toast.error(e.response.data.msg);
+                        } else if (e.request) {
+                          toast.error("Network failure or timeout");
+                      } else {
+                          toast.error("An unexpected error occurred");
+                        }
+                  });
                 setTimeout(() => {
                     const form = document.getElementById("jobPostForm"); // Replace "your-form-id" with the actual ID of your form
 

@@ -1,4 +1,4 @@
-const { Jobs } = require("../models/schema");
+const { Jobs, Employees } = require("../models/schema");
 
 const getJobs = async (req, res) => {
   try {
@@ -41,8 +41,25 @@ const getJobFromId = async (req, res) => {
 
 const createNewJob = async (req, res) => {
   try {
+    const employeeId = req.body.employeeId;
     const job = await Jobs.create(req.body);
-    res.status(201).json({job});
+    if (!job) {
+      res.status(500).json({msg: "Unable to Upload Job. Please try again!"});
+    }
+    const newJob = { jobId: job._id };
+    if (employeeId) {
+      const employee = await Employees.findOneAndUpdate(
+        { _id: employeeId },
+        { $push: { listOfJobsPosted: newJob } },
+        { new: true, runValidators: true }
+      );
+      if (!employee) {
+        return res
+          .status(404)
+          .json({ msg: `No employee with id ${employeeId}` });
+      }
+    }
+    res.status(201).json({ job });
   } catch (error) {
     res.status(500).json({msg: "Unable to Upload Job. Please try again!"});
   }

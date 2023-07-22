@@ -29,7 +29,7 @@ const EmployeeJobDetails = ({userData,jobData}) => {
       try {
         const resolveduserData = await userData;
         const resolvedJobData = await jobData;
-        const jobIds = resolveduserData.data.employee.listOfJobsPosted.map(
+        const jobIds = resolveduserData.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
         const filteredJobs = resolvedJobData.filter((job) =>
@@ -38,12 +38,12 @@ const EmployeeJobDetails = ({userData,jobData}) => {
         setJobs(filteredJobs);
 
         const newJobDetails = filteredJobs.map((job) => {
-          const appliedJob = resolveduserData.data.employee.listOfJobsPosted.find(
+          const appliedJob = resolveduserData.listOfJobsPosted.find(
             (appliedJob) => appliedJob.jobId === job._id
           );
           return {
             ...job,
-            totalReferralGiven: resolveduserData.data.employee.totalReferralGiven,
+            totalReferralGiven: resolveduserData.totalReferralGiven,
           };
         });
         setJobDetails(newJobDetails);
