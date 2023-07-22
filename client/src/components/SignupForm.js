@@ -60,6 +60,7 @@ const SignupForm = ({ userType }) => {
       .post(`${apiUrl}/api/v1/otp/verify`, {
         email: formData.email,
         otp: formData.otp,
+        userType: userType
       })
       .then((response) => {
         // alert("OTP Verified successfully!");
@@ -74,8 +75,9 @@ const SignupForm = ({ userType }) => {
   function submitHandler(event) {
     event.preventDefault();
     setButtonLoadin(true);
-    if (formData.changePassword !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
+      setButtonLoadin(false);
       return;
     }
     const apiUrlSecondary =
@@ -99,7 +101,7 @@ const SignupForm = ({ userType }) => {
         setUserCookies(
           formData.firstName + " " + formData.lastName,
           userType,
-          response.data._id
+          response.data.employee._id
         );
         Cookies.set("token", response.data.token);
         if (userType === "employee") {

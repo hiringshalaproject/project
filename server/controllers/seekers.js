@@ -83,7 +83,7 @@ const createNewSeeker = async (req, res) => {
     }
     const seeker = await Seekers.create(req.body);
     //generate token for that seeker
-    const token=generateToken(seeker._id,'Seeker');
+    const token = generateToken(seeker._id,'Seeker');
     return res.status(200).json({ msg: "Signup successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
@@ -149,7 +149,7 @@ const updateSeekersJobStatus = async (req, res) => {
     let shortListedStatus = req.body.shortListedStatus;
     let referralStatus = req.body.referralStatus;
     if (shortListedStatus === null) {
-      res.status(500).json({ error: "shortListedStatus is missing from body" });
+      return res.status(500).json({ error: "shortListedStatus is missing from body" });
     }
     if (referralStatus === null) {
       referralStatus = false;
@@ -232,49 +232,61 @@ const deleteSeeker = async (req, res) => {
   }
 };
 
+const handleGoogleLogin = async (req, res) => {
+  try {
+    let email, picture, name;
+    const credential = req.headers.authorization;
+    if (!credential || !credential.startsWith("Bearer ")) {
+      return res.status(401).json({ msg: "Invalid Credentials!" });
+    }
+    const decodedToken = jwt_decode(credential);
+    email = decodedToken.email;
+    picture = decodedToken.picture;
+    name = decodedToken.name;
+    const seeker = await Seekers.findOne({ seekerEmail: email });
+    if(!seeker)
+    {
+      req.body.seekerEmail = email;
+      req.body.seekerName = name;
+      return createNewSeeker(req, res);
+    }
+    const token = generateToken(seeker._id,'Seeker');
+    res.status(200).json({ msg: "Login successful", token, seeker, picture });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+
 
 const loginSeeker = async (req, res) => {
   try {
     const { isGoogleLogin } = req.body;
-    let email,password, picture, name;
-    if(isGoogleLogin){
-      const credential = req.headers.authorization;
-      if (!credential || !credential.startsWith("Bearer ")) {
+    if (isGoogleLogin) {
+      await handleGoogleLogin(req, res);
+    } else {
+      let email = req.body.email, password = req.body.password;
+      const seeker = await Seekers.findOne({ seekerEmail: email });
+      if (!seeker) {
+        return res.status(404).json({ msg: `No seeker with email ${email}` });
+      }
+      const isMatch = password === seeker.password;
+      if (!isMatch && !seeker.password) {
+        return res
+          .status(401)
+          .json({ msg: "Login Through Google or Signup using this email!" });
+      } else if (!isMatch) {
         return res.status(401).json({ msg: "Invalid Credentials!" });
       }
-      const decodedToken = jwt_decode(credential);
-      email = decodedToken.email;
-      picture = decodedToken.picture;
-      name = decodedToken.name;
-    }
-    else
-    {
-      email = req.body.email;
-      password = req.body.password;
-    }
-    const seeker = await Seekers.findOne({ seekerEmail: email });
-    if (!seeker) {
-      if (isGoogleLogin) {
-        req.body.seekerEmail = email;
-        req.body.seekerName = name;
-        return createNewSeeker(req, res);
-      }
-      return res.status(404).json({ msg: `No seeker with email ${email}` });
-    }
-    
-    const isMatch = password === seeker.password;
-    if (!isMatch && !seeker.password) {
-      return res.status(401).json({ msg: "Login Through Google or Signup using this email!" });
-    } else if (!isMatch) {
-      return res.status(401).json({ msg: "Invalid Credentials!" });
-    }
 
-    const token = generateToken(seeker._id,'Seeker');
-    res.status(200).json({ msg: "Login successful", token, seeker });
+      const token = generateToken(seeker._id, "Seeker");
+      res.status(200).json({ msg: "Login successful", token, seeker });
+    }
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
 
 module.exports = {
   getSeekers,

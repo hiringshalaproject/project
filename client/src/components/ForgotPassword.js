@@ -63,7 +63,14 @@ const ForgotPassword = ({userType}) => {
             // alert("OTP Verified successfully!");
             setOtpVerified(true);
             setverifyOtpLoading(false);
-            setUserId(response.data.userId)
+            if (response.data.userId) {
+              // OTP verified and userId exists
+              setOtpVerified(true);
+              setUserId(response.data.userId);
+            } else {
+              // OTP verification failed, userId doesn't exist
+              alert("Email Id doesn't exist. Please sign up.");
+            }
           })
           .catch((error) => {
             setverifyOtpLoading(false);

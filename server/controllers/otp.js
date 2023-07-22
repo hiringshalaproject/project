@@ -52,12 +52,10 @@ const sendOtp = async (req, res) => {
   }
 };
 
-// Route for verifying OTP
 const verifyOtp = async (req, res) => {
   const { email, otp , userType} = req.body;
 
   try {
-    // Find document with email and OTP combination
     const otpVerification = await OtpVerification.findOne({ email, otp });
 
     if (!otpVerification) {
@@ -70,17 +68,20 @@ const verifyOtp = async (req, res) => {
     const timeDiff = Math.abs(now - created) / (1000 * 60);
     if (timeDiff > 5) {
       // OTP has expired
-      await otpVerification.delete();
+      otpVerification.delete();
       return res.status(400).send("OTP expired");
     }
+    otpVerification.delete();
 
-    // Delete document from collection
-    await otpVerification.delete();
+    const existingUser =
+      userType === "seeker"
+        ? await Seekers.findOne({ seekerEmail: email })
+        : await Employees.findOne({ employeeEmail: email });
 
-    const existingUser = userType === "seeker" ? await Seekers.findOne({ seekerEmail: email }) : await Employees.findOne({ employeeEmail: email });
-
-
-    res.status(200).send({msg:"OTP verified successfully", userId:existingUser._id});
+    if (!existingUser) {
+       return res.status(200).send({ msg: "OTP verified successfully"});
+    }
+    return res.status(200).send({ msg: "OTP verified successfully", userId: existingUser._id });
   } catch (err) {
     res.status(500).send("Error verifying OTP");
   }

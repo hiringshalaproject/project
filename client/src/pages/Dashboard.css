@@ -50,7 +50,7 @@
   margin-bottom: 10px;
   margin-top: 10px;
   background-color: var(--bg-image);
-  color: var(--home-text);
+  color: #111111;
 }
 
 .RefferalChart {
