@@ -32,9 +32,11 @@ const EmployeeJobDetails = ({userData,jobData}) => {
         const jobIds = resolveduserData.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
+        console.log("herejobIds", jobIds);
         const filteredJobs = resolvedJobData.filter((job) =>
           jobIds.includes(job._id)
         );
+        console.log("here filteredJobs", filteredJobs);
         setJobs(filteredJobs);
 
         const newJobDetails = filteredJobs.map((job) => {
@@ -98,7 +100,7 @@ const EmployeeJobDetails = ({userData,jobData}) => {
           <thead>
             <tr>
               <th onClick={() => handleSort("jobDate")}>
-                job Date <FontAwesomeIcon icon={faSort} />
+                Job Date <FontAwesomeIcon icon={faSort} />
               </th>
               <th onClick={() => handleSort("companyName")}>
                 Company Name{" "}

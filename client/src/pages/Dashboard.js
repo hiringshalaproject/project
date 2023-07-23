@@ -14,8 +14,10 @@ import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/Fetc
 import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob";
 
 function Dashboard() {
-  const [dataReady, setDataReady] = useState(false);
+  const [userDataReady, setUserDataReady] = useState(false);
+  const [jobDataReady, setJobDataReady] = useState(false);
   const [userData, setUserData] = useState(false);
+  const [jobData, setJobData] = useState(false);
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
   const userType = Cookies.get("userType");
@@ -27,22 +29,29 @@ function Dashboard() {
     if (userType === "employee") {
       fetchEmployee().then((userDataResponse) => {
         setUserData(userDataResponse);
-        setDataReady(true);
+        setUserDataReady(true);
       }).catch((error) => {
         console.error("Error fetching employee data:", error);
-        setDataReady(true);
+        setUserDataReady(false);
       });
     } else {
       fetchSeeker().then((userDataResponse) => {
-        setUserData(userDataResponse); // Set userData when data is fetched
-        setDataReady(true); // Set dataReady to true when data is fetched
+        setUserData(userDataResponse);
+        setUserDataReady(true);
       }).catch((error) => {
         console.error("Error fetching seeker data:", error);
-        setDataReady(true);
+        setUserDataReady(false);
       });
     }
+    fetchJobs().then((jobDataResponse) => {
+      setJobData(jobDataResponse);
+      setJobDataReady(true);
+    }).catch((error) => {
+      console.error("Error fetching job data:", error);
+      setJobDataReady(false);
+    });
   }, [userType]);
-  let jobData = fetchJobs();
+
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
@@ -59,7 +68,7 @@ function Dashboard() {
         <div className="topMenu">
           <TopHeading />
         </div>
-        {isSeeker && dataReady && (
+        {isSeeker && userDataReady && (
           <div className="ResumeSec">
             <p style={{ display: "inline-flex", marginBottom: "10px" }}>
               Upload your Resume (Optional)
@@ -71,12 +80,12 @@ function Dashboard() {
           </div>
         )}
         <div className="RefferalChart">
-          <RenderUsersInCards userData = {userData} jobData = {jobData}/>
+          {userDataReady && jobDataReady && <RenderUsersInCards userData = {userData} jobData = {jobData}/>}
         </div>
-        <div className="appliedJob">{isSeeker && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
-        <div className="appliedJob">{isEmployee && <EmployeeJobDetails userData = {userData} jobData = {jobData}/>}</div>
+        <div className="appliedJob">{isSeeker && userDataReady && jobDataReady && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
+        <div className="appliedJob">{isEmployee && userDataReady && jobDataReady && <EmployeeJobDetails userData = {userData} jobData = {jobData}/>}</div>
         <div className="FeaturedJob">
-          <RenderJobsInCards jobData={jobData}/>
+          {jobDataReady && <RenderJobsInCards jobData={jobData}/>}
         </div>
       </div>
     </div>
