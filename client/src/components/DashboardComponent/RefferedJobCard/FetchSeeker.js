@@ -8,17 +8,21 @@ const fetchSeeker = async () => {
     const headers = {
       authorization: `Bearer ${token}`,
     };
-    const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
-    var seekerDetails = JSON.parse(stringifiedUserData);
-    if (stringifiedUserData === null)
-        { 
-        const response = await axios.get(
-          `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`
-        , {headers});
-            seekerDetails = response.data.seeker;
-            const stringifiedUserDetails = JSON.stringify(response.data.seeker);
-            sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
-          }
+    let stringifiedUserData = sessionStorage.getItem("hiringShala_user");
+    let seekerDetails;
+
+    if (stringifiedUserData === null) {
+      const response = await axios.get(
+        `${apiUrl}/api/v1/seekers/${Cookies.get("userId")}`,
+        { headers }
+      );
+      seekerDetails = response.data.seeker;
+      stringifiedUserData = JSON.stringify(response.data.seeker);
+      sessionStorage.setItem("hiringShala_user", stringifiedUserData);
+    } else {
+      seekerDetails = JSON.parse(stringifiedUserData);
+    }
+
     return seekerDetails;
   } catch (error) {
     console.error(error);
