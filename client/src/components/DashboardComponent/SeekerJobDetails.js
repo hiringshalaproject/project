@@ -99,7 +99,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
           <thead>
             <tr>
               <th onClick={() => handleSort("jobDate")}>
-                job Date <FontAwesomeIcon icon={faSort} />
+                Job Date <FontAwesomeIcon icon={faSort} />
               </th>
               <th onClick={() => handleSort("companyName")}>
                 Company Name{" "}

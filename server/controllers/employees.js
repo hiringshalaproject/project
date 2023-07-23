@@ -121,7 +121,7 @@ const loginEmployee = async (req, res) => {
     if (!isMatch && !employee.password) {
       return res.status(401).json({  msg: "Login Through Google or Signup using this email!"});
     } else if(!isMatch) {
-      return res.status(401).json({  msg: "Inavlid Credentials"});
+      return res.status(401).json({  msg: "Invalid Credentials"});
     }
 
     const token = generateToken(employee._id,'Employee');
