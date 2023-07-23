@@ -174,6 +174,15 @@ const JobPost = () => {
                     .then((res) => {
                       const stringifiedUserDetails = JSON.stringify(res.data.employee);
                       sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+                      const fetchAllJobsResp = axios.post(`${apiUrl}/api/v1/jobs/`)
+                        .then((jobListResp) => {
+                        const updatedJobList = jobListResp.data;
+                        const updatedJobListString = JSON.stringify(updatedJobList);
+                        sessionStorage.setItem("hiringShala_jobList", updatedJobListString);
+                        })
+                        .catch((error) => {
+                        console.error(error);
+                        });
                     })
                     .catch((e) => {
                       if (e.response) {

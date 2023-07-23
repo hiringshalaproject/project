@@ -18,6 +18,8 @@ const JobDescription = () => {
   const jobid = location.state?.jobId;
   const seekerId = Cookies.get("userId")
   const isLoggedIn = seekerId !== undefined && seekerId !== "";
+  const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
+  const cachedJobList = JSON.parse(stringifiedJobList);
   const navigate = useNavigate();
 
   const applyJobFlow = () => {
@@ -81,15 +83,11 @@ const JobDescription = () => {
   // 64985560673062b875c9a7b7
 
   const fetchCompanyDetails = () => {
-    axios.get(`${apiUrl + apiUrlSecondary}/${jobid}`)
-      .then(response => {
-        // const companyId = "64985560673062b875c9a7b7";
-        const companyDetails = response.data.job;
-        setCompanyDetails(companyDetails);
-      })
-      .catch(error => {
-        console.error('Error fetching company details:', error);
-      });
+    let jobDescription = cachedJobList.find(job => job._id === jobid);
+    if (jobDescription === null) {
+      toast.error('Error Fetching Job Description');
+    }
+    setCompanyDetails(jobDescription);
   };
 
   if (!companyDetails) {
