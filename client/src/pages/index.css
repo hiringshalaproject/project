@@ -288,3 +288,47 @@ input {
   background-color: #17c36e;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%2316591e' fill-opacity='0.43' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
+/* Dashboard.css */
+
+.companyNameInput {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.companyNameInput h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #47a992;
+}
+
+.companyNameInput input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #47a992;
+  border-radius: 8px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  outline: none;
+  border: 2px solid #47a992;
+}
+
+.companyNameInput button {
+  background-color: #2f8f9d;
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.companyNameInput button:hover {
+  background-color: #288286;
+}

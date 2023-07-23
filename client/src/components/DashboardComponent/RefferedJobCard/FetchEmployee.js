@@ -10,19 +10,22 @@ const fetchEmployee = async () => {
   };
 
   try {
-    const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
-    var employeeDetails = JSON.parse(stringifiedUserData);
-    if (stringifiedUserData === null)
-      { const response = await axios.get(
-        `${apiUrl}/api/v1/employees/${Cookies.get("userId")}`
-        , { headers });
-          employeeDetails = response.data.employee;
-          const stringifiedUserDetails = JSON.stringify(response.data.employee);
-          sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
-      }
+    let stringifiedUserData = sessionStorage.getItem("hiringShala_user");
+    let employeeDetails;
+
+    if (stringifiedUserData === null) {
+      const response = await axios.get(`${apiUrl}/api/v1/employees/${Cookies.get("userId")}`, { headers });
+      const { employee } = response.data;
+      employeeDetails = employee;
+      stringifiedUserData = JSON.stringify(employee);
+      sessionStorage.setItem("hiringShala_user", stringifiedUserData);
+    } else {
+      employeeDetails = JSON.parse(stringifiedUserData);
+    }
+
     return employeeDetails;
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching employee data:", error);
     return [];
   }
 };

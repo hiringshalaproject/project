@@ -31,7 +31,6 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
       userType === "seeker"
         ? "/api/v1/seekers/login"
         : "/api/v1/employees/login";
-    // Send the user data to the server-side API
     axios
       .post(`${apiUrl + apiUrlSecondary}`, {isGoogleLogin: true}, {headers})
       .then((res) => {
