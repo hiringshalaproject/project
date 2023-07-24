@@ -19,6 +19,7 @@ const JobPost = () => {
     const [selectedOption, setSelectedOption] = useState("");
     const [additionalRequirement, setAdditionalRequirement] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const [isChecked, setIsChecked] = useState(false);
@@ -132,6 +133,7 @@ const JobPost = () => {
     }
 
     const handlePostJob = () => {
+        setIsLoading(true);
         const companyName = Cookies.get("companyName")
         if (!companyName) {
             toast("Please Login!");
@@ -197,6 +199,7 @@ const JobPost = () => {
                     // window.location.reload();
                     window.scrollTo({ top: 0, behavior: "smooth" });
                 }, 2000);
+                setIsLoading(false);
             })
             .catch((error) => {
                 if (error.response) {
@@ -321,22 +324,22 @@ const JobPost = () => {
                 <div className="col-lg-7 employmentType">
                     <div className={`form-control empContentbox ${employmentType === 'Full-time' ? 'selected' : ''}`} onClick={() => setEmploymentType('Full-time')}>
                         <input type="checkbox" id="checkbox1" value="Full-time" className="checkbox-input" checked={employmentType === "Full-time"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox">Full-time</span>
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                     </div>
 
                     <div className={`form-control empContentbox ${employmentType === 'Internship' ? 'selected' : ''}`} onClick={() => setEmploymentType('Internship')}>
                         <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox">Internship</span>
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                     </div>
 
                     <div className={`form-control empContentbox ${employmentType === 'Part-time' ? 'selected' : ''}`} onClick={() => setEmploymentType('Part-time')}>
                         <input type="checkbox" id="checkbox3" value="Part-time" className="checkbox-input" checked={employmentType === "Part-time"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox">Part-time</span>
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
                     </div>
 
                     <div className={`form-control empContentbox ${employmentType === 'Contract' ? 'selected' : ''}`} onClick={() => setEmploymentType('Contract')}>
                         <input type="checkbox" id="checkbox4" value="Contract" className="checkbox-input" checked={employmentType === "Contract"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox">Contract</span>
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Contract</span>
                     </div>
                 </div>
             </div>
@@ -453,7 +456,7 @@ const JobPost = () => {
                                 }
                             }}
                         >
-                            Post New Job
+                            {isLoading ? "Posting..." : "Post New Job"}
                         </button>
                     </div>
                 </div>

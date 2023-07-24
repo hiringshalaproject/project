@@ -211,7 +211,7 @@
 
     .postJob {
         flex-grow: 1;
-        border-radius: 0 0 10px 5px;
+        border-radius: 10px 10px 10px 10px;
         height: 50px;
         margin-top: 30px;
         margin-bottom: 50px;
@@ -245,8 +245,8 @@
     height: 55px;
     color: white;
     margin-top: 6px;
-    background-color: #4164e3;
-    border-radius: 0 0 0.75rem 0;
+    background-color: #47A992;
+    border-radius: 10px 10px 10px 10px;
 }
 
 .empContentbox {
