@@ -31,8 +31,8 @@ const Sidemenu = () => {
     }
   };
 
-  const userId = Cookies.get("userId");
-  const userType = Cookies.get("userType");
+  const userId = Cookies.get("hiringShala_userId");
+  const userType = Cookies.get("hiringShala_userType");
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const [isDark, setDark] = useState(

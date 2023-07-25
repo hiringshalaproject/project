@@ -18,8 +18,8 @@ const SeekerJobDetails = () => {
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const userId = Cookies.get("userId");
-  const token = Cookies.get("token");
+  const userId = Cookies.get("hiringShala_userId");
+  const token = Cookies.get("hiringShala_token");
   const headers = {
     authorization: `Bearer ${token}`,
   };

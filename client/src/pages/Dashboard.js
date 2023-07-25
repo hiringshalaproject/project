@@ -12,8 +12,8 @@ import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/
 
 function Dashboard() {
   const isLoggedIn =
-    Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
-  const userType = Cookies.get("userType");
+    Cookies.get("hiringShala_userId") !== undefined && Cookies.get("hiringShala_userId") !== "";
+  const userType = Cookies.get("hiringShala_userType");
   const isSeeker = userType === "seeker";
   const isEmployee = userType === "employee";
   if (!isLoggedIn) {

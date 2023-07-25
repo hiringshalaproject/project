@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 
 const Login = (props) => {
   const isLoggedIn =
-    Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
+    Cookies.get("hiringShala_userId") !== undefined && Cookies.get("hiringShala_userId") !== "";
 
   if (isLoggedIn) {
     return <Navigate to="/dashboard" />;

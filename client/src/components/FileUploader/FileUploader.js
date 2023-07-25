@@ -33,7 +33,7 @@ function FileUploader() {
     }
   };
   const handleUpload = () => {
-    const seekerId = Cookies.get("userId");
+    const seekerId = Cookies.get("hiringShala_userId");
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);
@@ -73,7 +73,7 @@ function FileUploader() {
       >
         <label htmlFor="fileInput" className="choose-file-text">
           <strong>{selectedFile ? selectedFile.name : "Drag and Drop"} </strong>
-          <span> or </span>
+          <span> or </span> 
           <a
             href="#"
             onClick={() => document.getElementById("fileInput").click()}

@@ -19,7 +19,7 @@ function Heading() {
             <CgProfile />
           </i>
         </div>
-        {<h4>{Cookies.get("userName")}</h4>}
+        {<h4>{Cookies.get("hiringShala_userName")}</h4>}
       </div>
     </div>
   );

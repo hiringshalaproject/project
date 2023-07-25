@@ -134,7 +134,7 @@ const JobPost = () => {
     }
 
     const handlePostJob = () => {
-        const companyName = Cookies.get("companyName")
+        const companyName = Cookies.get("hiringShala_companyName")
         if (!companyName) {
             toast("Please Login!");
         }

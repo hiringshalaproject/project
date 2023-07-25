@@ -61,7 +61,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
         setUserCookies(userName, userType, userId);
         if (userType === "employee") {
-          setCookies("companyName", res.data.employee.employeeCompanyName);
+          setCookies("hiringShala_companyName", res.data.employee.employeeCompanyName);
         }
         ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {

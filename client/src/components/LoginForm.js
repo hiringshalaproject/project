@@ -40,10 +40,10 @@ const LoginForm = ({ userType }) => {
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
         setUserCookies(userName, userType, userId);
-        Cookies.set("token", res.data.token);
+        Cookies.set("hiringShala_token", res.data.token);
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
-          setCookies("companyName", res.data.employee.employeeCompanyName);
+          setCookies("hiringShala_companyName", res.data.employee.employeeCompanyName);
         navigate("/dashboard");
       })
       .catch((error) => {

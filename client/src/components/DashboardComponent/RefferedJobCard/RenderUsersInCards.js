@@ -11,7 +11,7 @@ import Cookies from "js-cookie";
 const RenderUsersInCards = () => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const userType = Cookies.get("userType");
+  const userType = Cookies.get("hiringShala_userType");
   useEffect(() => {
     const updateUsers = async () => {
       let myData = userType === "employee" ? await fetchEmployee() : await fetchSeeker();

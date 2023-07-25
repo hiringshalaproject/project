@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import swal from "sweetalert";
 import axios from "axios";
 
-const token = Cookies.get("token");
+const token = Cookies.get("hiringShala_token");
   const headers = {
     authorization: `Bearer ${token}`,
   };

@@ -27,7 +27,7 @@ function App() {
   window.scrollTo(0, 0);
   const location = useLocation();
 
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get("hiringShala_userId");
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const isDashboardPage =

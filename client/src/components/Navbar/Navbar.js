@@ -19,7 +19,7 @@ const NavbarCmp = () => {
     }
   };  
 
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get("hiringShala_userId");
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const [isDark, setDark] = useState(
