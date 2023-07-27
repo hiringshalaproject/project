@@ -9,6 +9,7 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  jobType:String,
   jobDate: Date,
   jobRequirements: String,
   jobEligibility: String,

@@ -21,9 +21,11 @@ const Home = () => {
               set. link up with outstanding people to create a better future.
             </p>
           </div>
-          <button type="submit" className="btn card-button">
+          
+          <button type="submit" className="btn btn-lg btn-dark rounded-pill card-button">
             {buttonValue}
           </button>
+          
         </div>
       </>
     );

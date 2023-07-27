@@ -49,14 +49,17 @@
 
 /* card css*/
 .card-button{
-  background-color: #47A992;
-  color: white;
+  background-color: #47A992 !important;
+  color: white !important;
+  /* border-radius: 20px; */
+  /* pointer-events: painted; */
+  
 }
 
-.card-button:hover{
+/* .card-button:hover{
   background-color: #47A992;
   color: white;
-}
+} */
 
 .card-content{
   text-align: center;
@@ -65,17 +68,19 @@
 
 
 .card-container{
-  margin-top: 50px;
-  margin-bottom: 35px;
+  margin-top: 50px !important;
+  margin-bottom: 60px !important;
 }
 
 .card-img-top{
   height: 500px;
   width: 500px;
 }
-
-.card{
+/* .card-button{
   transition: all 0.3s;
+} */
+.card{
+  /* transition: all 0.3s; */
   width: 20rem !important;
   border-top-color: #47A992 !important;
   border-left-color: var(--card-border) !important;
@@ -92,13 +97,17 @@ input[data-autocompleted] {
     background-color: transparent !important;
 }
 
-@media (hover: hover) {
-  /* Hover styles for non-mobile devices */
+/* Hover styles for non-mobile devices */
+/* @media (hover: hover) {
   .card:hover {
     transform: scale(1.11);
     z-index: 1;
   }
-}
+  .card-button:hover{
+    transform: scale(0);
+    z-index: 1;
+  }
+} */
 
 input{
    color:var(--tertiary-color);
@@ -134,7 +143,10 @@ input{
 .custom-navbar{
   background-color: var(--home-text);
   background-image: var(--bg-image);
-  height: 70px;
+  /* height: 70px; */
+  height: auto;
+  position: absolute;
+  z-index: 2;
 }
 
 .nav-links-container {
