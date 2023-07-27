@@ -40,7 +40,7 @@ const Sidemenu = () => {
       ? false
       : true
   );
-  const [theme, setTheme] = useState(Cookies.get("theme") || "dark");
+  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
   const toggleDarkTheme = () => {
     if (theme === "light") {
       setTheme("dark");

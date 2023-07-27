@@ -1,58 +1,61 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSort,
+  faSortUp,
+  faSortDown,
+} from "@fortawesome/free-solid-svg-icons";
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
-const SeekerJobDetails = ({ userData, jobData }) => {
+import Cookies from "js-cookie";
+
+const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
+const EmployeeJobDetails = ({userData,jobData}) => {
+  const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
+  const userId = Cookies.get("userId");
+  const token = Cookies.get("token");
+  const headers = {
+    authorization: `Bearer ${token}`,
+  };
 
   useEffect(() => {
-    const fetchSeekerJobs = async () => {
+    const fetchEmployee = async () => {
       try {
-        if (!userData || !jobData) {
-          return;
-        }
         const resolveduserData = await userData;
         const resolvedJobData = await jobData;
+        const jobIds = resolveduserData.listOfJobsPosted.map(
+          (appliedJob) => appliedJob.jobId
+        );
+        console.log("herejobIds", jobIds);
+        const filteredJobs = resolvedJobData.filter((job) =>
+          jobIds.includes(job._id)
+        );
+        console.log("here filteredJobs", filteredJobs);
+        setJobs(filteredJobs);
 
-        if (
-          Array.isArray(resolveduserData.appliedJobList) &&
-          resolveduserData.appliedJobList.length > 0
-        ) {
-          const jobIds = resolveduserData.appliedJobList.map(
-            (appliedJob) => appliedJob.jobId
+        const newJobDetails = filteredJobs.map((job) => {
+          const appliedJob = resolveduserData.listOfJobsPosted.find(
+            (appliedJob) => appliedJob.jobId === job._id
           );
-          const shortListedStatus = resolveduserData.appliedJobList.map(
-            (appliedJob) => appliedJob.shortListedStatus
-          );
-
-          const filteredJobs = resolvedJobData.filter((job) =>
-            jobIds.includes(job._id)
-          );
-
-          const newJobDetails = filteredJobs.map((job) => {
-            const index = jobIds.indexOf(job._id);
-            return {
-              ...job,
-              shortListedStatus: shortListedStatus[index].toString(),
-            };
-          });
-          setJobDetails(newJobDetails);
-        }
+          return {
+            ...job,
+            totalReferralGiven: resolveduserData.totalReferralGiven,
+          };
+        });
+        setJobDetails(newJobDetails);
       } catch (error) {
-        console.error("Error fetching Seeker's Job Details", error);
+        console.error(error);
       }
     };
-    fetchSeekerJobs();
-  }, [userData, jobData]);
 
-  
-  
-
+    fetchEmployee();
+  }, [userId]);
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -65,7 +68,6 @@ const SeekerJobDetails = ({ userData, jobData }) => {
   const sortedJobDetails = [...jobDetails];
 
   if (sortColumn !== null) {
-    // Sort the jobDetails array based on the current sorting column and direction
     sortedJobDetails.sort((a, b) => {
       if (a[sortColumn] < b[sortColumn]) {
         return sortDirection === "asc" ? -1 : 1;
@@ -76,14 +78,13 @@ const SeekerJobDetails = ({ userData, jobData }) => {
       }
     });
   }
-
   const visibleRows = showAll ? sortedJobDetails : sortedJobDetails.slice(0, 3);
 
   return (
     <div>
       <div className="AppliedJobHeader">
         <h2 style={{ fontSize: "25px", color: "#111111", fontWeight: "300" }}>
-          Applied Opportunities
+          Posted Opportunities
         </h2>
 
         {sortedJobDetails.length > 0 && (
@@ -124,7 +125,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
               <th onClick={() => handleSort("expectedPackage")}>
                 Salary <FontAwesomeIcon icon={faSort} />
               </th>
-              <th>ShortListed Status</th>
+              <th>Total Referral Given</th>
             </tr>
           </thead>
 
@@ -138,7 +139,10 @@ const SeekerJobDetails = ({ userData, jobData }) => {
                 <td>{job.jobLocation}</td>
                 <td>{job.expectedPackage}</td>
                 <td>
-                  {job.shortListedStatus}
+                  {" "}
+                  {job.totalReferralGiven !== null
+                    ? job.totalReferralGiven
+                    : "0"}
                 </td>
               </tr>
             ))}
@@ -146,11 +150,11 @@ const SeekerJobDetails = ({ userData, jobData }) => {
         </table>
       ) : (
         <div style={{ fontWeight: "300px", fontSize: "20px", margin: "10px" }}>
-          You haven’t applied to any openings yet. Applied opening appear here.
+          You haven’t posted any openings yet. posted opening appear here.
         </div>
       )}
     </div>
   );
 };
 
-export default SeekerJobDetails;
+export default EmployeeJobDetails;

@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef} from "react";
 
-function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedItems,clearSearchItems}) {
-  const [dropdown, setDropdown] = useState(false);
+function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedItems,clearSearchItems,dropdownNum}) {
+  const [dropdown0, setDropdown0] = useState(false);
+  const [dropdown1, setDropdown1] = useState(false);
+  const [dropdown2, setDropdown2] = useState(false);
+  const [dropdown3, setDropdown3] = useState(false);
+  const dropdownList=[dropdown0,dropdown1,dropdown2,dropdown3];
+  const setDropdownList=[setDropdown0,setDropdown1,setDropdown2,setDropdown3];
+  let menuRef = useRef();
+
+  useEffect(() => {
+    let handler = (e)=>{
+      if(!menuRef.current.contains(e.target)){
+        const setFunc=setDropdownList[dropdownNum];
+        setFunc(false);
+      }      
+    };
+
+    document.addEventListener("mousedown", handler);
+    
+
+    return() =>{
+      document.removeEventListener("mousedown", handler);
+    }
+
+  });
+
 
   const handleClick = (filterName) => {
     if(filterName==="All"){
       clearCheckedItems();
       clearSearchItems();
     }
-    setDropdown(!dropdown);
+    const setFunc=setDropdownList[dropdownNum];
+    setFunc(!dropdownList[dropdownNum]);
     
   };
 
@@ -19,7 +44,7 @@ function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedIte
       <div className="form-check">
         <input
           className="form-check-input"
-          type="checkbox"
+          type="radio"
           id="flexCheckDefault"
           value={jobType}
           onChange={handleFilterChange}
@@ -33,7 +58,7 @@ function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedIte
 
   
   return (
-    <div className="job-filter-container">
+    <div className="job-filter-container" ref={menuRef}>
       <div className="btn-group">
         <button
           type="button"
@@ -43,16 +68,15 @@ function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedIte
           {filterName}
         </button>
       </div>
-      {(dropdown && filterValue.length!==0) &&(
-        <div className={`flex flex-col dropdown-filter`}>
+      {(dropdownList[dropdownNum] && filterValue.length!==0) &&(
+        <div className={`flex flex-col dropdown-filter ${dropdownList[dropdownNum]?'active':'inactive'}`}>
           <ul className="flex flex-col gap-4">
             {filterValue.map((val, index) => (
-              <>{renderCheckbox(val)}</>
+              <div key={index}>{renderCheckbox(val)}</div>
             ))}
             
           </ul>
-          <div className="dropdown-divider"></div>
-          {/* <button type="button" className="btn btn-light btn-block" onClick={}>Apply</button> */}
+          
         </div>
       )}
     </div>

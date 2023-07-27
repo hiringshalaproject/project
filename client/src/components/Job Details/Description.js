@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../Footer/Footer";
-import CompanyIcon from "../assets/CompanyIcon.png";
 import axios from 'axios';
-import {AiFillDollarCircle, AiOutlineFieldTime, AiOutlineLink, AiOutlineMan} from "react-icons/ai"
+import {AiFillDollarCircle, AiOutlineMan} from "react-icons/ai"
 import {FaRegCalendarTimes} from "react-icons/fa"
 import {BiLocationPlus} from "react-icons/bi"
-import { useLocation } from 'react-router-dom';
+import Cookies from "js-cookie";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const apiUrlSecondary = "/api/v1/jobs";
@@ -14,7 +16,63 @@ const apiUrlSecondary = "/api/v1/jobs";
 const JobDescription = () => {
   const location = useLocation();
   const jobid = location.state?.jobId;
-  console.log(jobid);
+  const seekerId = Cookies.get("userId")
+  const isLoggedIn = seekerId !== undefined && seekerId !== "";
+  const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
+  const cachedJobList = JSON.parse(stringifiedJobList);
+  const navigate = useNavigate();
+
+  const applyJobFlow = () => {
+    const userId = Cookies.get("userId");
+    const token = Cookies.get("token");
+    const headers = {
+      authorization: `Bearer ${token}`,
+    };
+    const formData = {
+      jobId : jobid
+    };
+    axios
+        .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
+        .then((res) => {
+          toast.success("Applied SuccessFully");
+          const response = axios.get(
+            `${apiUrl}/api/v1/seekers/${userId}`
+            , { headers })
+            .then((res) => {
+              const stringifiedUserDetails = JSON.stringify(res.data.seeker);
+              sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);  
+            })
+            .catch((e) => {
+              if (e.response) {
+                  toast.error(e.response.data.msg);
+                } else if (e.request) {
+                  toast.error("Network failure or timeout");
+              } else {
+                  toast.error("An unexpected error occurred");
+                }
+          });
+          
+          
+        })
+      .catch((error) => {
+            if (error.response) {
+                toast.error(error.response.data.msg);
+              } else if (error.request) {
+                toast.error("Network failure or timeout");
+            } else {
+                toast.error("An unexpected error occurred");
+              }
+        });
+};
+
+  const applyForReferalFlow = () => {
+    if (isLoggedIn) {
+      applyJobFlow();
+    }
+    else {
+      navigate("/seeker/login", { state: { jobId: jobid } });
+    }
+  };
 
 
   const [companyDetails, setCompanyDetails] = useState(null);
@@ -25,15 +83,11 @@ const JobDescription = () => {
   // 64985560673062b875c9a7b7
 
   const fetchCompanyDetails = () => {
-    axios.get(`${apiUrl + apiUrlSecondary}/${jobid}`)
-      .then(response => {
-        // const companyId = "64985560673062b875c9a7b7";
-        const companyDetails = response.data.job;
-        setCompanyDetails(companyDetails);
-      })
-      .catch(error => {
-        console.error('Error fetching company details:', error);
-      });
+    let jobDescription = cachedJobList.find(job => job._id === jobid);
+    if (jobDescription === null) {
+      toast.error('Error Fetching Job Description');
+    }
+    setCompanyDetails(jobDescription);
   };
 
   if (!companyDetails) {
@@ -48,12 +102,10 @@ const JobDescription = () => {
     expectedPackage,
     jobEligibility,
     jobRequirements,
-    applyLink,
     seekersRegistered,
     jobId,
     noOfOpenings,
     isExpired,
-    __v
   } = companyDetails;
 
   const formattedJobDate = jobDate ? new Date(jobDate).toLocaleDateString() : '';
@@ -155,7 +207,7 @@ const JobDescription = () => {
                   </div>
                 )}              {seekersRegistered && (
                    <div>
-                     <h4>Seekers Registered</h4>
+                     <h4>Candidates Interested</h4>
                      <div className="horizontal-container">
                       <AiOutlineMan />
                       <span>{seekersRegistered.length}</span>
@@ -187,18 +239,10 @@ const JobDescription = () => {
                     </ul>
                   </div>
                 )}
-                 {/* {applyLink && (
-                   <div>
-                    <h4>Apply Link</h4>
-                    <div className="horizontal-container">
-                      <AiOutlineLink />
-                      <span><a href={applyLink} target="_blank" rel="noopener noreferrer">{applyLink}</a></span>
-                    </div>
-                  </div>
-                )} */}
               </div>
               <button
-                className="apply-button"
+                  className="apply-button "
+                  onClick={event=>applyForReferalFlow()}
               >
                 Apply For Referral
               </button>
@@ -214,6 +258,3 @@ const JobDescription = () => {
 
 
 export default JobDescription;
-
-
-

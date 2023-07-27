@@ -27,7 +27,7 @@ const NavbarCmp = () => {
       ? false
       : true
   );
-  const [theme, setTheme] = useState(Cookies.get("theme") || "dark");
+  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
   const toggleDarkTheme = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -75,7 +75,7 @@ const NavbarCmp = () => {
           />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
-            <div className="nav-links-container">
+            <div className="nav-links-container mt-2 -mb-4">
               <ul className="xl:flex xl:flex-row xl:gap-x-7 lg:flex lg:flex-row lg:gap-x-5 md:flex md:flex-row md:gap-x-6">
                 <li>
                   {isLoggedIn ? (

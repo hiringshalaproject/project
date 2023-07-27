@@ -1,21 +1,96 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import "./Dashboard.css";
+import axios from "axios";
 import RenderUsersInCards from "../components/DashboardComponent/RefferedJobCard/RenderUsersInCards";
 import Sidemenu from "../components/DashboardComponent/sidemenu/Sidemenu";
 import FileUploader from "../components/FileUploader/FileUploader";
 import TopHeading from "../components/DashboardComponent/TopHeading/TopHeading";
 import SeekerJobDetails from "../components/DashboardComponent/SeekerJobDetails";
+import EmployeeJobDetails from "../components/DashboardComponent/EmployeeJobDetails";
 import Cookies from "js-cookie";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import RenderJobsInCards from "../components/DashboardComponent/FeaturedJobCard/RenderJobsInCards";
+import fetchSeeker from "../components/DashboardComponent/RefferedJobCard/FetchSeeker.js";
+import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/FetchEmployee.js";
+import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob";
+import CompanyNameInput from "./CompanyName";
+import { toast } from "react-hot-toast";
+
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function Dashboard() {
-  const isLoggedIn =
-    Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
+  const [userDataReady, setUserDataReady] = useState(false);
+  const [jobDataReady, setJobDataReady] = useState(false);
+  const [userData, setUserData] = useState(false);
+  const [jobData, setJobData] = useState(false);
+  const [isCompanyNamePresent, setIsCompanyNamePresent] = useState(true);
+  const userId = Cookies.get("userId");
+  const isLoggedIn = userId !== undefined && userId !== "";
   const userType = Cookies.get("userType");
   const isSeeker = userType === "seeker";
+  const isEmployee = userType === "employee";
+  const location = useLocation();
+  const jobId = location.state?.jobId;
+
+  const handleCompanyNameSubmit = (companyName) => {
+    const userData = {employeeCompanyName: companyName}
+    axios
+        .patch(`${apiUrl}/api/v1/employees/${userId}`, userData)
+        .then((res) =>{
+          const stringifiedUserDetails = JSON.stringify(res.data.employee);
+          sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
+          toast.success("Company Name Added!");
+          setIsCompanyNamePresent(true);
+        })
+        .catch((error) => {
+          if (error.response) {
+            toast.error(error.response.data.msg);
+          } else if (error.request) {
+            toast.error("Network failure or timeout");
+          } else {
+            toast.error("An unexpected error occurred");
+          }
+        })
+    setIsCompanyNamePresent(false);
+  };
+
+  useEffect(() => {
+    if (userType === "employee") {
+      fetchEmployee().then((userDataResponse) => {
+        setUserData(userDataResponse);
+        console.log("here userDataResponse", userDataResponse);
+        const isCompanyName = userDataResponse.employeeCompanyName !== null &&
+                              userDataResponse.employeeCompanyName !== undefined &&
+                              userDataResponse.employeeCompanyName.trim() !== "";
+        setIsCompanyNamePresent(isCompanyName);
+        setUserDataReady(true);
+      }).catch((error) => {
+        console.error("Error fetching employee data:", error);
+        setUserDataReady(false);
+      });
+    } else {
+      fetchSeeker().then((userDataResponse) => {
+        setUserData(userDataResponse);
+        setUserDataReady(true);
+      }).catch((error) => {
+        console.error("Error fetching seeker data:", error);
+        setUserDataReady(false);
+      });
+    }
+    fetchJobs().then((jobDataResponse) => {
+      setJobData(jobDataResponse);
+      setJobDataReady(true);
+    }).catch((error) => {
+      console.error("Error fetching job data:", error);
+      setJobDataReady(false);
+    });
+  }, [userType]);
+
   if (!isLoggedIn) {
     return <Navigate to="/" />;
+  }
+  if (isLoggedIn && jobId !== undefined) {
+    return <Navigate to="/description" state = {{ jobId: jobId }} />;
   }
 
   return (
@@ -24,10 +99,15 @@ function Dashboard() {
         <Sidemenu />
       </div>
       <div className="mainContent">
+        {isEmployee && !isCompanyNamePresent && (
+            <div className="inputOverlay">
+              <CompanyNameInput onSubmit={handleCompanyNameSubmit} />
+            </div>
+          )}
         <div className="topMenu">
           <TopHeading />
         </div>
-        {isSeeker && (
+        {isSeeker && userDataReady && (
           <div className="ResumeSec">
             <p style={{ display: "inline-flex", marginBottom: "10px" }}>
               Upload your Resume (Optional)
@@ -39,11 +119,12 @@ function Dashboard() {
           </div>
         )}
         <div className="RefferalChart">
-          <RenderUsersInCards />
+          {userDataReady && jobDataReady && <RenderUsersInCards userData = {userData} jobData = {jobData}/>}
         </div>
-        <div className="appliedJob">{isSeeker && <SeekerJobDetails />}</div>
+        <div className="appliedJob">{isSeeker && userDataReady && jobDataReady && <SeekerJobDetails userData = {userData} jobData = {jobData}/>}</div>
+        <div className="appliedJob">{isEmployee && userDataReady && jobDataReady && <EmployeeJobDetails userData = {userData} jobData = {jobData}/>}</div>
         <div className="FeaturedJob">
-          <RenderJobsInCards />
+          {jobDataReady && <RenderJobsInCards jobData={jobData}/>}
         </div>
       </div>
     </div>

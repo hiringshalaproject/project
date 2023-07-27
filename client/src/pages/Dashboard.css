@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .dashboard {
   display: flex;
@@ -10,7 +11,7 @@
 }
 
 .sideMenu {
-  background-color: #47A992;
+  background-color: #47a992;
   color: var(--home-text);
   /* flex: 0 0 250px; */
   box-sizing: border-box;
@@ -29,17 +30,18 @@
   color: var(--home-text);
   box-sizing: border-box;
   padding-top: 0;
-  margin-left: 25px;
+  /* margin-left: 25px; */
 }
 
 .topMenu {
   margin: 0;
   height: auto;
   flex: 0 0 auto;
-  background-color:  #47A992;
+  background-color: #47a992;
   color: var(--home-text);
   border-bottom: 1px black;
   border-style: inherit;
+  padding-left: 15px;
 }
 /* Set the height of other divs in mainContent based on their content */
 
@@ -48,13 +50,15 @@
   margin-bottom: 10px;
   margin-top: 10px;
   background-color: var(--bg-image);
-  color: var(--home-text);
+  color: #111111;
 }
 
 .RefferalChart {
   height: auto;
   margin-top: 30px;
-  margin-bottom: 30px; /* Add margin-bottom to create space below the RefferalChart */
+  margin-bottom: 30px;
+  /* Add margin-bottom to create space below the RefferalChart */
+  padding-left: 15px;
 }
 
 .uploadSection {
@@ -82,6 +86,7 @@
   flex: 0 0 auto;
   background-color: var(--bg-image);
   color: var(--home-text);
+  padding-left: 15px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -89,10 +94,7 @@
     flex-direction: row;
   }
 
-  .sideMenu {
-    /* flex: 0 0 250px; */
-    margin-bottom: 10px;
-  }
+  /* s */
 
   .mainContent {
     display: flex;
@@ -108,6 +110,7 @@
   .ResumeSec {
     height: 250px;
     margin-top: 0;
+    padding-left: 15px;
   }
 
   .RefferalChart {
@@ -121,6 +124,22 @@
   }
   .FeaturedJob {
     height: auto;
-    margin-top: 30px;
   }
+}
+
+.mainContent {
+  position: relative;
+}
+
+.inputOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(68, 65, 65, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
 }

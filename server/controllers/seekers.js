@@ -1,12 +1,13 @@
 const { Jobs, Seekers } = require("../models/schema");
 const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 
 const generateToken = (userId,role) => {
   const payload = {
     userId: userId,
     role:role
   };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "720h" });
   return token;
 };
 
@@ -82,7 +83,7 @@ const createNewSeeker = async (req, res) => {
     }
     const seeker = await Seekers.create(req.body);
     //generate token for that seeker
-    const token=generateToken(seeker._id,'Seeker');
+    const token = generateToken(seeker._id,'Seeker');
     return res.status(200).json({ msg: "Signup successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
@@ -148,7 +149,7 @@ const updateSeekersJobStatus = async (req, res) => {
     let shortListedStatus = req.body.shortListedStatus;
     let referralStatus = req.body.referralStatus;
     if (shortListedStatus === null) {
-      res.status(500).json({ error: "shortListedStatus is missing from body" });
+      return res.status(500).json({ error: "shortListedStatus is missing from body" });
     }
     if (referralStatus === null) {
       referralStatus = false;
@@ -231,38 +232,61 @@ const deleteSeeker = async (req, res) => {
   }
 };
 
+const handleGoogleLogin = async (req, res) => {
+  try {
+    let email, picture, name;
+    const credential = req.headers.authorization;
+    if (!credential || !credential.startsWith("Bearer ")) {
+      return res.status(401).json({ msg: "Invalid Credentials!" });
+    }
+    const decodedToken = jwt_decode(credential);
+    email = decodedToken.email;
+    picture = decodedToken.picture;
+    name = decodedToken.name;
+    const seeker = await Seekers.findOne({ seekerEmail: email });
+    if(!seeker)
+    {
+      req.body.seekerEmail = email;
+      req.body.seekerName = name;
+      return createNewSeeker(req, res);
+    }
+    const token = generateToken(seeker._id,'Seeker');
+    res.status(200).json({ msg: "Login successful", token, seeker, picture });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
+
+
 
 const loginSeeker = async (req, res) => {
   try {
-    const { email, password, isGoogleLogin } = req.body;
-    const seeker = await Seekers.findOne({ seekerEmail: email });
-    if (!seeker) {
-      if (isGoogleLogin) {
-        req.body.seekerEmail = email;
-        return createNewSeeker(req, res);
+    const { isGoogleLogin } = req.body;
+    if (isGoogleLogin) {
+      await handleGoogleLogin(req, res);
+    } else {
+      let email = req.body.email, password = req.body.password;
+      const seeker = await Seekers.findOne({ seekerEmail: email });
+      if (!seeker) {
+        return res.status(404).json({ msg: `No seeker with email ${email}` });
       }
-      return res.status(404).json({ msg: `No seeker with email ${email}` });
+      const isMatch = password === seeker.password;
+      if (!isMatch && !seeker.password) {
+        return res
+          .status(401)
+          .json({ msg: "Login Through Google or Signup using this email!" });
+      } else if (!isMatch) {
+        return res.status(401).json({ msg: "Invalid Credentials!" });
+      }
+
+      const token = generateToken(seeker._id, "Seeker");
+      res.status(200).json({ msg: "Login successful", token, seeker });
     }
-
-    // if (!password && isGoogleLogin) {
-    //   const token = generateToken(seeker._id,'Seeker');
-    //   return res.status(200).json({ msg: "Login successful", token });
-    // }
-
-    const isMatch = password === seeker.password;
-
-    if (seeker && !isMatch) {
-      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
-    } else if (!isMatch) {
-      return res.status(401).json({ msg: "Invalid Credentials" });
-    }
-
-    const token = generateToken(seeker._id,'Seeker');
-    res.status(200).json({ msg: "Login successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
   }
 };
+
 
 module.exports = {
   getSeekers,

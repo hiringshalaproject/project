@@ -48,7 +48,7 @@ const checkIfUserExists = async (userId) => {
 const authenticateUser = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 
   const token = authorizationHeader.split(" ")[1];
@@ -61,10 +61,10 @@ const authenticateUser = async (req, res, next) => {
     if (userExists) {
       next();
     } else {
-      return res.status(401).json({ message: "Please SignUp!" });
+      return res.status(401).json({ msg: "Please SignUp!" });
     }
   } catch (error) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 };
 
@@ -72,7 +72,7 @@ const authenticateUser = async (req, res, next) => {
 const authenticateGetSeekers = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 
   const token = authorizationHeader.split(" ")[1];
@@ -86,17 +86,17 @@ const authenticateGetSeekers = async (req, res, next) => {
       next();
     } else {
 
-      return res.status(401).json({ message: "You are not authorized to view this list !" });
+      return res.status(401).json({ msg: "You are not authorized to view this list !" });
     }
   } catch (error) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 };
 
 const authenticateGetSeekerId = async (req, res, next) => {
   const authorizationHeader = req.headers.authorization;
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 
   const token = authorizationHeader.split(" ")[1];
@@ -112,19 +112,19 @@ const authenticateGetSeekerId = async (req, res, next) => {
       next();
     }
     else {
-      return res.status(401).json({ message: "You are not authorized to view this page!" });
+      return res.status(401).json({ msg: "You are not authorized to view this page!" });
     }
   } catch (error) {
-    return res.status(401).json({ message: "User is not authenticated" });
+    return res.status(401).json({ msg: "User is not authenticated" });
   }
 };
 
 router.get("/", authenticateGetSeekers, getSeekers);
 router.get("/:id",authenticateGetSeekerId, getSeekerFromId);
 router.post("/",createNewSeeker);
-router.patch("/apply/:id", authenticateUser, applyForJob);
+router.patch("/apply/:id", applyForJob);
 router.patch("/status/:id", authenticateUser, updateSeekersJobStatus);
-router.patch("/:id", authenticateUser, updateSeeker);
+router.patch("/:id", updateSeeker);
 router.post("/upload", upload.single("file"), uploadResume);
 router.get("/:seekersId/resume", getSeekerResume);
 router.delete("/:id", deleteSeeker);

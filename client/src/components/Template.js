@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
+import Cookies from "js-cookie";
 import Footer from "./Footer/Footer";
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
+  const location = useLocation();
+  const jobid = location.state?.jobId;
   const navigate = useNavigate();
   const handleButtonClick = () => {
     if (formtype === "signup") {
@@ -24,34 +26,13 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
   };
 
   const handleGoogleLogin = (credentialResponse) => {
-    const decodedToken = jwt_decode(credentialResponse.credential);
-    const userData =
-      userType === "seeker"
-        ? {
-            type: userType,
-            seekerName: decodedToken.name,
-            email: decodedToken.email,
-            resumeUrl: "",
-            isGoogleLogin: true,
-          }
-        : {
-            type: userType,
-            employeeName: decodedToken.name,
-            email: decodedToken.email,
-            isGoogleLogin: true,
-          };
-
-    // Set the Authorization header with the Google access token
-    const config = {
-      headers: { Authorization: `Bearer ${credentialResponse.credential}` },
-    };
+    const headers = { Authorization: `Bearer ${credentialResponse.credential}` };
     const apiUrlSecondary =
       userType === "seeker"
         ? "/api/v1/seekers/login"
         : "/api/v1/employees/login";
-    // Send the user data to the server-side API
     axios
-      .post(`${apiUrl + apiUrlSecondary}`, userData, config)
+      .post(`${apiUrl + apiUrlSecondary}`, {isGoogleLogin: true}, {headers})
       .then((res) => {
         let userName =
           userType === "seeker"
@@ -60,19 +41,30 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         let userId =
           userType === "seeker" ? res.data.seeker._id : res.data.employee._id;
         setUserCookies(userName, userType, userId);
+        if(res.data.picture)
+        {
+          setCookies("picture",res.data.picture)
+        }
         if (userType === "employee") {
           setCookies("companyName", res.data.employee.employeeCompanyName);
         }
         ({ userName, userType, userId } = getCookies());
         if (userId && userName && userType) {
           toast.success("Logged In");
-          navigate("/dashboard");
+          navigate("/dashboard", { state: { jobId: jobid } } );
+          Cookies.set("token", res.data.token);
         } else {
           toast.error("Unable to Log In");
         }
       })
       .catch((error) => {
-        toast.error(error.response.data.msg);
+        if (error.response) {
+          toast.error(error.response.data.msg);
+        } else if (error.request) {
+          toast.error("Network failure or timeout");
+        } else {
+          toast.error("An unexpected error occurred");
+        }
       });
   };
 
