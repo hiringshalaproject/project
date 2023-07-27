@@ -28,7 +28,7 @@ function AddJob() {
           onChange={handleForm}
           id="form3Example1q"
           className="form-control"
-          autoComplete="off"
+          autoComplete="on"
         />
       </>
     );
@@ -131,6 +131,22 @@ function AddJob() {
                         "numberOfOpenings",
                         "text",
                         "Enter the number of opening"
+                      )}
+                    </div>
+                    <div className="form-outline mb-4">
+                      {renderInput(
+                        "Job Type",
+                        "jobType",
+                        "text",
+                        "Enter the type of Job ? fulltime/internship"
+                      )}
+                    </div>
+                    <div className="form-outline mb-4">
+                      {renderInput(
+                        "Job Title",
+                        "jobTitle",
+                        "text",
+                        "Enter the Job Title?"
                       )}
                     </div>
                     <div className="form-outline mb-4">

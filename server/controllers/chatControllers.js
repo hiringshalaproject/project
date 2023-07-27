@@ -7,10 +7,10 @@ const accessChat = async (req, res) => {
   const { employeeId, seekerId } = req.body;
 
   if (!employeeId) {
-    return res.status(404).json({ message: "Employee not found in request." });
+    return res.status(404).json({ msg: "Employee not found in request." });
   }
   if (!seekerId) {
-    return res.status(404).json({ message: "Seeker not found in request." });
+    return res.status(404).json({ msg: "Seeker not found in request." });
   }
 
   try {
@@ -29,7 +29,7 @@ const accessChat = async (req, res) => {
     const seeker = await Seekers.findById(seekerId);
 
     if (!employee || !seeker) {
-      return res.status(404).json({ message: "Employee or seeker not found." });
+      return res.status(404).json({ msg: "Employee or seeker not found." });
     }
 
     const chatData = new Chat({
@@ -45,7 +45,7 @@ const accessChat = async (req, res) => {
 
     return res.status(201).json({ chat: createdChat });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ msg: error.msg });
   }
 };
 
@@ -54,7 +54,7 @@ const fetchChats = async (req, res) => {
     const chat = await Chat.findById(req.params.id);
 
     if (!chat) {
-      return res.status(400).json({ message: "Invalid chat id" });
+      return res.status(400).json({ msg: "Invalid chat id" });
     }
 
     const messages = await Message.find({
@@ -63,7 +63,7 @@ const fetchChats = async (req, res) => {
 
     res.status(200).json({ chat, messages });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ msg: "Internal server error" });
   }
 };
 
@@ -80,8 +80,8 @@ const seekersChat = async (req, res) => {
 
     return res.status(200).json({ chats });
   } catch (error) {
-    res.status(500).json({ message: "Server error." });
-    throw new Error(error.message);
+    res.status(500).json({ msg: "Server error." });
+    throw new Error(error.msg);
   }
 };
 
@@ -97,8 +97,8 @@ const employeesChat = async (req, res) => {
     }).populate("latestMessage");
     return res.status(400).json({ chats });
   } catch (error) {
-    res.status(500).json({ message: "Server error." });
-    throw new Error(error.message);
+    res.status(500).json({ msg: "Server error." });
+    throw new Error(error.msg);
   }
 };
 
@@ -118,24 +118,24 @@ const isUserValid = async (userType, userId) => {
 
 const sendMessage = async (req, res) => {
   try {
-    const { senderType, senderId, receiverType, receiverId, message } =
+    const { senderType, senderId, receiverType, receiverId, msg } =
       req.body;
 
     const isSenderValid = await isUserValid(senderType, senderId);
     const isReceiverValid = await isUserValid(receiverType, receiverId);
     if (!isSenderValid || !isReceiverValid) {
-      return res.status(400).json({ message: "Invalid sender or receiver" });
+      return res.status(400).json({ msg: "Invalid sender or receiver" });
     }
 
     const chat = await Chat.findById(req.params.id);
     if (!chat) {
-      return res.status(400).json({ message: "Invalid chat id" });
+      return res.status(400).json({ msg: "Invalid chat id" });
     }
 
     const newMessage = new Message({
       content: [
         {
-          message: message,
+          msg: msg,
           sender: senderId,
           senderType: senderType,
           receiver: receiverId,
@@ -152,7 +152,7 @@ const sendMessage = async (req, res) => {
 
     res.status(201).json({
       response: "Message sent successfully",
-      message: savedMessage,
+      msg: savedMessage,
     });
   } catch (error) {
     res.status(500).json({ response: "Internal server error" });

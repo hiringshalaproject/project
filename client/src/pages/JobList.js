@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./jobList.css";
 import JobDetails from "../components/Jobs/JobDetails";
 import JobFilter from "../components/Jobs/JobFilter";
-
+import { toast } from "react-hot-toast";
 const JobList = () => {
   const [job, setJob] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -55,9 +55,28 @@ const JobList = () => {
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
     const GetAllJobs = async () => {
-      axios.post(`${apiUrl}/api/v1/jobs/`).then((response) => {
-        setJob(response.data);
-      });
+      const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
+      var updatedJobList = JSON.parse(stringifiedJobList);
+      if (stringifiedJobList === null)
+        { const response = await axios.post(`${apiUrl}/api/v1/jobs/`)
+          .then((response) => {
+            setJob(response.data);
+            updatedJobList = response.data;
+            const updatedJobListString = JSON.stringify(response.data);
+            sessionStorage.setItem("hiringShala_jobList", updatedJobListString);  
+          })
+          .catch((error) => {
+            if (error.response) {
+              toast.error(error.response.data.msg);
+            } else if (error.request) {
+              toast.error("Network failure or timeout");
+            } else {
+              toast.error("An unexpected error occurred");
+            }
+          });
+      }
+      else
+        setJob(updatedJobList);
     };
     GetAllJobs();
   }, []);

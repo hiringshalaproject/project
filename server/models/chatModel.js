@@ -36,7 +36,7 @@ const messageSchema = mongoose.Schema(
 
     chat: { type: mongoose.Schema.Types.ObjectId, ref: "Chat" },
     content: [{
-      message: { type: String, trim: true },
+      msg: { type: String, trim: true },
       sender: { type: mongoose.Schema.Types.ObjectId, refPath: "content.senderType" },
       senderType: { type: String, enum: ['Employees', 'Seekers'], required: true },
       receiver: { type: mongoose.Schema.Types.ObjectId, refPath: "content.receiverType" },

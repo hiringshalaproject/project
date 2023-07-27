@@ -31,13 +31,10 @@ function JobDetails({ job,filterValue,searchItems}) {
   
 
   const renderCard = (
-    ind,
     jobId,
     companyName,
     jobTitle,
     jobType,
-    jobDate,
-    jobEligibility,
     jobLocation,
     expectedPackage,
     routeChange
@@ -142,13 +139,10 @@ function JobDetails({ job,filterValue,searchItems}) {
           <div className="col-12 col-sm-6 col-md-4">
             {/* col-6 col-sm-6 */}
             {renderCard(
-              ind,
               currJob._id,
               currJob.companyName,
               currJob.jobTitle,
               currJob.jobType,
-              currJob.jobDate,
-              currJob.jobEligibility,
               currJob.jobLocation,
               currJob.expectedPackage,
               routeChange

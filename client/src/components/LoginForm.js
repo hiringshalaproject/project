@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
@@ -14,6 +14,7 @@ const LoginForm = ({ userType }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    isGoogleLogin: false
   });
 
   const [loading, setLoading] = useState(false); // Track the loading state
@@ -24,6 +25,8 @@ const LoginForm = ({ userType }) => {
       [event.target.name]: event.target.value,
     }));
   }
+  const location = useLocation();
+  const jobid = location.state?.jobId;
   const apiUrlSecondary =
     userType === "seeker" ? "/api/v1/seekers/login" : "/api/v1/employees/login";
   function submitHandler(event) {
@@ -44,10 +47,16 @@ const LoginForm = ({ userType }) => {
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
           setCookies("companyName", res.data.employee.employeeCompanyName);
-        navigate("/dashboard");
+        navigate("/dashboard", { state: { jobId: jobid } } );
       })
       .catch((error) => {
-        toast.error(error.response.data.msg);
+        if (error.response) {
+          toast.error(error.response.data.msg);
+        } else if (error.request) {
+          toast.error("Network failure or timeout");
+        } else {
+          toast.error("An unexpected error occurred");
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -118,7 +127,7 @@ const LoginForm = ({ userType }) => {
           </MDBRow>
         </MDBContainer>
         <MDBContainer>
-          <Link to="#">
+          <Link to={ userType === "seeker" ? "/seeker/login/forgotPassword" : "/employee/login/forgotPassword"}>
             <p className="float-left mt-1  font-regular max-w-max ml-auto loginPasswordText">
               Forgot Password?
             </p>

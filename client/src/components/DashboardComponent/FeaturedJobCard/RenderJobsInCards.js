@@ -6,13 +6,13 @@ import RoundButton from "../sidemenu/RoundButton";
 import { Container } from "react-bootstrap";
 import SearchJob from "../../assets/job-search.png";
 
-const RenderJobsInCards = () => {
+const RenderJobsInCards = ({jobData}) => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const updateUsers = async () => {
-      let myData = await fetchJobs();
+      let myData = await jobData;
 
       setUsers(myData);
     };
@@ -23,7 +23,7 @@ const RenderJobsInCards = () => {
   return (
     <div className="user-cards-container">
       <div className="user-cards-header">
-        <h2 style={{ fontSize: "25px", color: "#636C86", fontWeight: "600" }}>
+        <h2 style={{ fontSize: "25px", color: "#111111", fontWeight: "300" }}>
           Featured Openings
         </h2>
       </div>

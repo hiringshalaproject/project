@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
-
+import Cookies from "js-cookie";
 import swal from "sweetalert";
 import axios from "axios";
+
+const token = Cookies.get("token");
+  const headers = {
+    authorization: `Bearer ${token}`,
+  };
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -14,7 +19,7 @@ function GetAllSeekers() {
 
   const GetAll = async () => {
     axios
-      .get(`${apiUrl}/api/v1/seekers/`)
+      .get(`${apiUrl}/api/v1/seekers/`, {headers})
       .then((response) => setSeeker(response.data));
   };
 

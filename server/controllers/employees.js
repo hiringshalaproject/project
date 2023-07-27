@@ -1,12 +1,13 @@
 const { Employees, Jobs, Seekers } = require("../models/schema");
 const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 
 const generateToken = (userId,role) => {
   const payload = {
     userId: userId,
     role:role
   };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "720h" });
   return token;
 };
 
@@ -80,30 +81,52 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
-const loginEmployee = async (req, res) => {
+const handleGoogleLogin = async (req, res) => {
   try {
-    const { email, password, isGoogleLogin } = req.body;
+    let email, picture, name;
+    const credential = req.headers.authorization;
+    if (!credential || !credential.startsWith("Bearer ")) {
+      return res.status(401).json({ msg: "Invalid Credentials!" });
+    }
+    const decodedToken = jwt_decode(credential);
+    email = decodedToken.email;
+    picture = decodedToken.picture;
+    name = decodedToken.name;
     const employee = await Employees.findOne({ employeeEmail: email });
-    if (!employee) {
-      if (isGoogleLogin) {
-        req.body.employeeEmail = email;
-        return createNewEmployee(req, res);
-      }
-      return res.status(404).json({ msg: `No Employee with email ${email}` });
-    }
-
-    const isMatch = password === employee.password; // await bcrypt.compare(password, seeker.password);
-    if(employee && !isMatch)
+    if(!employee)
     {
-      return res.status(401).json({ msg: "Login Through Google or Signup using this email" });
-    }
-    else if (!isMatch) {
-      return res.status(401).json({ msg: "Invalid Credentials" });
+      req.body.employeeEmail = email;
+      req.body.employeeName = name;
+      return createNewEmployee(req, res);
     }
     const token = generateToken(employee._id,'Employee');
-    res.status(200).json({ msg: "Login successful", token, employee });
+    res.status(200).json({ msg: "Login successful", token, employee, picture });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error);
+  }
+}
+
+const loginEmployee = async (req, res) => {
+  try {
+    const { isGoogleLogin } = req.body;
+    if(isGoogleLogin){
+      return handleGoogleLogin(req,res);
+    }
+    let email = req.body.email, password = req.body.password;
+    const employee = await Employees.findOne({ employeeEmail: email });
+    if (!employee) {
+      return res.status(404).json({ msg: `No employee with email ${email}` });
+    }
+    const isMatch = password === employee.password
+    if (!isMatch && !employee.password) {
+      return res.status(401).json({  msg: "Login Through Google or Signup using this email!"});
+    } else if(!isMatch) {
+      return res.status(401).json({  msg: "Invalid Credentials"});
+    }
+
+    const token = generateToken(employee._id,'Employee');
+    res.status(200).json({ msg: "Login successful", token, employee});
+  } catch (error) {
     res.status(500).json(error);
   }
 };

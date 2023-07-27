@@ -5,21 +5,21 @@ const JobSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  jobTitle:{
+  jobTitle: {
     type: String,
     required: true,
   },
-  jobType:String,
+  jobType: {
+    type: String,
+    required: true,
+  },
   jobDate: Date,
   jobRequirements: String,
   jobEligibility: String,
   jobLocation: String,
   expectedPackage: Number,
   applyLink: String,
-  isExpired: {
-    type: Boolean,
-    default: false,
-  },
+  isExpired:  Boolean,
   numberOfOpenings: Number,
   seekersRegistered: [
     {
@@ -116,11 +116,14 @@ const EmployeeSchema = new mongoose.Schema({
   },
   listOfJobsPosted: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Jobs",
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true,
+      },
     },
   ],
-  totalReferralGiven: Number,
+  totalReferralGiven: {type : Number, default : 0},
 });
 
 const Employees = mongoose.model("Employees", EmployeeSchema);

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.css";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Buttons";
@@ -8,26 +9,29 @@ import ApplyImg from "../components/assets/apply-for-referral.png";
 import ContactImg from "../components/assets/contact-us.png";
 import SearchJob from "../components/assets/job-search.png";
 
+
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/jobList");
+  };
+
   const renderCard = (cardTitle, buttonValue, ImgSrc) => {
     return (
-      <>
-        <div className="card h-100">
-          <img src={ImgSrc} alt="img"></img>
-          <div className="card-body card-content">
-            <h3 className="card-title">{cardTitle}</h3>
-            <p>
-              the largest pool of career opportunities that match your skill
-              set. link up with outstanding people to create a better future.
-            </p>
-          </div>
-          
-          <button type="submit" className="btn btn-lg btn-dark rounded-pill card-button">
-            {buttonValue}
-          </button>
-          
+      <div className="card h-100" onClick={handleClick}>
+        <img src={ImgSrc} alt="img" />
+        <div className="card-body card-content">
+          <h3 className="card-title">{cardTitle}</h3>
+          <p>
+            the largest pool of career opportunities that match your skill set.
+            link up with outstanding people to create a better future.
+          </p>
         </div>
-      </>
+        <button type="submit" className="btn card-button">
+          {buttonValue}
+        </button>
+      </div>
     );
   };
 
@@ -36,17 +40,16 @@ const Home = () => {
       <Container fluid>
         <Row>
           <Col className="container-col">
-            <img src={HomeImg} alt="img" className="home-img"></img>
+            <img src={HomeImg} alt="img" className="home-img" />
           </Col>
           <Col className="container-col home-text">
             <Row>
               <h1 className="mb-4">Unleash your potential with HiringShala</h1>
               <p>
                 the largest pool of career opportunities that match your skill
-                set. link up with outstanding people to create a better
-                future.the largest pool of career opportunities that match your
-                skill set. link up with outstanding people to create a better
-                future.
+                set. link up with outstanding people to create a better future.
+                the largest pool of career opportunities that match your skill
+                set. link up with outstanding people to create a better future.
               </p>
             </Row>
             <Row className="buttons">
