@@ -340,3 +340,43 @@ input {
 .companyNameInput button:hover {
   background-color: #288286;
 }
+
+.apply-button{
+  width: 240px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 20px;
+  /* background-color:#47a985; */
+  color: white;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.5s;
+  margin-top: 30px;
+}
+
+.apply-button:hover{
+ opacity:0.8;
+}
+@media (max-width: 568px) {
+  .apply-button {
+    width: 180px;
+    height: 40px;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+}
+.details{
+  background-color:var(--div-color) ;
+}
+
+@media (max-width: 768px) {
+  .text-xl {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .text-xl {
+    font-size: 1.2rem;
+  }
+}

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
     "bootstrap4": "^0.0.1-security",
+    "cheerio": "^1.0.0-rc.2",
     "font-awesome": "^4.7.0",
     "mdb-react-ui-kit": "^6.0.0",
     "react": "^18.2.0",
@@ -20,13 +21,12 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
-    "sweetalert": "^2.1.2",
-    "web-vitals": "^2.1.4",
-    "cheerio": "^1.0.0-rc.2",
     "request": "^2.83.0",
+    "sweetalert": "^2.1.2",
     "textract": "^2.5.0",
     "tracer": "^0.8.11",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -53,6 +53,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
+    "react-fast-marquee": "^1.6.0",
     "tailwindcss": "^3.3.1",
     "vite": "^4.2.1"
   }
