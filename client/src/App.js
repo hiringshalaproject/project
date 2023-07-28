@@ -22,12 +22,13 @@ import Description from "./components/Job Details/Description";
 import { Navigate } from "react-router-dom";
 import "./pages/index.css";
 import ForgotPassword from "./components/ForgotPassword";
+import * as Constants from "./constants/String"
 
 function App() {
   window.scrollTo(0, 0);
   const location = useLocation();
 
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get(Constants.userId);
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const isDashboardPage =

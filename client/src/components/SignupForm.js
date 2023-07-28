@@ -4,7 +4,6 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setUserCookies, setCookies } from "./Cookies";
-import FileUploader from "../components/FileUploader/FileUploader";
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
 
@@ -75,7 +74,7 @@ const SignupForm = ({ userType }) => {
   function submitHandler(event) {
     event.preventDefault();
     setButtonLoadin(true);
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.changePassword !== formData.confirmPassword) {
       toast.error("Passwords do not match");
       setButtonLoadin(false);
       return;
@@ -98,11 +97,22 @@ const SignupForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
-        setUserCookies(
-          formData.firstName + " " + formData.lastName,
-          userType,
-          response.data.employee._id
-        );
+        if(userType === "seeker")
+        {
+          setUserCookies(
+            formData.firstName + " " + formData.lastName,
+            userType,
+            response.data.seeker._id
+          );
+        }
+        else
+        {
+          setUserCookies(
+            formData.firstName + " " + formData.lastName,
+            userType,
+            response.data.employee._id
+          );
+        }
         Cookies.set("token", response.data.token);
         if (userType === "employee") {
           setCookies("companyName", formData.companyName);
@@ -307,9 +317,28 @@ const SignupForm = ({ userType }) => {
             }
           </label>
         </div>
-        <FileUploader />
+        <div className="mt-3">
+        <input
+       type="file"
+       className=" 
+       file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
+       file:px-6 file:py-2 file:m-3
+       file:border-none
+       file:rounded-full
+       file:text-white
+       file:cursor-pointer
+       file:shadow-md file:shadow-blue-600/50
+
+       bg-gradient-to-br from-gray-200 to-gray-300
+       text-black/80 
+       rounded-full
+       cursor-pointer
+       shadow-md shadow-gray-700/60
+       "
+       />
+       </div>
         <button
-          className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600 ${
+          className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600 shadow-md shadow-gray-700/60 ${
             isOtpVerified ? "cursor-pointer" : "cursor-not-allowed"
           }`}
           disabled={!isOtpVerified}
