@@ -143,3 +143,58 @@
   align-items: center;
   z-index: 1;
 }
+
+
+/* Dashboard.css */
+
+.companyNameInput {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.radioLabel {
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.radioLabel input[type="radio"] {
+  margin-right: 10px;
+}
+
+.textInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submitButton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}

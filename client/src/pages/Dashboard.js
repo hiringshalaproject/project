@@ -14,6 +14,7 @@ import fetchSeeker from "../components/DashboardComponent/RefferedJobCard/FetchS
 import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/FetchEmployee.js";
 import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob";
 import CompanyNameInput from "./CompanyName";
+import CompanyOrCollegeNameInput from "./CompanyOrCollegeName";
 import { toast } from "react-hot-toast";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -23,7 +24,8 @@ function Dashboard() {
   const [jobDataReady, setJobDataReady] = useState(false);
   const [userData, setUserData] = useState(false);
   const [jobData, setJobData] = useState(false);
-  const [isCompanyNamePresent, setIsCompanyNamePresent] = useState(true);
+  const [isEmployeesCompanyNamePresent, setIsEmployeesCompanyNamePresent] = useState(true);
+  const [isSeekersCompanyOrCollegeNamePresent, setIsSeekersCompanyOrCollegeNamePresent] = useState(true);
   const userId = Cookies.get("userId");
   const isLoggedIn = userId !== undefined && userId !== "";
   const userType = Cookies.get("userType");
@@ -31,6 +33,10 @@ function Dashboard() {
   const isEmployee = userType === "employee";
   const location = useLocation();
   const jobId = location.state?.jobId;
+
+  function isNullOrEmpty(value) {
+    return value === null || value === undefined || value.trim() === '';
+  }
 
   const handleCompanyNameSubmit = (companyName) => {
     const userData = {employeeCompanyName: companyName}
@@ -40,7 +46,7 @@ function Dashboard() {
           const stringifiedUserDetails = JSON.stringify(res.data.employee);
           sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
           toast.success("Company Name Added!");
-          setIsCompanyNamePresent(true);
+          setIsEmployeesCompanyNamePresent(true);
         })
         .catch((error) => {
           if (error.response) {
@@ -51,18 +57,45 @@ function Dashboard() {
             toast.error("An unexpected error occurred");
           }
         })
-    setIsCompanyNamePresent(false);
+    setIsEmployeesCompanyNamePresent(false);
   };
+
+  const handleCompanyOrCollegeNameSubmit = (inputType, name) => {
+    let userData;
+    if (inputType === "company")
+    {
+      userData = {seekerCompanyName : name}
+    }
+    else
+    {
+      userData = {collegeName : name}
+    }
+    axios
+        .patch(`${apiUrl}/api/v1/seekers/${userId}`, userData)
+        .then((res) =>{
+          const stringifiedUserDetails = JSON.stringify(res.data.seeker);
+          sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
+          toast.success("Profession Added!");
+          setIsSeekersCompanyOrCollegeNamePresent(true);
+        })
+        .catch((error) => {
+          if (error.response) {
+            toast.error(error.response.data.msg);
+          } else if (error.request) {
+            toast.error("Network failure or timeout");
+          } else {
+            toast.error("An unexpected error occurred");
+          }
+        })
+    setIsSeekersCompanyOrCollegeNamePresent(false);
+  }
 
   useEffect(() => {
     if (userType === "employee") {
       fetchEmployee().then((userDataResponse) => {
         setUserData(userDataResponse);
-        console.log("here userDataResponse", userDataResponse);
-        const isCompanyName = userDataResponse.employeeCompanyName !== null &&
-                              userDataResponse.employeeCompanyName !== undefined &&
-                              userDataResponse.employeeCompanyName.trim() !== "";
-        setIsCompanyNamePresent(isCompanyName);
+        const isCompanyName = !isNullOrEmpty (userDataResponse.employeeCompanyName)
+        setIsEmployeesCompanyNamePresent(isCompanyName);
         setUserDataReady(true);
       }).catch((error) => {
         console.error("Error fetching employee data:", error);
@@ -71,6 +104,9 @@ function Dashboard() {
     } else {
       fetchSeeker().then((userDataResponse) => {
         setUserData(userDataResponse);
+        const isCompanyName = !isNullOrEmpty(userDataResponse.seekerCompanyName);
+        const isCollegeName = !isNullOrEmpty(userDataResponse.collegeName);
+        setIsSeekersCompanyOrCollegeNamePresent(isCompanyName || isCollegeName);
         setUserDataReady(true);
       }).catch((error) => {
         console.error("Error fetching seeker data:", error);
@@ -99,9 +135,14 @@ function Dashboard() {
         <Sidemenu />
       </div>
       <div className="mainContent">
-        {isEmployee && !isCompanyNamePresent && (
+        {isEmployee && !isEmployeesCompanyNamePresent && (
             <div className="inputOverlay">
               <CompanyNameInput onSubmit={handleCompanyNameSubmit} />
+            </div>
+          )}
+        {isSeeker && !isSeekersCompanyOrCollegeNamePresent && (
+            <div className="inputOverlay">
+              <CompanyOrCollegeNameInput onSubmit={handleCompanyOrCollegeNameSubmit} />
             </div>
           )}
         <div className="topMenu">

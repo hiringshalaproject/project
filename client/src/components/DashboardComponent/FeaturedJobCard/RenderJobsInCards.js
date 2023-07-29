@@ -1,6 +1,5 @@
 import BootstrapCard from "./BootstrapCards";
 import { useState, useEffect } from "react";
-import fetchJobs from "./FetchJob";
 import "./BootstrapCards.css";
 import RoundButton from "../sidemenu/RoundButton";
 import { Container } from "react-bootstrap";
@@ -17,7 +16,7 @@ const RenderJobsInCards = ({jobData}) => {
       setUsers(myData);
     };
     updateUsers();
-  }, []);
+  }, [jobData]);
   const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (

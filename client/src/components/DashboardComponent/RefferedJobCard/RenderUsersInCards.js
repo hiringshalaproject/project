@@ -51,7 +51,7 @@ const RenderUsersInCards = ({ userData, jobData }) => {
           {headerText}
         </h2>
 
-        {users.length > 0 && (
+        {users.length > 0 && users.length > 3 && (
           <RoundButton
             onClick={() => setShowAll(!showAll)}
             text={showAll ? "Show Less" : "Show All"}

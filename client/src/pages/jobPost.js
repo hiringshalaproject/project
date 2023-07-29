@@ -1,14 +1,15 @@
 
 import React from "react";
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../pages/jobPost.css"
 import "../pages/index.css"
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 const JobPost = () => {
     const [jobTitle, setJobTitle] = useState("");
     const [jobPosition, setJobPosition] = useState("");
@@ -20,10 +21,6 @@ const JobPost = () => {
     const [additionalRequirement, setAdditionalRequirement] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-
-    const [isChecked, setIsChecked] = useState(false);
-    const navigate = useNavigate();
 
     const handleCheckboxChange = (e) => {
         const checkboxValue = e.target.value;
@@ -63,9 +60,6 @@ const JobPost = () => {
     };
     const handleAdditionalRequirementChange = (e) => {
         setAdditionalRequirement(e.target.value);
-    };
-    const handleSaveAsDraft = () => {
-        // Logic for saving as draft
     };
     function validateForm() {
         // Get references to the checkboxes
@@ -158,13 +152,13 @@ const JobPost = () => {
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
             .then((res) => {
                 toast.success("Job Posted Successfully");
-                const response = axios.get(
+                axios.get(
                     `${apiUrl}/api/v1/employees/${userId}`
                     , { headers })
                     .then((res) => {
                         const stringifiedUserDetails = JSON.stringify(res.data.employee);
                         sessionStorage.setItem("hiringShala_user", stringifiedUserDetails);
-                        const fetchAllJobsResp = axios.post(`${apiUrl}/api/v1/jobs/`)
+                        axios.post(`${apiUrl}/api/v1/jobs/`)
                             .then((jobListResp) => {
                                 const updatedJobList = jobListResp.data;
                                 const updatedJobListString = JSON.stringify(updatedJobList);
