@@ -140,7 +140,7 @@ function Dashboard() {
               <CompanyNameInput onSubmit={handleCompanyNameSubmit} />
             </div>
           )}
-        {isSeeker && isSeekersCompanyOrCollegeNamePresent && (
+        {isSeeker && !isSeekersCompanyOrCollegeNamePresent && (
             <div className="inputOverlay">
               <CompanyOrCollegeNameInput onSubmit={handleCompanyOrCollegeNameSubmit} />
             </div>
