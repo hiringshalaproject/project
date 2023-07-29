@@ -6,7 +6,7 @@ const fetchJobs = async () => {
     const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
     var updatedJobList = JSON.parse(stringifiedJobList);
     if (stringifiedJobList === null) {
-      const response = await axios.post(`${apiUrl}/api/v1/jobs/`)
+      await axios.post(`${apiUrl}/api/v1/jobs/`)
         .then((response) => {
           updatedJobList = response.data;
           const updatedJobListString = JSON.stringify(response.data);

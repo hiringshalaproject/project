@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Logo_dark from "../../assets/Logo_dark.png";
 import Logo_light from "../../assets/Logo_light.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./sidemenu.css";
@@ -9,7 +8,7 @@ import Cookies from "js-cookie";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaMoon } from "react-icons/fa";
 import { BiSun } from "react-icons/bi";
-import { FiInstagram, FiMail, FiBriefcase, FiUser, FiLogOut , FiInbox} from "react-icons/fi"; // Import the icons you want to use
+import { FiInstagram, FiMail, FiBriefcase, FiLogOut , FiInbox} from "react-icons/fi"; // Import the icons you want to use
 
 const Sidemenu = () => {
   const navigate = useNavigate();

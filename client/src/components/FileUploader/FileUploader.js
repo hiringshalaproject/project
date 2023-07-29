@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
@@ -73,7 +73,7 @@ function FileUploader() {
       .then((response) => {
         setLoading(false);
         setSuccess(true);
-        const fetchSeekerResp = axios
+        axios
           .get(`${apiUrl}/api/v1/seekers/${seekerId}`, {
             headers: {
               authorization: `Bearer ${token}`,
@@ -107,7 +107,6 @@ function FileUploader() {
     event.preventDefault();
     setSelectedFile(event.dataTransfer.files[0]);
   };
-  const fileInputRef = useRef(null);
 
   return (
     <div className="file-uploader">
@@ -126,13 +125,7 @@ function FileUploader() {
                   : getFileNameFromUrl(resumeUrl)}
               </strong>
               <br></br>
-              <a
-                href="#"
-                onClick={() => document.getElementById("fileInput").click()}
-              >
-                {" "}
-                Update Resume
-              </a>
+              <button onClick={() => document.getElementById("fileInput").click()}>Update Resume</button>
             </label>
             <input
               type="file"
@@ -185,12 +178,7 @@ function FileUploader() {
               {selectedFile ? selectedFile.name : "Drag and Drop"}
             </strong>
             <span> or </span>
-            <a
-              href="#"
-              onClick={() => document.getElementById("fileInput").click()}
-            >
-              Browse
-            </a>
+            <button onClick={() => document.getElementById("fileInput").click()}>Browse</button>
           </label>
           <input
             type="file"
