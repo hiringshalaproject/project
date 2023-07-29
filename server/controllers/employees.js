@@ -92,6 +92,10 @@ const handleGoogleLogin = async (req, res) => {
     email = decodedToken.email;
     picture = decodedToken.picture;
     name = decodedToken.name;
+    const cmpName = getCompanyName(email);
+    if (defaultEmails.includes(cmpName)){
+      return res.status(401).json({msg: "Login through your official Email Id."});
+    }
     const employee = await Employees.findOne({ employeeEmail: email });
     if(!employee)
     {
@@ -164,6 +168,16 @@ const referSeeker = async (req, res) => {
   }
 };
 
+
+
+const getCompanyName = (emailId) => {
+  let domainName = emailId.split("@")[1];
+  let companyName = domainName.split('.')[0];
+  console.log("comapanyName", companyName);
+  return companyName;
+}
+
+const defaultEmails = ["gmail", "yahoo"];
 
 module.exports = {
   getAllEmployees,
