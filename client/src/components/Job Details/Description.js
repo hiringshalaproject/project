@@ -12,7 +12,6 @@ import { toast } from "react-hot-toast";
 
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
-const apiUrlSecondary = "/api/v1/jobs";
 
 const JobDescription = () => {
   const location = useLocation();
@@ -36,7 +35,7 @@ const JobDescription = () => {
         .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
         .then((res) => {
           toast.success("Applied SuccessFully");
-          const response = axios.get(
+          axios.get(
             `${apiUrl}/api/v1/seekers/${userId}`
             , { headers })
             .then((res) => {
@@ -79,7 +78,7 @@ const JobDescription = () => {
   const [companyDetails, setCompanyDetails] = useState(null);
   useEffect(() => {
     fetchCompanyDetails();
-  }, []);
+  });
 
   // 64985560673062b875c9a7b7
 

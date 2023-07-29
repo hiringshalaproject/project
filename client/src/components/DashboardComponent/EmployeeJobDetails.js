@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,41 +10,32 @@ import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 import Cookies from "js-cookie";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://192.168.29.129:8000";
 const EmployeeJobDetails = ({userData,jobData}) => {
-  const [jobs, setJobs] = useState([]);
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
   const userId = Cookies.get("userId");
-  const token = Cookies.get("token");
-  const headers = {
-    authorization: `Bearer ${token}`,
-  };
 
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const resolveduserData = await userData;
+        const resolvedUserData = await userData;
         const resolvedJobData = await jobData;
-        const jobIds = resolveduserData.listOfJobsPosted.map(
+        const jobIds = resolvedUserData.listOfJobsPosted.map(
           (appliedJob) => appliedJob.jobId
         );
-        console.log("herejobIds", jobIds);
         const filteredJobs = resolvedJobData.filter((job) =>
           jobIds.includes(job._id)
         );
-        console.log("here filteredJobs", filteredJobs);
-        setJobs(filteredJobs);
-
+  
         const newJobDetails = filteredJobs.map((job) => {
-          const appliedJob = resolveduserData.listOfJobsPosted.find(
+          const appliedJob = resolvedUserData.listOfJobsPosted.find(
             (appliedJob) => appliedJob.jobId === job._id
           );
           return {
             ...job,
-            totalReferralGiven: resolveduserData.totalReferralGiven,
+            totalReferralGiven: resolvedUserData.totalReferralGiven,
           };
         });
         setJobDetails(newJobDetails);
@@ -53,9 +43,10 @@ const EmployeeJobDetails = ({userData,jobData}) => {
         console.error(error);
       }
     };
-
+  
     fetchEmployee();
-  }, [userId]);
+  }, [userId, userData, jobData]);
+  
   const handleSort = (column) => {
     if (sortColumn === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -87,7 +78,7 @@ const EmployeeJobDetails = ({userData,jobData}) => {
           Posted Opportunities
         </h2>
 
-        {sortedJobDetails.length > 0 && (
+        {sortedJobDetails.length > 0 && jobDetails.length > 3 && (
           <RoundButton
             onClick={() => setShowAll(!showAll)}
             text={showAll ? "Show Less" : "Show All"}

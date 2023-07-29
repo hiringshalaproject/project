@@ -16,7 +16,6 @@ function JobDetails({ job,filterValue,searchItems}) {
   };
 
   let filteredJobs = job;
-  // console.log(searchVal);
   filteredJobs =
     filterValue.length !== 0
       ? job.filter(

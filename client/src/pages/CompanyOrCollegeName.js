@@ -6,7 +6,6 @@ const CompanyOrCollegeNameInput = ({ onSubmit }) => {
   const [name, setName] = useState("");
 
   const handleSubmit = () => {
-    console.log("here inputType", inputType);
     onSubmit(inputType, name);
   };
 

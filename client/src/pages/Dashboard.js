@@ -62,7 +62,7 @@ function Dashboard() {
 
   const handleCompanyOrCollegeNameSubmit = (inputType, name) => {
     let userData;
-    if (inputType == "company")
+    if (inputType === "company")
     {
       userData = {seekerCompanyName : name}
     }

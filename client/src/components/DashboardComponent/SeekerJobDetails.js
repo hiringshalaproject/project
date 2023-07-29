@@ -86,7 +86,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
           Applied Opportunities
         </h2>
 
-        {sortedJobDetails.length > 0 && (
+        {sortedJobDetails.length > 0 && jobDetails.length > 3 && (
           <RoundButton
             onClick={() => setShowAll(!showAll)}
             text={showAll ? "Show Less" : "Show All"}
