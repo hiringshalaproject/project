@@ -12,14 +12,14 @@ import { toast } from "react-hot-toast";
 
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
+const cachedJobList = JSON.parse(stringifiedJobList);
 
 const JobDescription = () => {
   const location = useLocation();
   const jobid = location.state?.jobId;
   const seekerId = Cookies.get("userId")
   const isLoggedIn = seekerId !== undefined && seekerId !== "";
-  const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
-  const cachedJobList = JSON.parse(stringifiedJobList);
   const navigate = useNavigate();
 
   const applyJobFlow = () => {
@@ -78,7 +78,7 @@ const JobDescription = () => {
   const [companyDetails, setCompanyDetails] = useState(null);
   useEffect(() => {
     fetchCompanyDetails();
-  });
+  }, [cachedJobList]);
 
   // 64985560673062b875c9a7b7
 
