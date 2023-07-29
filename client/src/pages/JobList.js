@@ -9,11 +9,14 @@ const JobList = () => {
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchVal, setSearchVal] = useState("");
   const [filteredJobs, setFilteredJobs] = useState([]);
+  const [found,setFound]=useState(false);
   const handleFilterChange = (event) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      setCheckedItems([...checkedItems, value]);
+      const ind=checkedItems.indexOf(value);
+      if(ind===-1)
+        setCheckedItems([...checkedItems, value]);
     } else {
       const updatedItems = checkedItems.filter((item) => item !== value);
       setCheckedItems(updatedItems);
@@ -25,27 +28,33 @@ const JobList = () => {
   };
 
   const handleSearch = () => {
-
-    searchVal !== "" &&
-      setFilteredJobs(
-        job.filter(
-          (currJob) =>
-            currJob.jobType?.toString()?.toLowerCase() ===
-              searchVal.toLowerCase() ||
-            currJob.jobTitle?.toString()?.toLowerCase() ===
-              searchVal.toLowerCase() ||
-            currJob.companyName?.toString()?.toLowerCase() ===
-              searchVal.toLowerCase() ||
-            currJob.jobLocation?.toString()?.toLowerCase() ===
-              searchVal.toLowerCase()
-        )
+    if(searchVal!==""){
+      const items=job.filter(
+        (currJob) =>
+          currJob.jobType?.toString()?.toLowerCase() ===
+            searchVal.toLowerCase() ||
+          currJob.jobTitle?.toString()?.toLowerCase() ===
+            searchVal.toLowerCase() ||
+          currJob.companyName?.toString()?.toLowerCase() ===
+            searchVal.toLowerCase() ||
+          currJob.jobLocation?.toString()?.toLowerCase() ===
+            searchVal.toLowerCase()
       );
+      items.length===0?setFound(false):setFound(true);
+      setFilteredJobs(items);
+    }
+  
     setSearchVal("");
   };
 
-  const clearSearchItems=()=>{
+  const handleClose = (value) => {
+    const updatedItems = checkedItems.filter((item) => item !== value);
+    setCheckedItems(updatedItems);
+  };
+
+  const clearSearchItems = () => {
     setFilteredJobs([]);
-  }
+  };
 
   const clearCheckedItems = () => {
     setCheckedItems([]);
@@ -62,7 +71,7 @@ const JobList = () => {
             setJob(response.data);
             updatedJobList = response.data;
             const updatedJobListString = JSON.stringify(response.data);
-            sessionStorage.setItem("hiringShala_jobList", updatedJobListString);  
+            sessionStorage.setItem("hiringShala_jobList", updatedJobListString);
           })
           .catch((error) => {
             if (error.response) {
@@ -73,9 +82,7 @@ const JobList = () => {
               toast.error("An unexpected error occurred");
             }
           });
-      }
-      else
-        setJob(updatedJobList);
+      } else setJob(updatedJobList);
     };
     GetAllJobs();
   }, []);
@@ -124,6 +131,7 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            dropdownNum={0}
           />
           <JobFilter
             filterName="Job Type"
@@ -131,6 +139,7 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            dropdownNum={1}
           />
           <JobFilter
             filterName="Job Category"
@@ -138,6 +147,7 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            dropdownNum={2}
           />
           <JobFilter
             filterName="Experience"
@@ -145,10 +155,18 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            dropdownNum={3}
           />
         </div>
       </div>
-      <JobDetails job={job} filterValue={checkedItems} searchItems={filteredJobs}/>
+      <JobDetails
+        job={job}
+        filterValue={checkedItems}
+        searchItems={filteredJobs}
+        handleClose={handleClose}
+        found={found}
+        searchVal={searchVal}
+      />
     </>
   );
 };

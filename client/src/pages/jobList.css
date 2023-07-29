@@ -2,10 +2,22 @@ body {
   overflow-x: hidden;
   /* overflow-y: hidden; */
 }
-.card.card-without-hover:hover {
-  background-color: inherit;
-  border-color: inherit;
-  box-shadow: none;
+
+.no-data-Img {
+  height: 400px;
+  width: 400px;
+}
+.no-data-div {
+  margin: auto;
+}
+
+.value-div-inner {
+  display: inline-block;
+  margin: 15px 3px 10px 15px;
+}
+
+.selected-filter {
+  margin: 1em;
 }
 
 .jobs-details-card {
@@ -18,12 +30,8 @@ body {
   z-index: 1;
   /* margin-left: 340px !important; */
 }
-.details-button {
-  margin-top: 15px;
-}
-
 .ctc-button {
-  margin-top: 15px;
+  /* margin-top: 10px; */
   pointer-events: none;
   background-color: white;
   color: black;
@@ -38,29 +46,6 @@ body {
   width: 150px;
 }
 
-/* .{
-    width: 120px; */
-/* display: inline-block;
-} */
-.search-container {
-  width: 500px;
-  margin: 1em 0;
-}
-
-.search-container input {
-  background-color: transparent;
-  margin-left: 1em;
-  border-bottom: 2px solid #47a992;
-  /* padding: 1em 0.3em; */
-}
-
-.search-container input:focus {
-  border-bottom-color: #47a992;
-}
-
-.filter-btn {
-  margin-left: 1em;
-}
 
 .joblist-card {
   margin-left: 90px !important;
@@ -77,6 +62,11 @@ body {
 .job-descr {
   font-size: 25px;
   text-align: left;
+}
+
+.job-length {
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .card-text {
@@ -102,10 +92,7 @@ body {
   /* border-radius: 25px !important; */
   border-color: black !important;
 }
-.wrapper {
-    
-  margin-top: 100px;
-}
+
 .content {
   margin-left: 20px;
   margin-top: 15px;
@@ -115,30 +102,47 @@ body {
   display: inline-block;
 }
 
-.lower-card-content {
+/* .lower-card-content {
   border-style: solid;
   border-top: 1px solid #475649;
-}
+} */
+
 
 .container p {
   margin-bottom: 0;
 }
 
-/* .checkbox{
-    margin-left: 2px;
-    margin-top: 5px;
-} */
 
-/* .sidebar-content {
-    margin-top: 5px;
-  } */
+/* --filter CSS-- */
+
+.wrapper {
+  margin: auto;
+  margin-top: 100px;
+}
+
+.search-container {
+  width: 500px;
+  margin: 1em 0;
+}
+
+.search-container input {
+  background-color: transparent;
+  margin-left: 1em;
+  border-bottom: 2px solid #47a992;
+  /* padding: 1em 0.3em; */
+}
+
+.search-container input:focus {
+  border-bottom-color: #47a992;
+}
+
+.filter-btn {
+  margin-left: 1em;
+}
 
 .dropdown-filter {
   position: absolute;
-  /* top: 4.5rem;
-    right: 1.5rem; */
   z-index: 2;
-  /* margin-left: 30px; */
   margin-top: 8px;
   width: 180px;
   padding: 8px;
@@ -159,6 +163,20 @@ body {
   border-left: 1px solid gray;
   border-top: 1px solid gray;
 }
+.dropdown-filter.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 500ms ease;
+}
+
+.dropdown-filter.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 500ms ease;
+}
+
 .job-filter-container {
   display: inline-block;
   margin-right: 10px;
@@ -169,31 +187,14 @@ body {
   margin-bottom: 5px;
 }
 
-.btn-light {
-  color: black !important;
-  text-decoration: none !important;
-  border: none !important;
-  background-color: white !important;
-  opacity: 1 !important;
-  box-shadow: none !important;
-  /* font-size: large; */
-}
-
-.btn-light:hover {
-  color: black !important;
-  text-decoration: none !important;
-  border: none !important;
-  background-color: white !important;
-  /* font-size: large !important; */
-}
-
 @media screen and (max-width: 991.98px) {
   .wrapper {
-    position: relative;
+    /* position: relative; */
+    margin: auto;
     margin-top: 60px;
   }
   .jobs-details-card {
-    width: 300px !important;
+    width: 400px !important;
     margin: auto !important;
     margin-top: 25px !important;
     margin-bottom: 20px !important;
@@ -205,14 +206,24 @@ body {
     margin-top: 20px;
     margin-left: 20px;
   }
+  .job-length {
+    margin-top: 10px;
+  }
   .count-heading {
     text-align: left;
+    margin-bottom: 5px;
+  }
+  .value-div-inner {
+    margin-left: 5px;
+  }
+  .no-data-div{
+    margin-top: 15px;
   }
   .icon {
     font-size: 15px;
   }
   .search-container {
-    width: 250px;
+    width: 240px;
   }
   .filter-btn {
     margin-top: 2px;

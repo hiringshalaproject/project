@@ -1,14 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CompanyLogoImg from "../assets/company-logo.jpg";
+import NoDataImg from "../assets/no-data-found.jpg";
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 import { MdWork } from "react-icons/md";
-import {MdAttachMoney} from "react-icons/md";
-import {FaMoneyBillAlt} from "react-icons/fa";
-
-
-function JobDetails({ job,filterValue,searchItems}) {
+import { MdAttachMoney } from "react-icons/md";
+import { AiOutlineClose } from "react-icons/ai";
+function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal}) {
   const navigate = useNavigate();
 
   const routeChange = (id) => {
@@ -24,10 +23,8 @@ function JobDetails({ job,filterValue,searchItems}) {
             filterValue.includes(currJob.jobTitle)
         )
       : job;
-  
-  if(searchItems.length!==0)
-    filteredJobs=searchItems;
-  
+
+  if (searchItems.length !== 0) filteredJobs = searchItems;
 
   const renderCard = (
     jobId,
@@ -36,6 +33,7 @@ function JobDetails({ job,filterValue,searchItems}) {
     jobType,
     jobLocation,
     expectedPackage,
+    isExpired,
     routeChange
   ) => {
     return (
@@ -57,64 +55,58 @@ function JobDetails({ job,filterValue,searchItems}) {
                   </div>
                   <div className="row">
                     <p className="card-text">
-                      <BsFillBuildingsFill fontSize={20} className="icon" /> {companyName}
+                      <BsFillBuildingsFill fontSize={20} className="icon" />{" "}
+                      {companyName}
                     </p>
                   </div>
                   <div className="row">
                     <p className="card-text">
-                      <GoLocation fontSize={20} className="icon" /> {jobLocation}
+                      <GoLocation fontSize={20} className="icon" />{" "}
+                      {jobLocation}
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <div className="col-md-4 col-sm-12 col-6  details-col d-flex align-items-center justify-content-center">
-                  <p className="content">
-                    <span className="border border-black rounded-pill pill d-inline-block">
-                      {/* {ind % 2 === 0 ? "Full Time" : "Internship"} */}
-                      {jobType}
-                    </span>
-                  </p>
+              <div className="value-div-outer">
+                <div className="value-div-inner">
+                  <span className="border border-black rounded-pill pill">
+                    {jobType}
+                  </span>
                 </div>
-                <div className="col-md-4 col-sm-12 col-6  details-col d-flex align-items-center justify-content-center">
-                  <p className="content">
-                    <span className="border border-black rounded-pill pill d-inline-block">
-                      Remote
-                    </span>
-                  </p>
+                <div className="value-div-inner">
+                  <span className="border border-black rounded-pill pill">
+                    Remote
+                  </span>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-md-4 col-sm-12 col-6  details-col d-flex align-items-center justify-content-center">
-                  <p className="content">
-                    <span className="border border-black rounded-pill pill d-inline-block">
-                      <MdWork fontSize={15} className="icon" /> 2+yrs
-                    </span>
-                  </p>
+                <div className="value-div-inner">
+                  <span className="border border-black rounded-pill pill">
+                    <MdWork fontSize={15} className="icon" /> 2+yrs
+                  </span>
                 </div>
-                <div className="col-md-4 col-sm-12 col-6  details-col d-flex align-items-center justify-content-center">
-                  <p className="content">
-                    <span className="border border-black rounded-pill pill d-inline-block">
-                    <MdAttachMoney fontSize={20} className="icon"/>CTC {expectedPackage}
-                    </span>
-                  </p>
+                <div className="value-div-inner">
+                  <span className="border border-black rounded-pill pill">
+                    <MdAttachMoney fontSize={20} className="icon" />
+                    CTC {expectedPackage}
+                  </span>
                 </div>
               </div>
+              
             </div>
-
+            <hr className="hr" />
             <div className="lower-card-content">
+              <button
+                type="button"
+                className="ctc-button btn btn-lg btn-dark rounded-pill float-left"
+              >
+                
+                {isExpired?"Expired":"Active"}
+              </button>
               <button
                 type="button"
                 className="details-button btn btn-lg btn-dark rounded-pill float-right"
                 onClick={() => routeChange(jobId)}
               >
                 Details
-              </button>
-              <button
-                type="button"
-                className="ctc-button btn btn-lg btn-dark rounded-pill float-left"
-              >
-                <FaMoneyBillAlt fontSize={20} className="icon"/> {expectedPackage}
               </button>
             </div>
           </div>
@@ -125,17 +117,42 @@ function JobDetails({ job,filterValue,searchItems}) {
 
   return (
     <>
+      <div className="value-div-outer">
+        {filterValue.map((val,ind) => (
+         
+          <div className="value-div-inner" key={ind}>
+            <span className="border border-black rounded-pill pill selected-filter">
+              {val}<AiOutlineClose
+                fontSize={20}
+                className="icon"
+                onClick={() => handleClose(val)}
+              />
+            </span>
+          </div>
+    
+        ))}
+      </div>
       <h3 className="job-count">
         <b className="count-heading">
-          Recommended Jobs{"  "}
-          <span className="border border-black rounded-pill pill">
-            {filteredJobs.length}
-          </span>
+          Recommended Jobs
+          <div className="job-length">
+            <span className="border border-black rounded-pill pill">
+              {filteredJobs.length}
+            </span>
+          </div>
         </b>
       </h3>
-      <div className="row">
+      {/* {(filteredJobs.length === 0) && (
+        <div className="no-data-div">
+          <img src={NoDataImg} className="no-data-Img" alt="" />
+        </div>
+      )} */}
+
+      {(filteredJobs.length === 0)?<div className="no-data-div">
+          <img src={NoDataImg} className="no-data-Img" alt="" />
+        </div>:<div className="row">
         {filteredJobs.map((currJob, ind) => (
-          <div className="col-12 col-sm-6 col-md-4">
+          <div className="col-12 col-sm-6 col-md-4" key={ind}>
             {/* col-6 col-sm-6 */}
             {renderCard(
               currJob._id,
@@ -144,11 +161,14 @@ function JobDetails({ job,filterValue,searchItems}) {
               currJob.jobType,
               currJob.jobLocation,
               currJob.expectedPackage,
+              currJob.isExipred,
               routeChange
             )}
           </div>
         ))}
-      </div>
+      </div>}
+
+      
     </>
   );
 }
