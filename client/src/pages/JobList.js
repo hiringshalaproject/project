@@ -81,7 +81,7 @@ const JobList = () => {
   }, []);
 
   const jobTypeList = [
-    "Full Time",
+    "Full-time",
     "Internship",
     "Remote",
     "Hybrid",
