@@ -6,6 +6,7 @@ import axios from "axios";
 import { setUserCookies, setCookies } from "./Cookies";
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
+import * as Constants from "../constants/String"
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -38,6 +39,13 @@ const SignupForm = ({ userType }) => {
   }
 
   const sendOtpHandler = () => {
+    if (userType === "employee") {
+      let domainName = formData.email.split("@")[1];
+      let companyName = domainName.split('.')[0];
+      if (Constants.defaultEmails.includes(companyName)){
+        return toast.error("Signup through your official Email Id.");
+      }
+    }
     // send the email input to the server to initiate sending OTP
     setOtpLoading(true);
     axios
@@ -193,7 +201,7 @@ const SignupForm = ({ userType }) => {
         <div>
           <label className="w-full">
             <p className="text-[0.875rem] text-slate-600 mb-1 mt-4 leading-[1.375rem] loginText">
-              Email Address<sup className="text-red-700">*</sup>
+            {userType === "seeker" ? "Email Address": "Company Email address"} <sup className="text-red-700">*</sup>
             </p>
             <div className="flex items-center">
               <input
