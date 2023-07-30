@@ -6,10 +6,10 @@
   --card-bg: white;
   --footer-color: #47A992;
   --home-text: #47A992;
-  --card-text:black;
-  --card-border:black;
-  --primary-text-color:hsl(166, 77%, 22%);
-  --div-color:rgb(17,94,89);
+  --card-text: black;
+  --card-border: black;
+  --primary-text-color: hsl(166, 77%, 22%);
+  --div-color: rgb(17, 94, 89);
 }
 
 .dark {
@@ -24,7 +24,7 @@
   --card-text: white;
   --card-border: #2F8F9D;
   --primary-text-color: white;
-  --div-color:rgb(17,94,89);
+  --div-color: rgb(17, 94, 89);
 }
 
 .container-col {
@@ -58,9 +58,9 @@
 .card-button:hover {
   background-color: #47A992;
   color: white;
-} 
+}
 
-.card-content {
+*/ .card-content {
   text-align: center;
   color: var(--card-text) !important;
 }
@@ -75,10 +75,11 @@
   height: 500px;
   width: 500px;
 }
+
 /* .card-button{
   transition: all 0.3s;
 } */
-.card{
+.card {
   /* transition: all 0.3s; */
   width: 20rem !important;
   border-top-color: #47A992 !important;
@@ -250,21 +251,21 @@ input {
   color: var(--tertiary-color);
 }
 
- .horizontal-container {
+.horizontal-container {
   display: flex;
-   align-items: center;
-} 
+  align-items: center;
+}
 
 .horizontal-container svg {
   margin-right: 5px;
 }
 
-.apply-button{
+.apply-button {
   /* width: 300px; */
   height: 40px;
   border-radius: 10px;
   font-size: 20px;
-  background-color:#47a985;
+  background-color: #47a985;
   color: white;
   cursor: pointer;
   outline: none;
@@ -272,12 +273,8 @@ input {
   margin-top: 40px;
 }
 
-.apply-button:hover{
-  background-color: #c90909;
-}
-
-.details{
-  background-color:var(--div-color) ;
+.details {
+  background-color: var(--div-color);
 }
 
 @media (max-width: 768px) {
@@ -296,6 +293,7 @@ input {
   background-color: #17c36e;
   background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5zM0 20h2v20H0V20zm4 0h2v20H4V20zm4 0h2v20H8V20zm4 0h2v20h-2V20zm4 0h2v20h-2V20zm4 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2zm0 4h20v2H20v-2z' fill='%2316591e' fill-opacity='0.43' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
+
 /* Dashboard.css */
 
 .companyNameInput {
@@ -341,7 +339,7 @@ input {
   background-color: #288286;
 }
 
-.apply-button{
+.apply-button {
   width: 240px;
   height: 50px;
   border-radius: 10px;
@@ -354,9 +352,10 @@ input {
   margin-top: 30px;
 }
 
-.apply-button:hover{
- opacity:0.8;
+.apply-button:hover {
+  opacity: 0.8;
 }
+
 @media (max-width: 568px) {
   .apply-button {
     width: 180px;
@@ -365,8 +364,9 @@ input {
     margin-top: 20px;
   }
 }
-.details{
-  background-color:var(--div-color) ;
+
+.details {
+  background-color: var(--div-color);
 }
 
 @media (max-width: 768px) {

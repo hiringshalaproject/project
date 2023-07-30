@@ -18,9 +18,27 @@ const cachedJobList = JSON.parse(stringifiedJobList);
 const JobDescription = () => {
   const location = useLocation();
   const jobid = location.state?.jobId;
+  const userType = Cookies.get("userType");
   const seekerId = Cookies.get("userId")
   const isLoggedIn = seekerId !== undefined && seekerId !== "";
   const navigate = useNavigate();
+  const [applyJobLoading, setapplyJobLoading] = useState(false);
+
+  const [applicationStatus, setApplicationStatus] = useState(null);
+  useEffect(() => {
+    getApplicationStatus();
+  }, []);
+  const getApplicationStatus = () => {
+    if (userType === "employee") {
+      setApplicationStatus(false);
+    }
+    else {
+      const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
+      const cachedUserDetails = JSON.parse(stringifiedUserData);
+      const foundSeeker = cachedUserDetails.appliedJobList.find(job => job.jobId === jobid);
+      setApplicationStatus(foundSeeker);
+    }
+  }
 
   const applyJobFlow = () => {
     const userId = Cookies.get("userId");
@@ -33,8 +51,10 @@ const JobDescription = () => {
     };
     axios
         .patch(`${apiUrl}/api/v1/seekers/apply/${seekerId}`, formData)
-        .then((res) => {
+      .then((res) => {
+          setapplyJobLoading(false);
           toast.success("Applied SuccessFully");
+          setApplicationStatus(true);
           axios.get(
             `${apiUrl}/api/v1/seekers/${userId}`
             , { headers })
@@ -66,7 +86,16 @@ const JobDescription = () => {
 };
 
   const applyForReferalFlow = () => {
+    if (userType === "employee") {
+      return toast.error("Login as Seeker to Apply");
+    }
     if (isLoggedIn) {
+      const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
+      const userDetails = JSON.parse(stringifiedUserData);
+      if (userDetails.resumeUrl === "" || userDetails.resumeUrl === undefined) {
+        return toast.error("Upload resume on dashboard");
+      }
+      setapplyJobLoading(true);
       applyJobFlow();
     }
     else {
@@ -84,7 +113,7 @@ const JobDescription = () => {
 
   const fetchCompanyDetails = () => {
     let jobDescription = cachedJobList.find(job => job._id === jobid);
-    if (jobDescription === null) {
+    if (jobDescription === undefined) {
       toast.error('Error Fetching Job Description');
     }
     setCompanyDetails(jobDescription);
@@ -218,8 +247,8 @@ const JobDescription = () => {
     </div>
    </div>
    <span className="flex justify-center mb-10">
-      <button className="apply-button bg-indigo-600 shadow-md shadow-gray-700/60" onClick={event=>applyForReferalFlow()}>
-        Apply For Referral
+      <button className="apply-button" disabled={applicationStatus || applyJobLoading} onClick={event=>applyForReferalFlow()}>
+        {!applicationStatus ? applyJobLoading ? "Applying..." : "Apply For Referral" : "Applied!" }
       </button>
     </span>
   <Footer />
