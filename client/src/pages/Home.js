@@ -9,7 +9,6 @@ import ApplyImg from "../components/assets/apply-for-referral.png";
 import ContactImg from "../components/assets/contact-us.png";
 import SearchJob from "../components/assets/job-search.png";
 
-
 const Home = () => {
   const navigate = useNavigate();
 

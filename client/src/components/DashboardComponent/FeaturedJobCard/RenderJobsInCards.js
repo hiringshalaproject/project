@@ -1,12 +1,13 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Import Link from React Router
 import BootstrapCard from "./BootstrapCards";
-import { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
+import SearchJob from "../../assets/job-search.png";
 import fetchJobs from "./FetchJob";
 import "./BootstrapCards.css";
 import RoundButton from "../sidemenu/RoundButton";
-import { Container } from "react-bootstrap";
-import SearchJob from "../../assets/job-search.png";
 
-const RenderJobsInCards = ({jobData}) => {
+const RenderJobsInCards = ({ jobData }) => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -41,11 +42,15 @@ const RenderJobsInCards = ({jobData}) => {
       ) : (
         <div style={{ fontWeight: "300px", fontSize: "20px" }}>Loading....</div>
       )}
-      <RoundButton
-        onClick={() => setShowAll(!showAll)}
-        text={showAll ? "Show Less" : "explore more"}
-        className={"ListedjobButton"}
-      />
+      <Link to="/JobList">
+        {" "}
+        {/* Use Link component for navigation */}
+        <RoundButton
+          onClick={() => setShowAll(!showAll)}
+          text={showAll ? "Show Less" : "explore more"}
+          className={"ListedjobButton"}
+        />
+      </Link>
     </div>
   );
 };

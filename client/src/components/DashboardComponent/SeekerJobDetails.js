@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSort, faSortUp, faSortDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSort,
+  faSortUp,
+  faSortDown,
+} from "@fortawesome/free-solid-svg-icons";
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 
@@ -16,31 +20,35 @@ const SeekerJobDetails = ({ userData, jobData }) => {
       try {
         const resolveduserData = await userData;
         const resolvedJobData = await jobData;
-  
-        const jobIds = resolveduserData.appliedJobList.map((appliedJob) => appliedJob.jobId);
-        const shortListedStatus = resolveduserData.appliedJobList.map((appliedJob) => appliedJob.shortListedStatus);
-  
+
+        const jobIds = resolveduserData.appliedJobList.map(
+          (appliedJob) => appliedJob.jobId
+        );
+        const shortListedStatus = resolveduserData.appliedJobList.map(
+          (appliedJob) => appliedJob.shortListedStatus
+        );
+
         if (jobIds.length > 0) {
-          const filteredJobs = resolvedJobData.filter((job) => jobIds.includes(job._id));
-            const newJobDetails = filteredJobs.map((job) => {
+          const filteredJobs = resolvedJobData.filter((job) =>
+            jobIds.includes(job._id)
+          );
+          const newJobDetails = filteredJobs.map((job) => {
             const index = jobIds.indexOf(job._id);
             return {
               ...job,
               shortListedStatus: shortListedStatus[index].toString(),
             };
           });
-  
+
           setJobDetails(newJobDetails);
         }
       } catch (error) {
         console.error("Error fetching seeker jobs:", error);
       }
     };
-  
+
     fetchSeekerJobs();
   }, [userData, jobData]);
-  
-  
 
   const handleSort = (column) => {
     if (sortColumn === column) {
@@ -56,16 +64,30 @@ const SeekerJobDetails = ({ userData, jobData }) => {
   if (sortColumn !== null) {
     // Sort the jobDetails array based on the current sorting column and direction
     sortedJobDetails.sort((a, b) => {
-      if (a[sortColumn] < b[sortColumn]) {
-        return sortDirection === "asc" ? -1 : 1;
-      } else if (a[sortColumn] > b[sortColumn]) {
-        return sortDirection === "asc" ? 1 : -1;
+      if (sortColumn === "jobDate") {
+        // Sort by date if the sorting column is "jobDate"
+        const dateA = new Date(a.jobDate);
+        const dateB = new Date(b.jobDate);
+
+        if (dateA < dateB) {
+          return sortDirection === "asc" ? -1 : 1;
+        } else if (dateA > dateB) {
+          return sortDirection === "asc" ? 1 : -1;
+        } else {
+          return 0;
+        }
       } else {
-        return 0;
+        // Sort by other columns (companyName, jobLocation, etc.) using string comparison
+        if (a[sortColumn] < b[sortColumn]) {
+          return sortDirection === "asc" ? -1 : 1;
+        } else if (a[sortColumn] > b[sortColumn]) {
+          return sortDirection === "asc" ? 1 : -1;
+        } else {
+          return 0;
+        }
       }
     });
   }
-
   const visibleRows = showAll ? sortedJobDetails : sortedJobDetails.slice(0, 3);
 
   return (
@@ -126,9 +148,7 @@ const SeekerJobDetails = ({ userData, jobData }) => {
                 <td>{job.companyName}</td>
                 <td>{job.jobLocation}</td>
                 <td>{job.expectedPackage}</td>
-                <td>
-                  {job.shortListedStatus}
-                </td>
+                <td>{job.shortListedStatus}</td>
               </tr>
             ))}
           </tbody>
