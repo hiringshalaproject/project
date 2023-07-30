@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
-
 const SeekerJobDetails = ({ userData, jobData }) => {
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
@@ -18,20 +17,27 @@ const SeekerJobDetails = ({ userData, jobData }) => {
   useEffect(() => {
     const fetchSeekerJobs = async () => {
       try {
+        if (!userData || !jobData) {
+          return;
+        }
         const resolveduserData = await userData;
         const resolvedJobData = await jobData;
 
-        const jobIds = resolveduserData.appliedJobList.map(
-          (appliedJob) => appliedJob.jobId
-        );
-        const shortListedStatus = resolveduserData.appliedJobList.map(
-          (appliedJob) => appliedJob.shortListedStatus
-        );
+        if (
+          Array.isArray(resolveduserData.appliedJobList) &&
+          resolveduserData.appliedJobList.length > 0
+        ) {
+          const jobIds = resolveduserData.appliedJobList.map(
+            (appliedJob) => appliedJob.jobId
+          );
+          const shortListedStatus = resolveduserData.appliedJobList.map(
+            (appliedJob) => appliedJob.shortListedStatus
+          );
 
-        if (jobIds.length > 0) {
           const filteredJobs = resolvedJobData.filter((job) =>
             jobIds.includes(job._id)
           );
+
           const newJobDetails = filteredJobs.map((job) => {
             const index = jobIds.indexOf(job._id);
             return {
@@ -39,14 +45,12 @@ const SeekerJobDetails = ({ userData, jobData }) => {
               shortListedStatus: shortListedStatus[index].toString(),
             };
           });
-
           setJobDetails(newJobDetails);
         }
       } catch (error) {
-        console.error("Error fetching seeker jobs:", error);
+        console.error("Error fetching Seeker's Job Details", error);
       }
     };
-
     fetchSeekerJobs();
   }, [userData, jobData]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import "./Dashboard.css";
 import RenderUsersInCards from "../components/DashboardComponent/RefferedJobCard/RenderUsersInCards";
 import Sidemenu from "../components/DashboardComponent/sidemenu/Sidemenu";
@@ -14,6 +14,8 @@ import fetchEmployee from "../components/DashboardComponent/RefferedJobCard/Fetc
 import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob";
 
 function Dashboard() {
+  const [dataReady, setDataReady] = useState(false);
+  const [userData, setUserData] = useState(false);
   const isLoggedIn =
     Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
   const userType = Cookies.get("userType");
@@ -21,16 +23,25 @@ function Dashboard() {
   const isEmployee = userType === "employee";
   const location = useLocation();
   const jobId = location.state?.jobId;
-  let userData;
-  if(userType === "employee")
-  {
-    userData = fetchEmployee();
-  }
-  else
-  {
-    userData = fetchSeeker();
-
-  }
+  useEffect(() => {
+    if (userType === "employee") {
+      fetchEmployee().then((userDataResponse) => {
+        setUserData(userDataResponse);
+        setDataReady(true);
+      }).catch((error) => {
+        console.error("Error fetching employee data:", error);
+        setDataReady(true);
+      });
+    } else {
+      fetchSeeker().then((userDataResponse) => {
+        setUserData(userDataResponse); // Set userData when data is fetched
+        setDataReady(true); // Set dataReady to true when data is fetched
+      }).catch((error) => {
+        console.error("Error fetching seeker data:", error);
+        setDataReady(true);
+      });
+    }
+  }, [userType]);
   let jobData = fetchJobs();
   if (!isLoggedIn) {
     return <Navigate to="/" />;
@@ -48,7 +59,7 @@ function Dashboard() {
         <div className="topMenu">
           <TopHeading />
         </div>
-        {isSeeker && (
+        {isSeeker && dataReady && (
           <div className="ResumeSec">
             <p style={{ display: "inline-flex", marginBottom: "10px" }}>
               Upload your Resume (Optional)
