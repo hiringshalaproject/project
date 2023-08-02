@@ -10,6 +10,7 @@ import { setUserCookies, getCookies, setCookies } from "./Cookies";
 import Cookies from "js-cookie";
 import Footer from "./Footer/Footer";
 import { MDBContainer, MDBCol, MDBRow } from "mdb-react-ui-kit";
+import * as Constants from "../constants/String"
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -52,7 +53,7 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
         if (userId && userName && userType) {
           toast.success("Logged In");
           navigate("/dashboard", { state: { jobId: jobid } } );
-          Cookies.set("token", res.data.token);
+          Cookies.set(Constants.token, res.data.token);
         } else {
           toast.error("Unable to Log In");
         }

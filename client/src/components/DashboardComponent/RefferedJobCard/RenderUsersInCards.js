@@ -4,6 +4,7 @@ import SearchJob from "../../assets/job-search.png";
 import Cookies from "js-cookie";
 import BootstrapCard from "./BootstrapCards";
 import RoundButton from "../sidemenu/RoundButton";
+import * as Constants from "../../../constants/String"
 
 const filterData = (responseData, jobData) => {
   const jobIds = responseData?.appliedJobList
@@ -17,7 +18,7 @@ const filterData = (responseData, jobData) => {
 const RenderUsersInCards = ({ userData, jobData }) => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const userType = Cookies.get("userType");
+  const userType = Cookies.get(Constants.userType);
 
   useEffect(() => {
     const fetchData = async () => {

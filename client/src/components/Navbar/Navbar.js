@@ -5,8 +5,9 @@ import Logo_light from "../assets/Logo_light.png";
 import Cookies from "js-cookie";
 import { FaMoon } from "react-icons/fa";
 import { BiSun } from "react-icons/bi";
+import * as Constants from "../../constants/String"
 
-const NavbarCmp = () => {
+function NavbarCmp() {
   const [expanded, setExpanded] = useState(false);
 
   const handleToggle = () => {
@@ -17,9 +18,9 @@ const NavbarCmp = () => {
     if (expanded) {
       setExpanded(false);
     }
-  };  
+  };
 
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get(Constants.userId);
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const [isDark, setDark] = useState(
@@ -63,16 +64,14 @@ const NavbarCmp = () => {
             className="brand-logo"
           >
             <img
-              src= {Logo_light}
+              src={Logo_light}
               alt="Expand"
               width="140"
-              height="70"
-            />
+              height="70" />
           </Nav.Link>
           <Navbar.Toggle
             aria-controls="responsive-navbar-nav"
-            style={{ color: isDark ? "white" : "black" , backgroundColor: isDark ? "white" : "transparent"}}
-          />
+            style={{ color: isDark ? "white" : "black", backgroundColor: isDark ? "white" : "transparent" }} />
           <Navbar.Collapse id="responsive-navbar-nav" onSelect={handleSelect}>
             <Nav className="ml-auto">
             <div className="nav-links-container mt-2 -mb-4">
