@@ -4,8 +4,9 @@ import { MDBTable, MDBTableHead, MDBTableBody } from "mdb-react-ui-kit";
 import Cookies from "js-cookie";
 import swal from "sweetalert";
 import axios from "axios";
+import * as Constants from "../constants/String"
 
-const token = Cookies.get("token");
+const token = Cookies.get(Constants.token);
   const headers = {
     authorization: `Bearer ${token}`,
   };

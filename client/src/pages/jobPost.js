@@ -7,6 +7,7 @@ import "../pages/index.css"
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import Cookies from "js-cookie";
+import * as Constants from "../constants/String";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -128,12 +129,12 @@ const JobPost = () => {
 
     const handlePostJob = () => {
         setIsLoading(true);
-        const companyName = Cookies.get("companyName")
+        const companyName = Cookies.get(Constants.companyName)
         if (!companyName) {
             toast("Please Login!");
         }
-        const userId = Cookies.get("userId");
-        const token = Cookies.get("token");
+        const userId = Cookies.get(Constants.userId);
+        const token = Cookies.get(Constants.token);
         const headers = {
             authorization: `Bearer ${token}`,
         };

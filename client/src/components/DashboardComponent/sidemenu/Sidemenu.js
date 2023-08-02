@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./sidemenu.css";
 import { removeCookies } from "../../Cookies";
 import Cookies from "js-cookie";
-
+import * as Constants from "../../../constants/String"
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaMoon } from "react-icons/fa";
 import { BiSun } from "react-icons/bi";
@@ -30,8 +30,8 @@ const Sidemenu = () => {
     }
   };
 
-  const userId = Cookies.get("userId");
-  const userType = Cookies.get("userType");
+  const userId = Cookies.get(Constants.userId);
+  const userType = Cookies.get(Constants.userType);
   const isLoggedIn = userId !== undefined && userId !== "";
 
   const [isDark, setDark] = useState(

@@ -16,7 +16,7 @@ import fetchJobs from "../components/DashboardComponent/FeaturedJobCard/FetchJob
 import CompanyNameInput from "./CompanyName";
 import CompanyOrCollegeNameInput from "./CompanyOrCollegeName";
 import { toast } from "react-hot-toast";
-
+import * as Constants from "../constants/String"
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function Dashboard() {
@@ -26,9 +26,9 @@ function Dashboard() {
   const [jobData, setJobData] = useState(false);
   const [isEmployeesCompanyNamePresent, setIsEmployeesCompanyNamePresent] = useState(true);
   const [isSeekersCompanyOrCollegeNamePresent, setIsSeekersCompanyOrCollegeNamePresent] = useState(true);
-  const userId = Cookies.get("userId");
+    const userId = Cookies.get(Constants.userId);
   const isLoggedIn = userId !== undefined && userId !== "";
-  const userType = Cookies.get("userType");
+  const userType = Cookies.get(Constants.userType);
   const isSeeker = userType === "seeker";
   const isEmployee = userType === "employee";
   const location = useLocation();

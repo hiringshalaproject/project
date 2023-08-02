@@ -9,13 +9,14 @@ import {
 import "../DashboardComponent/SeekerJob.css";
 import RoundButton from "./sidemenu/RoundButton";
 import Cookies from "js-cookie";
+import * as Constants from "../../constants/String";
 
 const EmployeeJobDetails = ({userData,jobData}) => {
   const [jobDetails, setJobDetails] = useState([]);
   const [sortColumn, setSortColumn] = useState(null);
   const [sortDirection, setSortDirection] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const userId = Cookies.get("userId");
+  const userId = Cookies.get(Constants.userId);
 
   useEffect(() => {
     const fetchEmployee = async () => {
