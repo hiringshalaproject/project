@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "../Footer/Footer";
 import axios from 'axios';
@@ -23,12 +23,18 @@ const JobDescription = () => {
   const isLoggedIn = seekerId !== undefined && seekerId !== "";
   const navigate = useNavigate();
   const [applyJobLoading, setapplyJobLoading] = useState(false);
-
   const [applicationStatus, setApplicationStatus] = useState(null);
-  useEffect(() => {
-    getApplicationStatus();
-  }, []);
-  const getApplicationStatus = () => {
+  const [companyDetails, setCompanyDetails] = useState(null);
+
+  const fetchCompanyDetails = useCallback(() => {
+    let jobDescription = cachedJobList?.find(job => job._id === jobid);
+    if (jobDescription === undefined) {
+      toast.error('Error Fetching Job Description');
+    }
+    setCompanyDetails(jobDescription);
+  }, [jobid]);
+
+  const getApplicationStatus = useCallback(() => {
     if (userType === "employee") {
       setApplicationStatus(false);
     }
@@ -38,7 +44,12 @@ const JobDescription = () => {
       const foundSeeker = cachedUserDetails.appliedJobList.find(job => job.jobId === jobid);
       setApplicationStatus(foundSeeker);
     }
-  }
+  }, [userType, jobid]);
+
+  useEffect(() => {
+    fetchCompanyDetails();
+    getApplicationStatus();
+  }, [fetchCompanyDetails, getApplicationStatus]);
 
   const applyJobFlow = () => {
     const userId = Cookies.get("userId");
@@ -87,7 +98,7 @@ const JobDescription = () => {
 
   const applyForReferalFlow = () => {
     if (userType === "employee") {
-      return toast.error("Login as Seeker to Apply");
+      return toast.error("Login as a Job Seeker to Apply");
     }
     if (isLoggedIn) {
       const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
@@ -101,22 +112,6 @@ const JobDescription = () => {
     else {
       navigate("/seeker/login", { state: { jobId: jobid } });
     }
-  };
-
-
-  const [companyDetails, setCompanyDetails] = useState(null);
-  useEffect(() => {
-    fetchCompanyDetails();
-  }, [cachedJobList]);
-
-  // 64985560673062b875c9a7b7
-
-  const fetchCompanyDetails = () => {
-    let jobDescription = cachedJobList.find(job => job._id === jobid);
-    if (jobDescription === undefined) {
-      toast.error('Error Fetching Job Description');
-    }
-    setCompanyDetails(jobDescription);
   };
 
   if (!companyDetails) {
@@ -248,7 +243,7 @@ const JobDescription = () => {
    </div>
    <span className="flex justify-center mb-10">
       <button className="apply-button" disabled={applicationStatus || applyJobLoading} onClick={event=>applyForReferalFlow()}>
-        {!applicationStatus ? applyJobLoading ? "Applying..." : "Apply For Referral" : "Applied!" }
+        {!applicationStatus ? applyJobLoading ? "Applying..." : "Apply For Referral" : "Already Applied!" }
       </button>
     </span>
   <Footer />
