@@ -1,6 +1,6 @@
 import React, { useState,useEffect,useRef} from "react";
 
-function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedItems,clearSearchItems,dropdownNum}) {
+function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedItems,clearSearchItems,clearSearchValue,setIsSearchPerformed,dropdownNum}) {
   const [dropdown0, setDropdown0] = useState(false);
   const [dropdown1, setDropdown1] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
@@ -31,6 +31,8 @@ function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedIte
     if(filterName==="All"){
       clearCheckedItems();
       clearSearchItems();
+      clearSearchValue();
+      setIsSearchPerformed(false);
     }
     const setFunc=setDropdownList[dropdownNum];
     setFunc(!dropdownList[dropdownNum]);
@@ -44,7 +46,7 @@ function JobFilter({ filterName, filterValue, handleFilterChange,clearCheckedIte
       <div className="form-check">
         <input
           className="form-check-input"
-          type="radio"
+          type="checkbox"
           id="flexCheckDefault"
           value={jobType}
           onChange={handleFilterChange}

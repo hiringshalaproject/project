@@ -53,7 +53,7 @@ function App() {
         <Route path="/edit" element={<EditJob />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact-us" element={<Contact />} />
-        <Route path="/internships" element={<Contact />} />
+        <Route path="/internship" element={<JobList type="Internship" />} />
         <Route path="/jobPost" element={<JobPost />} />
         <Route path="/description" element={<Description />} />
         <Route path="/seeker/login/forgotPassword" element={<ForgotPassword userType={"seeker"}/>} />
@@ -68,7 +68,7 @@ function App() {
           element={<Signup userType={"employee"} />}
         />
         <Route path="/seeker/signup" element={<Signup userType={"seeker"} />} />
-        <Route path="/joblist" element={<JobList />} />
+        <Route path="/joblist" element={<JobList type="Job"/>} />
       </Routes>
     </div>
   );
