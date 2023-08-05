@@ -104,7 +104,7 @@ const NavbarCmp = () => {
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
+                  <Nav.Link as={Link} to="/internship" onClick={handleSelect}>
                     Internships
                   </Nav.Link>
                 </li>

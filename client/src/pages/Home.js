@@ -9,7 +9,6 @@ import ApplyImg from "../components/assets/apply-for-referral.png";
 import ContactImg from "../components/assets/contact-us.png";
 import SearchJob from "../components/assets/job-search.png";
 
-
 const Home = () => {
   const navigate = useNavigate();
 
@@ -19,7 +18,8 @@ const Home = () => {
 
   const renderCard = (cardTitle, buttonValue, ImgSrc) => {
     return (
-      <div className="card h-100" onClick={handleClick}>
+      
+      <div className="card" onClick={handleClick}>
         <img src={ImgSrc} alt="img" />
         <div className="card-body card-content">
           <h3 className="card-title">{cardTitle}</h3>

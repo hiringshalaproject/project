@@ -7,7 +7,15 @@ import { GoLocation } from "react-icons/go";
 import { MdWork } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
-function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal}) {
+function JobDetails({
+  job,
+  filterValue,
+  searchItems,
+  handleClose,
+  isSearchPerformed,
+  found
+}) {
+
   const navigate = useNavigate();
 
   const routeChange = (id) => {
@@ -23,7 +31,9 @@ function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal
             filterValue.includes(currJob.jobTitle)
         )
       : job;
-
+  
+  
+  
   if (searchItems.length !== 0) filteredJobs = searchItems;
 
   const renderCard = (
@@ -90,7 +100,6 @@ function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal
                   </span>
                 </div>
               </div>
-              
             </div>
             <hr className="hr" />
             <div className="lower-card-content">
@@ -98,8 +107,7 @@ function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal
                 type="button"
                 className="ctc-button btn btn-lg btn-dark rounded-pill float-left"
               >
-                
-                {isExpired?"Expired":"Active"}
+                {isExpired ? "Expired" : "Active"}
               </button>
               <button
                 type="button"
@@ -118,18 +126,17 @@ function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal
   return (
     <>
       <div className="value-div-outer">
-        {filterValue.map((val,ind) => (
-         
+        {filterValue.map((val, ind) => (
           <div className="value-div-inner" key={ind}>
             <span className="border border-black rounded-pill pill selected-filter">
-              {val}<AiOutlineClose
+              {val}
+              <AiOutlineClose
                 fontSize={20}
                 className="icon"
                 onClick={() => handleClose(val)}
               />
             </span>
           </div>
-    
         ))}
       </div>
       <h3 className="job-count">
@@ -137,38 +144,36 @@ function JobDetails({ job, filterValue, searchItems, handleClose,found,searchVal
           Recommended Jobs
           <div className="job-length">
             <span className="border border-black rounded-pill pill">
-              {filteredJobs.length}
+              {isSearchPerformed?searchItems.length:filteredJobs.length}
             </span>
           </div>
         </b>
       </h3>
-      {/* {(filteredJobs.length === 0) && (
+     
+
+      {filteredJobs.length === 0 || (isSearchPerformed && !found) ? (
         <div className="no-data-div">
+        
           <img src={NoDataImg} className="no-data-Img" alt="" />
         </div>
-      )} */}
-
-      {(filteredJobs.length === 0)?<div className="no-data-div">
-          <img src={NoDataImg} className="no-data-Img" alt="" />
-        </div>:<div className="row">
-        {filteredJobs.map((currJob, ind) => (
-          <div className="col-12 col-sm-6 col-md-4" key={ind}>
-            {/* col-6 col-sm-6 */}
-            {renderCard(
-              currJob._id,
-              currJob.companyName,
-              currJob.jobTitle,
-              currJob.jobType,
-              currJob.jobLocation,
-              currJob.expectedPackage,
-              currJob.isExipred,
-              routeChange
-            )}
-          </div>
-        ))}
-      </div>}
-
-      
+      ) : (
+        <div className="row">
+          {filteredJobs.map((currJob, ind) => (
+            <div className="col-12 col-sm-6 col-md-4" key={ind}>
+              {renderCard(
+                currJob._id,
+                currJob.companyName,
+                currJob.jobTitle,
+                currJob.jobType,
+                currJob.jobLocation,
+                currJob.expectedPackage,
+                currJob.isExipred,
+                routeChange
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }
