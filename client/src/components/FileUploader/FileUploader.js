@@ -1,9 +1,10 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
 import "./FileUploader.css";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
+import * as Constants from "../../constants/String";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
@@ -57,9 +58,9 @@ function FileUploader() {
   };
 
   const handleUpload = () => {
-    const seekerId = Cookies.get("userId");
+    const seekerId = Cookies.get(Constants.userId);
     const formData = new FormData();
-    const token = Cookies.get("token");
+    const token = Cookies.get(Constants.token);
     formData.append("file", selectedFile);
     formData.append("seekerId", seekerId);
 
@@ -99,10 +100,6 @@ function FileUploader() {
       });
   };
 
-  const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-
   const handleDrop = (event) => {
     event.preventDefault();
     setSelectedFile(event.dataTransfer.files[0]);
@@ -112,26 +109,36 @@ function FileUploader() {
     <div className="file-uploader">
       {resumeUrl ? (
         <div>
-          {/* <p>{getFileNameFromUrl(resumeUrl)}</p> */}
-          <div
-            className="drop-zone"
-            onDragOver={handleDragOver}
-            onDrop={handleDrop}
-          >
+          <div onDrop={handleDrop}>
             <label htmlFor="fileInput" className="choose-file-text">
               <strong>
                 {selectedFile
                   ? selectedFile.name
                   : getFileNameFromUrl(resumeUrl)}
               </strong>
-              <br></br>
-              <button onClick={() => document.getElementById("fileInput").click()}>Update Resume</button>
+              <a
+                href="#"
+                onClick={() => document.getElementById("fileInput").click()}
+              ></a>
             </label>
             <input
               type="file"
               id="fileInput"
               onChange={handleFileChange}
-              style={{ display: "none" }}
+              className=" 
+          file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
+          file:px-6 file:py-2 file:m-3
+          file:border-none
+          file:rounded-full
+          file:text-white
+          file:cursor-pointer
+          file:shadow-md file:shadow-blue-600/50
+
+          bg-gradient-to-br from-gray-200 to-gray-300
+          text-black/80 
+          rounded-full
+          cursor-pointer
+          "
             />
             <br></br>
             {selectedFile && (
@@ -168,23 +175,31 @@ function FileUploader() {
           </div>
         </div>
       ) : (
-        <div
-          className="drop-zone"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-        >
+        <div onDrop={handleDrop}>
           <label htmlFor="fileInput" className="choose-file-text">
-            <strong>
-              {selectedFile ? selectedFile.name : "Drag and Drop"}
-            </strong>
-            <span> or </span>
-            <button onClick={() => document.getElementById("fileInput").click()}>Browse</button>
+            <a
+              href="#"
+              onClick={() => document.getElementById("fileInput").click()}
+            ></a>
           </label>
           <input
             type="file"
             id="fileInput"
             onChange={handleFileChange}
-            style={{ display: "none" }}
+            className=" 
+       file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
+       file:px-6 file:py-2 file:m-3
+       file:border-none
+       file:rounded-full
+       file:text-white
+       file:cursor-pointer
+       file:shadow-md file:shadow-blue-600/50
+
+       bg-gradient-to-br from-gray-200 to-gray-300
+       text-black/80 
+       rounded-full
+       cursor-pointer
+       "
           />
           {selectedFile && (
             <RoundButton

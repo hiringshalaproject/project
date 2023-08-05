@@ -3,10 +3,11 @@ import Template from "../components/Template";
 import SignupImg from "../components/assets/Signup.png";
 import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
+import * as Constants from "../constants/String"
 
 const Signup = (props) => {
   const isLoggedIn =
-    Cookies.get("userId") !== undefined && Cookies.get("userId") !== "";
+    Cookies.get(Constants.userId) !== undefined && Cookies.get(Constants.userId) !== "";
 
   if (isLoggedIn) {
     return <Navigate to="/dashboard" />;

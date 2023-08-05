@@ -6,6 +6,7 @@ import axios from "axios";
 import { setUserCookies, setCookies } from "./Cookies";
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
+import FileUploader from "../components/FileUploader/FileUploader";
 import * as Constants from "../constants/String"
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
@@ -121,7 +122,7 @@ const SignupForm = ({ userType }) => {
             response.data.employee._id
           );
         }
-        Cookies.set("token", response.data.token);
+        Cookies.set(Constants.token, response.data.token);
         if (userType === "employee") {
           setCookies("companyName", formData.companyName);
         }
@@ -325,28 +326,8 @@ const SignupForm = ({ userType }) => {
             }
           </label>
         </div>
-        <div className="mt-3">
-        <input
-       type="file"
-       className=" 
-       file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
-       file:px-6 file:py-2 file:m-3
-       file:border-none
-       file:rounded-full
-       file:text-white
-       file:cursor-pointer
-       file:shadow-md file:shadow-blue-600/50
-
-       bg-gradient-to-br from-gray-200 to-gray-300
-       text-black/80 
-       rounded-full
-       cursor-pointer
-       shadow-md shadow-gray-700/60
-       "
-       />
-       </div>
         <button
-          className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600 shadow-md shadow-gray-700/60 ${
+          className={`w-52 h-[40px] rounded-[8px] font-medium text-white mt-6 bg-teal-600  ${
             isOtpVerified ? "cursor-pointer" : "cursor-not-allowed"
           }`}
           disabled={!isOtpVerified}

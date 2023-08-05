@@ -3,9 +3,9 @@ import "./heading.css";
 import { MdNotificationAdd } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import Cookies from "js-cookie";
-
+import * as Constants from "../../../constants/String"
 function Heading() {
-  const pictureLink = Cookies.get("picture");
+  const pictureLink = Cookies.get(Constants.picture);
 
   return (
     <div className="top">
@@ -23,7 +23,7 @@ function Heading() {
             <CgProfile className="default-profile-icon" />
           )}
         </div>
-        <h4>{Cookies.get("userName")}</h4>
+        <h4>{Cookies.get(Constants.userName)}</h4>
       </div>
     </div>
   );

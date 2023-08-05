@@ -4,28 +4,31 @@ import SearchJob from "../../assets/job-search.png";
 import Cookies from "js-cookie";
 import BootstrapCard from "./BootstrapCards";
 import RoundButton from "../sidemenu/RoundButton";
+import * as Constants from "../../../constants/String"
 
 const filterData = (responseData, jobData) => {
-  const jobIds = responseData.appliedJobList
-    .filter((appliedJob) => appliedJob.referralStatus === true)
+  const jobIds = responseData?.appliedJobList
+    ?.filter((appliedJob) => appliedJob.referralStatus === true)
     .map((appliedJob) => appliedJob.jobId);
 
-  const filteredJobs = jobData.filter((job) => jobIds.includes(job._id));
+  const filteredJobs = jobData?.filter((job) => jobIds?.includes(job._id)) || [];
   return filteredJobs;
 };
 
 const RenderUsersInCards = ({ userData, jobData }) => {
   const [users, setUsers] = useState([]);
   const [showAll, setShowAll] = useState(false);
-  const userType = Cookies.get("userType");
+  const userType = Cookies.get(Constants.userType);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resolvedJobData = await jobData;
-        const resolveduserData = await userData;
-        let filteredData = filterData(resolveduserData, resolvedJobData);
-        setUsers(filteredData);
+        if (userData !== undefined && jobData !== undefined) {
+          const resolvedJobData = await jobData;
+          const resolvedUserData = await userData;
+          let filteredData = filterData(resolvedUserData, resolvedJobData);
+          setUsers(filteredData);
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
