@@ -55,10 +55,10 @@
   color: white;
 }
 
-.card-button:hover {
+/* .card-button:hover {
   background-color: #47A992;
   color: white;
-}
+}  */
 
 */ .card-content {
   text-align: center;
@@ -79,24 +79,27 @@
 /* .card-button{
   transition: all 0.3s;
 } */
-.card {
-  /* transition: all 0.3s; */
+.card{
   width: 20rem !important;
+}
+/* .card{
+  transition: all 0.3s;
+  
   border-top-color: #47A992 !important;
   border-left-color: var(--card-border) !important;
   border-right-color: var(--card-border) !important;
   border-bottom-color: var(--card-border) !important;
   background-color: var(--card-bg);
-}
+} */
 
-input:-webkit-autofill,
+/* input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
 
 input[data-autocompleted] {
   background-color: transparent !important;
-}
+} */
 
 /* Hover styles for non-mobile devices */
 /* @media (hover: hover) {

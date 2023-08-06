@@ -4,19 +4,19 @@ import "./jobList.css";
 import JobDetails from "../components/Jobs/JobDetails";
 import JobFilter from "../components/Jobs/JobFilter";
 import { toast } from "react-hot-toast";
-const JobList = () => {
+const JobList = ({ type }) => {
   const [job, setJob] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [searchVal, setSearchVal] = useState("");
   const [filteredJobs, setFilteredJobs] = useState([]);
-  const [found,setFound]=useState(false);
+  const [found, setFound] = useState(false);
+  const [isSearchPerformed, setIsSearchPerformed] = useState(false);
   const handleFilterChange = (event) => {
     const { value, checked } = event.target;
 
     if (checked) {
-      const ind=checkedItems.indexOf(value);
-      if(ind===-1)
-        setCheckedItems([...checkedItems, value]);
+      const ind = checkedItems.indexOf(value);
+      if (ind === -1) setCheckedItems([...checkedItems, value]);
     } else {
       const updatedItems = checkedItems.filter((item) => item !== value);
       setCheckedItems(updatedItems);
@@ -28,8 +28,8 @@ const JobList = () => {
   };
 
   const handleSearch = () => {
-    if(searchVal!==""){
-      const items=job.filter(
+    if (searchVal !== "") {
+      const items = job.filter(
         (currJob) =>
           currJob.jobType?.toString()?.toLowerCase() ===
             searchVal.toLowerCase() ||
@@ -40,11 +40,10 @@ const JobList = () => {
           currJob.jobLocation?.toString()?.toLowerCase() ===
             searchVal.toLowerCase()
       );
-      items.length===0?setFound(false):setFound(true);
+      items.length === 0 ? setFound(false) : setFound(true);
       setFilteredJobs(items);
+      setIsSearchPerformed(true);
     }
-  
-    setSearchVal("");
   };
 
   const handleClose = (value) => {
@@ -56,6 +55,10 @@ const JobList = () => {
     setFilteredJobs([]);
   };
 
+  const clearSearchValue = () => {
+    setSearchVal("");
+  };
+
   const clearCheckedItems = () => {
     setCheckedItems([]);
   };
@@ -65,10 +68,10 @@ const JobList = () => {
     const GetAllJobs = async () => {
       const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
       var updatedJobList = JSON.parse(stringifiedJobList);
-      if (stringifiedJobList === null)
-        { await axios.post(`${apiUrl}/api/v1/jobs/`)
+      if (stringifiedJobList === null) {
+        await axios
+          .post(`${apiUrl}/api/v1/jobs/`)
           .then((response) => {
-            setJob(response.data);
             updatedJobList = response.data;
             const updatedJobListString = JSON.stringify(response.data);
             sessionStorage.setItem("hiringShala_jobList", updatedJobListString);
@@ -83,13 +86,17 @@ const JobList = () => {
             }
           });
       } else setJob(updatedJobList);
+      type === "Internship"
+        ? setJob(updatedJobList.filter((currJob) => currJob.jobType === type))
+        : setJob(updatedJobList);
+      console.log(updatedJobList.filter((currJob) => currJob.jobType === type));
     };
     GetAllJobs();
-  }, []);
+  }, [type]);
+
+  
 
   const jobTypeList = [
-    "Full-time",
-    "Internship",
     "Remote",
     "Hybrid",
     "Part Time",
@@ -131,6 +138,8 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            clearSearchValue={clearSearchValue}
+            setIsSearchPerformed={setIsSearchPerformed}
             dropdownNum={0}
           />
           <JobFilter
@@ -139,6 +148,8 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            clearSearchValue={clearSearchValue}
+            setIsSearchPerformed={setIsSearchPerformed}
             dropdownNum={1}
           />
           <JobFilter
@@ -147,6 +158,8 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            clearSearchValue={clearSearchValue}
+            setIsSearchPerformed={setIsSearchPerformed}
             dropdownNum={2}
           />
           <JobFilter
@@ -155,6 +168,8 @@ const JobList = () => {
             handleFilterChange={handleFilterChange}
             clearCheckedItems={clearCheckedItems}
             clearSearchItems={clearSearchItems}
+            clearSearchValue={clearSearchValue}
+            setIsSearchPerformed={setIsSearchPerformed}
             dropdownNum={3}
           />
         </div>
@@ -164,8 +179,8 @@ const JobList = () => {
         filterValue={checkedItems}
         searchItems={filteredJobs}
         handleClose={handleClose}
+        isSearchPerformed={isSearchPerformed}
         found={found}
-        searchVal={searchVal}
       />
     </>
   );
