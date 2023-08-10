@@ -40,6 +40,11 @@ const CompanyOrCollegeNameInput = ({ onSubmit }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                handleSubmit();
+              }
+            }}
             placeholder="College Name"
             className="textInput"
           />
@@ -51,6 +56,11 @@ const CompanyOrCollegeNameInput = ({ onSubmit }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                handleSubmit();
+              }
+            }}
             placeholder="Company Name"
             className="textInput"
           />
