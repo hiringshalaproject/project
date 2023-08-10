@@ -37,6 +37,10 @@ const RenderUsersInCards = ({ userData, jobData }) => {
     fetchData();
   }, [userData, jobData]);
 
+  if (users === null) {
+    return <div>Loading...</div>;
+  }
+
   const dataArray = showAll ? users : users.slice(0, 3);
 
   // Text variables based on user type

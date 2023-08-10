@@ -11,12 +11,17 @@ const RenderJobsInCards = ({jobData}) => {
 
   useEffect(() => {
     const updateUsers = async () => {
-      let myData = await jobData;
-
-      setUsers(myData);
+      if (jobData) {
+        setUsers(jobData);
+      }
     };
     updateUsers();
   }, [jobData]);
+  
+  if (users === null) {
+    return <div>Loading Jobs...</div>;
+  }
+
   const displayedUsers = showAll ? users : users.slice(0, 3);
 
   return (
