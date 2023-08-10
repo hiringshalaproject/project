@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 import * as Constants from "../../constants/String"
+import FileUploader from "../../components/FileUploader/FileUploader";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const stringifiedJobList = sessionStorage.getItem("hiringShala_jobList");
@@ -22,6 +23,7 @@ const JobDescription = () => {
   const [applyJobLoading, setapplyJobLoading] = useState(false);
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [companyDetails, setCompanyDetails] = useState(null);
+  const [uploadResumeView, showUploadResumeView] = useState(false);
 
   const fetchCompanyDetails = useCallback(() => {
     let jobDescription = cachedJobList?.find(job => job._id === jobid);
@@ -37,9 +39,11 @@ const JobDescription = () => {
     }
     else {
       const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
-      const cachedUserDetails = JSON.parse(stringifiedUserData);
-      const foundSeeker = cachedUserDetails.appliedJobList.find(job => job.jobId === jobid);
-      setApplicationStatus(foundSeeker);
+      if (stringifiedUserData != null) {
+        const cachedUserDetails = JSON.parse(stringifiedUserData);
+        const foundSeeker = cachedUserDetails.appliedJobList.find(job => job.jobId === jobid);
+        setApplicationStatus(foundSeeker);
+      }
     }
   }, [userType, jobid]);
 
@@ -47,6 +51,13 @@ const JobDescription = () => {
     fetchCompanyDetails();
     getApplicationStatus();
   }, [fetchCompanyDetails, getApplicationStatus]);
+
+  const uploadResumeCallBack = (error) => {
+    showUploadResumeView(error);
+    if (!error) {
+      toast.success("Resume uploaded successfully.");
+    }
+  }
 
   const applyJobFlow = () => {
     const userId = Cookies.get(Constants.userId);
@@ -101,7 +112,8 @@ const JobDescription = () => {
       const stringifiedUserData = sessionStorage.getItem("hiringShala_user");
       const userDetails = JSON.parse(stringifiedUserData);
       if (userDetails.resumeUrl === "" || userDetails.resumeUrl === undefined) {
-        return toast.error("Upload resume on dashboard");
+        showUploadResumeView(true);
+        return;
       }
       setapplyJobLoading(true);
       applyJobFlow();
@@ -135,6 +147,19 @@ const JobDescription = () => {
 
   return (
     <>
+      {uploadResumeView && (
+          <div className="resumeOverlay">
+            <div className="ResumeSec">
+            <p>
+              Upload your Resume to Apply
+            </p>
+            <div className="uploadResume">
+              <FileUploader callback={uploadResumeCallBack}/>
+              <p>Resume can be in pdf, doc, docs format. File size up to 5Mb</p>
+            </div>
+          </div>
+        </div>)
+      }
    <div className="lg:m-20 xl:m-20 max-sm:mx-3 max-sm:mt-16 max-sm:mb-10 bg-white shadow-lg  shadow-slate-950 ">
     <h6 className="italic lg:text-xs xl:text-xs text-[8px] text-center text-teal-600 mt-2 mr-2 ">Grab your dream job on Hiring Shala at...</h6>
       <div className=" h-full w-full">
@@ -261,14 +286,15 @@ const JobDescription = () => {
    )}
 
       <span className="flex justify-center mb-10">
-      <button className="apply-button bg-indigo-600 shadow-md shadow-gray-700/60" onClick={event=>applyForReferalFlow()}>
-      {!applicationStatus ? applyJobLoading ? "Applying..." : "Apply For Referral" : "Already Applied!" }
+      <button className="apply-button bg-indigo-600 shadow-md shadow-gray-700/60" onClick={event=>applyForReferalFlow()} disabled = {applicationStatus}>
+      {!applicationStatus ? applyJobLoading ? "Applying..." : "Apply For Referral" : "Applied!" }
       </button>
     </span>
       </div> 
     </div>
    </div>
-  <Footer />                                  
+      <Footer />
+      <div/>
    </>
   );
 };
