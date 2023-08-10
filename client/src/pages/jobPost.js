@@ -24,54 +24,16 @@ const JobPost = () => {
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleInputChange = (e) => {
-        
-    }
-    const handleCheckboxChange = (e) => {
+    const handleInputChange = (e, setState) => {
         const checkboxValue = e.target.value;
-        setEmploymentType(checkboxValue);
+        setState(checkboxValue);
         checkFormCompletion();
-    };
-
-    const handleJobTypeChange = (e) => {
-        const checkboxValue = e.target.value;
-        setJobType(checkboxValue);
-        checkFormCompletion();
-    };
-
-    const handleJobTitleChange = (e) => {
-        setJobTitle(e.target.value);
-        checkFormCompletion();
-
-    };
-
-    const handleJobPositionChange = (e) => {
-        setJobPosition(e.target.value);
-        checkFormCompletion();
-    };
-
-    const handleJobDescriptionChange = (e) => {
-        setJobDescription(e.target.value);
-        checkFormCompletion();
-
-    };
-    const handleKeyQualificationChange = (e) => {
-        setKeyQualifications(e.target.value);
-        checkFormCompletion();
-
     }
-    const handleAmountChange = (e) => {
-        setAmount(e.target.value);
-        checkFormCompletion();
-    };
 
-    const handleOptionChange = (e) => {
-        setSelectedOption(e.target.value);
-        checkFormCompletion();
-    };
     const handleAdditionalRequirementChange = (e) => {
         setAdditionalRequirement(e.target.value);
     };
+    
     function validateForm() {
         // Get references to the checkboxes
         var checkbox1 = document.getElementById("checkbox1");
@@ -244,7 +206,7 @@ const JobPost = () => {
                             value={jobTitle}
                             required
                             placeholder="Enter job title e.g Business Analyst"
-                            onChange={handleJobTitleChange}
+                            onChange={(e) => handleInputChange(e, setJobTitle)}
                             className="form-control"
                         />
                     </div>
@@ -267,7 +229,7 @@ const JobPost = () => {
                             name="jobPosition"
                             value={jobPosition}
                             placeholder="Enter job ID e.g. 20003749"
-                            onChange={handleJobPositionChange}
+                            onChange={(e) => handleInputChange(e, setJobTitle)}
                             className="form-control"
                         />
                     </div>
@@ -289,7 +251,7 @@ const JobPost = () => {
                         value={jobDescription}
                         placeholder="Enter job description"
                         required
-                        onChange={handleJobDescriptionChange}
+                        onChange={(e) => handleInputChange(e, setJobDescription)}
                         className="form-control job-description-textarea"
                         rows={10}
                         style={{ resize: 'none' }}
@@ -314,7 +276,7 @@ const JobPost = () => {
                         value={keyQualifications}
                         placeholder="Enter qualifications"
                         required
-                        onChange={handleKeyQualificationChange}
+                        onChange={(e) => handleInputChange(e, setKeyQualifications)}
                         className="form-control textarea"
                         rows={10}
                         style={{ resize: 'none' }}
@@ -334,12 +296,12 @@ const JobPost = () => {
 
                 <div className="col-lg-7 employmentType">
                     <div className={`form-control empContentbox ${employmentType === 'Full-time' ? 'selected' : ''}`} onClick={() => setEmploymentType('Full-time')}>
-                        <input type="checkbox" id="checkbox1" value="Full-time" className="checkbox-input" checked={employmentType === "Full-time"} onChange={handleCheckboxChange} />
+                        <input type="checkbox" id="checkbox1" value="Full-time" className="checkbox-input" checked={employmentType === "Full-time"} onChange={(e) => handleInputChange(e, setEmploymentType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                     </div>
 
                     <div className={`form-control empContentbox ${employmentType === 'Internship' ? 'selected' : ''}`} onClick={() => setEmploymentType('Internship')}>
-                        <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={handleCheckboxChange} />
+                        <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={(e) => handleInputChange(e, setEmploymentType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                     </div>
                 </div>
@@ -356,16 +318,16 @@ const JobPost = () => {
 
                 <div className="col-lg-7 employmentType">
                     <div className={`form-control empContentbox ${jobType === 'Work From Office' ? 'selected' : ''}`} onClick={() => setJobType('Work From Office')}>
-                        <input type="checkbox" id="jobType1" value="Work From Office" className="checkbox-input" checked={jobType === "Work From Office"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType1" value="Work From Office" className="checkbox-input" checked={jobType === "Work From Office"} onChange={(e) => handleInputChange(e, setJobType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Work From Office</span>
                     </div>
 
                     <div className={`form-control empContentbox ${jobType === 'Remote' ? 'selected' : ''}`} onClick={() => setJobType('Remote')}>
-                        <input type="checkbox" id="jobType2" value="Remote" className="checkbox-input" checked={jobType === "Remote"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType2" value="Remote" className="checkbox-input" checked={jobType === "Remote"} onChange={(e) => handleInputChange(e, setJobType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Remote</span>
                     </div>
                     <div className={`form-control empContentbox ${jobType === 'Hybrid' ? 'selected' : ''}`} onClick={() => setJobType('Hybrid')}>
-                        <input type="checkbox" id="jobType3" value="Hybrid" className="checkbox-input" checked={jobType === "Hybrid"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType3" value="Hybrid" className="checkbox-input" checked={jobType === "Hybrid"} onChange={(e) => handleInputChange(e, setJobType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Hybrid</span>
                     </div>
                 </div>
@@ -385,7 +347,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox5" className="checkbox-container-SalType" style={{ width: "100%", }}>
                             <div className="form-control empContentbox" >
                                 <input type="checkbox" id="checkbox5" name="salaryType"
-                                    value="Monthly" className="checkbox-input" checked={selectedOption === "Monthly"} onChange={handleOptionChange} />
+                                    value="Monthly" className="checkbox-input" checked={selectedOption === "Monthly"} onChange={(e) => handleInputChange(e, setSelectedOption)} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Monthly</span>
                             </div>
                         </label>
@@ -395,7 +357,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox6" className="checkbox-container-SalType" style={{ width: "100%", }}>
                             <div className="form-control  empContentbox">
                                 <input type="checkbox" id="checkbox6" className="checkbox-input" name="salaryType"
-                                    value="Yearly" checked={selectedOption === "Yearly"} onChange={handleOptionChange} />
+                                    value="Yearly" checked={selectedOption === "Yearly"} onChange={(e) => handleInputChange(e, setSelectedOption)} />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Yearly</span>
                             </div>
                         </label>
@@ -420,7 +382,7 @@ const JobPost = () => {
                         <input
                             type="text"
                             value={amount}
-                            onChange={handleAmountChange}
+                            onChange={(e) => handleInputChange(e, setAmount)}
                             onKeyPress={handleAmountKeyPress}
                             placeholder="Enter amount"
                             className="form-control"
