@@ -106,6 +106,8 @@ const SignupForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, userData)
       .then((response) => {
+        const stringifiedUserDetails = JSON.stringify(userType === "seeker" ? response.data.seeker : response.data.employee);
+        sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
         if(userType === "seeker")
         {
           setUserCookies(

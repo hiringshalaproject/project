@@ -8,7 +8,7 @@ import * as Constants from "../../constants/String";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
-function FileUploader() {
+function FileUploader({ callback }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -74,6 +74,7 @@ function FileUploader() {
       .then((response) => {
         setLoading(false);
         setSuccess(true);
+        callback(false);
         axios
           .get(`${apiUrl}/api/v1/seekers/${seekerId}`, {
             headers: {
@@ -106,7 +107,7 @@ function FileUploader() {
   };
 
   return (
-    <div className="file-uploader">
+    <div className>
       {resumeUrl ? (
         <div>
           <div onDrop={handleDrop}>
