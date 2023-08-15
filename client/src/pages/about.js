@@ -8,11 +8,11 @@ const About = () => {
 
   return(
     <>
-   <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 lg:-mb-5 xl:-mb-5 -mb-12">
+   <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 lg:-mb-8 xl:-mb-5 -mb-12">
       <img
         src={aboutUs}
         alt=""
-        className="lg:mt-16 absolute inset-0 -z-10 h-full w-full  object-cover object-right  md:object-center "
+        className="lg:mt-10 absolute inset-0 -z-10 h-full w-full  object-cover object-right  md:object-center "
       />
       <div
         className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -40,8 +40,8 @@ const About = () => {
       </div>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl drop-shadow-lg shadow-gray-900/60">about us</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-800 drop-shadow-lg shadow-gray-700/60">
+          <h2 className="mt-4 text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl drop-shadow-lg shadow-gray-900/60">about us</h2>
+          <p className="mt-6 text-xl leading-8 text-gray-800 drop-shadow-lg shadow-gray-700/60 lg:pb-[72px]">
           We aspire to be the largest pool of career opportunities that match your skill set.Get linked up with outstanding people here to create a better future.
           </p>
         </div>
@@ -79,7 +79,7 @@ const About = () => {
            <p className="lg:m-2 m-4 lg:pl-16 text-xl text-gray-700 pb-16 text-justify">Elevate your journey with us as we redefine recruitment – where possibilities are sparked by connections, careers are sculpted by collaboration, and success is built on shared trust. Join our transformative mission, and let's pave the path to a brighter professional tomorrow, together.</p>
           </div>
           <div>
-            <img src={jobSearch} alt="" className="object-scale-down object-top w-full lg:-mb-[550px] -mb-28" />
+            <img src={jobSearch} alt="" className="object-scale-down object-top w-full lg:-mb-[750px] -mb-28" />
             </div>
           </div>
       </div>
@@ -116,7 +116,7 @@ const About = () => {
 </div>`
 
 
-<div className="bg-white py-10 sm:py-32 ">
+<div className="bg-white py-6 sm:py-32 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
        <h1 className="text-[#6E4C3E] text-center font-semibold ">Building a Better network of Opportunities</h1>
        <h6 className="text-gray-700 text-center pb-10">Building a Better Tomorrow</h6>
