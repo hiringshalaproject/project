@@ -2,15 +2,16 @@ const { Jobs, Seekers } = require("../models/schema");
 const jwt = require("jsonwebtoken");
 const jwt_decode = require("jwt-decode");
 
-const generateToken = (userId,role) => {
+const generateToken = (userId, role) => {
   const payload = {
     userId: userId,
-    role:role
+    role: role,
   };
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "720h" });
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: "720h",
+  });
   return token;
 };
-
 
 const getSeekers = async (req, res) => {
   try {
@@ -69,9 +70,6 @@ const getSeekerFromId = async (req, res) => {
   }
 };
 
-
-
-
 const createNewSeeker = async (req, res) => {
   try {
     const { seekerEmail } = req.body;
@@ -83,7 +81,7 @@ const createNewSeeker = async (req, res) => {
     }
     const seeker = await Seekers.create(req.body);
     //generate token for that seeker
-    const token = generateToken(seeker._id,'Seeker');
+    const token = generateToken(seeker._id, "Seeker");
     return res.status(200).json({ msg: "Signup successful", token, seeker });
   } catch (error) {
     res.status(500).json(error);
@@ -149,7 +147,9 @@ const updateSeekersJobStatus = async (req, res) => {
     let shortListedStatus = req.body.shortListedStatus;
     let referralStatus = req.body.referralStatus;
     if (shortListedStatus === null) {
-      return res.status(500).json({ error: "shortListedStatus is missing from body" });
+      return res
+        .status(500)
+        .json({ error: "shortListedStatus is missing from body" });
     }
     if (referralStatus === null) {
       referralStatus = false;
@@ -198,7 +198,13 @@ const applyForJob = async (req, res) => {
       { $push: { appliedJobList: newJob } },
       { new: true, runValidators: true }
     );
-    const newSeeker = { seekerId: seekerId };
+    const newSeeker = {
+      seekerId: seekerId,
+      seekerName: seeker.seekerName,
+      resumeUrl: seeker.resumeUrl,
+      collegeName: seeker.collegeName,
+      seekerCompanyName: seeker.seekerCompanyName,
+    };
     const job = await Jobs.findOneAndUpdate(
       { _id: jobId },
       { $push: { seekersRegistered: newSeeker } },
@@ -244,20 +250,17 @@ const handleGoogleLogin = async (req, res) => {
     picture = decodedToken.picture;
     name = decodedToken.name;
     const seeker = await Seekers.findOne({ seekerEmail: email });
-    if(!seeker)
-    {
+    if (!seeker) {
       req.body.seekerEmail = email;
       req.body.seekerName = name;
       return createNewSeeker(req, res);
     }
-    const token = generateToken(seeker._id,'Seeker');
+    const token = generateToken(seeker._id, "Seeker");
     res.status(200).json({ msg: "Login successful", token, seeker, picture });
   } catch (error) {
     res.status(500).json(error);
   }
-}
-
-
+};
 
 const loginSeeker = async (req, res) => {
   try {
@@ -265,7 +268,8 @@ const loginSeeker = async (req, res) => {
     if (isGoogleLogin) {
       await handleGoogleLogin(req, res);
     } else {
-      let email = req.body.email, password = req.body.password;
+      let email = req.body.email,
+        password = req.body.password;
       const seeker = await Seekers.findOne({ seekerEmail: email });
       if (!seeker) {
         return res.status(404).json({ msg: `No seeker with email ${email}` });
@@ -287,7 +291,6 @@ const loginSeeker = async (req, res) => {
   }
 };
 
-
 module.exports = {
   getSeekers,
   getSeekerFromId,
@@ -298,5 +301,5 @@ module.exports = {
   updateSeekersJobStatus,
   updateSeeker,
   deleteSeeker,
-  loginSeeker
+  loginSeeker,
 };

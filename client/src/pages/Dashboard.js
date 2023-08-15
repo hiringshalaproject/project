@@ -17,6 +17,7 @@ import CompanyNameInput from "./CompanyName";
 import CompanyOrCollegeNameInput from "./CompanyOrCollegeName";
 import { toast } from "react-hot-toast";
 import * as Constants from "../constants/String"
+
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 
 function Dashboard() {
@@ -35,7 +36,8 @@ function Dashboard() {
   const jobId = location.state?.jobId;
 
   function isNullOrEmpty(value) {
-    return value === null || value === undefined || value.trim() === '';
+    return value === null 
+    || value === undefined || value.trim() === '';
   }
 
   const handleCompanyNameSubmit = (companyName) => {

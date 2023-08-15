@@ -113,7 +113,7 @@ const Sidemenu = () => {
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link as={Link} to="/joblist" onClick={handleSelect}>
+                  <Nav.Link as={Link} to="/shortListedCandidatesList" onClick={handleSelect}>
                     <FiInstagram className="navbar-icon" /> Referrals
                   </Nav.Link>
                 </li>

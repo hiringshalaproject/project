@@ -48,5 +48,5 @@ router.post("/",createNewEmployee);
 router.patch("/:id",updateEmployeeWithId);
 router.delete("/:id",deleteEmployee);
 router.post("/login",loginEmployee);
-router.post("/refer",referSeeker);
+router.post("/refer",authenticateUser,referSeeker);
 module.exports = router;
