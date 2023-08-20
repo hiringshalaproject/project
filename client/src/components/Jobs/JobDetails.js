@@ -7,15 +7,16 @@ import { GoLocation } from "react-icons/go";
 import { MdWork } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
+import JobCard from "../Card/JobCard";
+import { MDBCard } from "mdb-react-ui-kit";
 function JobDetails({
   job,
   filterValue,
   searchItems,
   handleClose,
   isSearchPerformed,
-  found
+  found,
 }) {
-
   const navigate = useNavigate();
 
   const routeChange = (id) => {
@@ -31,9 +32,7 @@ function JobDetails({
             filterValue.includes(currJob.jobTitle)
         )
       : job;
-  
-  
-  
+
   if (searchItems.length !== 0) filteredJobs = searchItems;
 
   const renderCard = (
@@ -140,40 +139,42 @@ function JobDetails({
         ))}
       </div>
       <h3 className="job-count">
-        <b className="count-heading">
+        <b className="count-heading bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent text-[40px]">
           Recommended Jobs
           <div className="job-length">
-            <span className="border border-black rounded-pill pill">
-              {isSearchPerformed?searchItems.length:filteredJobs.length}
+            <span className="border-2 border-green-300 rounded-pill pill">
+              {isSearchPerformed ? searchItems.length : filteredJobs.length}
             </span>
           </div>
         </b>
       </h3>
-     
 
-      {filteredJobs.length === 0 || (isSearchPerformed && !found) ? (
-        <div className="no-data-div">
-        
-          <img src={NoDataImg} className="no-data-Img" alt="" />
-        </div>
-      ) : (
-        <div className="row">
-          {filteredJobs.map((currJob, ind) => (
-            <div className="col-12 col-sm-6 col-md-4" key={ind}>
-              {renderCard(
-                currJob._id,
-                currJob.companyName,
-                currJob.jobTitle,
-                currJob.jobType,
-                currJob.jobLocation,
-                currJob.expectedPackage,
-                currJob.isExipred,
-                routeChange
-              )}
+      <div className="ml-10 mt-3 my-card-div">
+        <MDBCard className="result-card">
+          {filteredJobs.length === 0 || (isSearchPerformed && !found) ? (
+            <div className="no-data-div">
+              <img src={NoDataImg} className="no-data-Img" alt="" />
             </div>
-          ))}
-        </div>
-      )}
+          ) : (
+            <div className="row">
+              {filteredJobs.map((currJob, ind) => (
+                <div className="col-12 col-sm-6 col-md-4" key={ind}>
+                  <JobCard
+                    jobId={currJob._id}
+                    companyName={currJob.companyName}
+                    jobTitle={currJob.jobTitle}
+                    jobType={currJob.jobType}
+                    jobLocation={currJob.jobLocation}
+                    expectedPackage={currJob.expectedPackage}
+                    isExpired={currJob.isExpired}
+                    routeChange={routeChange}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </MDBCard>
+      </div>
     </>
   );
 }

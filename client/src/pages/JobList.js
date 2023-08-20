@@ -4,6 +4,7 @@ import "./jobList.css";
 import JobDetails from "../components/Jobs/JobDetails";
 import JobFilter from "../components/Jobs/JobFilter";
 import { toast } from "react-hot-toast";
+import DashboardNav from "../components/Navbar/DashboardNav";
 const JobList = ({ type }) => {
   const [job, setJob] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -73,6 +74,7 @@ const JobList = ({ type }) => {
           .post(`${apiUrl}/api/v1/jobs/`)
           .then((response) => {
             updatedJobList = response.data;
+
             const updatedJobListString = JSON.stringify(response.data);
             sessionStorage.setItem("hiringShala_jobList", updatedJobListString);
           })
@@ -94,14 +96,7 @@ const JobList = ({ type }) => {
     GetAllJobs();
   }, [type]);
 
-  
-
-  const jobTypeList = [
-    "Remote",
-    "Hybrid",
-    "Part Time",
-    "Contract",
-  ];
+  const jobTypeList = ["Remote", "Hybrid", "Part Time", "Contract"];
 
   const jobCategoryList = [
     "SDE",
@@ -112,7 +107,12 @@ const JobList = ({ type }) => {
 
   return (
     <>
-      <div className="wrapper">
+      <div className="sm:px-16 px-6 flex justify-center items-center">
+        <div className="xl:max-w-[1280px] w-full">
+          <DashboardNav />
+        </div>
+      </div>
+      <div className="d-flex flex-column align-items-center filter-wrapper">
         <div className="input-group search-container">
           <input
             type="search"
@@ -131,47 +131,49 @@ const JobList = ({ type }) => {
             Search
           </button>
         </div>
-        <div>
-          <JobFilter
-            filterName="All"
-            filterValue={[]}
-            handleFilterChange={handleFilterChange}
-            clearCheckedItems={clearCheckedItems}
-            clearSearchItems={clearSearchItems}
-            clearSearchValue={clearSearchValue}
-            setIsSearchPerformed={setIsSearchPerformed}
-            dropdownNum={0}
-          />
-          <JobFilter
-            filterName="Job Type"
-            filterValue={jobTypeList}
-            handleFilterChange={handleFilterChange}
-            clearCheckedItems={clearCheckedItems}
-            clearSearchItems={clearSearchItems}
-            clearSearchValue={clearSearchValue}
-            setIsSearchPerformed={setIsSearchPerformed}
-            dropdownNum={1}
-          />
-          <JobFilter
-            filterName="Job Category"
-            filterValue={jobCategoryList}
-            handleFilterChange={handleFilterChange}
-            clearCheckedItems={clearCheckedItems}
-            clearSearchItems={clearSearchItems}
-            clearSearchValue={clearSearchValue}
-            setIsSearchPerformed={setIsSearchPerformed}
-            dropdownNum={2}
-          />
-          <JobFilter
-            filterName="Experience"
-            filterValue={["Entry Level", "0-3yrs", "3+yrs", "5+yrs"]}
-            handleFilterChange={handleFilterChange}
-            clearCheckedItems={clearCheckedItems}
-            clearSearchItems={clearSearchItems}
-            clearSearchValue={clearSearchValue}
-            setIsSearchPerformed={setIsSearchPerformed}
-            dropdownNum={3}
-          />
+        <div >
+          
+            <JobFilter
+              filterName="All"
+              filterValue={[]}
+              handleFilterChange={handleFilterChange}
+              clearCheckedItems={clearCheckedItems}
+              clearSearchItems={clearSearchItems}
+              clearSearchValue={clearSearchValue}
+              setIsSearchPerformed={setIsSearchPerformed}
+              dropdownNum={0}
+            />
+            <JobFilter
+              filterName="Job Type"
+              filterValue={jobTypeList}
+              handleFilterChange={handleFilterChange}
+              clearCheckedItems={clearCheckedItems}
+              clearSearchItems={clearSearchItems}
+              clearSearchValue={clearSearchValue}
+              setIsSearchPerformed={setIsSearchPerformed}
+              dropdownNum={1}
+            />
+            <JobFilter
+              filterName="Job Category"
+              filterValue={jobCategoryList}
+              handleFilterChange={handleFilterChange}
+              clearCheckedItems={clearCheckedItems}
+              clearSearchItems={clearSearchItems}
+              clearSearchValue={clearSearchValue}
+              setIsSearchPerformed={setIsSearchPerformed}
+              dropdownNum={2}
+            />
+            <JobFilter
+              filterName="Experience"
+              filterValue={["Entry Level", "0-3yrs", "3+yrs", "5+yrs"]}
+              handleFilterChange={handleFilterChange}
+              clearCheckedItems={clearCheckedItems}
+              clearSearchItems={clearSearchItems}
+              clearSearchValue={clearSearchValue}
+              setIsSearchPerformed={setIsSearchPerformed}
+              dropdownNum={3}
+            />
+          
         </div>
       </div>
       <JobDetails

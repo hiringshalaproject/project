@@ -11,10 +11,7 @@ body {
   margin: auto;
 }
 
-.value-div-inner {
-  display: inline-block;
-  margin: 15px 3px 10px 15px;
-}
+
 
 .selected-filter {
   margin: 1em;
@@ -41,10 +38,6 @@ body {
   width: 150px !important;
   /* display: inline-block !important; */
 }
-.company-logo {
-  height: auto;
-  width: 150px;
-}
 
 
 .joblist-card {
@@ -54,39 +47,25 @@ body {
   margin-left: 380px !important;
 }
 
-.descr-col {
-  border-left: 5px;
-  border-color: black;
-}
 
-.job-descr {
-  font-size: 25px;
-  text-align: left;
-}
+
+
 
 .job-length {
   display: inline-block;
   margin-left: 5px;
 }
 
-.card-text {
-  font-size: larger;
-  margin-bottom: 10px !important;
-}
+
 
 .job-count {
   margin-top: 30px;
   margin-left: 40px;
 }
 
-.pill {
-  width: 100%;
-  padding: 10px;
-}
 
-.card-top-content {
-  height: auto;
-}
+
+
 
 .border {
   /* border-radius: 25px !important; */
@@ -102,11 +81,6 @@ body {
   display: inline-block;
 }
 
-/* .lower-card-content {
-  border-style: solid;
-  border-top: 1px solid #475649;
-} */
-
 
 .container p {
   margin-bottom: 0;
@@ -115,9 +89,9 @@ body {
 
 /* --filter CSS-- */
 
-.wrapper {
+.filter-wrapper {
   margin: auto;
-  margin-top: 100px;
+  
 }
 
 .search-container {
@@ -213,9 +187,7 @@ body {
     text-align: left;
     margin-bottom: 5px;
   }
-  .value-div-inner {
-    margin-left: 5px;
-  }
+ 
   .no-data-div{
     margin-top: 15px;
   }

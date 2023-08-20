@@ -6,69 +6,12 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.clock-icon {
-  font-size: 15px;
-  color: #440bf1;
-  margin-right: 8px;
-  display: inline-block;
-  vertical-align: middle;
-}
 
-.doller-icon {
-  font-size: 20px;
-  display: inline-block;
-
-  color: #1e1e1e;
-}
-
-.card-button {
-  background-color: #47A992;
-  color: white;
-}
-
-.card-button:hover {
-  background-color: #47A992;
-  color: white;
-}
-
-.card-content {
-  text-align: center;
-  color: var(--card-text) !important;
-}
 
 .card-container {
   margin-top: 10px;
   margin-bottom: 15px;
   margin-right: 80px;
-}
-
-.card-img-top {
-  height: 500px;
-  width: 500px;
-}
-
-.card {
-  transition: all 0.3s;
-  width: 20rem !important;
-  border-top-color: #2f8f9d !important;
-  border-left-color: var(--card-border) !important;
-  border-right-color: var(--card-border) !important;
-  border-bottom-color: var(--card-border) !important;
-  background-color: var(--card-bg);
-  display: flex;
-}
-@media (hover: hover) {
-  .card:hover {
-    transform: scale(1.11);
-    z-index: 1;
-  }
-}
-/* new */
-
-@media (max-width: 992px) {
-  .card-container .card {
-    flex-basis: calc(100% / 2);
-  }
 }
 
 .card-wrapper {
@@ -220,4 +163,43 @@
 }
 .ListedjobButton:hover {
   background-color: #a7bba8;
+}
+
+@media screen and (max-width: 991.98px) {
+  .jobs-details-card {
+    width: 400px !important;
+    margin: auto !important;
+    margin-top: 25px !important;
+    margin-bottom: 20px !important;
+  }
+  .image-col {
+    margin: auto;
+  }
+  .job-count {
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+  .job-length {
+    margin-top: 10px;
+  }
+  .count-heading {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  .value-div-inner {
+    margin-left: 5px;
+  }
+  .no-data-div{
+    margin-top: 15px;
+  }
+  .icon {
+    font-size: 15px;
+  }
+  .search-container {
+    width: 240px;
+  }
+  .filter-btn {
+    margin-top: 2px;
+    margin-bottom: 5px;
+  }
 }

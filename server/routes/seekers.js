@@ -120,7 +120,7 @@ const authenticateGetSeekerId = async (req, res, next) => {
 };
 
 router.get("/", authenticateGetSeekers, getSeekers);
-router.get("/:id",authenticateGetSeekerId, getSeekerFromId);
+router.get("/:id", getSeekerFromId);
 router.post("/",createNewSeeker);
 router.patch("/apply/:id", applyForJob);
 router.patch("/status/:id", authenticateUser, updateSeekersJobStatus);

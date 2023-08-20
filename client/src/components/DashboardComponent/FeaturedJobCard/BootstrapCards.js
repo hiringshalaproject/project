@@ -7,6 +7,7 @@ import { BsFillBuildingsFill } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 import { MdWork } from "react-icons/md";
 import { MdAttachMoney } from "react-icons/md";
+// import "../../../jobList.css";
 const BootstrapCards = ({ user, ImgSrc }) => {
   // Convert single user object to an array if necessary
   const users = Array.isArray(user) ? user : [user];
@@ -15,11 +16,19 @@ const BootstrapCards = ({ user, ImgSrc }) => {
   const routeChange = (id) => {
     navigate("/description", { state: { jobId: id } });
   };
-  return (
-    <div className="card-container">
-      <div className="card-row">
-        {users.map((job, index) => (
-          <div className={`card card-without-hover jobs-details-card`}>
+  const renderCard = (
+    jobId,
+    companyName,
+    jobTitle,
+    jobType,
+    jobLocation,
+    expectedPackage,
+    isExpired,
+    routeChange
+  ) => {
+    return (
+      <>
+        <div className={`card card-without-hover jobs-details-card`}>
           <div className="card-body">
             <div className="card-top-content">
               <div className="row">
@@ -32,18 +41,18 @@ const BootstrapCards = ({ user, ImgSrc }) => {
                 </div>
                 <div className="col descr-col">
                   <div className="row">
-                    <p className="job-descr">{job.jobTitle}</p>
+                    <p className="job-descr">{jobTitle}</p>
                   </div>
                   <div className="row">
                     <p className="card-text">
                       <BsFillBuildingsFill fontSize={20} className="icon" />{" "}
-                      {job.companyName}
+                      {companyName}
                     </p>
                   </div>
                   <div className="row">
                     <p className="card-text">
                       <GoLocation fontSize={20} className="icon" />{" "}
-                      {job.jobLocation}
+                      {jobLocation}
                     </p>
                   </div>
                 </div>
@@ -51,7 +60,7 @@ const BootstrapCards = ({ user, ImgSrc }) => {
               <div className="value-div-outer">
                 <div className="value-div-inner">
                   <span className="border border-black rounded-pill pill">
-                    {job.jobType}
+                    {jobType}
                   </span>
                 </div>
                 <div className="value-div-inner">
@@ -67,7 +76,7 @@ const BootstrapCards = ({ user, ImgSrc }) => {
                 <div className="value-div-inner">
                   <span className="border border-black rounded-pill pill">
                     <MdAttachMoney fontSize={20} className="icon" />
-                    CTC {job.expectedPackage}
+                    CTC {expectedPackage}
                   </span>
                 </div>
               </div>
@@ -78,49 +87,37 @@ const BootstrapCards = ({ user, ImgSrc }) => {
                 type="button"
                 className="ctc-button btn btn-lg btn-dark rounded-pill float-left"
               >
-                {job.isExpired ? "Expired" : "Active"}
+                {isExpired ? "Expired" : "Active"}
               </button>
               <button
                 type="button"
                 className="details-button btn btn-lg btn-dark rounded-pill float-right"
-                onClick={() => routeChange(job._id)}
+                onClick={() => routeChange(jobId)}
               >
                 Details
               </button>
             </div>
           </div>
         </div>
-          
-        ))}
-        {/* <div className="card-column" key={index}>
-            <div className="card h-100">
-          
-              <div className="card-body card-content">
-                <h3 className="card-title">{user.companyName}</h3>
-                <h4>{user.jobLocation}</h4>
-                <p>
-                  the largest pool of career opportunities that match your skill
-                  set. link up with outstanding people to create a better
-                  future.
-                </p>
-                <p>
-                  <span
-                    style={{ display: "inline-flex", alignItems: "center" }}
-                  >
-                    <AiFillDollarCircle className="dollar-icon" />
-                    <span style={{ marginLeft: "0.5rem" }}>
-                      {user.expectedPackage}
-                    </span>
-                    <span style={{ marginLeft: "0.2rem" }}>per annum</span>
-                  </span>
-                </p>
-              </div>
-              <button type="submit" className="btn card-button">
-                View details
-              </button>
-            </div>
-          </div>*/}
-      </div> 
+      </>
+    );
+  };
+  return (
+    <div className="row">
+      {users.map((currJob, ind) => (
+        <div className="col-12 col-sm-6 col-md-4" key={ind}>
+          {renderCard(
+            currJob._id,
+            currJob.companyName,
+            currJob.jobTitle,
+            currJob.jobType,
+            currJob.jobLocation,
+            currJob.expectedPackage,
+            currJob.isExipred,
+            routeChange
+          )}
+        </div>
+      ))}
     </div>
   );
 };

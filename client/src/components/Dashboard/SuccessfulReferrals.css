@@ -1,0 +1,42 @@
+
+.resume-img{
+    width: 250px;
+    height: 270px;
+    margin-left: 120px;
+    margin-top: 10px;
+}
+
+.resume-image-col{
+    margin-left: 50px;
+}
+
+.mascot-text{
+    display: inline-block;
+    height: auto;
+    width: 200px;
+    padding: 8px;
+}
+
+.upload-resume{
+    /* height: 150px; */
+    height: auto;
+    padding: 10px;
+}
+@media screen and (max-width: 991.98px) {
+    
+    .resume-outer-div{
+        flex-direction: column;
+    }
+    .resume-image-col{
+        margin: auto;
+    }
+    .heading-div,.button-div{
+        flex-direction: column;
+    }
+    .dashboard-btn{
+        margin-top: 2px;
+    }
+    /* .result-card{
+        margin: auto;
+    } */
+}
