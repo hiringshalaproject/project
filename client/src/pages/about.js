@@ -1,10 +1,32 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import aboutUs from "../components/assets/about-us2.png";
+import aboutUs from "../components/assets/about-us4.png";
 import jobSearch from "../components/assets/jobSearch.png";
 import team from "../components/assets/team-2.jpg";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import card1 from "../components/assets/card-1.png"
+import card2 from "../components/assets/card-2.png"
+import card3 from "../components/assets/card-3.png"
 
 const About = () => {
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 500 },
+      items: 3,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+      slidesToSlide: 1 // optional, default to 1.
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1 // optional, default to 1.
+    }
+  };
 
   return(
     <>
@@ -12,9 +34,10 @@ const About = () => {
       <img
         src={aboutUs}
         alt=""
-        className="lg:mt-10 absolute inset-0 -z-10 h-full w-full  object-cover object-right  md:object-center "
+        loading="lazy"
+        className="lg:mt-10 absolute inset-0 -z-10 h-full w-full  object-cover object-right  md:object-center"
       />
-      <div
+     {/* <div
         className="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
         aria-hidden="true"
       >
@@ -37,7 +60,7 @@ const About = () => {
               'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
           }}
         />
-      </div>
+      </div> */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="mt-4 text-4xl font-bold tracking-tight text-gray-600 sm:text-6xl drop-shadow-lg shadow-gray-900/60">about us</h2>
@@ -115,6 +138,50 @@ const About = () => {
   </div>
 </div>`
 
+
+<Carousel 
+  swipeable={false}
+  draggable={false}
+  showDots={true}
+  responsive={responsive}
+  ssr={true} // means to render carousel on server-side.
+  infinite={true}
+  autoPlay={true}
+  autoPlaySpeed={1000}
+  keyBoardControl={true}
+  customTransition="all .7"
+  transitionDuration={500}
+  containerClass="carousel-container"
+  removeArrowOnDeviceType={["tablet", "mobile"]}
+  // deviceType={this.props.deviceType}
+  dotListClass="custom-dot-list-style"
+  itemClass="carousel-item-padding"
+  centerMode={true}
+>
+  <div className="py-10">
+    <div className="bg-gray-200 rounded-3xl h-[40vh] w-[40vh] drop-shadow shadow-md ">
+      <img src={card1} alt="" className="carousel-image" />
+    </div>
+  </div>
+
+  <div className="py-10">
+  <div className="bg-gray-200 rounded-3xl h-[40vh] w-[40vh] drop-shadow shadow-md">
+      <img src={card2} alt="" className="carousel-image" />
+    </div>
+  </div>
+  
+  <div className="py-10">
+  <div className="bg-gray-200 rounded-3xl h-[40vh] w-[40vh] drop-shadow shadow-md">
+      <img src={card3} alt="" className="carousel-image" />
+    </div>
+    </div>
+
+  <div className="py-10">
+  <div className="bg-gray-200 rounded-3xl h-[40vh] w-[40vh] drop-shadow shadow-md">
+      <img src={card2} alt="" className="carousel-image" />
+    </div>
+  </div>
+</Carousel>
 
 <div className="bg-white py-6 sm:py-32 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

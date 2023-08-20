@@ -13,6 +13,7 @@
     "font-awesome": "^4.7.0",
     "mdb-react-ui-kit": "^6.0.0",
     "react": "^18.2.0",
+    "react-3d-carousel": "0.0.6",
     "react-auth-kit": "^2.10.1",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",

@@ -14,109 +14,36 @@ const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const JobPost = () => {
     const [jobTitle, setJobTitle] = useState("");
     const [jobPosition, setJobPosition] = useState("");
+    const [jobLocation, setJobLocation] = useState("");
+    const [noOfOpenings, setNoOfOpenings] = useState("");
+    const [experienceRequired, setExperienceRequired] = useState("");
     const [jobDescription, setJobDescription] = useState("");
     const [keyQualifications, setKeyQualifications] = useState("");
-    const [amount, setAmount] = useState("");
-    const [employmentType, setEmploymentType] = useState("");
-    const [jobType, setJobType] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
+    const [expectedPackage, setExpectedPackage] = useState("");
+    const [employmentType, setEmploymentType] = useState("Full-time");
+    const [jobType, setJobType] = useState("Work From Office");
+    const [selectedOption, setSelectedOption] = useState("Yearly");
     const [additionalRequirement, setAdditionalRequirement] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleInputChange = (e) => {
-        
-    }
-    const handleCheckboxChange = (e) => {
-        const checkboxValue = e.target.value;
-        setEmploymentType(checkboxValue);
+    const handleInputChange = (valueSetter) => (e) => {
+        valueSetter(e.target.value);
         checkFormCompletion();
     };
-
-    const handleJobTypeChange = (e) => {
-        const checkboxValue = e.target.value;
-        setJobType(checkboxValue);
-        checkFormCompletion();
-    };
-
-    const handleJobTitleChange = (e) => {
-        setJobTitle(e.target.value);
-        checkFormCompletion();
-
-    };
-
-    const handleJobPositionChange = (e) => {
-        setJobPosition(e.target.value);
-        checkFormCompletion();
-    };
-
-    const handleJobDescriptionChange = (e) => {
-        setJobDescription(e.target.value);
-        checkFormCompletion();
-
-    };
-    const handleKeyQualificationChange = (e) => {
-        setKeyQualifications(e.target.value);
-        checkFormCompletion();
-
-    }
-    const handleAmountChange = (e) => {
-        setAmount(e.target.value);
-        checkFormCompletion();
-    };
-
-    const handleOptionChange = (e) => {
-        setSelectedOption(e.target.value);
-        checkFormCompletion();
-    };
-    const handleAdditionalRequirementChange = (e) => {
-        setAdditionalRequirement(e.target.value);
-    };
-    function validateForm() {
-        // Get references to the checkboxes
-        var checkbox1 = document.getElementById("checkbox1");
-        var checkbox2 = document.getElementById("checkbox2");
-        var checkbox3 = document.getElementById("checkbox3");
-        var checkbox4 = document.getElementById("checkbox4");
-
-        if (
-            checkbox1.checked ||
-            checkbox2.checked ||
-            checkbox3.checked ||
-            checkbox4.checked
-        ) {
-
-            return true;
-        }
-        return false;
-    }
-    function validateJobTypeForm() {
-       return document.getElementById("jobType1").checked || document.getElementById("jobType2").checked || document.getElementById("jobType3").checked;
-    }
-    function validateSalForm() {
-        var checkbox5 = document.getElementById("checkbox5");
-        var checkbox6 = document.getElementById("checkbox6");
-
-
-        if (
-            checkbox5.checked ||
-            checkbox6.checked
-        ) {
-            return true;
-        }
-        return false;
-    }
-
-
+ 
 
     const checkFormCompletion = () => {
         const isJobTitleFilled = jobTitle.trim() !== '';
         const isJobDescriptionFilled = jobDescription.trim() !== '';
         const isKeyQualificationsFilled = keyQualifications.trim() !== '';
-        const isEmploymentTypeFilled = validateForm();
-        const isJobTypeFilled = validateJobTypeForm();
-        const isSalaryOptionChange = validateSalForm();
-        const isamountFilled = amount.trim() !== '';
+        // const isEmploymentTypeFilled = validateForm();
+        // const isJobTypeFilled = validateJobTypeForm();
+        // const isSalaryOptionChange = validateSalForm();
+         const isEmploymentTypeFilled = employmentType !== '';
+        const isJobTypeFilled = jobType !== '';
+        const isSalaryOptionChange = selectedOption !== '';
+        const isamountFilled = expectedPackage.trim() !== '';
         const isFormComplete = isJobTitleFilled && isJobDescriptionFilled && isKeyQualificationsFilled && isEmploymentTypeFilled
             && isSalaryOptionChange && isamountFilled && isJobTypeFilled;
         setIsFormComplete(isFormComplete);
@@ -134,12 +61,15 @@ const JobPost = () => {
         setJobPosition("");
         setJobDescription("");
         setKeyQualifications("");
-        setAmount("");
+        setExpectedPackage("");
         setSelectedOption("");
         setAdditionalRequirement("");
         setIsFormComplete(false);
         setEmploymentType("");
         setJobType("");
+        setJobLocation("");
+        setNoOfOpenings("");
+        setExperienceRequired("");
     }
 
     const handlePostJob = () => {
@@ -147,6 +77,8 @@ const JobPost = () => {
         const companyName = Cookies.get(Constants.companyName)
         if (!companyName) {
             toast("Please Login!");
+             setIsLoading(false);
+             return;
         }
         const userId = Cookies.get(Constants.userId);
         const token = Cookies.get(Constants.token);
@@ -157,10 +89,13 @@ const JobPost = () => {
             companyName: companyName,
             employeeId: userId,
             jobTitle: jobTitle,
+            jobLocation: jobLocation,
+            noOfOpenings: noOfOpenings,
+            experienceRequired: experienceRequired,
             jobDate: new Date(),
             jobRequirements: jobDescription,
             jobEligibility: keyQualifications,
-            expectedPackage: parseFloat(amount),
+            expectedPackage: parseFloat(expectedPackage),
             applyLink: additionalRequirement,
             employmentType: employmentType,
             jobType: jobType
@@ -230,7 +165,7 @@ const JobPost = () => {
             <div className="form-group">
                 <div className="label-container">
                     <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
-                        Job Title <span className="required-field">*</span>
+                        Job Title <sup className="required-field">*</sup>
                     </p>
                     <p> Enter the specific name or designation of the job position you are hiring for.</p>
                 </div>
@@ -244,13 +179,39 @@ const JobPost = () => {
                             value={jobTitle}
                             required
                             placeholder="Enter job title e.g Business Analyst"
-                            onChange={handleJobTitleChange}
+                            onChange={handleInputChange(setJobTitle)} 
                             className="form-control"
                         />
                     </div>
                 </div>
 
             </div>
+            <hr style={{ borderTop: "1px solid black" }} />
+
+            <div className="form-group">
+                <div className="label-container">
+                    <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
+                        Job Location
+                    </p>
+                    <p> Enter the location for the Job posting.</p>
+                </div>
+                <div className="col-md-6 input-container">
+                    <div className="input-row">
+
+                        <input
+                            type="text"
+                            id="jobLocation"
+                            name="jobLocation"
+                            value={jobLocation}
+                            placeholder="Enter the location for Job posting e.g. Bengaluru, Karnataka"
+                            onChange={handleInputChange(setJobLocation)} 
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
             <hr style={{ borderTop: "1px solid black" }} />
             <div className="form-group">
                 <div className="label-container">
@@ -267,7 +228,7 @@ const JobPost = () => {
                             name="jobPosition"
                             value={jobPosition}
                             placeholder="Enter job ID e.g. 20003749"
-                            onChange={handleJobPositionChange}
+                        onChange={handleInputChange(setJobPosition)} 
                             className="form-control"
                         />
                     </div>
@@ -275,10 +236,35 @@ const JobPost = () => {
             </div>
 
             <hr style={{ borderTop: "1px solid black" }} />
+            <div className="form-group">
+                <div className="label-container">
+                    <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
+                      Number Of Openings
+                    </p>
+                    <p> Enter the number of openings for this job posting.</p>
+                </div>
+                <div className="col-md-6 input-container">
+                    <div className="input-row">
+
+                        <input
+                            type="text"
+                            id="noOfOpenings"
+                            name="noOfOpenings"
+                            value={noOfOpenings}
+                            placeholder="Enter the number of Openings e.g. 10"
+                            onChange={handleInputChange(setNoOfOpenings)} 
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+
+            </div>
+
+            <hr style={{ borderTop: "1px solid black" }} />
             <div className="row">
                 <div className="col-md-6">
                     <div className="mb-4">
-                        <h4 className="font-weight-bold job-description-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Job Description <span className="required-field">*</span></h4>
+                        <h4 className="font-weight-bold job-description-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Job Description <sup className="required-field">*</sup></h4>
                         <p className="job-description-text">Provide a short description of the job. Keep it short and to the point.</p>
                     </div>
                 </div>
@@ -289,7 +275,7 @@ const JobPost = () => {
                         value={jobDescription}
                         placeholder="Enter job description"
                         required
-                        onChange={handleJobDescriptionChange}
+                       onChange={handleInputChange(setJobDescription)} 
                         className="form-control job-description-textarea"
                         rows={10}
                         style={{ resize: 'none' }}
@@ -297,13 +283,37 @@ const JobPost = () => {
                 </div>
             </div>
 
+            <hr style={{ borderTop: "1px solid black" }} />
+            <div className="form-group">
+                <div className="label-container">
+                    <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
+                      Experience required
+                    </p>
+                    <p> Enter the experience needed to apply for this job.</p>
+                </div>
+                <div className="col-md-6 input-container">
+                    <div className="input-row">
+
+                        <input
+                            type="text"
+                            id="experienceRequired"
+                            name="experienceRequired"
+                            value={experienceRequired}
+                            placeholder="Enter the experience required e.g. 1 year"
+                            onChange={handleInputChange(setExperienceRequired)} 
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+
+            </div>
 
 
             <hr style={{ borderTop: "1px solid black" }} />
             <div className="row">
                 <div className=" col-md-6 ">
                     <div className="mb-4">
-                        <h4 className="font-weight-bold key-qualification-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Key Qualifications <span className="required-field" >*</span></h4>
+                        <h4 className="font-weight-bold key-qualification-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Key Qualifications <sup className="required-field" >*</sup></h4>
                         <p className=" allcheckbox" >Provide candidate requirements for this job, including qualifications, etc.</p>
                     </div>
                 </div>
@@ -314,7 +324,7 @@ const JobPost = () => {
                         value={keyQualifications}
                         placeholder="Enter qualifications"
                         required
-                        onChange={handleKeyQualificationChange}
+                        onChange={handleInputChange(setKeyQualifications)} 
                         className="form-control textarea"
                         rows={10}
                         style={{ resize: 'none' }}
@@ -327,19 +337,19 @@ const JobPost = () => {
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
-                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Employment Type <span className="required-field">*</span></p>
+                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Employment Type <sup className="required-field">*</sup></p>
                         <p className="employement-title">Provide type of Employment</p>
                     </div>
                 </div>
 
                 <div className="col-lg-7 employmentType">
                     <div className={`form-control empContentbox ${employmentType === 'Full-time' ? 'selected' : ''}`} onClick={() => setEmploymentType('Full-time')}>
-                        <input type="checkbox" id="checkbox1" value="Full-time" className="checkbox-input" checked={employmentType === "Full-time"} onChange={handleCheckboxChange} />
+                        <input type="checkbox" id="checkbox1" value="Full-time" className="checkbox-input" checked={employmentType === "Full-time"}  onChange={handleInputChange(setEmploymentType)}  />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Full-time</span>
                     </div>
 
                     <div className={`form-control empContentbox ${employmentType === 'Internship' ? 'selected' : ''}`} onClick={() => setEmploymentType('Internship')}>
-                        <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={handleCheckboxChange} />
+                        <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={handleInputChange(setEmploymentType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                     </div>
                 </div>
@@ -349,23 +359,23 @@ const JobPost = () => {
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
-                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Job Type <span className="required-field">*</span></p>
+                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Job Type <sup className="required-field">*</sup></p>
                         <p className="employement-title">Provide type of Job</p>
                     </div>
                 </div>
 
                 <div className="col-lg-7 employmentType">
                     <div className={`form-control empContentbox ${jobType === 'Work From Office' ? 'selected' : ''}`} onClick={() => setJobType('Work From Office')}>
-                        <input type="checkbox" id="jobType1" value="Work From Office" className="checkbox-input" checked={jobType === "Work From Office"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType1" value="Work From Office" className="checkbox-input" checked={jobType === "Work From Office"}onChange={handleInputChange(setJobType)} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Work From Office</span>
                     </div>
 
                     <div className={`form-control empContentbox ${jobType === 'Remote' ? 'selected' : ''}`} onClick={() => setJobType('Remote')}>
-                        <input type="checkbox" id="jobType2" value="Remote" className="checkbox-input" checked={jobType === "Remote"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType2" value="Remote" className="checkbox-input" checked={jobType === "Remote"} onChange={handleInputChange(setJobType)}  />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Remote</span>
                     </div>
                     <div className={`form-control empContentbox ${jobType === 'Hybrid' ? 'selected' : ''}`} onClick={() => setJobType('Hybrid')}>
-                        <input type="checkbox" id="jobType3" value="Hybrid" className="checkbox-input" checked={jobType === "Hybrid"} onChange={handleJobTypeChange} />
+                        <input type="checkbox" id="jobType3" value="Hybrid" className="checkbox-input" checked={jobType === "Hybrid"}  onChange={handleInputChange(setJobType)}  />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Hybrid</span>
                     </div>
                 </div>
@@ -376,7 +386,7 @@ const JobPost = () => {
             <div className="flex-container">
                 <div className="col-lg-6">
                     <div className="mb-4">
-                        <h4 className="font-weight-bold Salary-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Salary <span className="required-field">*</span></h4>
+                        <h4 className="font-weight-bold Salary-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Salary <sup className="required-field">*</sup></h4>
                         <p className=" allcheckbox" >Choose the salary for this job</p>
                     </div>
                 </div>
@@ -385,7 +395,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox5" className="checkbox-container-SalType" style={{ width: "100%", }}>
                             <div className="form-control empContentbox" >
                                 <input type="checkbox" id="checkbox5" name="salaryType"
-                                    value="Monthly" className="checkbox-input" checked={selectedOption === "Monthly"} onChange={handleOptionChange} />
+                                    value="Monthly" className="checkbox-input" checked={selectedOption === "Monthly"}  onChange={handleInputChange(setSelectedOption)}  />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Monthly</span>
                             </div>
                         </label>
@@ -395,7 +405,7 @@ const JobPost = () => {
                         <label htmlFor="checkbox6" className="checkbox-container-SalType" style={{ width: "100%", }}>
                             <div className="form-control  empContentbox">
                                 <input type="checkbox" id="checkbox6" className="checkbox-input" name="salaryType"
-                                    value="Yearly" checked={selectedOption === "Yearly"} onChange={handleOptionChange} />
+                                    value="Yearly" checked={selectedOption === "Yearly"}  onChange={handleInputChange(setSelectedOption)}   />
                                 <span className="allcheckbox" style={{ marginLeft: '8px' }}>Yearly</span>
                             </div>
                         </label>
@@ -405,27 +415,26 @@ const JobPost = () => {
 
                 </div>
             </div>
-            <hr style={{ borderTop: "1px solid black" }} />
+
+         <hr style={{ borderTop: "1px solid black" }} />
             <div className="form-group">
                 <div className="label-container">
                     <p className="font-weight-bold jobidText" style={{ fontWeight: "bold", fontSize: "24px", margin: "0px" }}>
-                        Amout<span className="required-field" > *</span>
+                        Expected Package <sup className="required-field">*</sup>
                     </p>
-                    <p> Enter the amount you are offering</p>
+                    <p> Enter the expected package for this job post.</p>
                 </div>
-
-
                 <div className="col-md-6 input-container">
                     <div className="input-row">
                         <input
-                            type="text"
-                            value={amount}
-                            onChange={handleAmountChange}
+                              type="text"
+                            value={expectedPackage}
+                           onChange={handleInputChange(setExpectedPackage)} 
                             onKeyPress={handleAmountKeyPress}
-                            placeholder="Enter amount"
+                            placeholder="Enter expected package"
                             className="form-control"
                             required
-                            id="amount"
+                            id="expectedpackage"
                         />
                     </div>
                 </div>
@@ -445,7 +454,7 @@ const JobPost = () => {
                             id="additionalRequirement"
                             name="additionalRequirement"
                             value={additionalRequirement}
-                            onChange={handleAdditionalRequirementChange}
+                            onChange={handleInputChange(setAdditionalRequirement)} 
                             placeholder="Provide additional requirements if any"
                             className="form-control additional-textarea"
                             rows={10}
@@ -487,12 +496,13 @@ const JobPost = () => {
                         </button>
                     </div>
                 </div>
+             </div>
+             </div>
+            
 
-            </div >
 
 
-
-        </div >
+        
 
 
 
