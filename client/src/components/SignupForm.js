@@ -6,7 +6,6 @@ import axios from "axios";
 import { setUserCookies, setCookies } from "./Cookies";
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
-import FileUploader from "../components/FileUploader/FileUploader";
 import * as Constants from "../constants/String"
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
