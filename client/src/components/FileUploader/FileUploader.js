@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import RoundButton from "../DashboardComponent/sidemenu/RoundButton";
+import RoundButton from "../Dashboard/RoundButton";
 import "./FileUploader.css";
 import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
@@ -126,13 +126,13 @@ function FileUploader() {
               id="fileInput"
               onChange={handleFileChange}
               className=" 
-          file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
+          file:bg-gradient-to-b file:from-green-500 file:to-blue-600
           file:px-6 file:py-2 file:m-3
           file:border-none
           file:rounded-full
           file:text-white
           file:cursor-pointer
-          file:shadow-md file:shadow-blue-600/50
+          file:shadow-md file:shadow-green-600/50
 
           bg-gradient-to-br from-gray-200 to-gray-300
           text-black/80 
@@ -187,7 +187,7 @@ function FileUploader() {
             id="fileInput"
             onChange={handleFileChange}
             className=" 
-       file:bg-gradient-to-b file:from-blue-500 file:to-blue-600
+       file:bg-gradient-to-b file:from-green-500 file:to-blue-600
        file:px-6 file:py-2 file:m-3
        file:border-none
        file:rounded-full

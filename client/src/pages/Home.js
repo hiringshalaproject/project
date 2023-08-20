@@ -16,7 +16,10 @@ const Home = () => {
     navigate("/jobList");
   };
 
-  const renderCard = (cardTitle, buttonValue, ImgSrc) => {
+  const routeChange = (jobType) => {
+    navigate("/joblist", { state: { type:jobType } });
+  };
+  const renderCard = (cardTitle, buttonValue, ImgSrc,type) => {
     return (
       
       <div className="card" onClick={handleClick}>
@@ -28,7 +31,7 @@ const Home = () => {
             link up with outstanding people to create a better future.
           </p>
         </div>
-        <button type="submit" className="btn card-button">
+        <button type="submit" className="btn card-button" onClick={()=>routeChange(type)}>
           {buttonValue}
         </button>
       </div>
@@ -61,13 +64,13 @@ const Home = () => {
       <Container className="card-container">
         <Row>
           <Col className="card-col" xs={12} md={6} lg={4}>
-            {renderCard("Search Job", "Search", SearchJob)}
+            {renderCard("Search Job", "Search", SearchJob,"Job")}
           </Col>
           <Col className="card-col" xs={12} md={6} lg={4}>
-            {renderCard("Search Internships", "Search", ApplyImg)}
+            {renderCard("Search Internships", "Search", ApplyImg,"Internship")}
           </Col>
           <Col className="card-col" xs={12} md={6} lg={4}>
-            {renderCard("Apply for Referrals", "Get Referral", ContactImg)}
+            {renderCard("Apply for Referrals", "Get Referral", ContactImg,"")}
           </Col>
         </Row>
       </Container>

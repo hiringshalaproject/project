@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Home from "./pages/Home";
 import About from "./pages/about";
 import Contact from "./pages/contact";
 import Login from "./pages/Login";
@@ -22,7 +21,9 @@ import Description from "./components/Job Details/Description";
 import { Navigate } from "react-router-dom";
 import "./pages/index.css";
 import ForgotPassword from "./components/ForgotPassword";
-import * as Constants from "./constants/String"
+import * as Constants from "./constants/String";
+import AltHome from "./pages/AltHome";
+import AltNavbar from "./components/Navbar/AltNavbar";
 
 function App() {
   window.scrollTo(0, 0);
@@ -35,12 +36,12 @@ function App() {
     location.pathname.includes("/dashboard") ||
     (isLoggedIn && location.pathname === "/");
   return (
-    <div className="w-screen flex flex-col app">
-      {!isDashboardPage && <NavbarCmp />}
+    <div>
       <Routes>
         <Route
           path="/"
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Home />}
+          element={isLoggedIn ? <Navigate to="/dashboard" /> : <AltHome />}
+       
         />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
@@ -56,8 +57,14 @@ function App() {
         <Route path="/internship" element={<JobList type="Internship" />} />
         <Route path="/jobPost" element={<JobPost />} />
         <Route path="/description" element={<Description />} />
-        <Route path="/seeker/login/forgotPassword" element={<ForgotPassword userType={"seeker"}/>} />
-        <Route path="/employee/login/forgotPassword" element={<ForgotPassword userType={"employee"}/>} />
+        <Route
+          path="/seeker/login/forgotPassword"
+          element={<ForgotPassword userType={"seeker"} />}
+        />
+        <Route
+          path="/employee/login/forgotPassword"
+          element={<ForgotPassword userType={"employee"} />}
+        />
         <Route
           path="/employee/login"
           element={<Login userType={"employee"} />}
@@ -68,7 +75,7 @@ function App() {
           element={<Signup userType={"employee"} />}
         />
         <Route path="/seeker/signup" element={<Signup userType={"seeker"} />} />
-        <Route path="/joblist" element={<JobList type="Job"/>} />
+        <Route path="/joblist" element={<JobList type="Job" />} />
       </Routes>
     </div>
   );

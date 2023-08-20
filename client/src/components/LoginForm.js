@@ -4,10 +4,14 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { setUserCookies, getCookies, setCookies } from "./Cookies";
-import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol
+} from "mdb-react-ui-kit";
 import ClipLoader from "react-spinners/ClipLoader";
 import Cookies from "js-cookie";
-import * as Constants from "../constants/String"
+import * as Constants from "../constants/String";
 
 const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
 const LoginForm = ({ userType }) => {
@@ -15,7 +19,7 @@ const LoginForm = ({ userType }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    isGoogleLogin: false
+    isGoogleLogin: false,
   });
 
   const [loading, setLoading] = useState(false); // Track the loading state
@@ -47,8 +51,11 @@ const LoginForm = ({ userType }) => {
         Cookies.set(Constants.token, res.data.token);
         ({ userName, userType, userId } = getCookies());
         if (userType === "employee")
-          setCookies(Constants.companyName, res.data.employee.employeeCompanyName);
-        navigate("/dashboard", { state: { jobId: jobid } } );
+          setCookies(
+            Constants.companyName,
+            res.data.employee.employeeCompanyName
+          );
+        navigate("/dashboard", { state: { jobId: jobid } });
       })
       .catch((error) => {
         if (error.response) {
@@ -64,8 +71,19 @@ const LoginForm = ({ userType }) => {
       });
   }
 
+  const [justifyActive, setJustifyActive] = useState("tab1");
+
+  const handleJustifyClick = (value) => {
+    if (value === justifyActive) {
+      return;
+    }
+
+    setJustifyActive(value);
+  };
+
   return (
-    <form
+    <>
+      <form
       onSubmit={submitHandler}
       className="flex flex-col w-full gap-y-4 mt-6"
     >
@@ -136,6 +154,7 @@ const LoginForm = ({ userType }) => {
         </MDBContainer>
       </label>
     </form>
+    </>
   );
 };
 

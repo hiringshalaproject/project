@@ -1,0 +1,58 @@
+.my-card-div .top-card{
+    width: 100% !important;
+    border: none;
+    border-left: 4px solid green;
+    
+}
+.my-card-div .result-card{
+    width: auto !important;
+    border: none;
+}
+.my-card-div .job-card{
+    width: 440px !important;
+    margin-top: 10px;
+}
+.value-div-inner {
+    display: inline-block;
+    margin: 15px 3px 10px 15px;
+  }
+
+  .card-text {
+    font-size: larger;
+    margin-bottom: 10px !important;
+  }
+
+  .descr-col {
+    border-left: 5px;
+    border-color: black;
+  }
+  .job-descr {
+    font-size: 25px;
+    text-align: left;
+  }
+
+  .company-logo {
+    height: auto;
+    width: 150px;
+  }
+  .card-top-content {
+    height: auto;
+  }
+  .pill {
+    width: 100%;
+    padding: 10px;
+  }
+
+@media screen and (max-width: 991.98px) {
+    
+    .my-card-div .job-card{
+        /* align-items: left; */
+        margin-left: 0px;
+        margin-top: 5px;
+        width: 400px !important;
+    }
+
+    .value-div-inner {
+        margin-left: 5px;
+      }
+}
