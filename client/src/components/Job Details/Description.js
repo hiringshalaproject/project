@@ -284,6 +284,22 @@ const JobDescription = () => {
        </ul>
      </div>
    )}
+   {expectedPackage && (
+     <div>
+       <div className="text-teal-600  text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium   ml-2 xl:ml-10 lg:ml-10 mr-3">Expected Package</div>
+       <ul>
+         <li className="text-teal-800 ml-6">{expectedPackage}</li>
+       </ul>
+     </div>
+   )}
+   {noOfOpenings && (
+     <div>
+       <div className="text-teal-600  text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium   ml-2 xl:ml-10 lg:ml-10 mr-3">Number Of Openings</div>
+       <ul>
+         <li className="text-teal-800 ml-6">{noOfOpenings}</li>
+       </ul>
+     </div>
+   )}
 
       <span className="flex justify-center mb-10">
       <button className="apply-button bg-indigo-600 shadow-md shadow-gray-700/60" onClick={event=>applyForReferalFlow()} disabled = {applicationStatus}>
