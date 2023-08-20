@@ -19,7 +19,10 @@ const JobSchema = new mongoose.Schema({
   jobLocation: String,
   expectedPackage: Number,
   applyLink: String,
-  isExpired:  Boolean,
+  isExpired:  {
+    type: Boolean,
+    default: false,
+  },
   numberOfOpenings: Number,
   seekersRegistered: [
     {
@@ -35,6 +38,22 @@ const JobSchema = new mongoose.Schema({
       referralStatus: {
         type: Boolean,
         default: false,
+      },
+      seekerName : {
+        type: String,
+        required: true,
+      },
+      resumeUrl: {
+        type: String,
+        required: true,
+      },
+      collegeName: {
+        type: String,
+        required: false,
+      },
+      seekerCompanyName: {
+        type: String,
+        required: false,
       },
     },
   ],
@@ -122,6 +141,21 @@ const EmployeeSchema = new mongoose.Schema({
         required: true,
       },
     },
+  ],
+  referralStatus:[
+    {
+      jobId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Jobs",
+        required: true,
+      },
+      seekerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Seekers",
+        required: true,
+      },
+      referralCount : {type: Number, default: 0}
+    }
   ],
   totalReferralGiven: {type : Number, default : 0},
 });

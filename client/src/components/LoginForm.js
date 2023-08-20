@@ -40,6 +40,8 @@ const LoginForm = ({ userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, formData)
       .then((res) => {
+        const stringifiedUserDetails = JSON.stringify(userType === "seeker" ? res.data.seeker : res.data.employee);
+        sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
         toast.success("Logged In");
         let userName =
           userType === "seeker"

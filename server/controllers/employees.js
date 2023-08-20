@@ -143,10 +143,31 @@ const referSeeker = async (req, res) => {
     const job = await Jobs.findById(jobId);
 
     if (!seeker || !employee || !job) {
-      return res.status(404).json({ error: "Invalid seeker, employee, or job" });
+      return res.status(404).json({ error: "Invalid Details!" });
     }
 
-    // Updating the referral status in the job's seekersRegistered array
+    const existingReferral = employee.referralStatus.find(
+      (referral) => referral.jobId.toString() === jobId
+    );
+
+    if (existingReferral && existingReferral.referralCount >= 3) {
+      return res.status(400).json({ error: "You have already referred 3 candidates for this job" });
+    }
+
+    const alreadyReferred = employee.referralStatus.find(
+      (referral) => referral.jobId.toString() === jobId && referral.seekerId.toString() === seekerId
+    );
+
+    if (alreadyReferred) {
+      return res.status(400).json({ error: "You have already referred this seeker for this job" });
+    }
+
+    if (existingReferral) {
+      existingReferral.referralCount += 1;
+    } else {
+      employee.referralStatus.push({ jobId, seekerId, referralCount: 1 });
+    }
+
     const referralIndex = job.seekersRegistered.findIndex(
       (seekerReferral) => seekerReferral.seekerId.toString() === seekerId
     );
@@ -158,7 +179,6 @@ const referSeeker = async (req, res) => {
     job.seekersRegistered[referralIndex].referralStatus = true;
     await job.save();
 
-    // Updating the totalReferralGiven in the employee model
     employee.totalReferralGiven += 1;
     await employee.save();
 

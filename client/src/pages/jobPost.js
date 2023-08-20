@@ -18,14 +18,24 @@ const JobPost = () => {
     const [keyQualifications, setKeyQualifications] = useState("");
     const [amount, setAmount] = useState("");
     const [employmentType, setEmploymentType] = useState("");
+    const [jobType, setJobType] = useState("");
     const [selectedOption, setSelectedOption] = useState("");
     const [additionalRequirement, setAdditionalRequirement] = useState("");
     const [isFormComplete, setIsFormComplete] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
+    const handleInputChange = (e) => {
+        
+    }
     const handleCheckboxChange = (e) => {
         const checkboxValue = e.target.value;
         setEmploymentType(checkboxValue);
+        checkFormCompletion();
+    };
+
+    const handleJobTypeChange = (e) => {
+        const checkboxValue = e.target.value;
+        setJobType(checkboxValue);
         checkFormCompletion();
     };
 
@@ -80,6 +90,9 @@ const JobPost = () => {
         }
         return false;
     }
+    function validateJobTypeForm() {
+       return document.getElementById("jobType1").checked || document.getElementById("jobType2").checked || document.getElementById("jobType3").checked;
+    }
     function validateSalForm() {
         var checkbox5 = document.getElementById("checkbox5");
         var checkbox6 = document.getElementById("checkbox6");
@@ -101,10 +114,11 @@ const JobPost = () => {
         const isJobDescriptionFilled = jobDescription.trim() !== '';
         const isKeyQualificationsFilled = keyQualifications.trim() !== '';
         const isEmploymentTypeFilled = validateForm();
+        const isJobTypeFilled = validateJobTypeForm();
         const isSalaryOptionChange = validateSalForm();
         const isamountFilled = amount.trim() !== '';
         const isFormComplete = isJobTitleFilled && isJobDescriptionFilled && isKeyQualificationsFilled && isEmploymentTypeFilled
-            && isSalaryOptionChange && isamountFilled;
+            && isSalaryOptionChange && isamountFilled && isJobTypeFilled;
         setIsFormComplete(isFormComplete);
     };
 
@@ -125,6 +139,7 @@ const JobPost = () => {
         setAdditionalRequirement("");
         setIsFormComplete(false);
         setEmploymentType("");
+        setJobType("");
     }
 
     const handlePostJob = () => {
@@ -147,7 +162,8 @@ const JobPost = () => {
             jobEligibility: keyQualifications,
             expectedPackage: parseFloat(amount),
             applyLink: additionalRequirement,
-            jobType: employmentType
+            employmentType: employmentType,
+            jobType: jobType
         };
         axios
             .post(`${apiUrl}/api/v1/jobs/create`, formData)
@@ -326,15 +342,31 @@ const JobPost = () => {
                         <input type="checkbox" id="checkbox2" value="Internship" className="checkbox-input" checked={employmentType === "Internship"} onChange={handleCheckboxChange} />
                         <span className="allcheckbox" style={{ marginLeft: '8px' }}>Internship</span>
                     </div>
+                </div>
+            </div>
 
-                    <div className={`form-control empContentbox ${employmentType === 'Part-time' ? 'selected' : ''}`} onClick={() => setEmploymentType('Part-time')}>
-                        <input type="checkbox" id="checkbox3" value="Part-time" className="checkbox-input" checked={employmentType === "Part-time"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Part-time</span>
+            <hr style={{ borderTop: "1px solid black", margin: "20px 0" }} />
+            <div className="flex-container">
+                <div className="col-lg-6">
+                    <div className="mb-4">
+                        <p className="font-weight-bold fs-4 employement-title" style={{ fontWeight: "bold", fontSize: "24px" }}>Job Type <span className="required-field">*</span></p>
+                        <p className="employement-title">Provide type of Job</p>
+                    </div>
+                </div>
+
+                <div className="col-lg-7 employmentType">
+                    <div className={`form-control empContentbox ${jobType === 'Work From Office' ? 'selected' : ''}`} onClick={() => setJobType('Work From Office')}>
+                        <input type="checkbox" id="jobType1" value="Work From Office" className="checkbox-input" checked={jobType === "Work From Office"} onChange={handleJobTypeChange} />
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Work From Office</span>
                     </div>
 
-                    <div className={`form-control empContentbox ${employmentType === 'Contract' ? 'selected' : ''}`} onClick={() => setEmploymentType('Contract')}>
-                        <input type="checkbox" id="checkbox4" value="Contract" className="checkbox-input" checked={employmentType === "Contract"} onChange={handleCheckboxChange} />
-                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Contract</span>
+                    <div className={`form-control empContentbox ${jobType === 'Remote' ? 'selected' : ''}`} onClick={() => setJobType('Remote')}>
+                        <input type="checkbox" id="jobType2" value="Remote" className="checkbox-input" checked={jobType === "Remote"} onChange={handleJobTypeChange} />
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Remote</span>
+                    </div>
+                    <div className={`form-control empContentbox ${jobType === 'Hybrid' ? 'selected' : ''}`} onClick={() => setJobType('Hybrid')}>
+                        <input type="checkbox" id="jobType3" value="Hybrid" className="checkbox-input" checked={jobType === "Hybrid"} onChange={handleJobTypeChange} />
+                        <span className="allcheckbox" style={{ marginLeft: '8px' }}>Hybrid</span>
                     </div>
                 </div>
             </div>

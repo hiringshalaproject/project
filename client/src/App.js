@@ -18,6 +18,7 @@ import JobList from "./pages/JobList";
 import JobPost from "./pages/jobPost";
 import Cookies from "js-cookie";
 import Description from "./components/Job Details/Description";
+import ShortListedCandidatesList from "./pages/ShortListedCandidatesList";
 import { Navigate } from "react-router-dom";
 import "./pages/index.css";
 import ForgotPassword from "./components/ForgotPassword";
@@ -45,6 +46,7 @@ function App() {
         />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/shortListedCandidatesList" element={<ShortListedCandidatesList />} />
         <Route path="/add" element={<AddJob />} />
         <Route path="/addSeeker" element={<AddSeeker />} />
         <Route path="/addEmployee" element={<AddEmployee />} />

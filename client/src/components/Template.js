@@ -35,6 +35,8 @@ const Template = ({ title, desc1, desc2, image, formtype, userType }) => {
     axios
       .post(`${apiUrl + apiUrlSecondary}`, {isGoogleLogin: true}, {headers})
       .then((res) => {
+        const stringifiedUserDetails = JSON.stringify(userType === "seeker" ? res.data.seeker : res.data.employee);
+        sessionStorage.setItem("hiringShala_user", stringifiedUserDetails); 
         let userName =
           userType === "seeker"
             ? res.data.seeker.seekerName
